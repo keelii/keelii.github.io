@@ -1,2 +1,20 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+// search input vertical align
+body>nav form .search {
+    padding: 0.3em 0.5em 0.4em
+}
+
+// underline more beautiful
+article header h1 a:hover {
+    text-decoration: none;
+}
+
+// let twitter widget vertical-align eq with facebook's
+.sharing {
+    padding-bottom: 20px;
+    iframe {
+        vertical-align: bottom;
+    }
+}

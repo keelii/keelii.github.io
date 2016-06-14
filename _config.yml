@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: https://keelii.github.io
+url: http://keelii.github.io
 title: Something
-subtitle: You don't know yet
+subtitle: There are always __ you don't know yet
 author: keelii
 simple_search: https://www.google.com/search
-description:
+description: Share all about web dev & front-end dev
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -17,7 +17,7 @@ date_format: "%m,%d,%Y"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
 subscribe_rss: /atom.xml
-subscribe_email: keeliizhou@gmail.com
+subscribe_email:
 # RSS feeds can list your email address if you like
 email: keeliizhou@gmail.com
 
@@ -91,11 +91,11 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: keelii-blog
 disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-79264835-1
 
 # Facebook Like
-facebook_like: false
+facebook_like: true

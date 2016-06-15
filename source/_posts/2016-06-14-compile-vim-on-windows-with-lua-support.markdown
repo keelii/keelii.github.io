@@ -65,11 +65,19 @@ make -f Make_ming.mak GUI=yes FEATURES=HUGE MBYTE=yes IME=yes GIME=yes DYNAMIC_I
 
 进入命令模式，输出 echo has('lua') 来验证下是否已开启 lua 支持，如果显示 1 就说明 OK 了
 
-
 ![echo has lua](https://cloud.githubusercontent.com/assets/458894/16029743/d6340b12-321d-11e6-8eec-e7d13156d12a.png)
 
 ![has lua support](https://cloud.githubusercontent.com/assets/458894/16029744/d666cd68-321d-11e6-95a0-0ac09dffef1a.png)
 
-## 更新
+## 编译问题更新
 
-发现编译完直接使用会有 「找不到 VIMRUN.EXE」提示，解决方法：从管方安装版的 vim 根目录把 vimrun.exe 复制到你的 runtime 文件夹下即可
+发现编译完直接使用会有 「找不到 VIMRUN.EXE」提示，解决方法：从官方安装版的 vim 根目录把 vimrun.exe 复制到你的 runtime 文件夹下即可
+
+知友 @fantiq 反馈某些情况下会报下面的错误，原因可能是 MinGW 下的 mkdir 命令有问题，无法创建目录，手动执行`mkdir gobjx86-64` 就可以解决了
+
+```bash
+mkdir -p gobjx86-64
+process_begin: CreateProcess(NULL, mkdir -p gobjx86-64, ...) failed.
+make (e=2): 系统找不到指定的文件。
+make: *** [Make_cyg_ming.mak:860: gobjx86-64] Error 2
+```

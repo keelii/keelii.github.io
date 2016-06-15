@@ -3,8 +3,11 @@ layout: post
 title: "可能是 Windows 下最漂亮的 Gvim 配置了"
 date: 2016-06-13 21:25:57 +0800
 comments: true
-categories: editor
-tag: vim
+categories:
+    - editor
+tags:
+    - vim
+    - gVim
 ---
 
 一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim

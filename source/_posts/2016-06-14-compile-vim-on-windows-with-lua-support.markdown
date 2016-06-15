@@ -3,19 +3,24 @@ layout: post
 title: "Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持"
 date: 2016-06-14 10:39:40 +0800
 comments: true
-categories: editor
-tag: vim
+categories:
+    - editor
+tags:
+    - vim
+    - editor
+    - MinGW
 ---
 
 vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
 官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等
 <!--more-->
+
 需要下载的链接都在这里了：
 
-[MinGW-14.0(Distro)](https://nuwen.net/files/mingw/mingw-14.0.exe)
-[lua-5.2.4_Win64_bin](http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Tools%20Executables/lua-5.2.4_Win64_bin.zip)
-[lua-5.2.4_Win64_dllw4_lib](http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Windows%20Libraries/Dynamic/lua-5.2.4_Win64_dllw4_lib.zip)
-[Vim](https://github.com/vim/vim)
+* [MinGW-14.0(Distro)](https://nuwen.net/files/mingw/mingw-14.0.exe)
+* [lua-5.2.4_Win64_bin](http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Tools%20Executables/lua-5.2.4_Win64_bin.zip)
+* [lua-5.2.4_Win64_dllw4_lib](http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Windows%20Libraries/Dynamic/lua-5.2.4_Win64_dllw4_lib.zip)
+* [Vim](https://github.com/vim/vim)
 
 我自己的电脑环境配置是：__Windows 7 SP1 64bit 企业版__
 

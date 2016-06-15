@@ -3,8 +3,10 @@ layout: post
 title: "免费 https 证书（Let's Encrypt）申请与配置"
 date: 2016-06-12 18:04:47 +0800
 comments: true
-categories: WebDev
-tag: https
+categories:
+    - WebDev
+tags:
+    - https
 ---
 
 之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。

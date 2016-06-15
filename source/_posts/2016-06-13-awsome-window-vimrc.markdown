@@ -280,11 +280,59 @@ nnoremap <C-right> :bp<CR>
 * Fugitive
 * Neocomplete
 
-具体配置我就不帖代码了，可以上git上参观
+具体配置我就不帖代码了，可以上git上参观，下面大概解释下每个插件的用途
 
-SnipMate 这个插件很早之前的那个版本不维护了，现在最新版的非常强大，不过有另外两个依赖，默认是没有任何内置的 snippet 的，如果需要样版，可以安装这个插件（其实就是个git仓库，你可以换成自己的）
+### NERDTree
 
-这里需要注意下 Neocomplete 这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，下篇文章 我将记录下自己在 Windows 上编译安装的过程
+文件目录树管理，我一般设置成打开 vim 就启动
+
+```vim
+if exists('g:NERDTreeWinPos')
+    autocmd vimenter * NERDTree D:\repo
+endif
+```
+
+### Vim-multiple-cursors
+
+类似 sublime 多选，进入 visual 模式选择文本 `Ctrl+shif+n` 即可一直选择下一个匹配文本
+
+![mul-cur](https://cloud.githubusercontent.com/assets/458894/16074299/684f368a-331c-11e6-86f0-d2a860d6416a.gif)
+
+### Tabular
+
+对齐插件，文章末尾 gif 图里面有展示，visual 模式下选择要对齐的多行文本，进入命令模式 `:Tabularize /对齐符号<cr>`
+
+### Airline
+
+状态栏美化插件，准备弃用了
+
+### Ctrlp
+
+类似IDE里面的最近打开的文件，用于快速定位文件/Buffer
+
+### NERDCommenter
+
+注释插件，默认是快捷键是 \<leader\> c \<SPACE\>
+
+### Emmet
+
+用来快速写 HTML
+
+![emmet](https://cloud.githubusercontent.com/assets/458894/16074297/684c9196-331c-11e6-95de-56951d43c5b2.gif)
+
+### SnipMate
+
+代码片段管理, 这个插件很早之前的那个版本不维护了，现在最新版的非常强大，不过有另外两个依赖，默认是没有任何内置的 snippet 的，如果需要样版，可以安装 [这个插件](https://github.com/honza/vim-snippets) 需要自定义的话手动更改 snippets 目录下的文件即可（其实就是个git仓库，你可以换成自己的）
+
+![snipmate](https://cloud.githubusercontent.com/assets/458894/16074298/684d7cd2-331c-11e6-8c61-83dabbc4849e.gif)
+
+### Fugitive
+
+Git 命令增强工具，在 vim 使用 git，状态栏的分类名称就是调用的这个插件的方法 `fugitive#head()`
+
+### Neocomplete
+
+自动补全插件，这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，[下篇文章](https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/) 我将记录下自己在 Windows 上编译安装的过程
 
 什么？你说为啥不装 YouCompleteMe，官方作者都不支持的插件就别折腾了吧，Neocomplete 这个实例插件对于我的情况来说已经够用了
 

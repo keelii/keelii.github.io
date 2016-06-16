@@ -36,7 +36,7 @@ vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全
 
 ## Vim
 
-去 vim 官方 github 仓库下载最新源代码，解压到任意目录。进入源码 src 目录，打开 os_mswin.c 注释掉下面的代码，这样 vim 就可以支持等宽字体了
+去 vim 官方 github 仓库下载最新源代码，解压到任意目录。进入源码 src 目录，打开 os_mswin.c 注释掉下面的代码，这样 vim 就可以支持非等宽字体了
 
 ```c
 #ifndef FEAT_PROPORTIONAL_FONTS

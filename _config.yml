@@ -70,7 +70,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: keelii
 twitter_tweet_button: true
 
 # Google +1
@@ -98,4 +98,4 @@ disqus_show_comment_count: false
 google_analytics_tracking_id: UA-79264835-1
 
 # Facebook Like
-facebook_like: true
+facebook_like:

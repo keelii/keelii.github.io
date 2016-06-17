@@ -328,5 +328,5 @@ function debug(msg) {
 
 ## 引用
 
-* https://zh.wikipedia.org/wiki/ECMAScript
-* https://zh.wikipedia.org/wiki/JScript
+* ECMAScript https://zh.wikipedia.org/wiki/ECMAScript
+* JScript https://zh.wikipedia.org/wiki/JScript

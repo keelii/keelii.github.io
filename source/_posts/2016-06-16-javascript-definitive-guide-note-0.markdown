@@ -13,6 +13,8 @@ categories:
 
 > 中文排版指南遵守 [中文文案排版指北](https://github.com/mzlogin/chinese-copywriting-guidelines)，欢迎批评批正
 
+<!--more-->
+
 ## JavaScript 简介
 
 JavaScript 是面向 web 的编程语言，是一门 __高阶的__（high-level）、__动态的__（dynamic）、__弱类型的__（untyped）__解释型__（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self

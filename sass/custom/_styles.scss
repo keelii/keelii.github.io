@@ -18,3 +18,23 @@ article header h1 a:hover {
         vertical-align: bottom;
     }
 }
+
+figure table {
+    margin-bottom: 0;
+    th, td {
+        border: none;
+        padding:0;
+    }
+}
+table {
+    margin-bottom: 1.5em;
+    th, td {
+        border: 1px solid #ccc;
+        padding: 2px 10px;
+    }
+    th {
+        font-weight: bold;
+        background: #eee;
+        color: #000;
+    }
+}

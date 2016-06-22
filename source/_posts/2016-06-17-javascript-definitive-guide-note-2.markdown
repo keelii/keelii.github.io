@@ -160,20 +160,20 @@ line"   // 显示为单行，但是可以分行书写
 
 JavaScript 中转文字符用反斜线（\）加一个字符表示，比如 \n 就是一个转义字符，表示一个换行符
 
-| 转义字符   | 含义                               | Unicode |
-| ---------- | ---------------------------------- | :-----: |
-| \o         | NUL 字符                           | \u0000  |
-| \b         | 退格符                             | \u0008  |
-| \t         | 水平制表符                         | \u0009  |
-| \n         | 换行符                             | \u0009  |
-| \v         | 垂直制表符                         | \u0009  |
-| \f         | 换页符                             | \u0009  |
-| \r         | 回车符                             | \u0009  |
-| \"         | 双引号                             | \u0009  |
-| \'         | 单引号                             | \u0009  |
-| \\         | 反斜线                             | \u0009  |
-| \xXX       | 2位十六进制数XX指定的 Latin-1 字符 |         |
-| \uXXXX     | 4位十六进制数XX指定的 Unicode 字符 |         |
+| 转义字符 | 含义                               | Unicode |
+| ------   | -----------------------            | :-----: |
+| \o       | NUL 字符                           | \u0000  |
+| \b       | 退格符                             | \u0008  |
+| \t       | 水平制表符                         | \u0009  |
+| \n       | 换行符                             | \u0009  |
+| \v       | 垂直制表符                         | \u0009  |
+| \f       | 换页符                             | \u0009  |
+| \r       | 回车符                             | \u0009  |
+| \"       | 双引号                             | \u0009  |
+| \'       | 单引号                             | \u0009  |
+| \\       | 反斜线                             | \u0009  |
+| \xXX     | 2位十六进制数XX指定的 Latin-1 字符 |         |
+| \uXXXX   | 4位十六进制数XX指定的 Unicode 字符 |         |
 
 #### 字符串的使用
 
@@ -192,7 +192,7 @@ s.replace("h", "H")         // => "Hello, world" 全文字替换
 s.toUpperCase()             // => "HELLO, WORLD"
 ```
 
-一定要记住，在 JavasSript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都 __返回新字符串__，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符
+一定要记住，在 JavaScript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都 __返回新字符串__，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符
 
 #### 模式匹配
 
@@ -316,27 +316,28 @@ n + " objects"          // => "NaN objects" NaN 转换为字符串 "NaN"
 
 __常用值转换成对应的类型结果__
 
+_表3-1_
 
-| 值                      | 字符串              | 数字        | 布尔值 | 对象                  |
-| ----------              | ------------------- | -----       | -----  | -----                 |
-| undefined               | "undefined"         | NaN         | false  | throws TypeError      |
-| null                    | "null"              | 0           | false  | throws TypeError      |
-| true                    | "true"              | 1           |        | new Boolean(true)     |
-| false                   | "false"             | 0           |        | new Boolean(false)    |
-| "" (空字符串)           |                     | 0           | false  | new String("")        |
-| "1.2" (非空数字)        |                     | 1.2         | true   | new String("1.2")     |
-| "one" (非空，非数字)    |                     | NaN         | true   | new String("one")     |
-| 0                       | "0"                 |             | false  | new Number(0)         |
-| -0                      | "0"                 |             | false  | new Number(-0)        |
-| NaN                     | "NaN"               |             | false  | new Number(NaN)       |
-| Infinity                | "Infinity"          |             | true   | new Number(Infinity)  |
-| -Infinity               | "-Infinity"         |             | true   | new Number(-Infinity) |
-| 1 (无穷大，非零)        | "1"                 |             | true   | new Number(1)         |
-| {} (任意对象)           | 参考 §3.8.3         | 参考 §3.8.3 | true   |                       |
-| [] (任意数组)           | ""                  | 0           | true   |                       |
-| [9] (1 个数字元素)      | "9"                 | 9           | true   |                       |
-| ['a'] (其它数组)        | use join() method   | NaN         | true   |                       |
-| function(){} (任意函数) | 参考 §3.8.3         | NaN         | true   |                       |
+| 值                   | 字符串               | 数字        | 布尔值   | 对象                    |
+| ------------------- | ----------------- | --------- | ----- | --------------------- |
+| undefined           | "undefined"       | NaN       | false | throws TypeError      |
+| null                | "null"            | 0         | false | throws TypeError      |
+| true                | "true"            | 1         |       | new Boolean(true)     |
+| false               | "false"           | 0         |       | new Boolean(false)    |
+| "" (空字符串)           |                   | 0         | false | new String("")        |
+| "1.2" (非空数字)        |                   | 1.2       | true  | new String("1.2")     |
+| "one" (非空，非数字)      |                   | NaN       | true  | new String("one")     |
+| 0                   | "0"               |           | false | new Number(0)         |
+| -0                  | "0"               |           | false | new Number(-0)        |
+| NaN                 | "NaN"             |           | false | new Number(NaN)       |
+| Infinity            | "Infinity"        |           | true  | new Number(Infinity)  |
+| -Infinity           | "-Infinity"       |           | true  | new Number(-Infinity) |
+| 1 (无穷大，非零)          | "1"               |           | true  | new Number(1)         |
+| {} (任意对象)           | 参考 §3.8.3         | 参考 §3.8.3 | true  |                       |
+| [] (任意数组)           | ""                | 0         | true  |                       |
+| [9] (1 个数字元素)       | "9"               | 9         | true  |                       |
+| ['a'] (其它数组)        | use join() method | NaN       | true  |                       |
+| function(){} (任意函数) | 参考 §3.8.3         | NaN       | true  |                       |
 
 #### 转换和相等性
 
@@ -439,7 +440,120 @@ i = "ten";
 
 ### 变量作用域
 
+变量作用域（scope）是程序源代码中定义它的区域。在函数体内，局部变量的优先级高于 __同名__ 的全局变量，并且函数内部可以修改外部变量
+
+```javascript
+var scope = "global";
+function checkScope() {
+  var scope = 'local';
+  return scope
+}
+```
+
+在声明全局变量时可以不使用 var 前缀，但在声明局部变量时 __一定__ 要使用 var
+
+```javascript
+scope = "global";       // 定义一个全局变量
+function checkScope2() {
+    scope = 'local';
+    myscope = 'local';
+
+    return [scope, myscope]
+}
+
+checkScope2()           // => ['local', 'local']
+scope                   // => "local"
+myscope                 // => "local"
+```
+
+#### 函数作用域和声明提前（Hoisting）
+
+像一些类 C 的编程语言中，花括号（{}）内的每一段代码都具有各自的作用域，变量在声明它们的代码段之外是不可见的，我们称为 __块级作用域__（block scope），而 JavaScript 中没有块级作用域。JavaScript 中使用了 __函数作用域__（function scope）：
+
+> 变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是可以被访问到的
+
+下面的代码中，在不同位置定义了变量 i,j 和 k，它们都在同一个作用域内。当调用 `test()` if 语句并没有执行，但是变量 j 已经定义却没被始化
+
+```javascript
+function test(o) {
+    var i = 0;
+    if ( typeof o === 'object' ) {
+        var j = 0;
+        for (var k = 0; k < 10; k++) {
+            console.log(k);
+        }
+        console.log(k);
+    }
+    console.log(j);
+}
+```
+
+> JavaScript 的函数作用域是指在函数内声明的所有变量在函数体内始终是可见的。这就意味着变量在声明之前甚至已经可用。JavaScript 的这个被非正式地称为声明提前（hoisting），即 JavaScript 函数里声明的所有变量（不包括赋值）都被「提前」到函数体的顶部 [参考](http://www.slideshare.net/lijing00333/javascript-engine)
+
+```javascript
+var scope = "global";
+function f() {
+    console.log(scope);     // => undefined
+    var scope = "local";
+    console.log(scope);     // => "local"
+}
+f();
+
+function b() {
+    console.log(scope);     // => "global"
+}
+b();
+```
+上面的代码中函数 f 的局部变量 scope 由于 __声明提前__，代码刚执行进入 f 内部的时候 scope 就被赋值 undefined，这时局部变量优先级高于同名全局变量，所以就返回了 undefined，只有代码执行到 var 的时候 scope 才真正被赋值。所以函数 f 等价于：
+
+```javascript
+function f() {
+    var scope;
+    console.log(scope);     // => undefined
+    scope = "local";
+    console.log(scope);     // => "local"
+}
+```
+
+这也是为什么建议函数体内的变量尽量放在上面，避免造成混乱或者误解
+
+#### 作为属性的变量
+
+当声明一个 JavaScript 全局变量时，实际上是定义了全局对象的一个属性。当使用 var 声明一个变量时，这个变量是无法通过 delete 运算符删除的。不使用 var 声明的全局变量却是可以被 delete 的
+
+```javascript
+var truevar = 1;
+fakevar = 2;                // 不用 var 创建一个全局变量
+this.fakevar2 = 3;
+delete truevar              // => false 不可删除
+delete fakevar              // => true
+delete this.fakevar2        // => true
+```
+
+#### 作用域链（scope chain）
+
+JavaScript 是基于 __词法作用域__（lexically scoped）的语言：通过阅读包含变量定义在内的源代码就能知道变量的作用域
+
+每一段 JavaScript 代码（全局代码或函数）都有一个与之关联的作用域链。这个作用域链是一个对象列表或者链表，这组对象定义了这段代码「作用域中」的变量。当 JavaScript 需要查找变量 x 值的时候（这个过程称做「变量解析」（valable resolution）），它会从链中的第一个对象开始查找，如果有则直接使用，如果没有 JavaScript 就会继续查找链上的下一个对象，以此类推。如果作用域名链上没有任何一个对象含有属性 x，那么就认为这段代码的作用域链接上不存在 x，并最终抛出一个引用错误（ReferenceError）异常
+
+```javascript
+a();
+function a() {
+    alert('1');
+}
+a();
+function a() {
+    alert('2');
+}
+a();
+var a = function() {
+    alert('3');
+};
+a();
+```
+
 ## 引用
 
 * IEEE 754 https://zh.wikipedia.org/wiki/IEEE_754
 * 位操作 https://zh.wikipedia.org/wiki/位操作
+* JavaScript Engine http://www.slideshare.net/lijing00333/javascript-engine

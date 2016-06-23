@@ -19,7 +19,7 @@ JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定�
 
 普通对象是「命名值」的 __无序__ 集合。数组则是一种有序集合对象
 
-JavaScript 还定义了另一种特殊对象 —— 函数。如果用来初始化（使用 new 运算符）一个新建的对象，我们把这个函数称作构造函数（constructor）。每个构造孙灵定义了一类（class）对象 —— 由构造函数初始化的对象组成的集合，常用的 JavaScript 核心类有 Array, Function, Date, RegExp, Error 等
+JavaScript 还定义了另一种特殊对象 —— 函数。如果用来初始化（使用 new 运算符）一个新建的对象，我们把这个函数称作 __构造函数__（constructor）。每个构造函数定义了一类（class）对象 —— 由构造函数初始化的对象组成的集合，常用的 JavaScript 核心类有 Array, Function, Date, RegExp, Error 等
 
 JavaScript 解释器（interpreter）有自己的内存管理机制，可以自动对内存进行垃圾回收 GC（garbage collection）。当 __不再有任何引用指向一个对象__，解释器就会自动释放它占用的内存资源
 
@@ -33,7 +33,7 @@ JavaScript 数据类型还可以分为：可以拥有方法和不可以拥有方
 
 JavaScript 可以自由地进行数据类型转换。比如程序期望使用字符串的地方使用了数字， JavaScript 会自动将数字转换为字符串。期望使用布尔值的地方使用了非布尔值也会自动进行相应转换
 
-JavaScript 变量是无类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用记法作用域（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见
+JavaScript 变量是无/弱类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用 __词法作用域__（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见
 
 ### 数字
 
@@ -74,7 +74,7 @@ JavaScript __不区分__ 整数和浮点数。所有的数字均用浮点数值�
 */
 ```
 
-ECMAScript 标准不支持八进制直接量，ECMAScript 6 严格模式下不能使用八进制
+ECMAScript 标准 __不支持__ 八进制直接量，ECMAScript 6 严格模式下不能使用八进制
 
 #### 浮点型直接量
 
@@ -90,7 +90,7 @@ ECMAScript 标准不支持八进制直接量，ECMAScript 6 严格模式下不�
 
 #### JavaScript 中的算术运算
 
-JavaScript 中的算术运算在溢出（overflow）、下溢（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值
+JavaScript 中的算术运算在 __溢出__（overflow）、__下溢__（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值
 
 下溢是当运算结果无限接近于零并比 JavaScript 能表示的最小值还小的时候发生的一种情况。这种情况下，JavaScript 将会返回 0。当一个负数发生下溢时，JavaScript 返回一个特殊的值「负零」，这个值几乎和正常的零完全一样
 
@@ -227,24 +227,24 @@ NaN
 
 ### null 和 undefined
 
-null 是 JavaScript 语言的关键字，执行 typeof 运算返回 "object"，也就是说，可以将 null 认为是一个特殊的对象值，含义是「非对象」。但实际上，通常认为 null 是它自有类型的唯一一个成员，它可以表示数字、字符串或对象是「无值」的
+null 是 JavaScript 语言的关键字，执行 typeof 运算返回 「object」，也就是说，可以将 null 认为是一个特殊的对象值，含义是「非对象」。但实际上，通常认为 null 是它自有类型的唯一一个成员，它可以表示数字、字符串或对象是「无值」的
 
-undefined 是一种取舍，表明变量没有初始化，如果要查询对象属性或者数组元素的值时返回 undefined 则说明这个属性或者元素不存在。如果函数没有返回任何值，则返回 undefined引用没有提供实参的函数形参的值也只会得到 undefined。
+undefined 是一种取值，表明变量没有初始化，如果要查询对象属性或者数组元素的值时返回 undefined 则说明这个属性或者元素不存在。如果函数没有返回任何值，则返回 undefined引用没有提供实参的函数形参的值也只会得到 undefined。
 
 undefined 不是关键字，是 JavaScript 预定义的全局变量，它的值就是「未定义」。ECMAScript 3 中，undefined 是 __可读/写的变量__，可以给它赋任意值。这个错误在 ECMAScript 5 中做了修正，变成了只读的。如果执行 typeof 运算得到 undefined 类型，则返回 "undefied"
 
-null 和 undefined 都不包含任何属性和方法
+null 和 undefined 都 __不包含任何属性和方法__
 
 ### 全局对象
 
-全局对象的异性是全局定义的符号，JavaScript 程序可以直接使用。当解释器启动时，它将创建一个新的全局对象，并给它一组初始属性：
+全局对象的属性是全局定义的符号，JavaScript 程序可以直接使用。当解释器启动时，它将创建一个新的全局对象，并给它一组初始属性：
 
 全局属性，比如 undefined, Infinity 和 NaN
 全局函数，比如 isNaN(), parseInt(), eval()
 构造函数，比如 Date(), RegExp(), String(), Object() 和 Array()
 全局对象，比如 Math 和 JSON
 
-全局对象的初始属性并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性
+全局对象的 __初始属性__ 并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性
 
 ### 包装对象
 
@@ -260,11 +260,11 @@ typeof s                // => "string"
 typeof S                // => "object"
 ```
 
-可以通过 Number() 或 Boolean() 构造函数来显式创建包装对象，JavaScript 会在必要的时候疚包装对象转换成原始值。上段代码中的对象 S, N 和 B 常常但不总是表现的和值 s, n 和 b 一样。「==」运算符将原始值和其包装对象视为相等，但「===」全等运算符将它们视为不等，通过 typeof 运算符可以看到原始值和其包装对象的不同
+可以通过 Number() 或 Boolean() 构造函数来显式创建包装对象，JavaScript 会在必要的时候将包装对象转换成原始值。上段代码中的对象 S, N 和 B 常常但不总是表现的和值 s, n 和 b 一样。「==」运算符将原始值和其包装对象视为相等，但「===」全等运算符将它们视为不等，通过 typeof 运算符可以看到原始值和其包装对象的不同
 
 ### 不可变的原始值和可变的对象引用
 
-JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别，原始值是不可更改的，比如字符串的所有方法都是新返回一个值
+JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别，__原始值是不可更改的__，比如字符串的所有方法都是新返回一个值
 
 ```javascript
 var s = "hello";
@@ -272,7 +272,7 @@ s.toUpperCase();    // => "HELLO"
 s                   // => "hello"
 ```
 
-对象和原始值不同，首先，它他是可变的 —— 值可以修改
+对象和原始值不同，首先，它他是 __可变的__ —— 值可以修改
 
 ```javascript
 var o = { x: 1};
@@ -305,7 +305,7 @@ a === b     // => true a 和 b 引用一个相同的数组，所以它们相等
 
 ### 类型转换
 
-JavaScript 中的取舍类型非常灵活，从布尔值可以看到这一点：当 JavaScript 期望使用一个布尔值的时候，你可以提供任意类型值， JavaScript 将根据需要自行转换类型。这在其它类型转换中同样适用
+JavaScript 中的取值类型非常灵活，从布尔值可以看到这一点：当 JavaScript 期望使用一个布尔值的时候，你可以提供任意类型值， JavaScript 将根据需要自行转换类型。这在其它类型转换中同样适用
 
 ```javascript
 10 + " objects"         // => "10 objects" 数字 10 转换成字符串
@@ -318,26 +318,26 @@ __常用值转换成对应的类型结果__
 
 _表3-1_
 
-| 值                   | 字符串               | 数字        | 布尔值   | 对象                    |
-| ------------------- | ----------------- | --------- | ----- | --------------------- |
-| undefined           | "undefined"       | NaN       | false | throws TypeError      |
-| null                | "null"            | 0         | false | throws TypeError      |
-| true                | "true"            | 1         |       | new Boolean(true)     |
-| false               | "false"           | 0         |       | new Boolean(false)    |
-| "" (空字符串)           |                   | 0         | false | new String("")        |
-| "1.2" (非空数字)        |                   | 1.2       | true  | new String("1.2")     |
-| "one" (非空，非数字)      |                   | NaN       | true  | new String("one")     |
-| 0                   | "0"               |           | false | new Number(0)         |
-| -0                  | "0"               |           | false | new Number(-0)        |
-| NaN                 | "NaN"             |           | false | new Number(NaN)       |
-| Infinity            | "Infinity"        |           | true  | new Number(Infinity)  |
-| -Infinity           | "-Infinity"       |           | true  | new Number(-Infinity) |
-| 1 (无穷大，非零)          | "1"               |           | true  | new Number(1)         |
-| {} (任意对象)           | 参考 §3.8.3         | 参考 §3.8.3 | true  |                       |
-| [] (任意数组)           | ""                | 0         | true  |                       |
-| [9] (1 个数字元素)       | "9"               | 9         | true  |                       |
-| ['a'] (其它数组)        | use join() method | NaN       | true  |                       |
-| function(){} (任意函数) | 参考 §3.8.3         | NaN       | true  |                       |
+| 值                      | 字符串            | 数字        | 布尔值 | 对象                  |
+| -------------------     | ----------------- | ---------   | -----  | --------------------- |
+| undefined               | "undefined"       | NaN         | false  | throws TypeError      |
+| null                    | "null"            | 0           | false  | throws TypeError      |
+| true                    | "true"            | 1           |        | new Boolean(true)     |
+| false                   | "false"           | 0           |        | new Boolean(false)    |
+| "" (空字符串)           |                   | 0           | false  | new String("")        |
+| "1.2" (非空数字)        |                   | 1.2         | true   | new String("1.2")     |
+| "one" (非空，非数字)    |                   | NaN         | true   | new String("one")     |
+| 0                       | "0"               |             | false  | new Number(0)         |
+| -0                      | "0"               |             | false  | new Number(-0)        |
+| NaN                     | "NaN"             |             | false  | new Number(NaN)       |
+| Infinity                | "Infinity"        |             | true   | new Number(Infinity)  |
+| -Infinity               | "-Infinity"       |             | true   | new Number(-Infinity) |
+| 1 (无穷大，非零)        | "1"               |             | true   | new Number(1)         |
+| {} (任意对象)           | 参考 §3.8.3       | 参考 §3.8.3 | true   |                       |
+| [] (任意数组)           | ""                | 0           | true   |                       |
+| [9] (1 个数字元素)      | "9"               | 9           | true   |                       |
+| ['a'] (其它数组)        | use join() method | NaN         | true   |                       |
+| function(){} (任意函数) | 参考 §3.8.3       | NaN         | true   |                       |
 
 #### 转换和相等性
 
@@ -352,7 +352,7 @@ null == undefined
 
 #### 显式类型转换
 
-显式类型转换最简单的方法就是使用 Bollean(), Number(), String() 或 Object() 函数。
+显式类型转换最简单的方法就是使用 Boolean(), Number(), String() 或 Object() 函数。
 
 ```javascript
 Number("3")     // => 3
@@ -361,7 +361,7 @@ Boolean([])     // => true
 Object(3)       // => new Number(3)
 ```
 
-除子 null 和 undefined 之外任何值都具有 toString() 方法
+除了 null 和 undefined 之外 __任何值__ 都具有 toString() 方法
 
 JavaScript 中的某些运算符会做隐式的类型转换。如果「+」运算符的一个操作数是字符串，它将会把另外一个操作数转换为字符串。一元「!」运算符将其操作数转换为布尔值并取反
 

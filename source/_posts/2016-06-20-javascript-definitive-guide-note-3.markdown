@@ -98,45 +98,45 @@ new Object
 new Date
 ```
 
-### 运算符表达式
+### 运算符概述
 
 JavaScript 中的运算符用于自述表达式、比较表达式、逻辑表达式、赋值表达式等。大多数运算符都是由标点符号表示的，比如：「+」和「= 」，另外的一些运算符则是由关键字表示的，比如：delete 和 instanceof。
 
 _表4-1_
 
-| 运算符      | 操作                             | A     | N     | 类型             |
-| ------      | ----------------                 | :---: | :---: | ----------       |
-| ++          | Pre- or post-increment           | R     | 1     | lval→num         |
-| --          | Pre- or post-decrement           | R     | 1     | lval→num         |
-| -           | Negate number                    | R     | 1     | num→num          |
-| +           | Convert to number                | R     | 1     | num→num          |
-| ~           | Invert bits                      | R     | 1     | int→int          |
-| !           | Invert boolean value             | R     | 1     | bool→bo          |
-| delete      | R emove a property               | R     | 1     | lval→bool        |
-| typeof      | Determine type of operand        | R     | 1     | any→str          |
-| void        | Return undefined value           | R     | 1     | any→undef        |
-| *, /, %     | Multiply, divide, remainder      | L     | 2     | num,num→num      |
-| +, -        | Add, subtract                    | L     | 2     | num,num→num      |
-| +           | Concatenate strings              | L     | 2     | str,str→str      |
-| <<          | Shift left                       | L     | 2     | int,int→int      |
-| >>          | Shift right with sign extension  | L     | 2     | int,int→int      |
-| >>>         | Shift right with zero extension  | L     | 2     | int,int→int      |
-| <, <=,>, >= | Compare in numeric order         | L     | 2     | num,num→bool     |
-| <, <=,>, >= | Compare in alphabetic order      | L     | 2     | str,str→bool     |
-| instanceof  | Test object class                | L     | 2     | obj,func→bool    |
-| in          | Test whether property exists     | L     | 2     | str,obj→bool     |
-| ==          | Test for equality                | L     | 2     | any,any→bool     |
-| !=          | Test for inequality              | L     | 2     | any,any→bool     |
-| ===         | Test for strict equality         | L     | 2     | any,any→bool     |
-| !==         | Test for strict inequality       | L     | 2     | any,any→bool     |
-| &           | Compute bitwise AND              | L     | 2     | int,int→int      |
-| ^           | Compute bitwise XOR              | L     | 2     | int,int→int      |
-| ||          | Compute bitwise OR               | L     | 2     | int,int→int      |
-| &&          | Compute logical AND              | L     | 2     | any,any→any      |
-|             | Compute logical OR               | L     | 2     | any,any→any      |
-| ?:          | Choose 2nd or 3rd operand        | R     | 3     | bool,any,any→any |
-| =           | Assign to a variable or property | R     | 2     | lval,any→any     |
-| *=, /=, %=, += <br> -=, &=, ^=, \| = <br> <<=, >>=, >>>= | Operate and assign | R | 2 | lval,any→any |
+| 运算符      | 操作                   | A      | N     | 类型             |
+| ------      | ----------------       | :---:  | :---: | ----------       |
+| ++          | 前/后增量              | R      | 1     | lval→num         |
+| --          | 前/后增量              | R      | 1     | lval→num         |
+| -           | 求反                   | R      | 1     | num→num          |
+| +           | 转换为数字             | R      | 1     | num→num          |
+| ~           | 按位求反               | R      | 1     | int→int          |
+| !           | 逻辑非                 | R      | 1     | bool→bo          |
+| delete      | 删除属性               | R      | 1     | lval→bool        |
+| typeof      | 检测操作数类型         | R      | 1     | any→str          |
+| void        | 返回 undefined 值      | R      | 1     | any→undef        |
+| *, /, %     | 乘、除、求余           | L      | 2     | num,num→num      |
+| +, -        | 加减                   | L      | 2     | num,num→num      |
+| +           | 字符串链接             | L      | 2     | str,str→str      |
+| <<          | 左移位                 | L      | 2     | int,int→int      |
+| >>          | 有符号右移             | L      | 2     | int,int→int      |
+| >>>         | 无符号右移             | L      | 2     | int,int→int      |
+| <, <=,>, >= | 比较顺序               | L      | 2     | num,num→bool     |
+| <, <=,>, >= | 比较在字母表中的顺序   | L      | 2     | str,str→bool     |
+| instanceof  | 测试对象类             | L      | 2     | obj,func→bool    |
+| in          | 测试属性是否存在       | L      | 2     | str,obj→bool     |
+| ==          | 判断相等               | L      | 2     | any,any→bool     |
+| !=          | 判断不等               | L      | 2     | any,any→bool     |
+| ===         | 判断恒等               | L      | 2     | any,any→bool     |
+| !==         | 判断非恒等             | L      | 2     | any,any→bool     |
+| &           | 按位与                 | L      | 2     | int,int→int      |
+| ^           | 按位异或               | L      | 2     | int,int→int      |
+| \|          | 按位或                 | L      | 2     | int,int→int      |
+| &&          | 按位与                 | L      | 2     | any,any→any      |
+| \|\|        | 逻辑或                 | L      | 2     | any,any→any      |
+| ?:          | 条件运算符             | R      | 3     | bool,any,any→any |
+| =           | 变量赋值或对象属性赋值 | R      | 2     | lval,any→any     |
+| *=, /=, %=, += <br> -=, &=, ^=, \| = <br> <<=, >>=, >>>= | 运算且赋值 | R | 2 | lval,any→any |
 
 
 #### 操作数的个数

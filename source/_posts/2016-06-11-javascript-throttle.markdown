@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JavaScript节流函数throttle详解"
+title: "JavaScript 节流函数 throttle 详解"
 date: 2016-06-11 6:52:57 +0800
 comments: true
 categories:
@@ -10,10 +10,10 @@ tags:
     - throttle
 ---
 
-在浏览器DOM事件里面，有一些事件会随着用户的操作不间断触发。比如：重新调整浏览器窗口大小(resize)，浏览器页面滚动(scroll)，鼠标移动(mousemove)。也就是说用户在触发这些浏览器操作的时候，如果脚本里面绑定了对应的事件处理方法，这个方法就不停的触发。
+在浏览器 DOM 事件里面，有一些事件会随着用户的操作不间断触发。比如：重新调整浏览器窗口大小（resize），浏览器页面滚动（scroll），鼠标移动（mousemove）。也就是说用户在触发这些浏览器操作的时候，如果脚本里面绑定了对应的事件处理方法，这个方法就不停的触发。
 
 <!--more-->
-这并不是我们想要的，因为有的时候如果事件处理方法比较庞大，DOM操作比如复杂，还不断的触发此类事件就会造成性能上的损失，导致用户体验下降（UI反映慢、浏览器卡死等）。所以通常来讲我们会给相应事件添加延迟执行的逻辑。
+这并不是我们想要的，因为有的时候如果事件处理方法比较庞大，DOM 操作比如复杂，还不断的触发此类事件就会造成性能上的损失，导致用户体验下降（UI 反映慢、浏览器卡死等）。所以通常来讲我们会给相应事件添加延迟执行的逻辑。
 
 通常来说我们用下面的代码来实现这个功能：
 
@@ -48,7 +48,7 @@ window.onresize = function () {
 };
 ```
 
-这时候代码就正常了，但是又多了一个新问题 —— 产生了一个全局变量 timer。这是我们不想见到的，如果这个页面还有别的功能也叫 timer 不同的代码之前就是产生冲突。为了解决这个问题我们要用 JavaScript 的一个语言特性：[闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) closures 。相关知识读者可以去MDN中了解，改造后的代码如下：
+这时候代码就正常了，但是又多了一个新问题 —— 产生了一个全局变量 timer。这是我们不想见到的，如果这个页面还有别的功能也叫 timer 不同的代码之前就是产生冲突。为了解决这个问题我们要用 JavaScript 的一个语言特性：[闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) closures 。相关知识读者可以去 MDN 中了解，改造后的代码如下：
 
 ```javascript
 /**
@@ -70,7 +70,7 @@ var throttle = function (fn, delay) {
 window.onresize = throttle(testFn, 200, 1000);
 ```
 
-我们用一个闭包函数(throttle节流)把timer放在内部并且返回延时处理函数，这样以来timer变量对外是不可见的，但是内部延时函数触发时还可以访问到timer变量。
+我们用一个闭包函数（throttle节流）把 timer 放在内部并且返回延时处理函数，这样以来 timer 变量对外是不可见的，但是内部延时函数触发时还可以访问到 timer 变量。
 
 当然这种写法对于新手来说不好理解，我们可以变换一种写法来理解一下：
 

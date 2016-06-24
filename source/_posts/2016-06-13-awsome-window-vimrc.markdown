@@ -375,4 +375,4 @@ No picture U say a ... ?
 
 ## 引用
 
-[完整配置文件](https://link.zhihu.com/?target=https%3A//gist.github.com/keelii/1aab5f9aa5b47afa651c7fc84b8e9875)
+[完整配置文件](https://gist.github.com/keelii/1aab5f9aa5b47afa651c7fc84b8e9875)

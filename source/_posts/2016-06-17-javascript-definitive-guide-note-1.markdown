@@ -8,17 +8,15 @@ categories:
     - JavaScript_The_Definitive_Guide
 ---
 
-## 词法结构（Lexical Structure）
-
-词法结构是程序语言的一套基础性规则，用来描述如何使用这门语言来编写程序
+词法结构（Lexical Structure）是程序语言的一套基础性规则，用来描述如何使用这门语言来编写程序
 
 <!--more-->
 
-### 字符集
+## 字符集
 
 JavasSript 程序是用 [Unicode](https://zh.wikipedia.org/wiki/Unicode) __字符集__ 编写的，Unicode 是 ASCII 和 Latin-1 的超集，支持几乎所有在用的语言。ECMAScript 3 要求 JavaScript 的实现必须支持 Unicode 2.1 及后续版本，ECMAScript 5 则要求支持 Unicode 3 及其以后的版本
 
-### 区分大小写
+## 区分大小写
 
 JavaScript 是区分大小写的。关键字、变量、函数名和所有的标识符（identifier）都必须采取一致的大小写形式
 
@@ -29,7 +27,7 @@ JavaScript 是区分大小写的。关键字、变量、函数名和所有的标
 <div class="selector Selector"></div>
 ```
 
-### 空格、换行和格式控制符号
+## 空格、换行和格式控制符号
 
 JavaScript 会忽略程序中标识（token）之间的空格。多数情况下，JavaScript 会忽略换行符。
 
@@ -51,7 +49,7 @@ JavaScript 会识别下面的字符识别为行结束符
 
 __回车符加换行符在一起被解析为一个单行结束符__
 
-### Unicode 转义序列
+## Unicode 转义序列
 
 在有的计算机硬件和软件里面无法显示 Unicode 字符全集，JavaScript 定义了一种特殊序列，使用 6 个 ASCII 字符来代表任意 16 位 Unicode 内码。这些内码均以 \u 为前缀，其后跟随 4 个十六进制数。这种 Unicode 转义写法可以用在 JavaScript 字符串直接量、正则表达式直接量和标识符（除关键字）中。例如：
 
@@ -66,7 +64,7 @@ __回车符加换行符在一起被解析为一个单行结束符__
 
 注意中的 Unicode 码是不会被 JavaScript 转义的
 
-### 注释
+## 注释
 
 注释类似 Java 和 C，多行注释 __不能嵌套__
 
@@ -80,7 +78,7 @@ __回车符加换行符在一起被解析为一个单行结束符__
 ```
 {% endraw %}
 
-### 直接量
+## 直接量
 
 直接量（literal）就是程序中直接使用的数据值
 
@@ -96,7 +94,7 @@ false          // 布尔假
 ```
 {% endraw %}
 
-### 标识符和保留字
+## 标识符和保留字
 
 __标识符__ （indetifiers）就是一个名字，用来对变量和函数命名，JavaScript 标识符必须以字母、下划线（_）或美元符（$）开头
 
@@ -123,7 +121,7 @@ implements let private public yield interface package protected static
 
 JavaScript 中定义了很多全局变量和当函数，要 __避免__ 使用这些名字做变量名或函数名，比如：arguments encodeURI JSON Math 等
 
-### 可选分号
+## 可选分号
 
 通常来说 JavaScript 语句通常用分号（;）分隔，但是多数情况下 JavaScript 解析器会自动添加分号，所以有的程序员不喜欢加分号，如果代码有正确的书写这样也是可行的
 

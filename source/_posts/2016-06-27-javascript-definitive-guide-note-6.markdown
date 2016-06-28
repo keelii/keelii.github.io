@@ -8,13 +8,13 @@ categories:
     - JavaScript_The_Definitive_Guide
 ---
 
-数组是值的 **有序集合**。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置各为索引。JavaScript 数组是无类型的，数组元素可以是任意类型
+数组是值的 **有序集合**。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型
 
 JavaScript 数组是 **动态的**，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小
 
 JavaScript 数组可能是 **稀疏的**，数组元素索引不一定要连续
 
-JavaScript 数组是 JavaScritp 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要快很多
+JavaScript 数组是 JavaScritp 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 **快很多**
 <!--more-->
 
 ## 创建数组
@@ -44,10 +44,10 @@ a[1] = 3.14             // => 写入第 1 个元素 3.14
 a                       // => ["world", 3.14]
 i = 2;
 a[i] = 3;               // => 写入第 2 个元素
-a[i+1] = "hello";               // => 写入第 2 个元素
+a[i+1] = "hello";       // => 写入第 2 个元素
 ```
 
-可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能梁帮常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就梁帮数组索引，而非对象属性
+可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就当做数组索引，而非对象属性
 
 ```javascript
 a[-1.23] = true             // 给数组 a 创建一个名为 "-1.23" 的属性
@@ -79,7 +79,7 @@ var a3 = [1,,3];
 
 每个数组都胡一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密数组，length 属性值代表数组中元素的个数，其值比数组中最大的索引大 1
 
-数组有两个特殊行为：
+数组有两个 **特殊行为**：
 
 1. 如果为一个数组元素赋值，它的索引 i 大于或者等于现有数组的长度时，length 属性的值将设置为 i + 1
 2. 如果设置一个数组的 length 属性小于这个数组长度的非负整数 n 时，当前数组中那些索引值大于或等于 n 的元素将被从中删除
@@ -255,7 +255,7 @@ a.slice(-3, -2)     // => [3]
 
 > Array.splice(start, deleteCount[, item1[, item2[, ...]]])
 
-splice 方法是在数组中插入或删除元素的通用方法，会修改调用的数组
+splice 方法是在数组中插入或删除元素的通用方法，会 **修改** 调用的数组
 
 splice 能够从数组中删除元素、插入元素到数组中或者 **同时完成** 这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其它部分仍然保持连续。splice 第一个参数指定了插入和（或）删除的起始位置。第二个参数指定了应该从数组中删除的元素个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice 返回一个由删除元素组成的数组
 
@@ -351,10 +351,144 @@ a.some(function(x) { return x%2 === 0 })    // => true 数组中有一些值是�
 
 ### reduce() 和 reduceRight()
 
-reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 **函数式编程（functional programming）** 中是很常见的操作，也可以称为「注入」和「折叠」
+> Array.reduce(callback, [initialValue])
+
+reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 **函数式编程（functional programming）** 中是很常见的操作，也可以称为「注入」和「折叠」，他们只是执行化简操作的顺序不一样，一个从左到右，一个从右到左
 
 ```javascript
 var a = [1,2,3,4,5]
-var sum = a.reduct(function(x, y) { return x + y }, 0)          // 数组求和
-var product = a.reduct(function(x, y) { return x * y }, 1)      // 数组求积
+var sum = a.reduce(function(x, y) { return x + y }, 0)          // 数组求和
+/**
++---------------------------------+
+|                                 |
+|     x      +     y     return   |
+|                                 |
+|   init: 0     a[0]: 1    1      |
+|                                 |
+|     1         a[1]: 2    3      |
+|                                 |
+|     3         a[2]: 3    6      |
+|                                 |
+|     6         a[3]: 4    10     |
+|                                 |
+|     10        a[4]: 5    15     |
+|                                 |
++---------------------------------+
+*/
+var product = a.reduce(function(x, y) { return x * y }, 1)      // 数组求积
+```
+
+reduce 需要两个参数。第一个是执行化简操作的函数，它的任意就是用某种方法把两个值组合或化简为一个值，并返回化简后的值，第二个参数是传递给函数的初始值，如果没有指定初始值，它将使用数组的第一个元素作为其初始值。**这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为 x,y**
+
+
+### indexOf() 和 lastIndexOf()
+
+> Array.indexOf(searchElement[, fromIndex = 0])
+
+搜索整个数组中指定值的索引，没找到就返回 -1。indexOf() 从头至尾搜索，而 lastIndexOf() 则反向搜索。它们都接收第二个参数，指定数组中的一个索引，从这个索引处开始搜索
+
+```javascript
+a = [0,1,2,1,0]
+a.indexOf(1)        // => 1
+a.lastIndexOf(1)    // => 3
+a.indexOf(3)        // => -1
+
+// 在数组中查找所有出现的 x，并返回一个包含匹配索引的数组
+function findall(a, x) {
+    var results = [];
+    var len = a.length;
+    var pos = 0;
+
+    while(pos < len) {
+        pos = a.indexOf(x, pos);
+        if (pos === -1) break;
+
+        results.push(pos)
+        pos = pos + 1;
+    }
+
+    return results;
+}
+findall([1,2,3,1,3,2], 1)       // => [0, 3]
+```
+
+## 数组类型
+
+ECMAScript 5 中可以使用 Array.isArray() 函数来判断是否为数组，在 ECMAScript 5 之前判断却没这么简单，因为 typeof 运算符操作数组返回的是「对象」，一般用下面的方法下判断是否是数组
+
+```javascript
+var isArray = Array.isArray || function(o) {
+    return typeof o === "object" &&
+            Object.prototype.toString.call(0) === '[object Array]';
+};
+```
+
+## 类数组对象
+
+JavaScript 数组的一些特性是其他对象没有的：
+
+* 当有新的元素添加到列表中时，自动更新 length 属性
+* 设置 length 为一个较小值将截断数组
+* 从 Array.prototype 中继承一些有用的方法
+* 其类属性为「Array」
+
+以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的「元素」
+
+```javascript
+var a = {}
+
+var i = 0;
+while (i < 10) {
+    a[i] = i * i;
+    i++;
+}
+a.length = i;
+a               // => { 0: 0, 1: 1, 2: 4, 3: 9 ..., length: 10 }
+
+// 现在就可以当成真正的数组遍历它
+var total = 0;
+for (var j = 0; j < a.length; j++) {
+    total+=a[j]
+}
+```
+
+Arguments 对象就是一个类数组对象，DOM 方法 document.getElementsByTagName() 也返回类数组对象，它们都有数组的一些特性，比如索引访问、length 属性，但它们并不是真正的数组
+
+```javascript
+function isArrayLike(o) {
+    if ( o &&
+        typeof o === "object" &&
+        isFinite(o.length) &&
+        o.length >= 0 &&
+        o.length === Math.floor(o.length) &&
+        o.length < 4294967296 ) {       // 数组长度的最大值 2^32
+        return true;
+    } else {
+        return false;
+    }
+}
+```
+
+JavaScript 数组方法是 **特意定义为通用的**，它们不仅可以应用在数组而且可以应用在类数组对象上，一般使用 Array.prototype.method.call 来使用
+
+```javascript
+var a = {"0": "a", "1": "b", "2": "c", length: 3};
+Array.prototype.join.call(a, "+")           // => "a+b+c"
+```
+
+## 作为数组的字符串
+
+在 ECMAScript 5 中，字符串的行为类似于 **只读** 的数组。除子用 charAt() 方法来访问单个字符以外，还可以使用方括号：
+
+```javascript
+var s = "test";
+s.charAt(0)         // => "t"
+s.[1]               // => "e"
+```
+
+字符串的行为类似于数组的事实使得通用的数组方法可以应用到字符串上。不过请记住，字符串是 **不可变值**，当把它们作为数组看待时，它们是只读的。所以诸如：push(), sort(), reverse 等 **会修改数组** 的方法 如果被使用在字符串上是无效的，而且会导致错误并且没有相关提示
+
+```javascript
+s = "JavaScript"
+Array.prototype.join.call(s, " ")       // => "J a v a S c r i p t"
 ```

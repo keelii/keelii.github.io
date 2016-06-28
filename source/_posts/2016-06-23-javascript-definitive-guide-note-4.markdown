@@ -8,13 +8,11 @@ categories:
     - JavaScript_The_Definitive_Guide
 ---
 
-## 语句（statement）
-
-表达式在 JavaScript 中是短语，那么语句就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生
+表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生
 
 <!--more-->
 
-### 表达式语句
+## 表达式语句
 
 赋值语句、递增/减运算、delete 运算符删除对象属性、函数调用都是表达式语句
 
@@ -29,7 +27,7 @@ Math.cos(x)
 cs = Math.cos(x);
 ```
 
-### 复合语句和空语句
+## 复合语句和空语句
 
 逗号运算符将几个表达式连接在一起形成一个表达式，同样，JavaScript 中还可以将多条语句联合在一起，形成一条复合语句（compound statement）。只须用花括号括起来即可，下面几行代码就可以当成一条单独语句
 
@@ -58,11 +56,11 @@ a                                           // => [0,,,0]
 
 这个循环中，所有操作都在表达式 a[i++]=0 中完成，这里并不需要任何循环体。然而 JavaScript 需要循环体中 __至少包含一条语句__，因此，这里只使用了一个单独的分号来表示一条空语句
 
-### 声明语句
+## 声明语句
 
 var 和 function 都是声明语句，声明语句本身什么也不做，只用来更好地组织代码的语义
 
-#### var
+### var
 
 var 语句用来声明一个或者多个变量，用法如下：
 
@@ -76,7 +74,7 @@ var name_1 [= value_1] [,..., name_n [= value_n]]
 
 如果 var 语句中的变量没有指定初始化表达式，那么这个变量的值初始为 undefined
 
-#### function
+### function
 
 函数声明的语句的语法如下：
 
@@ -91,9 +89,9 @@ var f = function(x) { return x+1; };        // 通过 var 声明函数
 function f(x) { return x+1; }
 ```
 
-### 条件语句
+## 条件语句
 
-#### if
+### if
 
 ```javascript
 if (expression) {
@@ -106,7 +104,7 @@ if (expression) {
 为了避免歧义，建议 __总是__ 给 if 语句添加花括号
 
 
-#### else if
+### else if
 
 ```javascript
 if (expression) {
@@ -116,7 +114,7 @@ if (expression) {
 }
 ```
 
-#### switch
+### switch
 
 ```javascript
 switch(expression) {
@@ -124,9 +122,9 @@ switch(expression) {
 }
 ```
 
-### 循环
+## 循环
 
-#### while
+### while
 
 ```javascript
 var count = 0;
@@ -136,7 +134,7 @@ while (count < 10) {
 }
 ```
 
-#### do/while
+### do/while
 
 ```javascript
 function printArray(a) {
@@ -151,7 +149,7 @@ function printArray(a) {
 }
 ```
 
-#### for
+### for
 
 for 循环的 __执行顺序__ 是：
 
@@ -176,7 +174,7 @@ while(test) {
 }
 ```
 
-#### for/in
+### for/in
 
 ```javascript
 for (variable in object) {
@@ -194,11 +192,11 @@ __属性枚举的顺序__
 
 ECMAScript 规范并没有指定 for/in 循环按照何种顺序来枚举对象属性。但实际上，主流浏览器厂商的 JavaScript 实现是按照 __属性定义的先后顺序__ 来枚举简单对象的属性
 
-### 跳转
+## 跳转
 
 JavaScript 中另一类语句是跳转语句（jump statement）。通常有 break, continue, return, throw
 
-#### 标签语句
+### 标签语句
 
 语句是可以添加标签的，标签由语句前的标识符和冒号组成：
 
@@ -215,13 +213,13 @@ mainloop: while(token != null) {
 }
 ```
 
-#### break 语句
+### break 语句
 
 单独使用 break 语句的作用是立即退出最内层的 __循环__ 或者 __switch 语句__，break 关键字后面也可以跟一个语句标签，当 break 和标签一块使用时，程序将跳转到这个标签所标识的语句块的结束
 
 __不管 break 语句带不带标签，它的控制权都无法超过函数的边界__
 
-#### continue 语句
+### continue 语句
 
 类似于 break，但是它不退出循环，而是转而执行下一次循环。continue 语句只能在循环体内使用，其它地方使用会报错
 
@@ -254,7 +252,7 @@ for (var k = 1; k < 10; k++) {
 }
 ```
 
-#### return 语句
+### return 语句
 
 ```javascript
 return expression;
@@ -269,7 +267,7 @@ square(2)   // => 4
 
 return 可以单独使用而不必带有 expression，这样的话函数会向调用程序返回 undefined
 
-#### throw 语句
+### throw 语句
 
 所谓异常（exception）是当发生了落地生根异常情况或错误时产生的一个信号。抛出异常（throw exception），就是用信号通知发生错误或者异常头部。捕获（catch）异常是指处理这个信号，即采取必要的手段从异常中恢复
 
@@ -290,7 +288,7 @@ function factorial(x) {
 
 当异常招聘时，JavaScript 解释器会 __立即停止__ 当前正在执行的逻辑，并跳转到 __就近的__ 异常处理程序。异常钼是程序是用 try/catch/finally 语句的 catch 从句编写的，JavaScript 会沿着方法的词法结构和调用栈向上传播
 
-#### try/catch/finally 语句
+### try/catch/finally 语句
 
 try 从句定义了需要处理的异常所有代码块。catch 从句跟在其后，当 try 块内某处发生了异常时，调用 catch 内的代码逻辑。catch 从句后跟随 finally 块，后者中放置清理代码，不管 try 块中是否产生异常，finally 块内的逻辑总是会执行。尽管 catch 和 finally 都是可先的，但 try 从句需要至少二者之一（catch/finally）与之组成完整的语句。
 
@@ -316,11 +314,11 @@ try {
 
 一般来说 JavaScript 使用 try/catch 语句的时候很少使用 finally。通常在一些后端语言 IO 操作中使用 finally 的比较多，比如打开一个文件，出现异常或者正常执行完 try 从句都需要关闭文件句柄
 
-### 其它语句类型
+## 其它语句类型
 
 with, debugger 和 use strict
 
-#### with 语句
+### with 语句
 
 with 语句用于临时扩展作用域链，语法如下：
 
@@ -369,13 +367,13 @@ d           // => 1
 o           // => {a: 2, b: 2, c: 3}
 ```
 
-#### debugger 语句
+### debugger 语句
 
 debugger 语句通常什么也不做。当调试程序可用并运行的时候，JavaScript 解释器将会（非必需）以调试模式运行。这条语句用来产生一个断点（breakpoint），JavaScript 代码的挂靠会停止在断点的位置，这时可以使用调试器转出当前的变量、调用栈等
 
 ECMAScript 5 中，debugger 语句正式加入到了语言规范里，在此之前注流浏览器厂商基本都已经实惠过了
 
-#### 'use strict'
+### 'use strict'
 
 'use strict' 是 ECMAScript 5 引入的一条指定。非常类似语句但不是，区别在于：
 

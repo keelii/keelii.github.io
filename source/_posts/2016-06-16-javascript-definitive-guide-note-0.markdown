@@ -9,17 +9,15 @@ categories:
 ---
 
 
-> 第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《[JavaScript 权威指南](https://book.douban.com/subject/10549733/)》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 [JavaScript The Definitive Guide](http://shop.oreilly.com/product/9780596805531.do)，取一些关键性、重要的单词做补充
+> 第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《[JavaScript 权威指南](https://book.douban.com/subject/10549733/)》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 [JavaScript The Definitive Guide](http://shop.oreilly.com/product/9780596805531.do)，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误
 
 > 中文排版指南遵守 [中文文案排版指北](https://github.com/mzlogin/chinese-copywriting-guidelines)，欢迎批评批正
 
 <!--more-->
 
-## JavaScript 简介
-
 JavaScript 是面向 web 的编程语言，是一门 __高阶的__（high-level）、__动态的__（dynamic）、__弱类型的__（untyped）__解释型__（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self
 
-### JavaScript 的版本
+## JavaScript 的版本
 
 JavaScript 语言规范由 ECMA 国际发布，版本号一般叫做 ECMAScript x，如：ECMAScript 3, ECMAScript 5, ECMAScript 6，简称 ES x
 
@@ -31,9 +29,9 @@ Micorsoft 发布的 JavaScript 版本一般叫做 [JScript](https://zh.wikipedia
 
 JavaScript 语言核心有很多 API，比如：针对字符串、数组、正则、日期。但这些通常不包括输入输出 API（类似网络、存储、图形相关的特性），输入输出 API 一般是由 JavaScript 的宿主环境（host environment）提供的，通常是浏览器
 
-### JavaScript 语言核心
+## JavaScript 语言核心
 
-#### 变量/赋值
+### 变量/赋值
 
 快速预览下 JavaScript 变量的用法
 
@@ -60,7 +58,7 @@ x = undefined;      // 和 null 非常累似
 
 ```
 
-#### 对象/数组
+### 对象/数组
 
 JavaScript 中两个非常重要的数据类型是对象和数组
 
@@ -96,7 +94,7 @@ var data = {
 };
 ```
 
-#### 表达式/运算符
+### 表达式/运算符
 
 通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为 __初始化表达式__（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=>）后的值就是表达式的运算结果
 
@@ -140,7 +138,7 @@ false == (x > y)          // => true
 > 粗略了讲，表达式仅仅计算出一个值并不进行其它操作，不会改变程序的运行状态，而语句并不包含一个值（或者说它包含的值我们并不关心），但它们改变了程序运行状态
 
 
-#### 函数
+### 函数
 
 函数是带有名称（named）和参数的 JavaScript 代码片段，可以一次定义多次调用
 
@@ -178,7 +176,7 @@ points.dist = function() {
 points.dist();                  // => 求得两个点之间的距离
 ```
 
-#### 面向对象
+### 面向对象
 
 JavaScript 中的面向对象特性和传统语言的很大的区别，下面展示一个类用来表示 2D 平面中的几何点，这个类实例化后的对象有一个名为 r() 的方法，可以计算该点到原点的距离：
 
@@ -200,9 +198,9 @@ var p = new Point(1, 1);
 p.r()               // => 1.414...
 ```
 
-### 客户端的 JavaScript
+## 客户端的 JavaScript
 
-#### 嵌入到 HTML 中的 JavaScript
+### 嵌入到 HTML 中的 JavaScript
 
 JavaScript 代码可以通过 &lt;script&gt; 标签来嵌入到 HTML 文件中
 
@@ -228,7 +226,7 @@ JavaScript 代码可以通过 &lt;script&gt; 标签来嵌入到 HTML 文件中
 </html>
 ```
 
-#### 使用 JavaScript 操作 DOM
+### 使用 JavaScript 操作 DOM
 
 JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素
 
@@ -253,7 +251,7 @@ function debug(msg) {
 debug('this is debug message');
 ```
 
-#### 使用 JavaScript 操作 CSS 样式
+### 使用 JavaScript 操作 CSS 样式
 
 JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素，从而影响 CSS 样式
 
@@ -276,7 +274,7 @@ function highlight(e) {
 }
 ```
 
-#### 使用 JavaScript 处理事件
+### 使用 JavaScript 处理事件
 
 JavaScript 通过注册事件函数来定义文档/用户的行为，比如：点击，鼠标 hover 等
 
@@ -310,7 +308,7 @@ window.onload = function() {
     function hide(event) { event.target.style.visibility = 'hidden'; }
 }
 ```
-#### 使用 jQuery 库
+### 使用 jQuery 库
 
 使用 jQuery 类库会使 DOM 操作、事件绑定等操作非常方便，而且不用担心浏览器兼容问题（JavaScript api 层面的兼容）
 

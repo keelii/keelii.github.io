@@ -8,8 +8,6 @@ categories:
     - JavaScript_The_Definitive_Guide
 ---
 
-## 对象
-
 对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 **原型** 的对象继承属性
 
 JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象
@@ -39,9 +37,9 @@ ECMAScript 5 之前，**通过代码给对象创建的所有属性都是可写�
 * 自有属性（own property），直接在对象中定义的属性
 * 继承属性（inherited property）是在对象的原型对象中定义的属性
 
-### 创建对象
+## 创建对象
 
-#### 对象直接量
+### 对象直接量
 
 ```javascript
 var empty = {}
@@ -59,7 +57,7 @@ var book = {
 
 在 ECMAScript 5 中，保留字可以用做不带引号的属性名。然后对于 ECMAScript 3 来说，使用保留字作为属性名必须使用引号引起来。ECMAScript 5 中属性最后一个逗号会被忽略，但在 IE 中则报错
 
-#### 通过 new 创建对象
+### 通过 new 创建对象
 
 new 运算符创建并初始化一个新对象。new 后跟随一个函数调用。这里的函数称做构造函数（constructor），用来初始化一个新创建的对象。JavaScript 语言核心的原始类型都包含内置构造函数（另一方面也证实了 JavaScript 中一切皆对象）
 
@@ -70,7 +68,7 @@ var d = new Date();
 var r = new RegExp('js');
 ```
 
-#### 原型
+### 原型
 
 每一个 JavaScript 对象（null 除外）都和另一个对象相关联，这个对象就是「原型」，每一个对象都从原型继承属性
 
@@ -78,7 +76,7 @@ var r = new RegExp('js');
 
 没有原型对象的为数不多，Obejct.prototype 就是其中之一。它不继承任何属性，普通对象都具有原型。所有的内置构造函数都具有一个继承自 Object.prototype 的原型。例如，Date.prototype 的属性继承自 Object.prototype，因此由 new Date() 创建的 Date 对象的属性现时继承自 Date.prototype 和 Object.prototype，这一系列链接的原型对象就是所谓的「原型链」（prototype chain）
 
-#### Object.create()
+### Object.create()
 
 ECMAScript 5 定义了一个名为 Obejct.create() 的方法，用来创建一个新对象，其中第一个参数是这个对象的原型，第二个可选参数用来对对象的属性进行进一步描述，Object.create() 是一个 **静态函数**，不是提供给对象调用的方法
 
@@ -113,7 +111,7 @@ console.log(c.x);       // => "test c"
 console.log(o.x);       // => "test o"
 ```
 
-### 属性的查询和设置
+## 属性的查询和设置
 
 ```javascript
 var author = book.author;           // 取得 book 的 author 属性
@@ -122,7 +120,7 @@ var title = book["main title"];     // 使用 [] 访问属性时 [] 内必须是
 book.edition = 6;                   // 给 book 创建一个名为 edition 的属性，「.」号运算符后的标识符不能是保留字
 ```
 
-#### 作为关联数组的对象
+### 作为关联数组的对象
 
 当通过 [] 来访问对象属性时，属性名通过字符串来表示。字符串是 JavaScript 的数据类型，在程序运行时可以修改创建它们。因此，可以在 JavaScript 中使用下面这种代码来动态添加/查找属性：
 
@@ -133,7 +131,7 @@ for (i = 0; i < 4; i++) {
 }
 ```
 
-#### 继承
+### 继承
 
 假设要查询对象 o 的属性 x，如果 o 中不存在 x，那么将会继续在 o 的原型对象中查询属性 x。如果原型对象中也没有 x，但这个原型对象还有原型，那么继续在这个原型对象的原型上执行查找，直到找到 x 或者找到一个原型是 null 的对象为止。可以看出来，原型的属性构成了一个「链接」，通过这个「链」可以实现属性的继承
 
@@ -151,14 +149,14 @@ var s = q.toString();   // => "[object Object]"
 q.x + q.y               // => 3
 ```
 
-#### 属性访问错误
+### 属性访问错误
 
 属性访问并不总是返回或设置一个值，下页场景给对象 o 设置 属性 p 会失败：
 
 * o 中的属性 p 是只读的（defineProperty() 方法中有一个例外，可以对可配置的只读属性重新赋值）
 * o 中不存在自有属性 p：o 没有使用 setter 方法继承属性 p，并且 o 的可扩展性（extensible attribute）是 false。如果 o 中不存在 p，而且没有 setter 方法可供调用，则 p 一定会添加至 o 中。如果 o 不是可扩展的，那么在 o 中不能定义新的属性
 
-### 删除属性
+## 删除属性
 
 使用 delete 运算符可以删除对象的属性，delete 运算符只能删除 __自有属性__，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）
 
@@ -180,7 +178,7 @@ function f() {}
 delete f                // => false 不能删除全局函数
 ```
 
-### 检测属性
+## 检测属性
 
 可以通过 in 运算符、hasOwnProperty() 方法和 propertyIsEnumerable() 方法来检测对象是否存在某属性，propertyIsEnumerable 只有检测到是自有属性且这个属性的可枚举性为 true 时它才返回 true
 
@@ -222,7 +220,7 @@ delete o.x                  // => true
 "x" in o                    // => false delete 后 o 完全不存在了
 ```
 
-### 枚举属性
+## 枚举属性
 
 许多工具库给 Object.prototype 添加了新的方法或者属性（通常不建议这么做），这些方法和属性可以被所有对象继承并使用。然而在 ECMAScript 5 标签之前，这些添加的方法是 **不能定义为不可枚举的**，因此它们都可以在 for/in 循环枚举出来。为了避免这和践情况，需要过滤 for/in 循环返回的属性，下面两种方法是最常见的：
 
@@ -240,7 +238,7 @@ for (p in o) {
 
 除了 for/in 循环之外，ECMAScript 5 定义了两个用以枚举属性名称的函数。第一个是 Object.keys()，它返回一个数组，由对象中的 **可枚举的自有属性名称** 组成，第二个是 Object.getOwnPropertyNames()，它和上面的方法类似，只是它返回对象的 **所有自有属性名称**，不仅仅是可枚举的属性
 
-### 属性 getter 和 setter
+## 属性 getter 和 setter
 
 在 ECMAScript 5 中，属性的值可以用一个或两个方法替代，这两个方法就是 getter 和 setter。由它们定义的属性称做「存取器属性」（accessor property），不同于「数据属性」（data property），数据属性只有一个简单的值
 
@@ -270,7 +268,7 @@ var p = {
 p.r             // => 1.4142135623730951
 ```
 
-### 属性的特性
+## 属性的特性
 
 除了包含名字和值之外，属性还包含一些标识它们可写、可枚举和可配置的特性。ECMAScript 3 程序创建的属性都是可写、可枚举、可配置的，且无法对这些特性做出修改。ECMAScript 5 中却提供了查询和设置这些属性鹅的 API，这些 API 对于库的开发者来说非常重要，因为：
 
@@ -365,11 +363,11 @@ Object.defineProperty(Object.prototype, "extend", {
 
 在ECMAScript 5标准被采纳之前，大多数 JavaScript 的实现（IE 除外）已经可以支持对象直接量语法中的 get 和 set 写法。这些实现提供了非标准的老式 API 用来查询和设置 getter 和 setter。这些 API 由 4 个方法组成，所有对象都拥有这些方法。`__lookupGetter__()` 和 `__lookupSetter__()` 用以返回一个命名属性的 getter 和 setter 方法，`__defineSetter__()` 和 `__defineGetter__()` 用以定义 getter 和 setter
 
-### 对象的三个属性
+## 对象的三个属性
 
 每个对象都胡与之相关的 **原型**（prototype）、**类**（class）和 **可扩展性**（extensible attribute）
 
-#### 原型属性
+### 原型属性
 
 原型属性是在实例对象创建之初就设置好的，ECMAScript 5 中，对象作为参数传入 `Object.getPrototypeOf()` 可以查看它的原型，在 ECMAScript 3 中，则没有与之等价的函数，但经常使用表达式 o.constructor.prototype 来检测一个对象的原型。通过 new 表达式创建的对象，通常继承一个 constructor 属性，这个属性指代创建这个对象的构造函数
 
@@ -382,7 +380,7 @@ p.isPrototypeOf(o)                  // => true
 Object.prototype.isPrototypeOf(o)   // => true
 ```
 
-#### 类属性
+### 类属性
 
 对象的类属性是一个字符串，用以表示对象的类型信息。ECMAScript 3/5 都未提供设置这个属性的方法，并只有一种间接的方法可以查询它。默认的 toString() 方法（继承自 Object.prototype），返回了如下这种格式的字符串：
 
@@ -408,7 +406,7 @@ function f() {}
 classof(new f())  // => "Object"
 ```
 
-#### 可扩展属性
+### 可扩展属性
 
 可扩展性用以表示是否可以给对象是添加新属性。所有内置对象和自定义对象都是显式可扩展的，宿主对象的可扩展属性是由 JavaScript 引擎定义的，ECMAScript 5 中，所有的内置对象和自定义对象都是可扩展的，除非将它们转换为不可扩展的，宿主对象的可扩展性也是由实现 ECMAScript 5 的 JavaScript 引擎定义的
 
@@ -418,7 +416,7 @@ Object.seal() 和 Object.preventExtensions() 类似，除了能将对象设置�
 
 Object.freeze() 将更严格地锁定对象 —— 「冻结」，它还可以将它自有的所有数据属性设置为只读，可以使用 Object.isFrozen() 来检测对象是否冻结
 
-### 序列化对象
+## 序列化对象
 
 对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。ECMAScript 5 提供了内置函数 JSON.stringify 和 JSON.parse() 用来序列化和还原 JavaScript 对象。这些方法都使用 JSON 作为数据交换格式，JSON的全称是「JavaScript Object Notation」—— JavaScript 对象表示法，正如其名，它的语法和 JavaScript 对象与数组直接量的语法非常相近
 
@@ -426,9 +424,9 @@ ECMAScript 3 环境中可以引用 [json2](https://github.com/douglascrockford/J
 
 JSON 语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值，函数、RegExp、Error 对象和 undefined 值不能序列化和不愿。JSON.stringify() **只能序列化对象可枚举的自有属性**，关于 JSON 对象更多 API 可以参考 [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
-### 对象方法
+## 对象方法
 
-#### toString() 方法
+### toString() 方法
 
 toString() 方法没有参数，在需要将对象转换为字符串的时候，JavaScript 都调用这个方法
 
@@ -437,14 +435,14 @@ var s = { x: 1, y: 1 }
 s.toString();       // => "[object Ojbect]"
 ```
 
-#### toLocaleString() 方法
+### toLocaleString() 方法
 
 返回一个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身操作，它仅调用 toString() 方法并返回值。Date 和 Number 类对 toString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换
 
-#### toJSON() 方法
+### toJSON() 方法
 
 Object.prototype 实际上不有定义 toJSON() 方法，但对于需要执行序列化的对象来说，JSON.stringify() 方法会调用 toJSON() 方法，如果存在则调用它，返回值即是序列化的结果，而不是原始对象，参见 [Date.toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON)
 
-#### valueOf() 方法
+### valueOf() 方法
 
 valueOf() 和 toString() 方法非常类似，但往往当 JavaScript 需要 **将对象转换为某种原始值而非字符串** 的时候才会用到它，尤其是转换为数字的时候。如果在需要使用原始值的上下文中使用了对象，JavaScript 就会自动调用这个方法，同样有些内置类自定义了 valueOf() 方法，比如 [Date.valueOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/valueOf)

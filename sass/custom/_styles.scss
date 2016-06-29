@@ -39,3 +39,44 @@ table {
         color: #000;
     }
 }
+
+// table of content
+.toc-fixed {
+  position: static;
+}
+
+@media only screen and (min-width: 750px) {
+  .toc-fixed {
+    top: 0;
+    position: fixed;
+  }
+}
+
+.sidebar .side-toc {
+  ol {
+    li:last-child {
+      border-bottom: none;
+      box-shadow: none;
+    }
+    margin: 0;
+  }
+  li {
+    padding-left: 1em;
+    position: relative;
+  }
+  a {
+    text-decoration: none;
+  }
+  .level-2 {
+    padding-left: 0;
+  }
+  .fold-toc {
+    position: absolute;
+    right: 0;
+    top: 0.5em;
+    cursor: pointer;
+    padding: 0 4px;
+    margin-left: 1em;
+    font-family: 'arial';
+  }
+}

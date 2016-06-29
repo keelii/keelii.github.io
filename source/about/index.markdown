@@ -13,7 +13,8 @@ Weibo/Zhihu/Github/Twitter: @keelii
 
 ### Portfolio
 
-[Simple Note](https://note.crazy4code.com/notes)
+* [Simple Note](https://note.crazy4code.com/notes)
+* [FE Player@zhihu](https://zhuanlan.zhihu.com/fe-player)
 
 ### Somthing
 

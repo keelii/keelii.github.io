@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Webdev | Something]]></title>
+  <link href="http://keelii.github.io/categories/webdev/atom.xml" rel="self"/>
+  <link href="http://keelii.github.io/"/>
+  <updated>2016-06-29T17:59:12+08:00</updated>
+  <id>http://keelii.github.io/</id>
+  <author>
+    <name><![CDATA[keelii]]></name>
+    <email><![CDATA[keeliizhou@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[免费 Https 证书（Let's Encrypt）申请与配置]]></title>
+    <link href="http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/"/>
+    <updated>2016-06-12T18:04:47+08:00</updated>
+    <id>http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install</id>
+    <content type="html"><![CDATA[<p>之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。</p>
+
+<!--more-->
+
+
+<h2>1. 下载 certbot</h2>
+
+<pre><code class="bash">git clone https://github.com/certbot/certbot
+cd certbot
+./certbot-auto --help
+</code></pre>
+
+<p>解压打开执行就会有相关提示</p>
+
+<h2>2. 生成免费证书</h2>
+
+<pre><code class="bash">./certbot-auto certonly --webroot --agree-tos -v -t --email 邮箱地址 -w 网站根目录 -d 网站域名
+./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
+</code></pre>
+
+<p><strong>注意</strong> 这里 默认会自动生成 /<strong>网站根目录</strong>/.well-known/acme-challenge，然后 shell 脚本会对应的访问 <strong>网站域名</strong>/.well-known/acme-challenge</p>
+
+<p>如果返回正常就确认了你对这个网站的所有权，就能顺利生成</p>
+
+<h2>3. 获取证书</h2>
+
+<p>如果上面的步骤正常 shell 脚本会展示如下信息：</p>
+
+<pre><code>- Congratulations! Your certificate and chain have been saved at
+/etc/letsencrypt/live/网站域名/fullchain.pem
+...
+</code></pre>
+
+<h2>4. 生成 dhparams</h2>
+
+<p>使用 openssl 工具生成 dhparams</p>
+
+<pre><code class="bash">openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048
+</code></pre>
+
+<h2>5. 配置 Nginx</h2>
+
+<p>打开 nginx server 配置文件加入如下设置：</p>
+
+<pre><code class="nginx">listen 443
+
+ssl on;
+ssl_certificate /etc/letsencrypt/live/网站域名/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/网站域名/privkey.pem;
+ssl_dhparam /etc/ssl/certs/dhparams.pem;
+ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+ssl_ciphers HIGH:!aNULL:!MD5;
+</code></pre>
+
+<p>然后重启 nginx 服务就可以了</p>
+
+<h2>6. 强制跳转 https</h2>
+
+<p>https 默认是监听 443 端口的，没开启 https 访问的话一般默认是 80 端口。如果你确定网站 80 端口上的站点都支持 https 的话加入下面的配件可以自动重定向到 https</p>
+
+<pre><code class="nginx">server {
+    listen 80;
+    server_name your.domain.com;
+    return 301 https://$server_name$request_uri;
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>可能是 Windows 下最漂亮的 Gvim 配置了 - Something</title>
+  <meta name="author" content="keelii">
+
+  
+  <meta name="description" content="一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim 不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/06/13/awsome-window-vimrc/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">可能是 Windows 下最漂亮的 Gvim 配置了</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-13T21:25:57+08:00'><span class='date'>06,13,2016</span> <span class='time'>9:25 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim</p>
+
+<p>不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^</p>
+
+<!--more-->
+
+
+<p>先说明下开发环境：</p>
+
+<ul>
+<li>ThinkPad T450 (公司标配)</li>
+<li>Windows 7 SP1 64bit 企业版</li>
+<li>编程语言 Javascript, HTML, CSS, NodeJS, Python</li>
+</ul>
+
+
+<h2>前言</h2>
+
+<p>本文旨在配置和使用 vim，并不适合太初级的 vim 用户，本文作者也不是 vim 死忠粉，经常混用 Webstrom 和 vim</p>
+
+<h2>开始</h2>
+
+<p>开始之前我们先看一眼 Windows 上安装 Gvim 的默认界面，我们将从这里开始一步步的学习和配置</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/458894/16011259/36c5df9e-31b7-11e6-8db5-ad09584ed39b.png"><img src="https://cloud.githubusercontent.com/assets/458894/16011259/36c5df9e-31b7-11e6-8db5-ad09584ed39b.png" alt="gvim-default" /></a></p>
+
+<h2>配置 _vimrc</h2>
+
+<p>由于 vimrc 里面会有很多的配置项，为了避免混乱，我大概按自己的使用习惯分成了几个小组：</p>
+
+<ul>
+<li>Startup         - 编辑器启动时需要添加的一些配置</li>
+<li>General         - 通用配置</li>
+<li>Lang &amp; Encoding - 语言和编码</li>
+<li>GUI             - 界面</li>
+<li>Format          - 基本的代码格式</li>
+<li>Keymap          - 通用的快捷键</li>
+<li>Plugin          - 插件相关（包括和当前插件相关的配置和快捷键等）</li>
+<li>Function        - vimrc 里面用到的常用方法</li>
+</ul>
+
+
+<h3>Startup</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; Startup {{{</span>
+</span><span class='line'><span class="k">filetype</span> indent plugin <span class="k">on</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; vim 文件折叠方式为 marker</span>
+</span><span class='line'>augroup ft_vim
+</span><span class='line'>    <span class="k">au</span><span class="p">!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">au</span> <span class="nb">FileType</span> <span class="k">vim</span> <span class="k">setlocal</span> <span class="nb">foldmethod</span><span class="p">=</span>marker
+</span><span class='line'>augroup END
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>设置 vim 相关文件打开后默认折叠方式为 marker，约定俗成的用三个花括号注释包裹起来，这样在你打开配置文件的时候 vim 就会帮你折叠起来，配置文件看起来就简洁多了，如图:</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png"><img src="https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png" alt="vim-fold-config" /></a></p>
+
+<h3>General</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; General {{{</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">nocompatible</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">nobackup</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">noswapfile</span>
+</span><span class='line'><span class="k">set</span> <span class="k">history</span><span class="p">=</span><span class="m">1024</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">autochdir</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">whichwrap</span><span class="p">=</span><span class="k">b</span><span class="p">,</span><span class="k">s</span><span class="p">,&lt;,&gt;,</span>[<span class="p">,</span>]
+</span><span class='line'><span class="k">set</span> <span class="nb">nobomb</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span>indent<span class="p">,</span><span class="nb">eol</span><span class="p">,</span><span class="k">start</span> <span class="nb">whichwrap</span><span class="p">+=&lt;,&gt;,</span>[<span class="p">,</span>]
+</span><span class='line'><span class="c">&quot; Vim 的默认寄存器和系统剪贴板共享</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">clipboard</span><span class="p">+=</span>unnamed
+</span><span class='line'><span class="c">&quot; 设置 alt 键不映射到菜单栏</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">winaltkeys</span><span class="p">=</span>no
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>基本上一眼就能看出来这是些啥玩意，不过后面两项目我个人感觉比较好用：</p>
+
+<p>clipboard+=unnamed 比如你在其它地方 copy 了一段文字回到 vim 里面可以粘贴进来</p>
+
+<p>winaltkeys=no 一般 windows 下应用程序的 alt 是用来定位菜单栏目的快捷键，我们需要禁用它，因为我们后面很多设置都需要使用 alt，需要使用 alt 来定位菜单的情况很少</p>
+
+<h3>Lang &amp; Encoding</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; Lang &amp; Encoding {{{</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">fileencodings</span><span class="p">=</span>utf<span class="m">-8</span><span class="p">,</span>gbk2312<span class="p">,</span>gbk<span class="p">,</span>gb18030<span class="p">,</span>cp936
+</span><span class='line'><span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">langmenu</span><span class="p">=</span>zh_CN
+</span><span class='line'><span class="k">let</span> $LANG <span class="p">=</span> <span class="s1">&#39;en_US.UTF-8&#39;</span>
+</span><span class='line'><span class="c">&quot;language messages zh_CN.UTF-8</span>
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>vim 里面设置编码的地方很多，上面这些配置可以保证不会出现乱码，像文件菜单、vim默认语言建议设置成 en_US</p>
+
+<h3>GUI</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; GUI {{{</span>
+</span><span class='line'><span class="k">colorscheme</span> Tomorrow<span class="p">-</span>Night
+</span><span class='line'>
+</span><span class='line'>source $VIMRUNTIME/delmenu.<span class="k">vim</span>
+</span><span class='line'>source $VIMRUNTIME/menu.<span class="k">vim</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">cursorline</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">hlsearch</span>
+</span><span class='line'><span class="k">set</span> <span class="k">number</span>
+</span><span class='line'><span class="c">&quot; 窗口大小</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">lines</span><span class="p">=</span><span class="m">35</span> <span class="nb">columns</span><span class="p">=</span><span class="m">140</span>
+</span><span class='line'><span class="c">&quot; 分割出来的窗口位于当前窗口下边/右边</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">splitbelow</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">splitright</span>
+</span><span class='line'><span class="c">&quot;不显示工具/菜单栏</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span>T
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span><span class="k">m</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span>L
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span><span class="k">r</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span><span class="k">b</span>
+</span><span class='line'><span class="c">&quot; 使用内置 tab 样式而不是 gui</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">guioptions</span><span class="p">-=</span><span class="k">e</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">nolist</span>
+</span><span class='line'><span class="c">&quot; set listchars=tab:▶\ ,eol:¬,trail:·,extends:&gt;,precedes:&lt;</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">guifont</span><span class="p">=</span>Inconsolata:h12:cANSI
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>编辑器配色建议使用 Tomorrow-Night，下载文件 copy 到 colors 目录即可</p>
+
+<p>从上面的设置可以看出来，为了得到一个简洁漂亮的界面，我们去掉了菜单栏、各种滚动条、使用 vim 内置 tab 而不是 gvim 系统的 tab 样式，注意很多开发者喜欢显示不可见字符，比如：tab 制表符、换行符号、尾空格等。</p>
+
+<p>我自己并不喜欢这样，因为这样只会使界面看起来更零乱，尤其是某插件纵向标尺</p>
+
+<p>字体方面个人推荐 Inconsolata 这个在我看来是 Windows 平台最漂亮的等宽字体了</p>
+
+<p>此时你的编辑器应该好看了很多：</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/458894/16011263/373facd4-31b7-11e6-8311-9b0c09d2425f.png"><img src="https://cloud.githubusercontent.com/assets/458894/16011263/373facd4-31b7-11e6-8311-9b0c09d2425f.png" alt="more-beauty-vim" /></a></p>
+
+<h3>Format</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; Format {{{</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">autoindent</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">smartindent</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">expandtab</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">softtabstop</span><span class="p">=</span><span class="m">4</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">foldmethod</span><span class="p">=</span>indent
+</span><span class='line'><span class="nb">syntax</span> <span class="k">on</span>
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个设置容易引起争议，我自己是这么个设置，大家按个人喜好就行了，反正我是不建议使用 tab 的，对代码格式有强迫症的人一般都会设置 foldmethod=indent</p>
+
+<h3>Keymap</h3>
+
+<p>可以说快捷键是每个编辑器必备的功能，科学的设置快捷键能很大程度的提高效率。快捷键的设置要遵循一个规则：尽量不要修改系统默认配置的快捷键，非要设置的话选择好相应的模式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; Keymap {{{</span>
+</span><span class='line'><span class="k">let</span> mapleader<span class="p">=</span><span class="s2">&quot;,&quot;</span>
+</span><span class='line'>
+</span><span class='line'>nmap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">s</span> :source $VIM/_vimrc<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>nmap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">e</span> :<span class="k">e</span> $VIM/_vimrc<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">tn</span> :<span class="k">tabnew</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">tc</span> :<span class="k">tabclose</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">th</span> :<span class="k">tabp</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">tl</span> :<span class="k">tabn</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 移动分割窗口</span>
+</span><span class='line'>nmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">j</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span><span class="k">j</span>
+</span><span class='line'>nmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">k</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span><span class="k">k</span>
+</span><span class='line'>nmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span><span class="k">h</span>
+</span><span class='line'>nmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span><span class="k">l</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 正常模式下 alt+j,k,h,l 调整分割窗口大小</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">j</span><span class="p">&gt;</span> :<span class="k">resize</span> <span class="p">+</span><span class="m">5</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">k</span><span class="p">&gt;</span> :<span class="k">resize</span> <span class="m">-5</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span> :<span class="k">vertical</span> <span class="k">resize</span> <span class="m">-5</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> :<span class="k">vertical</span> <span class="k">resize</span> <span class="p">+</span><span class="m">5</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 插入模式移动光标 alt + 方向键</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">j</span><span class="p">&gt;</span> <span class="p">&lt;</span>Down<span class="p">&gt;</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">k</span><span class="p">&gt;</span> <span class="p">&lt;</span>Up<span class="p">&gt;</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="k">left</span><span class="p">&gt;</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>M<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> <span class="p">&lt;</span>Right<span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; IDE like delete</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>BS<span class="p">&gt;</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span>bdei
+</span><span class='line'>
+</span><span class='line'><span class="nb">nnoremap</span> vv ^vg_
+</span><span class='line'><span class="c">&quot; 转换当前行为大写</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span> <span class="p">&lt;</span>esc<span class="p">&gt;</span>mzgUiw`za
+</span><span class='line'><span class="c">&quot; 命令模式下的行首尾</span>
+</span><span class='line'>cnoremap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">a</span><span class="p">&gt;</span> <span class="p">&lt;</span>home<span class="p">&gt;</span>
+</span><span class='line'>cnoremap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">e</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="k">end</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>F2<span class="p">&gt;</span> :<span class="k">setlocal</span> <span class="k">number</span><span class="p">!&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">w</span> :<span class="k">set</span> <span class="nb">wrap</span><span class="p">!&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>imap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">v</span><span class="p">&gt;</span> <span class="c">&quot;+gP</span>
+</span><span class='line'>vmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">c</span><span class="p">&gt;</span> <span class="c">&quot;+y</span>
+</span><span class='line'><span class="nb">vnoremap</span> <span class="p">&lt;</span>BS<span class="p">&gt;</span> <span class="k">d</span>
+</span><span class='line'><span class="nb">vnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>C<span class="p">&gt;</span> <span class="c">&quot;+y</span>
+</span><span class='line'><span class="nb">vnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>Insert<span class="p">&gt;</span> <span class="c">&quot;+y</span>
+</span><span class='line'>imap <span class="p">&lt;</span>C<span class="p">-</span>V<span class="p">&gt;</span>     <span class="c">&quot;+gP</span>
+</span><span class='line'>map <span class="p">&lt;</span>S<span class="p">-</span>Insert<span class="p">&gt;</span>     <span class="c">&quot;+gP</span>
+</span><span class='line'>cmap <span class="p">&lt;</span>C<span class="p">-</span>V<span class="p">&gt;</span>     <span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;+</span>
+</span><span class='line'>cmap <span class="p">&lt;</span>S<span class="p">-</span>Insert<span class="p">&gt;</span>        <span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;+</span>
+</span><span class='line'>
+</span><span class='line'>exe <span class="s1">&#39;inoremap &lt;script&gt; &lt;C-V&gt;&#39;</span> <span class="nb">paste</span>#paste_cmd[<span class="s1">&#39;i&#39;</span>]
+</span><span class='line'>exe <span class="s1">&#39;vnoremap &lt;script&gt; &lt;C-V&gt;&#39;</span> <span class="nb">paste</span>#paste_cmd[<span class="s1">&#39;v&#39;</span>]
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 打开当前目录 windows</span>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">ex</span> :<span class="p">!</span><span class="k">start</span> explorer %:<span class="k">p</span>:<span class="k">h</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 打开当前目录CMD</span>
+</span><span class='line'>map <span class="p">&lt;</span>leader<span class="p">&gt;</span>cmd :<span class="p">!</span><span class="k">start</span><span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</span><span class='line'><span class="c">&quot; 打印当前时间</span>
+</span><span class='line'>map <span class="p">&lt;</span>F3<span class="p">&gt;</span> <span class="k">a</span><span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;=</span>strftime<span class="p">(</span><span class="s2">&quot;%Y-%m-%d %a %I:%M %p&quot;</span><span class="p">)&lt;</span>CR<span class="p">&gt;&lt;</span>Esc<span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 复制当前文件/路径到剪贴板</span>
+</span><span class='line'>nmap <span class="p">,</span>fn :<span class="k">let</span> @*<span class="p">=</span>substitute<span class="p">(</span>expand<span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">),</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;\\&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'>nmap <span class="p">,</span><span class="nb">fp</span> :<span class="k">let</span> @*<span class="p">=</span>substitute<span class="p">(</span>expand<span class="p">(</span><span class="s2">&quot;%:p&quot;</span><span class="p">),</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;\\&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; 设置切换Buffer快捷键&quot;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">left</span><span class="p">&gt;</span> :<span class="k">bn</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'><span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">right</span><span class="p">&gt;</span> :<span class="k">bp</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首页我们设置了 leaderkey 为逗号「,」，不要问为什么约定的就是它。别设置成空格就行了</p>
+
+<p>注意「,e」和「,s」分别用编辑配置文件，刷新配置文件，后面的路径要按你自己的情况去写，我默认使用了 vim 安装目录里面的 vimrc</p>
+
+<p>分屏编辑操作的时候经常要在不同的屏之间跳来跳去 「Ctrl + vim方向」设置跳转方便顺滑的切换，顺便说下我个人的习惯是在当前tab下编辑一个项目的文件，如果要临时维护其它项目就新开tab，每个tab单独编辑一个项目文件</p>
+
+<p>后面还设置了一些和 Windows 默认编辑操作兼容的快捷键，比如：复制，粘贴</p>
+
+<p>注意有个细节，因为 vim 里面多行操作快捷键是 Ctrl + v 和 windows 粘贴冲突了，一个机智的做法是仅仅在 vim 插件模式设置 Ctrl 为粘贴，正常模式 Ctril + v 进入多选模式，两全其美</p>
+
+<p>插入模式下要移动光标 还得 ESC 一下进入插入模式，这样太麻烦了，使用 「alt + vim方向」就简单多了</p>
+
+<h3>Plugin</h3>
+
+<p>插件方面根据我自己的工作内容和个人喜好，选择了以下几个，全部使用 vundle 来管理：</p>
+
+<ul>
+<li>NERDTree</li>
+<li>Vim-multiple-cursors</li>
+<li>Tabular</li>
+<li>Airline</li>
+<li>Ctrlp</li>
+<li>NERDCommenter</li>
+<li>Emmet</li>
+<li>SnipMate</li>
+<li>Fugitive</li>
+<li>Neocomplete</li>
+</ul>
+
+
+<p>具体配置我就不帖代码了，可以上git上参观，下面大概解释下每个插件的用途</p>
+
+<h4>NERDTree</h4>
+
+<p>文件目录树管理，我一般设置成打开 vim 就启动</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> exists<span class="p">(</span><span class="s1">&#39;g:NERDTreeWinPos&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">autocmd</span> vimenter * NERDTree D:\repo
+</span><span class='line'><span class="k">endif</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Vim-multiple-cursors</h4>
+
+<p>类似 sublime 多选，进入 visual 模式选择文本 <code>Ctrl+shif+n</code> 即可一直选择下一个匹配文本</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/458894/16074299/684f368a-331c-11e6-86f0-d2a860d6416a.gif" alt="mul-cur" /></p>
+
+<h4>Tabular</h4>
+
+<p>对齐插件，文章末尾 gif 图里面有展示，visual 模式下选择要对齐的多行文本，进入命令模式 <code>:Tabularize /对齐符号&lt;cr&gt;</code></p>
+
+<h4>Airline</h4>
+
+<p>状态栏美化插件，准备弃用了</p>
+
+<h4>Ctrlp</h4>
+
+<p>类似IDE里面的最近打开的文件，用于快速定位文件/Buffer</p>
+
+<h4>NERDCommenter</h4>
+
+<p>注释插件，默认是快捷键是 \&lt;leader> c \&lt;SPACE></p>
+
+<h4>Emmet</h4>
+
+<p>用来快速写 HTML</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/458894/16074297/684c9196-331c-11e6-95de-56951d43c5b2.gif" alt="emmet" /></p>
+
+<h4>SnipMate</h4>
+
+<p>代码片段管理, 这个插件很早之前的那个版本不维护了，现在最新版的非常强大，不过有另外两个依赖，默认是没有任何内置的 snippet 的，如果需要样版，可以安装 <a href="https://github.com/honza/vim-snippets">这个插件</a> 需要自定义的话手动更改 snippets 目录下的文件即可（其实就是个git仓库，你可以换成自己的）</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/458894/16074298/684d7cd2-331c-11e6-8c61-83dabbc4849e.gif" alt="snipmate" /></p>
+
+<h4>Fugitive</h4>
+
+<p>Git 命令增强工具，在 vim 使用 git，状态栏的分类名称就是调用的这个插件的方法 <code>fugitive#head()</code></p>
+
+<h4>Neocomplete</h4>
+
+<p>自动补全插件，这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，<a href="https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/">下篇文章</a> 我将记录下自己在 Windows 上编译安装的过程</p>
+
+<p>什么？你说为啥不装 YouCompleteMe，官方作者都不支持的插件就别折腾了吧，Neocomplete 这个实例插件对于我的情况来说已经够用了</p>
+
+<h3>Function</h3>
+
+<p>常用方法这里我只有一个，移除尾空格</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; Function {{{</span>
+</span><span class='line'><span class="c">&quot; Remove trailing whitespace when writing a buffer, but not for diff files.</span>
+</span><span class='line'><span class="c">&quot; From: Vigil</span>
+</span><span class='line'><span class="c">&quot; @see http://blog.bs2.to/post/EdwardLee/17961</span>
+</span><span class='line'><span class="k">function</span><span class="p">!</span> RemoveTrailingWhitespace<span class="p">()</span>
+</span><span class='line'>    <span class="k">if</span> &amp;<span class="nb">ft</span> <span class="p">!=</span> <span class="s2">&quot;diff&quot;</span>
+</span><span class='line'>        <span class="k">let</span> <span class="k">b</span>:curcol <span class="p">=</span> <span class="k">col</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">let</span> <span class="k">b</span>:curline <span class="p">=</span> line<span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">silent</span><span class="p">!</span> %<span class="k">s</span><span class="sr">/\s\+$/</span>/
+</span><span class='line'>        <span class="k">silent</span><span class="p">!</span> %<span class="k">s</span><span class="sr">/\(\s*\n\)\+\%$/</span>/
+</span><span class='line'>        <span class="k">call</span> cursor<span class="p">(</span><span class="k">b</span>:curline<span class="p">,</span> <span class="k">b</span>:curcol<span class="p">)</span>
+</span><span class='line'>    <span class="k">endif</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span><span class='line'><span class="k">autocmd</span> <span class="nb">BufWritePre</span> * <span class="k">call</span> RemoveTrailingWhitespace<span class="p">()</span>
+</span><span class='line'><span class="c">&quot; }}}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>No picture U say a &hellip; ?</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/458894/16011262/373cd644-31b7-11e6-8a62-f03f32cf5167.png"><img src="https://cloud.githubusercontent.com/assets/458894/16011262/373cd644-31b7-11e6-8a62-f03f32cf5167.png" alt="complete-vimrc" /></a></p>
+
+<p>这个是动图，不动戳大</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/458894/16011260/372e0722-31b7-11e6-887a-226747eec42f.gif"><img src="https://cloud.githubusercontent.com/assets/458894/16011260/372e0722-31b7-11e6-887a-226747eec42f.gif" alt="gif-show-vim" /></a></p>
+
+<h2>结语</h2>
+
+<p>还有一点没说明，vimrc 里面的一些 windows 独有的设置我并没有加一些判断来兼容其它平台，这个是个人喜好而已，我会单独分开维护不同平台的配置文件，而不是全部放在一起各种逻辑判断</p>
+
+<h2>引用</h2>
+
+<p><a href="https://gist.github.com/keelii/1aab5f9aa5b47afa651c7fc84b8e9875">完整配置文件</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-06-13T21:25:57+08:00'><span class='date'>06,13,2016</span> <span class='time'>9:25 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/editor/'>editor</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/13/awsome-window-vimrc/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/13/awsome-window-vimrc/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/06/12/free-https-cert-lets-encrypt-apply-install/" title="Previous Post: 免费 https 证书（Let's Encrypt）申请与配置">&laquo; 免费 https 证书（Let's Encrypt）申请与配置</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/06/14/compile-vim-on-windows-with-lua-support/" title="Next Post: Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持">Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+
+
+
+<!--TOC-->
+<script src="/javascripts/post.js"></script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/06/13/awsome-window-vimrc/';
+        var disqus_url = 'http://keelii.github.io/2016/06/13/awsome-window-vimrc/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+-->
+
+
+</body>
+</html>

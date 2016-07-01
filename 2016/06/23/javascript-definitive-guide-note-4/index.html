@@ -1,0 +1,762 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《JavaScript 权威指南》读书笔记 5 - 语句 - Something</title>
+  <meta name="author" content="keelii">
+
+  
+  <meta name="description" content="表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生 表达式语句 赋值语句、递增/减运算、delete 运算符删除对象属性、函数调用都是表达式语句 1
+2 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 5 - 语句</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生</p>
+
+<!--more-->
+
+
+<h2>表达式语句</h2>
+
+<p>赋值语句、递增/减运算、delete 运算符删除对象属性、函数调用都是表达式语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">gretting</span> <span class="o">=</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'><span class="nx">i</span> <span class="o">*=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="k">delete</span> <span class="nx">o</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span>
+</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span><span class='line'><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+</span><span class='line'><span class="nx">cs</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>复合语句和空语句</h2>
+
+<p>逗号运算符将几个表达式连接在一起形成一个表达式，同样，JavaScript 中还可以将多条语句联合在一起，形成一条复合语句（compound statement）。只须用花括号括起来即可，下面几行代码就可以当成一条单独语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">cx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;cos(x) = &quot;</span> <span class="nx">cx</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要注意的两点：</p>
+
+<ul>
+<li>语句块的结尾不需要分号。块中的原始语句 <strong>必须</strong> 以分号结束</li>
+<li>语句块中的行缩进不是必须的，但是合理的缩进更容易理解</li>
+<li>语句块并没有块级作用域名，语句块中声明的变量不是语句块私有的</li>
+</ul>
+
+
+<p>空语句（empty statement）允许包含 0 条语句，空语句在初化一个数组时偶尔会用到</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+</span><span class='line'><span class="nx">a</span>                                           <span class="c1">// =&gt; [undefined,,,,undefined]</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>     <span class="c1">// 初始化一个数组，注意末尾的分号不能少</span>
+</span><span class='line'><span class="nx">a</span>                                           <span class="c1">// =&gt; [0,,,0]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个循环中，所有操作都在表达式 a[i++]=0 中完成，这里并不需要任何循环体。然而 JavaScript 需要循环体中 <strong>至少包含一条语句</strong>，因此，这里只使用了一个单独的分号来表示一条空语句</p>
+
+<h2>声明语句</h2>
+
+<p>var 和 function 都是声明语句，声明语句本身什么也不做，只用来更好地组织代码的语义</p>
+
+<h3>var</h3>
+
+<p>var 语句用来声明一个或者多个变量，用法如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">name_1</span> <span class="p">[</span><span class="o">=</span> <span class="nx">value_1</span><span class="p">]</span> <span class="p">[,...,</span> <span class="nx">name_n</span> <span class="p">[</span><span class="o">=</span> <span class="nx">value_n</span><span class="p">]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 var 语句出现在函数体内，那么它定义的是一个 <strong>局部变量</strong>，其作用域就是这个函数，如果在顶层代码中使用 var 语句，它声明的是 <strong>全局变量</strong>，整个程序中都是可用的</p>
+
+<p>全局变量是全局对象的属性。然而通过 var 声明的全局变量 <strong>无法</strong> 通过 delete 删除</p>
+
+<p>如果 var 语句中的变量没有指定初始化表达式，那么这个变量的值初始为 undefined</p>
+
+<h3>function</h3>
+
+<p>函数声明的语句的语法如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">fun_name</span><span class="p">([</span><span class="nx">arg1</span> <span class="p">[,</span> <span class="nx">arg2</span> <span class="p">[...,</span> <span class="nx">argn</span><span class="p">]]])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statements</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="p">};</span>        <span class="c1">// 通过 var 声明函数</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>条件语句</h2>
+
+<h3>if</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这种形式中，需要计算 expression 的值，如果结果是真值，那么就执行 statement</p>
+
+<p>为了避免歧义，建议 <strong>总是</strong> 给 if 语句添加花括号</p>
+
+<h3>else if</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>switch</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">switch</span><span class="p">(</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>循环</h2>
+
+<h3>while</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">count</span><span class="o">++</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>do/while</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">printArray</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">Empty</span> <span class="nb">Array</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">do</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="o">++</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>for</h3>
+
+<p>for 循环的 <strong>执行顺序</strong> 是：</p>
+
+<ol>
+<li>initialize</li>
+<li>test 条件为真</li>
+<li>statement</li>
+<li>increment</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">initialize</span><span class="p">;</span> <span class="nx">test</span><span class="p">;</span> <span class="nx">increment</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>多数情况下与之等价的 while 循环写法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">initialize</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'>    <span class="nx">increment</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>for/in</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">variable</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>variable 通常是一个变量名（也可以是个表达式），也可以是一个可以产生左值的表达式或者一个通过 var 语句声明的变量，总之必须是一个适用于赋值表达式左侧的值。object 是一个 <strong>表达式</strong>，这个表达式计算结果是一个对象</p>
+
+<p>在执行 for/in 语句的过程中，JavaScript 解释器首先计算 object 表达式。如果表达式为 null 或者 undefined，解释器将会跳过循环并执行后续代码（ECMAScript 3 可能会抛出一个类型错误异常）。如果表达式等于一个原始值，这个原始值将会转换为与之对应的 <a href="/2016/06/16/javascript-definitive-guide-note-2/">包装对象</a>（wrapper object）否则，expression 本身已经是对象了。JavaScript 会依次遍历 <strong>可枚举</strong> 的对象属性来执行循环体语句</p>
+
+<p>for/in 循环并不会遍历对象的所有属性，只有「可枚举」（emumerable）的属性才会遍历到。JavaScript 语言核心所定义的内置方法就 <strong>不是</strong>「可枚举的」，比如，所有对象都有方法 toString()，但 for/in 循环并不枚举 toString 这个属性，还有很多内置属性也是不可枚举的（nonenumerable）。而代码中定义的所有属性和方法都是可枚举的</p>
+
+<p><strong>属性枚举的顺序</strong></p>
+
+<p>ECMAScript 规范并没有指定 for/in 循环按照何种顺序来枚举对象属性。但实际上，主流浏览器厂商的 JavaScript 实现是按照 <strong>属性定义的先后顺序</strong> 来枚举简单对象的属性</p>
+
+<h2>跳转</h2>
+
+<p>JavaScript 中另一类语句是跳转语句（jump statement）。通常有 break, continue, return, throw</p>
+
+<h3>标签语句</h3>
+
+<p>语句是可以添加标签的，标签由语句前的标识符和冒号组成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">indetifier</span><span class="o">:</span> <span class="nx">statement</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>标识符必须是一个合法的 JavaScript 标识符</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">mainloop</span><span class="o">:</span> <span class="k">while</span><span class="p">(</span><span class="nx">token</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// statement</span>
+</span><span class='line'>    <span class="k">continue</span> <span class="nx">mainloop</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>break 语句</h3>
+
+<p>单独使用 break 语句的作用是立即退出最内层的 <strong>循环</strong> 或者 <strong>switch 语句</strong>，break 关键字后面也可以跟一个语句标签，当 break 和标签一块使用时，程序将跳转到这个标签所标识的语句块的结束</p>
+
+<p><strong>不管 break 语句带不带标签，它的控制权都无法超过函数的边界</strong></p>
+
+<h3>continue 语句</h3>
+
+<p>类似于 break，但是它不退出循环，而是转而执行下一次循环。continue 语句只能在循环体内使用，其它地方使用会报错</p>
+
+<p>在不同类型的循环中，continue 的行为也是有所区别：</p>
+
+<ul>
+<li>在 while 循环中，在循环开始处指定的 expression 会重复检测，如果检测结果为 true，循环休会从头开始执行</li>
+<li>在 do/while 循环中，程序的执行直接跳到循环结尾处，这里会重新判断循环条件，之后才会继续下一次循环</li>
+<li>在 for 循环中，首先计算自增表达式，然后再次检测 test 表达式，用以判断是否执行循环体</li>
+<li>在 for/in 循环中，循环开始遍历下一个属性名，这个属性名赋给了指定的变量</li>
+</ul>
+
+
+<p>需要注意的是 continue 语句在 while 和 for 循环中的区别，while 循环直接进入一下轮的循环条件判断，但 for 循环首先计算其 increment 表达式，然后判断循环条件，所以 for 循环并不能完全等价模拟出 while 循环</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// while 语句中的写法会造成死循环，for 语句则不会</span>
+</span><span class='line'><span class="c1">// for 语句中的 increment 表达式总是会执行到</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>return 语句</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">return</span> <span class="nx">expression</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>return 语句 <strong>只能</strong> 出现在函数体内，如果不是的话会报语法错误。当执行到 return 语句的时候，函数终止执行，并返回 expression 的值给调用程序，例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="nx">square</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c1">// =&gt; 4</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>return 可以单独使用而不必带有 expression，这样的话函数会向调用程序返回 undefined</p>
+
+<h3>throw 语句</h3>
+
+<p>所谓异常（exception）是当发生了落地生根异常情况或错误时产生的一个信号。抛出异常（throw exception），就是用信号通知发生错误或者异常头部。捕获（catch）异常是指处理这个信号，即采取必要的手段从异常中恢复</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">throw</span> <span class="nx">expression</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>expression 的值可以是任意类型的。当 JavaScript 解释器抛出异常的时候通常采用 Error 类型和其子类型</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">factorial</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 如果输出参数是非法的，则抛出一个异常</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;x 不能是负数&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">f</span><span class="o">*=</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">x</span><span class="o">--</span><span class="p">)</span> <span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">f</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当异常招聘时，JavaScript 解释器会 <strong>立即停止</strong> 当前正在执行的逻辑，并跳转到 <strong>就近的</strong> 异常处理程序。异常钼是程序是用 try/catch/finally 语句的 catch 从句编写的，JavaScript 会沿着方法的词法结构和调用栈向上传播</p>
+
+<h3>try/catch/finally 语句</h3>
+
+<p>try 从句定义了需要处理的异常所有代码块。catch 从句跟在其后，当 try 块内某处发生了异常时，调用 catch 内的代码逻辑。catch 从句后跟随 finally 块，后者中放置清理代码，不管 try 块中是否产生异常，finally 块内的逻辑总是会执行。尽管 catch 和 finally 都是可先的，但 try 从句需要至少二者之一（catch/finally）与之组成完整的语句。</p>
+
+<p>try, catch 和 finally 语句块都 <strong>必须</strong> 使用花括号括起来，即使只有一条语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 通常来讲，这里的代码会从头执行到尾而不会产生任何问题，</span>
+</span><span class='line'>    <span class="c1">// 但有时会招聘一个异常，要么是由 throw 语句直接抛出，要</span>
+</span><span class='line'>    <span class="c1">// 么是通过调用一个方法间接抛出异常</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 当且仅当 try 语句块抛出了异常，才会执行这里的代码</span>
+</span><span class='line'>    <span class="c1">// 这里可以通过局部变量 e 来警告对 Error 对象或者抛出的其他值的引用</span>
+</span><span class='line'>    <span class="c1">// 还可以通过 throw 语句重新抛出异常</span>
+</span><span class='line'><span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 不管 try 语句是否抛出了异常，这里的逻辑总是会执行，终止 try 语句块的方式有：</span>
+</span><span class='line'>    <span class="c1">// 1. 正常终止，执行完语句块的最后一条语句</span>
+</span><span class='line'>    <span class="c1">// 2. 通过 break, continue 或 return 语句终止</span>
+</span><span class='line'>    <span class="c1">// 3. 抛出一个异常，异常被 catch 从句捕获</span>
+</span><span class='line'>    <span class="c1">// 4. 抛出一个异常，异常未被捕获，继续向上传播</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一般来说 JavaScript 使用 try/catch 语句的时候很少使用 finally。通常在一些后端语言 IO 操作中使用 finally 的比较多，比如打开一个文件，出现异常或者正常执行完 try 从句都需要关闭文件句柄</p>
+
+<h2>其它语句类型</h2>
+
+<p>with, debugger 和 use strict</p>
+
+<h3>with 语句</h3>
+
+<p>with 语句用于临时扩展作用域链，语法如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">with</span> <span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这条语句将 object 添加到 <strong>作用域链的头部</strong>，然后执行 statement，最后把作用域链恢复到原始状态</p>
+
+<p>严格模式中是禁止使用 with 语句的，并且在非严格模式里也是 <strong>不推荐</strong> 使用 with 语句的。使用 with 语句的 JavaScript 代码非常难于优化，并且和没有使用 width 语句的代码相比，运行更慢</p>
+
+<p>在对象嵌套层次很深的时候通常会使用 with 语句来简化代码编写。比如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">address</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+</span><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+</span><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">job</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 等价于</span>
+</span><span class='line'><span class="kd">with</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">address</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+</span><span class='line'>    <span class="nx">name</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+</span><span class='line'>    <span class="nx">job</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 使用 with 语句减少了对象访问前缀，但是仍然可以不使用 with 解决这个问题</span>
+</span><span class='line'><span class="c1">// 使用变量 f 缓存对象引用</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="nx">f</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+</span><span class='line'><span class="nx">f</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+</span><span class='line'><span class="nx">f</span><span class="p">.</span><span class="nx">job</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>只有在查找标识符的时候才会用到作用域链，创建新的变量的时候不使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">with</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>   <span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>   <span class="nx">d</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">d</span>           <span class="c1">// =&gt; 1</span>
+</span><span class='line'><span class="nx">o</span>           <span class="c1">// =&gt; {a: 2, b: 2, c: 3}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>debugger 语句</h3>
+
+<p>debugger 语句通常什么也不做。当调试程序可用并运行的时候，JavaScript 解释器将会（非必需）以调试模式运行。这条语句用来产生一个断点（breakpoint），JavaScript 代码的挂靠会停止在断点的位置，这时可以使用调试器转出当前的变量、调用栈等</p>
+
+<p>ECMAScript 5 中，debugger 语句正式加入到了语言规范里，在此之前注流浏览器厂商基本都已经实惠过了</p>
+
+<h3>&lsquo;use strict&rsquo;</h3>
+
+<p>&lsquo;use strict&rsquo; 是 ECMAScript 5 引入的一条指定。非常类似语句但不是，区别在于：</p>
+
+<ul>
+<li>它 <strong>不包含</strong>任何语言的关键字，指令仅仅是一个包含一个特殊字符串直接量的表达式，它是一条没有副作用的表达式语句，什么也没做</li>
+<li>它只能出现在脚本代码的开始或者函数体的开始、任何实体语句之前。但不必一定出现在脚本或者函数休内的首行</li>
+</ul>
+
+
+<p>使用 &lsquo;use strict&rsquo; 指令的目的是说明（脚本或函数中）后续的代码将会解析为严格代码</p>
+
+<p>严格代码以 <strong>严格模式</strong> 执行，严格模式悠了语言的重要缺陷，并提供健壮的查氏功能和增强的安全机制，和非严格模式的区别如下：</p>
+
+<ul>
+<li>严格模式中 <strong>禁止</strong> 使用 width 语句</li>
+<li>严格模式中，所有的变量都要先声明，如果给一个未声明的变量、函数、函数参数、catch 从句参数或全局对象的属性赋值，将会抛出一个引用错误异常</li>
+<li>严格模式中，调用的函数（不是方法）中的一个 this 值是 undefined（非严格模式下 this 值总是全局对象），可以利用这个特性来判断当前的 JavaScript 是否支持严格模式 <code>var hasStrictMode = (function() { "use strict"; return this === undefined }())</code></li>
+<li>严格模式中，给只读属性赋值和给不可扩展的对象创建新成员都将抛出一个类型错误异常（非严格模式中不会报错）</li>
+<li>严格模式中，传入 eval() 的代码不能在调用程序所在的上下文中声明变量或定义函数，非严格模式中可以</li>
+<li>严格模式中，函数里的 arguments 对象拥有传入函数值的 <strong>静态副本</strong>。非严格模式下，arguments 里的数组元素和函数参数都指向同一个值的引用</li>
+<li>严格模式中，当 delete 运算符后跟随非法的标识符（变量、函数、当函数参数）时，将会抛出一个语法错误异常</li>
+<li>严格模式中试图删除一个 <strong>不可配置</strong> 的属性将抛出一个类型错误异常（非严格模式中，返回 false）</li>
+<li>严格模式中，一个对象直接量中定义两个或多个 <strong>同名属性</strong> 将产生一个语法错误</li>
+<li>严格模式中，函数声明中存在两个或多个同名参数将产生一个语法错误</li>
+<li>严格模式中，<strong>不允许使用八进制</strong> 整数直接量（以 0 为前缀）</li>
+<li>严格模式中，标识符 eval 和 arguments 当做关键字，它们的值是不能更改的，不能给它们赋值，也不能把它们声明为变量、函数名</li>
+<li>严格模式中，限制了对调用栈的检测能力，在严格模式的函数中，arguments.caller 和 arguments.callee 都会抛出一个类型错误异常</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/06/20/javascript-definitive-guide-note-3/" title="Previous Post: 《JavaScript 权威指南》读书笔记 4 - 表达式和运算符">&laquo; 《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/06/23/javascript-definitive-guide-note-5/" title="Next Post: 《JavaScript 权威指南》读书笔记 6 - 对象">《JavaScript 权威指南》读书笔记 6 - 对象 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+
+
+
+<!--TOC-->
+<script src="/javascripts/post.js"></script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/';
+        var disqus_url = 'http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+-->
+
+
+</body>
+</html>

@@ -1,0 +1,936 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《JavaScript 权威指南》读书笔记 7 - 数组 - Something</title>
+  <meta name="author" content="keelii">
+
+  
+  <meta name="description" content="数组是值的 有序集合。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型 JavaScript 数组是 动态的，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 7 - 数组</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>数组是值的 <strong>有序集合</strong>。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型</p>
+
+<p>JavaScript 数组是 <strong>动态的</strong>，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小</p>
+
+<p>JavaScript 数组可能是 <strong>稀疏的</strong>，数组元素索引不一定要连续</p>
+
+<p>JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 <strong>快很多</strong></p>
+
+<!--more-->
+
+
+<h2>创建数组</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">empty</span> <span class="o">=</span> <span class="p">[];</span>             <span class="c1">// 使用数组直接量创建一个空数组</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">primes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="mi">1024</span><span class="err">；</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">misc</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="nx">base</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">}]</span>     <span class="c1">// 元素可以是任意值，甚至表达式</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">,</span><span class="mi">3</span><span class="p">];</span>            <span class="c1">// 数组有三个元素中间那个值为 undefined</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>        <span class="c1">// 调用构造函数 Array() 也可以创建数组</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>                   <span class="c1">// =&gt; 10 创建一个长度为 10 的数组</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span><span class='line'><span class="nx">a</span><span class="p">;</span>                          <span class="c1">// =&gt; [1, 2, 3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>数组元素的读和写</h2>
+
+<p>使用方括号 [] 操作符来访问数组中的一个元素，方括号左边是数组的引用，右边是一个返回 <strong>非负整数值</strong> 的任意表达式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                    <span class="c1">// =&gt; &quot;world&quot;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.14</span>             <span class="c1">// =&gt; 写入第 1 个元素 3.14</span>
+</span><span class='line'><span class="nx">a</span>                       <span class="c1">// =&gt; [&quot;world&quot;, 3.14]</span>
+</span><span class='line'><span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>               <span class="c1">// =&gt; 写入第 2 个元素</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span>       <span class="c1">// =&gt; 写入第 2 个元素</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就当做数组索引，而非对象属性</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span><span class="p">[</span><span class="o">-</span><span class="mf">1.23</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>             <span class="c1">// 给数组 a 创建一个名为 &quot;-1.23&quot; 的属性</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="s2">&quot;1000&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>               <span class="c1">// 这是数组的第 1001 个元素</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mf">1.000</span><span class="p">]</span>                    <span class="c1">// 和 a[1] 相等</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组 <strong>没有越界</strong> 错误的概念。当试图查询任何对象中不存在的属性时，不会报错，只会得到 undefined 值，这一点类似于对象</p>
+
+<h2>稀疏数组（Sparse Arrays）</h2>
+
+<p>通常，数组的 length 属性代表数组中的元素个数。如果是稀疏数组，length 属性值大于元素个数。当在数组直接量中省略值是不会创建稀疏数组。省略的元素是存在的只是值为 undefined。使用 Array() 构造函数或者手动指定 length 大于当前的数组可以创建稀疏数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>       <span class="c1">// 数组没元素，但 a.length 是 5</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>            <span class="c1">// 赋值添加一个元素，但设置 length 为　1001</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a1</span> <span class="o">=</span> <span class="p">[,,,];</span>         <span class="c1">// 数组是 [undefined, undefined, undefined]</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,,</span><span class="mi">3</span><span class="p">];</span>
+</span><span class='line'><span class="mi">0</span> <span class="k">in</span> <span class="nx">a1</span>                 <span class="c1">// =&gt; true 非稀疏数组</span>
+</span><span class='line'><span class="mi">0</span> <span class="k">in</span> <span class="nx">a2</span>                 <span class="c1">// =&gt; false 稀疏数组</span>
+</span><span class='line'><span class="mi">1</span> <span class="k">in</span> <span class="nx">a3</span>                 <span class="c1">// =&gt; false 稀疏数组</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在一些旧版的实现中，[1,,3] 和 [1, undefined, 3] 却是一模一样的</p>
+
+<h2>数组的长度</h2>
+
+<p>每个数组都有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密数组，length 属性值代表数组中元素的个数，其值比数组中最大的索引大 1</p>
+
+<p>数组有两个 <strong>特殊行为</strong>：</p>
+
+<ol>
+<li>如果为一个数组元素赋值，它的索引 i 大于或者等于现有数组的长度时，length 属性的值将设置为 i + 1</li>
+<li>如果设置一个数组的 length 属性小于这个数组长度的非负整数 n 时，当前数组中那些索引值大于或等于 n 的元素将被从中删除</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span>                   <span class="c1">// =&gt; [1,2,3]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>       <span class="c1">// 长度为 5，类似 new Array(5)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>数组也继承了对象的一些方法，比如 Object.defineProperty(), 可以使用这个方法让数组的 length 属性变成只读</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span><span class='line'><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="nx">a</span>                   <span class="c1">// =&gt; [1,2,3] 不会改变</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>数组元素的添加和删除</h2>
+
+<p>可以给新的索引赋值来添加元素，也可以调用 Array 对象的内置方法 push() 来在数组 <strong>末尾</strong> 增加一个或者多个元素，或者用 unshift() 给数组头部插入一个元素，并且将其它元素依次移动到更高的索引处</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zero&quot;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;one&quot;</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; [&quot;zero&quot;, &quot;one&quot;]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;zero&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; [&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; [0, &quot;zero&quot;, &quot;one&quot;, &quot;two&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以使用 delete 运算符来删除数组元素，效果和对数组元素赋值 undefined 类似，使用 delete 删除数组后数组的长度是不变的</p>
+
+<h2>数组遍历</h2>
+
+<p>使用 for 循环是遍历数组元素最常见的方法，for/in 也可以但并不推荐</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="nx">values</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">o</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="k">continue</span><span class="p">;</span>    <span class="c1">// 跳过 null, undefined 和不存在的元素</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">a</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span>    <span class="c1">// 只跳过不存在的元素</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">a</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="k">continue</span><span class="p">;</span> <span class="c1">// 跳过继承属性</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ECMAScript 5 定义了一些遍历数组元素的新方法，比如 forEach()</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>多维数组</h2>
+
+<p>JavaScript 并不支持真正的多维数组，但可以模拟出来</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">table</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">table</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">row</span> <span class="o">&lt;</span> <span class="nx">table</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">row</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">col</span> <span class="o">&lt;</span> <span class="nx">table</span><span class="p">[</span><span class="nx">row</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">table</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">=</span> <span class="nx">row</span> <span class="o">*</span> <span class="nx">col</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">table</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">7</span><span class="p">];</span>        <span class="c1">// =&gt; 35</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>数组方法</h2>
+
+<p>将所有元素都转化为字符串并通过分隔符链接起来，分隔符默认是逗号「,」</p>
+
+<p>与之相反的 split 方法则是把字符串按分割符分割开来并返回数组，并且分割符可以是正则表达式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>               <span class="c1">// =&gt; &quot;1,2,3&quot;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>             <span class="c1">// =&gt; &quot;1 2 3&quot;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>              <span class="c1">// =&gt; &quot;123&quot;</span>
+</span><span class='line'><span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="c1">// =&gt; &quot;----------&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>          <span class="c1">// =&gt; [&quot;Hello&quot;, &quot;world&quot;]</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;0a1b2c3d&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\d/g</span><span class="p">);</span>       <span class="c1">// =&gt; [&quot;&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>reverse()</h3>
+
+<p>反转数组元素</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>        <span class="c1">// =&gt; [3,2,1]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>sort()</h3>
+
+<p>将数组中的元素排序并返回排序后的数组。不带参数调用 sort() 时，数组元素以字母表顺序排序，如果数组包含 undefined 元素，它们会被排到数组的尾部</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>               <span class="c1">// =&gt; [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>sort 方法可以接收一个函数参数，该函数决定了它的两个参数在排好序的数组中的先后顺序。假设第一个参数应该在前，比较函数应该返回一个小于 0 的数值</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>            <span class="c1">// [1,2,3,4]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">b</span> <span class="o">-</span> <span class="nx">a</span>
+</span><span class='line'><span class="p">})</span>                  <span class="c1">// [4,3,2,1]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>concat()</h3>
+
+<blockquote><p>Array.concat(value1, value2, &hellip;, valueN)</p></blockquote>
+
+<p>创建并返回一个新数组，它的元素包括调用 concat 的原始数组元素和 concat 的每个参数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>           <span class="c1">// =&gt; [1,2,3,4,5]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>         <span class="c1">// =&gt; [1,2,3,4,5]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>  <span class="c1">// =&gt; [1,2,3,4,5,6,7]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]])</span> <span class="c1">// =&gt; [1,2,3,4,5,[6,7]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>slice()</h3>
+
+<blockquote><p>Array.slice([begin[, end]])</p></blockquote>
+
+<p>返回指定数组的一个片段或子数组，它的两个参数分别指定了片段的开始和结束的 <strong>位置</strong>，如果只指定一个参数（开始位置），返回的数组将包含从开始位置到数组结尾的所有元素，如果参数中出现了负数，它表示相对于数组中最后一个元素的位置，slice 不会修改原数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>       <span class="c1">// =&gt; [1,2,3]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>          <span class="c1">// =&gt; [4,5]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>           <span class="c1">// =&gt; [1,2,3,4,5]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>      <span class="c1">// =&gt; [2,3,4]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>     <span class="c1">// =&gt; [3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>splice()</h3>
+
+<blockquote><p>Array.splice(start, deleteCount[, item1[, item2[, &hellip;]]])</p></blockquote>
+
+<p>splice 方法是在数组中插入或删除元素的通用方法，会 <strong>修改</strong> 调用的数组</p>
+
+<p>splice 能够从数组中删除元素、插入元素到数组中或者 <strong>同时完成</strong> 这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其它部分仍然保持连续。splice 第一个参数指定了插入和（或）删除的起始位置。第二个参数指定了应该从数组中删除的元素个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice 返回一个由删除元素组成的数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>             <span class="c1">// =&gt; [5,6,7,8]</span>
+</span><span class='line'><span class="nx">a</span>                       <span class="c1">// =&gt; [1,2,3,4]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>           <span class="c1">// =&gt; [2,3]</span>
+</span><span class='line'><span class="nx">a</span>                       <span class="c1">// =&gt; [1,4]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>           <span class="c1">// =&gt; [4]</span>
+</span><span class='line'><span class="nx">a</span>                       <span class="c1">// =&gt; [1]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>splice 前两个参数指定了需要删除的数组元素。其后任意个数参数指定了需要插入到数组中的元素</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)</span>        <span class="c1">// =&gt; 0</span>
+</span><span class='line'><span class="nx">a</span>                               <span class="c1">// =&gt; [1,2,&quot;a&quot;,&quot;b&quot;,3,4,5]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>        <span class="c1">// =&gt; [&quot;a&quot;, &quot;b&quot;]</span>
+</span><span class='line'><span class="nx">a</span>                               <span class="c1">// =&gt; [1,2,[1,2],3,3,4,5]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>push() 和 pop()</h3>
+
+<p>push 和 pop 方法谲诈将数组当做 <a href="https://cloud.githubusercontent.com/assets/458894/16374650/f8b0fa6c-3c89-11e6-9e61-bc391f7f3cf4.png">栈</a> 来使用，push 方法在数组尾部添加一个或者多个元素，并返回新的数组长度。pop 删除数组的最后一个元素，减小数组长度并返回它删除的值</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">stack</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>         <span class="c1">// =&gt; 2 stack: [1,2]</span>
+</span><span class='line'><span class="nx">stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>          <span class="c1">// =&gt; 1 stack: [2]</span>
+</span><span class='line'><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>           <span class="c1">// =&gt; 2 stack: [1,3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>unshift() 和 shift()</h3>
+
+<p>unshift 在数组的头部添加一个或者多个元素，shift 删除数组的第一个元素并将其返回</p>
+
+<p>需要注意的是，当使用多个参数调用 unshift() 的时候，参数是一次性插入的，而非一次一个插入。这会影响插入到数组中元素的位置</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; [3,4,5,6]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; [1,2,3,4,5,6]如果一次一个插入的话结果应该是 [2,1,3,4,5]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ECMAScript 5 的数组方法</h2>
+
+<h3>forEach()</h3>
+
+<p>forEach() 从头至尾遍历数组，为每个元素调用指定的函数。传递函数作为 forEach() 的第一个参数，然后 forEach() 使用三个参数调用该当函数：数组元素、元素的索引和数组本身。forEach() 无法在所有元素都传递给调用的函数之前终止遍历，除非 forEach() 方法放在一个 try 块中，并抛出一个异常</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">v</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">});</span>
+</span><span class='line'><span class="c1">// =&gt; [2,3,4,5,6]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>map()</h3>
+
+<p>map() 方法将调用数组的每个元素传递给指定的函数，并返回一个数组。如果是稀疏数组，返回的也是相同方式的稀疏数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span><span class='line'><span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">})</span>
+</span><span class='line'><span class="nx">b</span>               <span class="c1">// [1, 4, 9]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>filter()</h3>
+
+<p>filter() 方法返回数组元素是调用数组的一个 <strong>子集</strong>。传递的函数是用来逻辑判定的（true 或 false），如果返回 true 或者能转化为 true 的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的数组中，<strong>filter() 会跳过稀疏数组中缺少的元素</strong>，总是返回稠密的</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'><span class="nx">smallvalues</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">})</span>    <span class="c1">// [2, 1]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>every() 和 some()</h3>
+
+<p>数组的逻辑判定，它们对数组元素应用指定的函数进行判定，返回 true 或 false</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">})</span>      <span class="c1">// =&gt; true 数组元素都少于 10</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">%</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">})</span>    <span class="c1">// =&gt; true 数组中有一些值是偶数</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意，一旦 every() 和 some() 确认应该返回什么值时它们就会停止遍历数组元素（可以认为是惰性判断）。即：</p>
+
+<ul>
+<li>some() 在判定函数第一次返回 true 后就返回 true，不再进行遍历操作</li>
+<li>every() 在判定函数第一次返回 false 后就返回false，不再进行遍历操作</li>
+</ul>
+
+
+<h3>reduce() 和 reduceRight()</h3>
+
+<blockquote><p>Array.reduce(callback, [initialValue])</p></blockquote>
+
+<p>reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 <strong>函数式编程（functional programming）</strong> 中是很常见的操作，也可以称为「注入」和「折叠」，他们只是执行化简操作的顺序不一样，一个从左到右，一个从右到左</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>          <span class="c1">// 数组求和</span>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm">+---------------------------------+</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|     x      +     y     return   |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|   init: 0     a[0]: 1    1      |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|     1         a[1]: 2    3      |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|     3         a[2]: 3    6      |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|     6         a[3]: 4    10     |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">|     10        a[4]: 5    15     |</span>
+</span><span class='line'><span class="cm">|                                 |</span>
+</span><span class='line'><span class="cm">+---------------------------------+</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">product</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span> <span class="p">},</span> <span class="mi">1</span><span class="p">)</span>      <span class="c1">// 数组求积</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>reduce 需要两个参数。第一个是执行化简操作的函数，它的任意就是用某种方法把两个值组合或化简为一个值，并返回化简后的值，第二个参数是传递给函数的初始值，如果没有指定初始值，它将使用数组的第一个元素作为其初始值。<strong>这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为 x,y</strong></p>
+
+<h3>indexOf() 和 lastIndexOf()</h3>
+
+<blockquote><p>Array.indexOf(searchElement[, fromIndex = 0])</p></blockquote>
+
+<p>搜索整个数组中指定值的索引，没找到就返回 -1。indexOf() 从头至尾搜索，而 lastIndexOf() 则反向搜索。它们都接收第二个参数，指定数组中的一个索引，从这个索引处开始搜索</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>        <span class="c1">// =&gt; 1</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1">// =&gt; 3</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>        <span class="c1">// =&gt; -1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 在数组中查找所有出现的 x，并返回一个包含匹配索引的数组</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">findall</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span><span class="p">(</span><span class="nx">pos</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">pos</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">pos</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span>
+</span><span class='line'>        <span class="nx">pos</span> <span class="o">=</span> <span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">findall</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>       <span class="c1">// =&gt; [0, 3]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>数组类型</h2>
+
+<p>ECMAScript 5 中可以使用 Array.isArray() 函数来判断是否为数组，在 ECMAScript 5 之前判断却没这么简单，因为 typeof 运算符操作数组返回的是「对象」，一般用下面的方法下判断是否是数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">isArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="o">||</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s2">&quot;object&quot;</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>            <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;[object Array]&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>类数组对象</h2>
+
+<p>JavaScript 数组的一些特性是其他对象没有的：</p>
+
+<ul>
+<li>当有新的元素添加到列表中时，自动更新 length 属性</li>
+<li>设置 length 为一个较小值将截断数组</li>
+<li>从 Array.prototype 中继承一些有用的方法</li>
+<li>其类属性为「Array」</li>
+</ul>
+
+
+<p>以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的「元素」</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nx">i</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span>               <span class="c1">// =&gt; { 0: 0, 1: 1, 2: 4, 3: 9 ..., length: 10 }</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 现在就可以当成真正的数组遍历它</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">total</span><span class="o">+=</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Arguments 对象就是一个类数组对象，DOM 方法 document.getElementsByTagName() 也返回类数组对象，它们都有数组的一些特性，比如索引访问、length 属性，但它们并不是真正的数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">isArrayLike</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">o</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>        <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s2">&quot;object&quot;</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>        <span class="nb">isFinite</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>        <span class="nx">o</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>        <span class="nx">o</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>        <span class="nx">o</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">4294967296</span> <span class="p">)</span> <span class="p">{</span>       <span class="c1">// 数组长度的最大值 2^32</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>JavaScript 数组方法是 <strong>特意定义为通用的</strong>，它们不仅可以应用在数组而且可以应用在类数组对象上，一般使用 Array.prototype.method.call 来使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+</span><span class='line'><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">join</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>           <span class="c1">// =&gt; &quot;a+b+c&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>作为数组的字符串</h2>
+
+<p>在 ECMAScript 5 中，字符串的行为类似于 <strong>只读</strong> 的数组。除子用 charAt() 方法来访问单个字符以外，还可以使用方括号：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>         <span class="c1">// =&gt; &quot;t&quot;</span>
+</span><span class='line'><span class="nx">s</span><span class="p">.[</span><span class="mi">1</span><span class="p">]</span>               <span class="c1">// =&gt; &quot;e&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>字符串的行为类似于数组的事实使得通用的数组方法可以应用到字符串上。不过请记住，字符串是 <strong>不可变值</strong>，当把它们作为数组看待时，它们是只读的。所以诸如：push(), sort(), reverse 等 <strong>会修改数组</strong> 的方法 如果被使用在字符串上是无效的，而且会导致错误并且没有相关提示</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;JavaScript&quot;</span>
+</span><span class='line'><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">join</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>       <span class="c1">// =&gt; &quot;J a v a S c r i p t&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/06/23/javascript-definitive-guide-note-5/" title="Previous Post: 《JavaScript 权威指南》读书笔记 6 - 对象">&laquo; 《JavaScript 权威指南》读书笔记 6 - 对象</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/06/29/javascript-definitive-guide-note-7/" title="Next Post: 《JavaScript 权威指南》读书笔记 8 - 函数">《JavaScript 权威指南》读书笔记 8 - 函数 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+
+
+
+<!--TOC-->
+<script src="/javascripts/post.js"></script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/';
+        var disqus_url = 'http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+-->
+
+
+</body>
+</html>

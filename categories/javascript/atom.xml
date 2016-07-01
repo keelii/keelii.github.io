@@ -1,0 +1,2780 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Something]]></title>
+  <link href="http://keelii.github.io/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://keelii.github.io/"/>
+  <updated>2016-07-01T22:45:06+08:00</updated>
+  <id>http://keelii.github.io/</id>
+  <author>
+    <name><![CDATA[keelii]]></name>
+    <email><![CDATA[keeliizhou@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 8 - 函数]]></title>
+    <link href="http://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/"/>
+    <updated>2016-06-29T20:22:22+08:00</updated>
+    <id>http://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7</id>
+    <content type="html"><![CDATA[<p>函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 <strong>局部变量</strong> 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 <strong><a href="/2016/06/20/javascript-definitive-guide-note-3/#TOC-4">调用表达式</a></strong>值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）</p>
+
+<!-- more -->
+
+
+<h2>函数定义</h2>
+
+<p>使用 function 关键字来定义一个函数，可以用在函数定义表达式或者函数声明语句里</p>
+
+<pre><code class="javascript">// 打印对象名称和值
+function printprops(o) {
+    for(var p in o)
+        console.log(p + ": " + o[p] + "\n");
+}
+// 递归调用计算阶乘
+function factorial(x) {
+    if (x &lt;= 1) return 1;
+    return x * factorial(x - 1);
+}
+// 函数定义表大式，函数名称可以省略
+var square = function(x) { return x * x; }
+</code></pre>
+
+<p>return 语句导致函数停止执行，并返回它的表达式给调用都。如果 return 语句没有一个与之相关的表达式，则它返回 undefined 值，没有 return 语句也会默认返回 undefined 值给调用者</p>
+
+<p><strong>嵌套函数</strong></p>
+
+<pre><code class="javascript">function hypotenuse(a, b) {
+    function square(x) { return x*x; }
+    return Math.sqrt(square(a) + square(b));
+}
+</code></pre>
+
+<p>嵌套函数的作用域规则：它们可以访问嵌套它们的函数的参数和变量。上面的代码里，内部函数 square() 可以读写外部函数 hypotenuse() 定义的参数 a 和 b</p>
+
+<h2>函数调用</h2>
+
+<p>有 4 种方式来调用 JavaScript 函数：</p>
+
+<ul>
+<li>作为函数</li>
+<li>作为（对象）方法</li>
+<li>作为构造函数</li>
+<li>通过它们的 call() 和 apply() 方法间接调用</li>
+</ul>
+
+
+<h3>函数调用</h3>
+
+<blockquote><p>function_name(param1, param2);</p></blockquote>
+
+<h3>方法调用</h3>
+
+<blockquote><p>object.method(param1, param2);</p></blockquote>
+
+<pre><code class="javascript">// 对象直接量
+var calculator = {
+    operand1: 1,
+    operand2: 1,
+    add: function() {
+        this.result = this.operand1 + this.operand2;
+    },
+    add1: function(a) {
+        this.operand1 + a;
+        return this;
+    },
+    add2: function(b) {
+        this.operand2 + a;
+        return this;
+    }
+};
+calculator.add();
+calculator.result       // =&gt; 2
+// 使用对象属性访问表达式调用方法
+calculator['result']    // =&gt; 2
+// 链式调用
+calculator.add1(1).add2(2)
+calculator.operand1         // =&gt; 2
+calculator.operand2         // =&gt; 3
+</code></pre>
+
+<h3>构造函数调用</h3>
+
+<blockquote><p>new Object(param1, param2);</p></blockquote>
+
+<p>如果没有参数可以省略括号 <code>new Object</code></p>
+
+<h3>间接调用</h3>
+
+<blockquote><p>function_name.call()</p></blockquote>
+
+<p>JavaScript 中的 <strong>函数也是对象</strong>，和其它 JavaScript 对象没什么区别，函数对象也可以包含方法。其中两个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call">call()</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">apply()</a> 可以用来间接地调用函数。两个方法都允许显式地指定调用所需的 this 值</p>
+
+<h2>函数的实参和形参</h2>
+
+<p>JavaScript 的函数定义不用指定形参的类型，调用传入的实参也可以是任意类型，JavaScript <strong>甚至</strong> 不检查传入实参的个数</p>
+
+<h3>可选形参</h3>
+
+<p>如果调用函数的时候传入的实参比指定的形参少，剩下的形参都将设置为 undefined 值，通常使用逻辑与运算符给形参指定默认值</p>
+
+<pre><code class="javascript">function getName(name) {
+    // 如果 name 传入值则使用传入值，否则使用默认值 "no name"
+    // 通常建议可选参数放在参数列表最后
+    name = name || "no name";
+
+    // code
+
+    return name;
+}
+</code></pre>
+
+<h3>可变长的实参列表：实参对象</h3>
+
+<p>当调用函数的时候传入实参人个数超过形参个数时（和上面相反），没有办法直接获得未命名值的引用。参数对象解决了这个问题，在函数体内，标识符 arguments 是指向实参对象的引用，参数对象是一个 <a href="/2016/06/23/javascript-definitive-guide-note-6/#TOC-23">类数组对象</a>，这样可以通过索引来访问实参了</p>
+
+<pre><code class="javascript">function fn(x, y, z) {
+    console.log(arguments);
+}
+fn(1,2,3)           // =&gt; [1,2,3]
+fn(1,2,3,4,5)       // =&gt; [1,2,3,4,5]
+</code></pre>
+
+<p>实参对象的重要用处就是让函数可以操作任意数量的实参，比如我们自己实现一个数组的 push 方法</p>
+
+<pre><code class="javascript">function push(arr /* optional items [, item ... [, item]] */) {
+    var items = Array.prototype.slice.call(arguments, 1)
+    for (var i = 0; i &lt; items.length; i++) {
+        arr[arr.length] = items[i];
+    }
+}
+var arr1 = [1,2,3];
+push(arr1, 4,5,6);
+arr1                // =&gt; [1, 2, 3, 4, 5, 6]
+</code></pre>
+
+<p>在非严格模式下，修改 arguments 元素的值，实参的值也会变。不过在 ECMAScript 5 中这个特性被移除了。在非严格模式中，函数里的 arguments 仅仅是个标识符。在严格模式中，它变成了一个保留字，严格模式中函数无法使用 arguments 作为 <strong>形参名</strong> 或者 <strong>局部变量名</strong>，也不能给它（arguments）赋值</p>
+
+<pre><code class="javascript">
+function f(x) {
+    console.log(x);         // =&gt; 实参的初始值
+    arguments[0] = null;
+    console.log(x);         // =&gt; 非严格返回 null， 非严格返回 1
+}
+f(1)
+</code></pre>
+
+<h4>callee 和 caller 属性</h4>
+
+<p>除了数组元素，实参对象还定义了 callee 和 caller 属性。严格模式中对这两个属性读写操作会产生一个类型错误，非严格模式下，ECMAScript 标准规范规定 callee 属性指代当前正在执行的函数。caller 是非标准的，但大多数浏览器都实现了这个属性，它指代调用当前正在执行的函数的函数。通过 caller 属性可以访问调用栈，callee 属性在某些时候非常有用，比如在匿名函数中通过 callee 来递归调用自身</p>
+
+<pre><code class="javascript">var factorial = function(x) {
+    if (x &lt;= 1) return 1;
+    return x * arguments.callee(x-1);
+}
+</code></pre>
+
+<h3>将对象属性用做实参</h3>
+
+<p>当一个函数包含超过三个形参时，很难记住参数顺序。这时我们可以用名/值对的形式来传入参数，这样参数的顺序就无关紧要了（然后名/值对里面的键名还是得记住）</p>
+
+<pre><code class="javascript">function arraycopy(from, from_start, to, to_start, length) {
+}
+function easycopycopy(args) {
+    arraycopy(args.from,
+              args.from_start || 0,
+              args.to,
+              args.to_start || 0,
+              args.length);
+}
+var a = [1,2,3,4], b = [];
+easycopy({ from: a, to: b, length:4 })
+</code></pre>
+
+<h3>实参类型</h3>
+
+<p>JavaScript 函数中形参并未声明类型，在形参数传入之前也未做任何类型检查，JavaScript 会在必要的时候进行类型转换，因此如果函数期望接收一个出神入化串实参，而调用函数时传入其它类型的值，所传入的值会在函数体内将其转换为字符串</p>
+
+<h2>作为值的函数</h2>
+
+<p>函数的定义和调用是 JavaScript 的词法特性，其它语言也一样。然而在 JavaScript 中，函数不仅仅是一种语法，也可以是值，也就是说，可以将函数赋值给变量，存储在对象的属性或数组元素中，作为参数传入另外一个函数等</p>
+
+<pre><code class="javascript">function square(x) { return x*x; }
+var s = square;
+square(4) == s(4)       // =&gt; true
+
+var a = [ function square(x) { return x*x; }, 20 ];
+a[0](a[1]);             // =&gt; 400
+
+// 将函数用做值
+function add(x, y) { return x + y; }
+function subtract(x, y) { return x - y; }
+function multiply(x, y) { return x * y; }
+function divide(x, y) { return x / y; }
+
+function operate(operator, operand1, operand2) {
+    return operator(operand1, operand2)
+}
+// =&gt; 25 (2 + 3) + (4 * 5)
+var i = operate(add, operate(add, 2, 3), operate(multiply, 4, 5))
+</code></pre>
+
+<h4>自定义函数属性</h4>
+
+<p>JavaScript 中函数并不是原始值，而是一种特殊的对象，也就是说，函数可以拥有 <strong>属性</strong>。当函数需要一个 <strong>静态变量</strong> 来在调用时保持某个值不变，最方便的方式就是给函数定义属性，而不是定义全局变量</p>
+
+<pre><code class="javascript">// 注意静态变量不必在函数后面声明
+uniqueInteger.counter = 0;
+
+function uniqueInteger() {
+    // 注意 ++counter 和 count++ 不一样
+    return ++uniqueInteger.counter;
+}
+</code></pre>
+
+<p>下面这个函数 factirial() 使用了自身的属性（将自身当做数组来对待）来缓存上一次的计算结果：</p>
+
+<pre><code class="javascript">// 计算阶乘
+function factorial(n) {
+    if (isFinite(n) &amp;&amp; n &gt; 0 &amp;&amp; n == Math.round(n)) {
+        if (!(n in factorial)) {
+            factorial[n] = n * factorial(n-1)
+        }
+        return factorial[n]
+    } else {
+        return NaN;
+    }
+}
+// 初始化缓存以保存这种基本情况
+factorial[1] = 1;
+</code></pre>
+
+<h2>作为命名空间的函数</h2>
+
+<pre><code class="javascript">(function(/*paramater*/) {
+    // 模块代码
+    // 这个模块使用的所有变量（通过 var 声明）都是局部变量
+    // 不会污染全局命名空间
+})(/*arguments*/);
+
+(function(win, doc) {
+    var obj = {
+        privateMethod: function() {},
+        publicMethod: function() {}
+    };
+
+    win.yourPublicAPIMethodName = obj.publicMethod
+})(window, document);
+</code></pre>
+
+<p>使用 <strong><a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">立即执行函数表达式（IIFE）</a></strong> 可以隔离代码块的命名空间，在匿名函数中声明的变量只在内部有效，不会对全局产生影响，同时可以有选择地向全局输出变量用来给外部代码访问</p>
+
+<h2>闭包</h2>
+
+<blockquote><p>词法作用域（lexical scoping）的执行依赖于变量作用域，这个作用域是在函数 <strong>定义时</strong> 决定的，而不是函数调用时，为了实现这种词法作用域，JavaScript 函数对象的内部状态不仅包含函数的代码逻辑，还必须引用当前的作用域链。函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称为「闭包」</p></blockquote>
+
+<p>从技术角度讲，所有的 JavaScript 函数都是闭包：它们都是对象，它们都关联到作用域链。当调用函数时闭包所指向的作用域链和定义函数时的作用域链不是同一个作用域链时，事情就变得非常我刚好和。当一个函数嵌套了另外一个函数，外部函数将嵌套的函数对象 <strong>作为返回值返回</strong> 的时候，这种事情就发生了</p>
+
+<p>先看一下嵌套函数的词法作用域规则：</p>
+
+<pre><code class="javascript">// 例 1
+var scope = "global scope";
+function checkscope() {
+    var scope = "local scope";
+    function f() { return scope;}
+    return f();
+}
+checkscope();       // =&gt; "local scope"
+// 例 2
+var scope = "global scope";
+function checkscope() {
+    var scope = "local scope";
+    function f() { return scope;}
+    return f;
+}
+checkscope()()      // =&gt; "local scope"
+</code></pre>
+
+<p>在例 2 中我们将 checkscope 返回值 f 调用的括号移动到了 checkscope 调用后面。复习一下作用域的基本规则：JavaScript 函数的执行用到了作用域链，这个作用域链是函数 <strong>定义的时候</strong> 创建的，嵌套的函数 f() 定义在这个作用域链里，其中的变量 scope 一定是局部变量，不管在何时执行函数当 f()，这种绑定在执行 f() 时依然有效。因此最后一行代码返回「local scope」而不是「global scope」。简而言之，闭包的这个特性强大到让人吃惊：它们可以捕捉到局部变量（和参数），<strong>并一直保存下来</strong></p>
+
+<p>很多程序员觉得闭包非常难理解，他们觉得在外部函数中定义的局部变量在函数返回后就不存在了，那么嵌套的函数如何能调用不存在的作用域链呢？如果你想搞清楚这个问题，还得更深入地了解类似 C 语言这种更底层的编程语言，并了解基于栈的 CPU 架构 <strong>如果一个函数的尾部变量定义在 CPU 的栈中，那么当函数返回时它们的确就不存在了</strong></p>
+
+<p><a href="#TOC-13">上节</a>中的 uniqueInteger() 函数，这个函数有一个问题，函数本身是全局可访问的，这个 counter 很可能被外部修改。如果使用闭包就没有这个问题</p>
+
+<pre><code class="javascript">var uniqueInteger = (function() {
+    var counter = 0;
+    return function() {
+        return ++counter;
+    }
+})();
+</code></pre>
+
+<p>上面的代码将匿名立即执行函数赋值给 uniqueInteger 变量，所以函数的返回值赋值给变量 uniqueInteger，内部变量 counter 只在函数体内部可以访问，外部无法操作</p>
+
+<p>私有变量也可以被多个闭包访问到，比如：</p>
+
+<pre><code class="javascript">function counter() {
+    var n = 0;
+    return {
+        count: function() { return n++ },
+        reset: function() { n = 0 }
+    }
+}
+// 创建两个计数器
+var c = counter(), d = counter();
+c.count()       // =&gt; 0 互
+c.count()       // =&gt; 1 不
+d.count()       // =&gt; 0 干
+d.count()       // =&gt; 1 扰
+c.reset()       // =&gt; 0 重置 c
+d.count()       // =&gt; 2 不影响 d
+</code></pre>
+
+<p>在同一个作用域链中定义两个闭包，这两个闭包共享同样的私有变量或变量。这是一种非常重要的技术，但是要特别小心那些不希望共享的变量往往不经意间共享给了其它的闭包，了解这一点也很重要</p>
+
+<pre><code class="javascript">function constfunc(v) { return function() { return v; } }
+
+var funcs = [];
+for(var i = 0; i &lt; 10; i++) {
+    funcs[i] = constfunc(i);
+}
+</code></pre>
+
+<p>如果这样写就完全不一样了</p>
+
+<pre><code class="javascript">function constfuncs() {
+    var funcs = [];
+    for (var i = 0; i &lt; 10; i++) {
+        funcs[i] = function() {
+            return i;
+        };
+    }
+    return funcs;
+}
+var funcs = constfuncs();
+funcs[5]()                  // =&gt; 10 !!!
+</code></pre>
+
+<p>上面这段代码循环创建了 10 个闭包，并将它们存储到一个数组中。这些闭包都是在同一个函数调用中定义的，因此它们可以共享变量 i。当 constfuncs() 返回时，变量的 i 值是 10，所有的闭包都共享这一个值，因此，数组中的函数的返回值是同一个值，因此，数组中的函数的返回值都是同一个值，这不是我们想要的结果。关联到闭包的作用域链都是「活动的（live）」，记住这一点非常重要。嵌套的当函数不会将作用域内的私有成员复制一份，也不会对所绑定的变量生成静态快照（static snapshot）</p>
+
+<p>书写闭包的时候还需注意一件事情，this 是 JavaScript 的关键字，不是变量。正如之前讨论的，每个函数调用都包含一个 this 值，如果闭包在外部函数里是无法访问 this 的，除非外部函数将 this 默契为一个变量</p>
+
+<pre><code class="javascript">function outerFn() {
+    var self = this;
+
+    function innerFn() {
+        // self.xxxx
+    }
+}
+</code></pre>
+
+<h2>函数属性、方法和构造函数</h2>
+
+<p>在 JavaScript 中，函数是值，对函数执行 typeof 运算会返回字符串 &ldquo;function"，但是函数是 JavaScript 中特殊的对象。因为函数也是对象，它们也可以拥有属性和方法，像普通对象一样。甚至可以用 Function() 构造函数来创建新的函数对象</p>
+
+<h3>prototype 属性</h3>
+
+<p>每一个当函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做「原型对象」（prototype object）。每一个函数都包含不同的原型对象。当将函数胜仗构造函数的时候，新创建的对象会从原型对象上继承属性</p>
+
+<h3>call() 和 apply() 方法</h3>
+
+<blockquote><p>fun.call(thisArg[, arg1[, arg2[, &hellip;]]])</p>
+
+<p>fun.apply(thisArg[, argsArray])</p></blockquote>
+
+<p>我们可以将 call 和 apply 看做是某个对象的方法，通过调用方法的形式来间接调用函数</p>
+
+<pre><code class="javascript">// 将对象 o 中名为 m 的方法替换为另外一个方法
+function trace(o, m) {
+    var original = o[m];
+    o[m] = function() {
+        console.log(new Date, "Entering: ", m);
+        var result = original.apply(this, arguments)
+        console.log(new Date, "Exiting: ", m);
+    }
+}
+</code></pre>
+
+<p>trace() 函数接收两个参数，一个对象和一个方法名，它将指定的方法替换为一个新方法，这个新方法就是「包裹」原始方法的另一个泛函数。这种动态修改已有方法的做法有时称做「猴子补丁 monkey-patching」</p>
+
+<h3>bind() 方法</h3>
+
+<blockquote><p>fun.bind(thisArg[, arg1[, arg2[, &hellip;]]])</p></blockquote>
+
+<p>bind 方法是 ECMAScript 5 中新增的方法，但在 ECMAScript 3 中可以模拟出来。主要用于将函数绑定到某个对象。当在函数 f 上调用 bind 方法并传入一个对象 o 做参数，这个方法将返回一个新的函数。调用新的函数将会把原始的函数 f <strong>当做 o 的方法来调用</strong>。传入新函数的任何实参都将传入原始函数</p>
+
+<pre><code class="javascript">function f(y) { return this.x + y; }
+var o = { x: 1};
+var g = f.bind(o);
+g(2)                // =&gt; 3
+</code></pre>
+
+<p>可以通过下面代码实现 bind 方法</p>
+
+<pre><code class="javascript">function bind(f, o) {
+    if (f.bind) {
+        return f.bind(o);
+    } else {
+        return f.apply(ok arguments)
+    }
+}
+</code></pre>
+
+<p>bind 方法还有一些其他应用：除了第一个实参之外，传入 bind 的实参也会绑定至 this，这个附带的应用是一种常见的函数式编程技术，有时也被称为「<a href="https://zh.wikipedia.org/wiki/%E6%9F%AF%E9%87%8C%E5%8C%96">柯里化</a>」（currying）</p>
+
+<pre><code class="javascript">var sum = function(x, y) { return x + y }
+
+var succ = sum.bind(null, 1)
+succ(2)     // =&gt; 3
+
+function f(y, z) { return this.x + y + z }
+var g = f.bind({x:1}, 2)
+g(3)        // =&gt; 6
+</code></pre>
+
+<p>注意 bind 方法有些特性是模拟不出来的</p>
+
+<h3>toString() 方法</h3>
+
+<p>和所有的 JavaScript 对象一样，函数也有 toString 方法，ECMAScript 规范规定这个方法返回一个字符串，这个字符串和函数声明语句的语法相关。实际上，大多数的 toString 方法的实现都返回函数的完成源码。内置函数往往返回一个类似 &ldquo;[native code]&rdquo; 的字符串作为函数体</p>
+
+<h3>Function() 构造函数</h3>
+
+<blockquote><p>new Function ([arg1[, arg2[, &hellip;argN]],] functionBody)</p></blockquote>
+
+<p>关于 Function() 构造函数有几点需要特别注意：</p>
+
+<ul>
+<li>Function() 构造函数允许 JavaScript 在运行时动态地创建并编译函数</li>
+<li>每次调用 Function() 构造函数都会解析函数体，执行效率会受影响。</li>
+<li>Function() 构造函数创建的函数 <strong>并不是使用词法作用域</strong>，相反，函数体代码的编译总是会在顶层函数执行，效果类似在全局作用域中执行 eval()</li>
+</ul>
+
+
+<pre><code class="javascript">var scope = "global";
+function constructFunction() {
+    var scope = "local";
+    return new Function("return scope");
+}
+constructFunction()();  // =&gt; "global"
+</code></pre>
+
+<h3>可调用的对象</h3>
+
+<p>「类数组对象」类似数组但并不是真正的数组，「可调用对象（callable object）」类似于函数但并不是真正的函数。可调用对象在两个 JavaScript 实现中不能算作函数。首先，IE Web 浏览器（IE 6 及之前的版本）实现了客户端方法（如 Window.alert() 和 Document.getElementById()），使用了可调用的宿主对象，而不是内置函数对象，IE 中的这些方法在其它浏览器中都存在，但它们本质上不是 Function 对象。IE 9 将它们实现为真正的函数，因此这类可调用的对象将越来越罕见</p>
+
+<p>另外一个常见的可调用对象是 RegExp 对象，对 RegExp 执行 typeof 运算的结果并不统一，有些返回 &ldquo;function&rdquo; 有些返回 &ldquo;object"。可以使用下面的方法判断是不是真正的函数对象</p>
+
+<pre><code class="javascript">function isFunction(o) {
+    return Object.prototype.toString.call(x) === "[object Function]"
+}
+</code></pre>
+
+<h2>函数式编程</h2>
+
+<p>JavaScript 并不是一种像 List 或 Haskell 的函数式编程语言，但在 JavaScript 中可以像操控对象一样操控函数，也就是说可以在 JavaScript 中应用函数式编程技术</p>
+
+<h3>使用函数处理数组</h3>
+
+<p>假设有一个数组，元素都是数字，我们想要计算这些元素的平均值和标准差。若使用非函数式编程风格的话代码一般会是这样：</p>
+
+<pre><code class="javascript">var data = [1,1,3,5,5]
+var total = 0;
+for (var i = 0; i &lt; data.length; i++) {
+    total += data[i];
+}
+var mean = total / data.length;                 // =&gt; 3
+
+total = 0;
+for (var i = 0; i &lt; data.length; i++) {
+    var deviation = data[i] - mean;
+    total += deviation * deviation;
+}
+var stddev = Math.sqrt(total/(data.length-1))   // =&gt; 2
+</code></pre>
+
+<p>可以使用数组方法 map() 和 reduce() 来实现同样的计算，这种实现极其乘法：</p>
+
+<pre><code class="javascript">var sum = function(x, y) { return x + y; }
+var square = function(x) { return x*x; }
+
+var data = [1,1,3,5,5]
+var mean = data.reduce(sum)/data.length;
+var deviations = data.map(function(x) { return x-mean; })
+var stddev = Math.sqrt(deviations.map(square).reduce(sum)/(data.length-1))
+</code></pre>
+
+<p>当然 ECMAScript 3 并没有 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map">map</a>， <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a> 这两个方法，不过我们也可以自己实现一个 Polyfill，可以参考链接里面的内容</p>
+
+<h3>高阶函数</h3>
+
+<p>所谓高阶函数（higher-order function）就是操作函数的函数，它接收一个或多个函数作为参数，并返回一个新函数</p>
+
+<pre><code class="javascript">function not(f) {
+    return function() {
+        var result = f.apply(this, arguments);
+        return !result;
+    }
+}
+var even = function(x) {
+    return x % 2 == 0;
+}
+var odd = not(even);
+[1,1,3,5,5].every(odd)          // =&gt; true
+</code></pre>
+
+<p>mapper() 函数也是一个高阶函数，它接收一个函数作为参数，并返回一个新函数，这个新函数将一个数组映射到另一个使用这个函数的数组上，这个函数使用了之前定义的 map() 函数</p>
+
+<pre><code class="javascript">function mapper(f) {
+    return function(a) { return map(a, f); }
+}
+var increment = function(x) { return x + 1; }
+var incrementer = mapper(increment);
+incrementer([1,2,3])  // =&gt; [2,3,4]
+</code></pre>
+
+<p>还有一个更常见的例子，它接收两个函数 f() 和 g()，并返回一个新的函数用以计算 f(g())</p>
+
+<pre><code class="javascript">function compose(f, g) {
+    return function() {
+        return f.call(this, g.apply(this, arguments))
+    }
+}
+var square = function(x) { return x * x; }
+var sum = function(x, y) { return x + y; }
+var squareofsum = compose(square, sum)
+squareofsum(2, 3)           // =&gt; 25
+/* - 伪代码执行过程大致如下 -
+    arguments: 2, 3
+    return square.call(this, sum.apply(this, arguments))
+    return square.call(this, sum(2, 3))
+    return square.call(this, 5)
+    arguments: 5
+    return square(5)
+    return 25
+*/
+</code></pre>
+
+<h3>不完全函数</h3>
+
+<p>函数 <a href="/2016/06/29/javascript-definitive-guide-note-7/#TOC-19">f()</a> 的 bind() 方法返回一个新函数，给新函数传入特定的上下文和一组指定的参数，然后调用函数 f()。我们说它把函数「绑定至」对象并传入一部分参数。bind() 方法只是将实参放在左侧，也就是说传入 bind() 的实参都是放在传入原始函数的实参列表开始的位置，但有时我们期望将传入 bind() 的实参放在右侧</p>
+
+<pre><code class="javascript">// 将类数组对象转换为真正的数组
+function array(arr, n) { return Array.prototype.slice.call(arr, n || 0); }
+
+// 这个函数的实参传递到左侧
+function partialLeft(f) {
+    var args = arguments;
+
+    return function() {
+        var a = array(args, 1);
+        a = a.concat(array(arguments))
+        return f.apply(this, a)
+    }
+}
+function partialRight(f) {
+    var args = arguments;
+
+    return function() {
+        var a = array(arguments)
+        a = a.concat(array(args, 1))
+        return f.apply(this, a)
+    }
+}
+
+function partial(f) {
+    var args = arguments;
+
+    return function() {
+        var a = array(args, 1)
+        var i = 0, j = 0;
+        for (; i &lt; a.length; i++) {
+            if ( a[i] === undefined ) a[i] = arguments[j++];
+        }
+        a = a.concat(array(arguments, j))
+        return f.apply(this, a);
+    }
+}
+
+var f = function(x, y, z) { return x * (y - z) }
+partialLeft(f, 2)(3, 4)             // =&gt; -2 2 * (3-4)
+partialRight(f, 2)(3, 4)            // =&gt; 6 3 * (4-2)
+partial(f, undefined, 2)(3, 4)      // =&gt; -6 3 * (2-4)
+</code></pre>
+
+<h3>记忆</h3>
+
+<p>上面的 <a href="/2016/06/29/javascript-definitive-guide-note-7/#TOC-13">章节</a> 中定义了一个阶乘函数，它可以将上次的计算结果缓存起来。在函数式程序当中，这种缓存技巧叫做「记忆」（memorization）。下面的代码展示了一个高阶函数，memorize() 接收一个函数作为实参，并返回带有记忆能力的函数</p>
+
+<pre><code class="javascript">function memorize(f) {
+    var cache = {};
+
+    return function() {
+        // 将实参转换为字符串形式，并胜仗缓存的键名
+        var key = arguments.length + Array.prototype.join.call(arguments, ",")
+        if ( key in cache ) {
+            return cache[key];
+        } else {
+            return cache[key] = f.apply(this, arguments)
+        }
+    }
+}
+function factorial (num) {
+    console.log('Actually invoked.');
+    if (num &lt; 0) {
+        return -1;
+    } else if (num === 0 || num === 1) {
+        return 1;
+    } else {
+        return (num * factorial(num - 1));
+    }
+}
+
+var cached_factorial = memorize(factorial);
+
+cached_factorial(3)
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 6
+cached_factorial(3)
+// =&gt; 6
+
+/**
+ * 注意下面的调用方式将不会缓存
+ * 因为新建了多个闭包，闭包在每
+ * 调用一次 memorize 就返回一
+ * 份新的 cache 变量
+ */
+memorize(factorial)(3)
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 6
+memorize(factorial)(3)
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 'Actually invoked.'
+// =&gt; 6
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 7 - 数组]]></title>
+    <link href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/"/>
+    <updated>2016-06-23T19:10:28+08:00</updated>
+    <id>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6</id>
+    <content type="html"><![CDATA[<p>数组是值的 <strong>有序集合</strong>。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型</p>
+
+<p>JavaScript 数组是 <strong>动态的</strong>，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小</p>
+
+<p>JavaScript 数组可能是 <strong>稀疏的</strong>，数组元素索引不一定要连续</p>
+
+<p>JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 <strong>快很多</strong></p>
+
+<!--more-->
+
+
+<h2>创建数组</h2>
+
+<pre><code class="javascript">var empty = [];             // 使用数组直接量创建一个空数组
+var primes = [2, 3, 5, 7, 11];
+var base = 1024；
+var misc = [1.2, true, "a", base + 1, [1,2,3], { a: 1}]     // 元素可以是任意值，甚至表达式
+var count = [1, ,3];            // 数组有三个元素中间那个值为 undefined
+
+var a = new Array();        // 调用构造函数 Array() 也可以创建数组
+var a = new Array(10);
+a.length;                   // =&gt; 10 创建一个长度为 10 的数组
+var a = new Array(1, 2, 3);
+a;                          // =&gt; [1, 2, 3]
+</code></pre>
+
+<h2>数组元素的读和写</h2>
+
+<p>使用方括号 [] 操作符来访问数组中的一个元素，方括号左边是数组的引用，右边是一个返回 <strong>非负整数值</strong> 的任意表达式</p>
+
+<pre><code class="javascript">var a = ["world"];
+a[0]                    // =&gt; "world"
+a[1] = 3.14             // =&gt; 写入第 1 个元素 3.14
+a                       // =&gt; ["world", 3.14]
+i = 2;
+a[i] = 3;               // =&gt; 写入第 2 个元素
+a[i+1] = "hello";       // =&gt; 写入第 2 个元素
+</code></pre>
+
+<p>可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就当做数组索引，而非对象属性</p>
+
+<pre><code class="javascript">a[-1.23] = true             // 给数组 a 创建一个名为 "-1.23" 的属性
+a["1000"] = 0               // 这是数组的第 1001 个元素
+a[1.000]                    // 和 a[1] 相等
+</code></pre>
+
+<p>事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组 <strong>没有越界</strong> 错误的概念。当试图查询任何对象中不存在的属性时，不会报错，只会得到 undefined 值，这一点类似于对象</p>
+
+<h2>稀疏数组（Sparse Arrays）</h2>
+
+<p>通常，数组的 length 属性代表数组中的元素个数。如果是稀疏数组，length 属性值大于元素个数。当在数组直接量中省略值是不会创建稀疏数组。省略的元素是存在的只是值为 undefined。使用 Array() 构造函数或者手动指定 length 大于当前的数组可以创建稀疏数组</p>
+
+<pre><code class="javascript">a = new Array(5);       // 数组没元素，但 a.length 是 5
+a = [];
+a[1000] = 0;            // 赋值添加一个元素，但设置 length 为　1001
+var a1 = [,,,];         // 数组是 [undefined, undefined, undefined]
+var a2 = new Array(3);
+var a3 = [1,,3];
+0 in a1                 // =&gt; true 非稀疏数组
+0 in a2                 // =&gt; false 稀疏数组
+1 in a3                 // =&gt; false 稀疏数组
+</code></pre>
+
+<p>在一些旧版的实现中，[1,,3] 和 [1, undefined, 3] 却是一模一样的</p>
+
+<h2>数组的长度</h2>
+
+<p>每个数组都有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密数组，length 属性值代表数组中元素的个数，其值比数组中最大的索引大 1</p>
+
+<p>数组有两个 <strong>特殊行为</strong>：</p>
+
+<ol>
+<li>如果为一个数组元素赋值，它的索引 i 大于或者等于现有数组的长度时，length 属性的值将设置为 i + 1</li>
+<li>如果设置一个数组的 length 属性小于这个数组长度的非负整数 n 时，当前数组中那些索引值大于或等于 n 的元素将被从中删除</li>
+</ol>
+
+
+<pre><code class="javascript">a = [1,2,3,4,5];
+a.length = 3;
+a                   // =&gt; [1,2,3]
+a.length = 0;
+a.length = 5;       // 长度为 5，类似 new Array(5)
+</code></pre>
+
+<p>数组也继承了对象的一些方法，比如 Object.defineProperty(), 可以使用这个方法让数组的 length 属性变成只读</p>
+
+<pre><code class="javascript">a = [1,2,3]
+Object.defineProperty(a, "length", {
+    writable: false
+});
+a.length = 0
+a                   // =&gt; [1,2,3] 不会改变
+</code></pre>
+
+<h2>数组元素的添加和删除</h2>
+
+<p>可以给新的索引赋值来添加元素，也可以调用 Array 对象的内置方法 push() 来在数组 <strong>末尾</strong> 增加一个或者多个元素，或者用 unshift() 给数组头部插入一个元素，并且将其它元素依次移动到更高的索引处</p>
+
+<pre><code class="javascript">a = []
+a[0] = "zero"
+a[1] = "one"
+a               // =&gt; ["zero", "one"]
+
+a = []
+a.push("zero")
+a.push("one", "two")
+a               // =&gt; ["zero", "one", "two"]
+a.unshift(0)
+a               // =&gt; [0, "zero", "one", "two"]
+</code></pre>
+
+<p>可以使用 delete 运算符来删除数组元素，效果和对数组元素赋值 undefined 类似，使用 delete 删除数组后数组的长度是不变的</p>
+
+<h2>数组遍历</h2>
+
+<p>使用 for 循环是遍历数组元素最常见的方法，for/in 也可以但并不推荐</p>
+
+<pre><code class="javascript">var keys = Object.keys(o);
+var values = [];
+for (var i = 0; i &lt; keys.length; i++) {
+    var key = keys[i];
+    values[i] = o[key]
+}
+
+for (var i = 0; i &lt; keys.length; i++) {
+    if (!a[i]) continue;    // 跳过 null, undefined 和不存在的元素
+}
+for (var i = 0; i &lt; keys.length; i++) {
+    if (!(i in a)) continue;    // 只跳过不存在的元素
+}
+for (var i in a) {
+    if (!a.hasOwnProperty(i)) continue; // 跳过继承属性
+}
+</code></pre>
+
+<p>ECMAScript 5 定义了一些遍历数组元素的新方法，比如 forEach()</p>
+
+<pre><code class="javascript">[1,2,3,4,5].forEach(function(x) {
+    console.log(x);
+});
+</code></pre>
+
+<h2>多维数组</h2>
+
+<p>JavaScript 并不支持真正的多维数组，但可以模拟出来</p>
+
+<pre><code class="javascript">var table = new Array(10);
+for (var i = 0; i &lt; table.length; i++) {
+    table[i] = new Array(10);
+}
+
+for (var row = 0; row &lt; table.length; row++) {
+    for (var col = 0; col &lt; table[row].length; col++) {
+        table[row][col] = row * col;
+    }
+}
+
+table[5][7];        // =&gt; 35
+</code></pre>
+
+<h2>数组方法</h2>
+
+<p>将所有元素都转化为字符串并通过分隔符链接起来，分隔符默认是逗号「,」</p>
+
+<p>与之相反的 split 方法则是把字符串按分割符分割开来并返回数组，并且分割符可以是正则表达式</p>
+
+<pre><code class="javascript">var a = [1,2,3];
+a.join();               // =&gt; "1,2,3"
+a.join(" ")             // =&gt; "1 2 3"
+a.join("")              // =&gt; "123"
+new Array(10).join('-') // =&gt; "----------"
+
+var str = "Hello world";
+str.split(' ')          // =&gt; ["Hello", "world"]
+var str = "0a1b2c3d";
+str.split(/\d/g);       // =&gt; ["", "a", "b", "c", "d"]
+</code></pre>
+
+<h3>reverse()</h3>
+
+<p>反转数组元素</p>
+
+<pre><code class="javascript">var a = [1,2,3];
+a.reverse();        // =&gt; [3,2,1]
+</code></pre>
+
+<h3>sort()</h3>
+
+<p>将数组中的元素排序并返回排序后的数组。不带参数调用 sort() 时，数组元素以字母表顺序排序，如果数组包含 undefined 元素，它们会被排到数组的尾部</p>
+
+<pre><code class="javascript">var a = ["banana", "cherry", "apple"]
+a.sort();               // =&gt; ["apple", "banana", "cherry"]
+</code></pre>
+
+<p>sort 方法可以接收一个函数参数，该函数决定了它的两个参数在排好序的数组中的先后顺序。假设第一个参数应该在前，比较函数应该返回一个小于 0 的数值</p>
+
+<pre><code class="javascript">var a = [3,4,1,2]
+a.sort()            // [1,2,3,4]
+a.sort(function(a, b) {
+    return b - a
+})                  // [4,3,2,1]
+</code></pre>
+
+<h3>concat()</h3>
+
+<blockquote><p>Array.concat(value1, value2, &hellip;, valueN)</p></blockquote>
+
+<p>创建并返回一个新数组，它的元素包括调用 concat 的原始数组元素和 concat 的每个参数</p>
+
+<pre><code class="javascript">var a = [1,2,3]
+a.concat(4,5)           // =&gt; [1,2,3,4,5]
+a.concat([4,5])         // =&gt; [1,2,3,4,5]
+a.concat([4,5], [6,7])  // =&gt; [1,2,3,4,5,6,7]
+a.concat(4, [5, [6,7]]) // =&gt; [1,2,3,4,5,[6,7]]
+</code></pre>
+
+<h3>slice()</h3>
+
+<blockquote><p>Array.slice([begin[, end]])</p></blockquote>
+
+<p>返回指定数组的一个片段或子数组，它的两个参数分别指定了片段的开始和结束的 <strong>位置</strong>，如果只指定一个参数（开始位置），返回的数组将包含从开始位置到数组结尾的所有元素，如果参数中出现了负数，它表示相对于数组中最后一个元素的位置，slice 不会修改原数组</p>
+
+<pre><code class="javascript">var a = [1,2,3,4,5]
+a.slice(0, 3)       // =&gt; [1,2,3]
+a.slice(3)          // =&gt; [4,5]
+a.slice()           // =&gt; [1,2,3,4,5]
+a.slice(1, -1)      // =&gt; [2,3,4]
+a.slice(-3, -2)     // =&gt; [3]
+</code></pre>
+
+<h3>splice()</h3>
+
+<blockquote><p>Array.splice(start, deleteCount[, item1[, item2[, &hellip;]]])</p></blockquote>
+
+<p>splice 方法是在数组中插入或删除元素的通用方法，会 <strong>修改</strong> 调用的数组</p>
+
+<p>splice 能够从数组中删除元素、插入元素到数组中或者 <strong>同时完成</strong> 这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其它部分仍然保持连续。splice 第一个参数指定了插入和（或）删除的起始位置。第二个参数指定了应该从数组中删除的元素个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice 返回一个由删除元素组成的数组</p>
+
+<pre><code class="javascript">var a = [1,2,3,4,5,6,7,8]
+a.splice(4)             // =&gt; [5,6,7,8]
+a                       // =&gt; [1,2,3,4]
+a.splice(1,2)           // =&gt; [2,3]
+a                       // =&gt; [1,4]
+a.splice(1,1)           // =&gt; [4]
+a                       // =&gt; [1]
+</code></pre>
+
+<p>splice 前两个参数指定了需要删除的数组元素。其后任意个数参数指定了需要插入到数组中的元素</p>
+
+<pre><code class="javascript">var a = [1,2,3,4,5]
+a.splice(2, 0, "a", "b")        // =&gt; 0
+a                               // =&gt; [1,2,"a","b",3,4,5]
+a.splice(2, 2, [1,2], 3)        // =&gt; ["a", "b"]
+a                               // =&gt; [1,2,[1,2],3,3,4,5]
+</code></pre>
+
+<h3>push() 和 pop()</h3>
+
+<p>push 和 pop 方法谲诈将数组当做 <a href="https://cloud.githubusercontent.com/assets/458894/16374650/f8b0fa6c-3c89-11e6-9e61-bc391f7f3cf4.png">栈</a> 来使用，push 方法在数组尾部添加一个或者多个元素，并返回新的数组长度。pop 删除数组的最后一个元素，减小数组长度并返回它删除的值</p>
+
+<pre><code class="javascript">var stack = [];
+stack.push(1,2)         // =&gt; 2 stack: [1,2]
+stack.pop(1,2)          // =&gt; 1 stack: [2]
+stack.push(3)           // =&gt; 2 stack: [1,3]
+</code></pre>
+
+<h3>unshift() 和 shift()</h3>
+
+<p>unshift 在数组的头部添加一个或者多个元素，shift 删除数组的第一个元素并将其返回</p>
+
+<p>需要注意的是，当使用多个参数调用 unshift() 的时候，参数是一次性插入的，而非一次一个插入。这会影响插入到数组中元素的位置</p>
+
+<pre><code class="javascript">var a = [4,5,6];
+a.unshift(3)
+a               // =&gt; [3,4,5,6]
+a.unshift(1,2)
+a               // =&gt; [1,2,3,4,5,6]如果一次一个插入的话结果应该是 [2,1,3,4,5]
+</code></pre>
+
+<h2>ECMAScript 5 的数组方法</h2>
+
+<h3>forEach()</h3>
+
+<p>forEach() 从头至尾遍历数组，为每个元素调用指定的函数。传递函数作为 forEach() 的第一个参数，然后 forEach() 使用三个参数调用该当函数：数组元素、元素的索引和数组本身。forEach() 无法在所有元素都传递给调用的函数之前终止遍历，除非 forEach() 方法放在一个 try 块中，并抛出一个异常</p>
+
+<pre><code class="javascript">[1,2,3,4,5].forEach(function(value, index, arr) { arr[i] = v + 1 });
+// =&gt; [2,3,4,5,6]
+</code></pre>
+
+<h3>map()</h3>
+
+<p>map() 方法将调用数组的每个元素传递给指定的函数，并返回一个数组。如果是稀疏数组，返回的也是相同方式的稀疏数组</p>
+
+<pre><code class="javascript">a = [1,2,3]
+b = a.map(function(x) { return x*x })
+b               // [1, 4, 9]
+</code></pre>
+
+<h3>filter()</h3>
+
+<p>filter() 方法返回数组元素是调用数组的一个 <strong>子集</strong>。传递的函数是用来逻辑判定的（true 或 false），如果返回 true 或者能转化为 true 的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的数组中，<strong>filter() 会跳过稀疏数组中缺少的元素</strong>，总是返回稠密的</p>
+
+<pre><code class="javascript">a = [5,4,3,2,1]
+smallvalues = a.filter(function(x) { return x &lt; 3 })    // [2, 1]
+</code></pre>
+
+<h3>every() 和 some()</h3>
+
+<p>数组的逻辑判定，它们对数组元素应用指定的函数进行判定，返回 true 或 false</p>
+
+<pre><code class="javascript">a = [1,2,3,4,5]
+a.every(function(x) { return x &lt; 10 })      // =&gt; true 数组元素都少于 10
+a.some(function(x) { return x%2 === 0 })    // =&gt; true 数组中有一些值是偶数
+</code></pre>
+
+<p>注意，一旦 every() 和 some() 确认应该返回什么值时它们就会停止遍历数组元素（可以认为是惰性判断）。即：</p>
+
+<ul>
+<li>some() 在判定函数第一次返回 true 后就返回 true，不再进行遍历操作</li>
+<li>every() 在判定函数第一次返回 false 后就返回false，不再进行遍历操作</li>
+</ul>
+
+
+<h3>reduce() 和 reduceRight()</h3>
+
+<blockquote><p>Array.reduce(callback, [initialValue])</p></blockquote>
+
+<p>reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 <strong>函数式编程（functional programming）</strong> 中是很常见的操作，也可以称为「注入」和「折叠」，他们只是执行化简操作的顺序不一样，一个从左到右，一个从右到左</p>
+
+<pre><code class="javascript">var a = [1,2,3,4,5]
+var sum = a.reduce(function(x, y) { return x + y }, 0)          // 数组求和
+/**
++---------------------------------+
+|                                 |
+|     x      +     y     return   |
+|                                 |
+|   init: 0     a[0]: 1    1      |
+|                                 |
+|     1         a[1]: 2    3      |
+|                                 |
+|     3         a[2]: 3    6      |
+|                                 |
+|     6         a[3]: 4    10     |
+|                                 |
+|     10        a[4]: 5    15     |
+|                                 |
++---------------------------------+
+*/
+var product = a.reduce(function(x, y) { return x * y }, 1)      // 数组求积
+</code></pre>
+
+<p>reduce 需要两个参数。第一个是执行化简操作的函数，它的任意就是用某种方法把两个值组合或化简为一个值，并返回化简后的值，第二个参数是传递给函数的初始值，如果没有指定初始值，它将使用数组的第一个元素作为其初始值。<strong>这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为 x,y</strong></p>
+
+<h3>indexOf() 和 lastIndexOf()</h3>
+
+<blockquote><p>Array.indexOf(searchElement[, fromIndex = 0])</p></blockquote>
+
+<p>搜索整个数组中指定值的索引，没找到就返回 -1。indexOf() 从头至尾搜索，而 lastIndexOf() 则反向搜索。它们都接收第二个参数，指定数组中的一个索引，从这个索引处开始搜索</p>
+
+<pre><code class="javascript">a = [0,1,2,1,0]
+a.indexOf(1)        // =&gt; 1
+a.lastIndexOf(1)    // =&gt; 3
+a.indexOf(3)        // =&gt; -1
+
+// 在数组中查找所有出现的 x，并返回一个包含匹配索引的数组
+function findall(a, x) {
+    var results = [];
+    var len = a.length;
+    var pos = 0;
+
+    while(pos &lt; len) {
+        pos = a.indexOf(x, pos);
+        if (pos === -1) break;
+
+        results.push(pos)
+        pos = pos + 1;
+    }
+
+    return results;
+}
+findall([1,2,3,1,3,2], 1)       // =&gt; [0, 3]
+</code></pre>
+
+<h2>数组类型</h2>
+
+<p>ECMAScript 5 中可以使用 Array.isArray() 函数来判断是否为数组，在 ECMAScript 5 之前判断却没这么简单，因为 typeof 运算符操作数组返回的是「对象」，一般用下面的方法下判断是否是数组</p>
+
+<pre><code class="javascript">var isArray = Array.isArray || function(o) {
+    return typeof o === "object" &amp;&amp;
+            Object.prototype.toString.call(0) === '[object Array]';
+};
+</code></pre>
+
+<h2>类数组对象</h2>
+
+<p>JavaScript 数组的一些特性是其他对象没有的：</p>
+
+<ul>
+<li>当有新的元素添加到列表中时，自动更新 length 属性</li>
+<li>设置 length 为一个较小值将截断数组</li>
+<li>从 Array.prototype 中继承一些有用的方法</li>
+<li>其类属性为「Array」</li>
+</ul>
+
+
+<p>以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的「元素」</p>
+
+<pre><code class="javascript">var a = {}
+
+var i = 0;
+while (i &lt; 10) {
+    a[i] = i * i;
+    i++;
+}
+a.length = i;
+a               // =&gt; { 0: 0, 1: 1, 2: 4, 3: 9 ..., length: 10 }
+
+// 现在就可以当成真正的数组遍历它
+var total = 0;
+for (var j = 0; j &lt; a.length; j++) {
+    total+=a[j]
+}
+</code></pre>
+
+<p>Arguments 对象就是一个类数组对象，DOM 方法 document.getElementsByTagName() 也返回类数组对象，它们都有数组的一些特性，比如索引访问、length 属性，但它们并不是真正的数组</p>
+
+<pre><code class="javascript">function isArrayLike(o) {
+    if ( o &amp;&amp;
+        typeof o === "object" &amp;&amp;
+        isFinite(o.length) &amp;&amp;
+        o.length &gt;= 0 &amp;&amp;
+        o.length === Math.floor(o.length) &amp;&amp;
+        o.length &lt; 4294967296 ) {       // 数组长度的最大值 2^32
+        return true;
+    } else {
+        return false;
+    }
+}
+</code></pre>
+
+<p>JavaScript 数组方法是 <strong>特意定义为通用的</strong>，它们不仅可以应用在数组而且可以应用在类数组对象上，一般使用 Array.prototype.method.call 来使用</p>
+
+<pre><code class="javascript">var a = {"0": "a", "1": "b", "2": "c", length: 3};
+Array.prototype.join.call(a, "+")           // =&gt; "a+b+c"
+</code></pre>
+
+<h2>作为数组的字符串</h2>
+
+<p>在 ECMAScript 5 中，字符串的行为类似于 <strong>只读</strong> 的数组。除子用 charAt() 方法来访问单个字符以外，还可以使用方括号：</p>
+
+<pre><code class="javascript">var s = "test";
+s.charAt(0)         // =&gt; "t"
+s.[1]               // =&gt; "e"
+</code></pre>
+
+<p>字符串的行为类似于数组的事实使得通用的数组方法可以应用到字符串上。不过请记住，字符串是 <strong>不可变值</strong>，当把它们作为数组看待时，它们是只读的。所以诸如：push(), sort(), reverse 等 <strong>会修改数组</strong> 的方法 如果被使用在字符串上是无效的，而且会导致错误并且没有相关提示</p>
+
+<pre><code class="javascript">s = "JavaScript"
+Array.prototype.join.call(s, " ")       // =&gt; "J a v a S c r i p t"
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 6 - 对象]]></title>
+    <link href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/"/>
+    <updated>2016-06-23T19:10:28+08:00</updated>
+    <id>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5</id>
+    <content type="html"><![CDATA[<p>对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 <strong>原型</strong> 的对象继承属性</p>
+
+<p>JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象</p>
+
+<p>对象是可变的，通过引用操作对象原对象也会受到影响</p>
+
+<!--more-->
+
+
+<p>属性包括名字和值。名字是可以包含空字符串在内的 <strong>任意字符串</strong>，值可以是任意 JavaScript 值，或者（在 ECMAScript 5中）可以是一个 getter 或者 setter （或都有），每个属性还有一些与之相关的值称为「属性特性」（property attribute）：</p>
+
+<ul>
+<li>可写（writable）</li>
+<li>可枚举（enumerable）</li>
+<li>可配置（configurable），表明是否可以删除或者修改</li>
+</ul>
+
+
+<p>ECMAScript 5 之前，<strong>通过代码给对象创建的所有属性都是可写、可枚举和可配置的</strong></p>
+
+<p>除了包含属性之外，每个对象还拥有三个相关的对象特性（object attribute）：</p>
+
+<ul>
+<li>对象的原型（prototype）指向另外一个对象，本对象的属性继承自它的原型对象</li>
+<li>对象的类（class）是一个标识对象类型的字符串</li>
+<li>对象的扩展标记（extensible flag）指明了（在 ECMAScript 5 中）是否可以向该对象添加新属性</li>
+</ul>
+
+
+<p>下面这些术语用来区分三类 JavaScript 对象和两类属性：</p>
+
+<ul>
+<li>内置对象（native object），由 ECMAScript 规范定义的对象或类。例如 数组、日期</li>
+<li>宿主对象（host object），由 JavaScript 解释器所嵌入的宿主环境（比如浏览器）定义的。比如浏览器中的 HTMLElement，document</li>
+<li>自定义对象（user-defined object），由运行中的 JavaScript 代码创建的对象</li>
+<li>自有属性（own property），直接在对象中定义的属性</li>
+<li>继承属性（inherited property）是在对象的原型对象中定义的属性</li>
+</ul>
+
+
+<h2>创建对象</h2>
+
+<h3>对象直接量</h3>
+
+<pre><code class="javascript">var empty = {}
+var point = { x:0, y:0 }
+var point2 = { x:point.x, y:point.y + 1 }
+var book = {
+    "main title": "JavaScript",
+    "for": "all audiences",
+    author: {
+        firstname: "David",
+        surname: "Flanagan"
+    }
+}
+</code></pre>
+
+<p>在 ECMAScript 5 中，保留字可以用做不带引号的属性名。然后对于 ECMAScript 3 来说，使用保留字作为属性名必须使用引号引起来。ECMAScript 5 中属性最后一个逗号会被忽略，但在 IE 中则报错</p>
+
+<h3>通过 new 创建对象</h3>
+
+<p>new 运算符创建并初始化一个新对象。new 后跟随一个函数调用。这里的函数称做构造函数（constructor），用来初始化一个新创建的对象。JavaScript 语言核心的原始类型都包含内置构造函数（另一方面也证实了 JavaScript 中一切皆对象）</p>
+
+<pre><code class="javascript">var o = new Object();
+var a = new Array();
+var d = new Date();
+var r = new RegExp('js');
+</code></pre>
+
+<h3>原型</h3>
+
+<p>每一个 JavaScript 对象（null 除外）都和另一个对象相关联，这个对象就是「原型」，每一个对象都从原型继承属性</p>
+
+<p>通过 new 创建的对象原型就是构造函数的 prototype 属性值，通过 new Object() 创建的对象也继承自 Obejct.property</p>
+
+<p>没有原型对象的为数不多，Obejct.prototype 就是其中之一。它不继承任何属性，普通对象都具有原型。所有的内置构造函数都具有一个继承自 Object.prototype 的原型。例如，Date.prototype 的属性继承自 Object.prototype，因此由 new Date() 创建的 Date 对象的属性现时继承自 Date.prototype 和 Object.prototype，这一系列链接的原型对象就是所谓的「原型链」（prototype chain）</p>
+
+<h3>Object.create()</h3>
+
+<p>ECMAScript 5 定义了一个名为 Obejct.create() 的方法，用来创建一个新对象，其中第一个参数是这个对象的原型，第二个可选参数用来对对象的属性进行进一步描述，Object.create() 是一个 <strong>静态函数</strong>，不是提供给对象调用的方法</p>
+
+<pre><code class="javascript">var o1 = Object.create({ x:1, y:2 });       // o1 继承了属性 x 和 y
+var o2 = Obejct.create(null);               // o2 不继承任何属性和方法
+</code></pre>
+
+<p>在 ECMAScript 3 中可以用类似代码来模拟原型继承：</p>
+
+<pre><code class="javascript">function inherit(p) {
+    if (p == null) throw TypeError();
+    if (Object.create) return Object.create(p);
+
+    var t = typeof p;
+    if (t !== "object" &amp;&amp; t !== "undefined") throw TypeError();
+
+    function f() {}
+    f.prototype = p;
+
+    return new f();
+}
+
+var o = { x: "test o" }
+
+var c = inherit(o);
+
+c.x = "test c";
+
+console.log(c.x);       // =&gt; "test c"
+console.log(o.x);       // =&gt; "test o"
+</code></pre>
+
+<h2>属性的查询和设置</h2>
+
+<pre><code class="javascript">var author = book.author;           // 取得 book 的 author 属性
+var title = book["main title"];     // 使用 [] 访问属性时 [] 内必须是一个计算结果为字符串的表达式
+
+book.edition = 6;                   // 给 book 创建一个名为 edition 的属性，「.」号运算符后的标识符不能是保留字
+</code></pre>
+
+<h3>作为关联数组的对象</h3>
+
+<p>当通过 [] 来访问对象属性时，属性名通过字符串来表示。字符串是 JavaScript 的数据类型，在程序运行时可以修改创建它们。因此，可以在 JavaScript 中使用下面这种代码来动态添加/查找属性：</p>
+
+<pre><code class="javascript">var addr = "";
+for (i = 0; i &lt; 4; i++) {
+    addr += customer["address" + i] + '\n';
+}
+</code></pre>
+
+<h3>继承</h3>
+
+<p>假设要查询对象 o 的属性 x，如果 o 中不存在 x，那么将会继续在 o 的原型对象中查询属性 x。如果原型对象中也没有 x，但这个原型对象还有原型，那么继续在这个原型对象的原型上执行查找，直到找到 x 或者找到一个原型是 null 的对象为止。可以看出来，原型的属性构成了一个「链接」，通过这个「链」可以实现属性的继承</p>
+
+<pre><code class="javascript">var o = {}
+o.x = 1;
+
+var p = inherit(o);
+p.y = 2;
+
+var q = inherit(p);
+q.z = 3;
+
+var s = q.toString();   // =&gt; "[object Object]"
+q.x + q.y               // =&gt; 3
+</code></pre>
+
+<h3>属性访问错误</h3>
+
+<p>属性访问并不总是返回或设置一个值，下页场景给对象 o 设置 属性 p 会失败：</p>
+
+<ul>
+<li>o 中的属性 p 是只读的（defineProperty() 方法中有一个例外，可以对可配置的只读属性重新赋值）</li>
+<li>o 中不存在自有属性 p：o 没有使用 setter 方法继承属性 p，并且 o 的可扩展性（extensible attribute）是 false。如果 o 中不存在 p，而且没有 setter 方法可供调用，则 p 一定会添加至 o 中。如果 o 不是可扩展的，那么在 o 中不能定义新的属性</li>
+</ul>
+
+
+<h2>删除属性</h2>
+
+<p>使用 delete 运算符可以删除对象的属性，delete 运算符只能删除 <strong>自有属性</strong>，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）</p>
+
+<p>如果删除成功或者删除了一个没有影响的值（不存在的属性），delete 表达式返回 true。当 delete 运算符的操作数不是一个对象的属性的时候也返回 true</p>
+
+<pre><code class="javascript">var o = { x: 1 }
+delete o.x;             // =&gt; true
+delete o.x;             // =&gt; true x 并不存在
+delete o.toString;      // =&gt; true toString 是继承属性
+delete 1                // =&gt; true 不是对象属性
+this.b = 1;
+delete b;               // =&gt; true 删除全局对象上的变量 b
+
+delete Object.property  // =&gt; false
+var x = 1;
+delete this.x;          // =&gt; false 不能删除这个属性，因为是通过 var 声明的
+function f() {}
+delete f                // =&gt; false 不能删除全局函数
+</code></pre>
+
+<h2>检测属性</h2>
+
+<p>可以通过 in 运算符、hasOwnProperty() 方法和 propertyIsEnumerable() 方法来检测对象是否存在某属性，propertyIsEnumerable 只有检测到是自有属性且这个属性的可枚举性为 true 时它才返回 true</p>
+
+<pre><code class="javascript">var o = { x: 1 };
+"x" in o;                          // =&gt; true
+"y" in o;                          // =&gt; false
+"toString" in o                    // =&gt; true
+
+o.hasOwnProperty("x")              // =&gt; true
+o.hasOwnProperty("y")              // =&gt; false
+o.hasOwnProperty("toString")       // =&gt; false
+
+var o = inherit({ y: 2});
+o.x = 1;
+o.propertyIsEnumerable("x")        // =&gt; true
+o.propertyIsEnumerable("y")        // =&gt; false
+o.propertyIsEnumerable("toString") // =&gt; false
+</code></pre>
+
+<p>还可以通过判断属性是否是 undefined 来模拟 in 运算符</p>
+
+<pre><code class="javascript">o.x !== undefined;                 // =&gt; true
+o.y !== undefined;                 // =&gt; false
+o.toString !== undefined;          // =&gt; true
+</code></pre>
+
+<p>然而有一种场景只能使用 in 运算符而不能通过只判断 undefined 的方式。<strong>in 可以区分不存在的属性和存在但值为 undefined 的属性</strong></p>
+
+<pre><code class="javascript">var o = { x: undefined }
+o.x !== undefined           // =&gt; false 存在 x，只是值为 undefined
+o.y !== undefined           // =&gt; false
+"x" in o                    // =&gt; true
+"y" in o                    // =&gt; false
+delete o.x                  // =&gt; true
+"x" in o                    // =&gt; false delete 后 o 完全不存在了
+</code></pre>
+
+<h2>枚举属性</h2>
+
+<p>许多工具库给 Object.prototype 添加了新的方法或者属性（通常不建议这么做），这些方法和属性可以被所有对象继承并使用。然而在 ECMAScript 5 标签之前，这些添加的方法是 <strong>不能定义为不可枚举的</strong>，因此它们都可以在 for/in 循环枚举出来。为了避免这和践情况，需要过滤 for/in 循环返回的属性，下面两种方法是最常见的：</p>
+
+<pre><code class="javascript">Object.prototype.test = 1;
+var o = { a: 1, b:2, c: function() {} };
+for (p in o) {
+    if (!o.hasOwnProperty(p)) continue;
+    console.log(p);
+}
+for (p in o) {
+    if (typeof o[p] === "function") continue;
+}
+</code></pre>
+
+<p>除了 for/in 循环之外，ECMAScript 5 定义了两个用以枚举属性名称的函数。第一个是 Object.keys()，它返回一个数组，由对象中的 <strong>可枚举的自有属性名称</strong> 组成，第二个是 Object.getOwnPropertyNames()，它和上面的方法类似，只是它返回对象的 <strong>所有自有属性名称</strong>，不仅仅是可枚举的属性</p>
+
+<h2>属性 getter 和 setter</h2>
+
+<p>在 ECMAScript 5 中，属性的值可以用一个或两个方法替代，这两个方法就是 getter 和 setter。由它们定义的属性称做「存取器属性」（accessor property），不同于「数据属性」（data property），数据属性只有一个简单的值</p>
+
+<p>当程序查询存取器属性的值时，JavaScript 调用 getter 方法（无参数）。这个方法返回属性的存取表达式值。当程序设置一个存取器属性的值时，调用 setter 方法，将赋值表达式右侧的值当做参数传入 setter。从某种意义上讲，这个方法负责「设置」属性值。可以忽略 setter 方法的返回值</p>
+
+<p>使用存取器属性写入的属性不具有可写性（writable）。如果属性同时具有 getter 和 setter 方法，那么它是一个读/写属性。哪果它只有 getter 方法，那么它是一个只读属性。如果只有 setter 方法，那么它是一个只写属性，读取只写属性总是返回 undefined</p>
+
+<pre><code class="javascript">var p = {
+  x: 1.0,
+  y: 1.0,
+
+  get r() {
+    return Math.sqrt(this.x*this.x + this.y*this.y);
+  },
+  set r(newValue) {
+    var oldValue = Math.sqrt(this.x*this.x + this.y*this.y);
+    var ratio = newValue/oldValue;
+
+    this.x *= ratio;
+    this.y *= ratio;
+  },
+  get theta() {
+    return Math.atan2(this.y, this.x)
+  }
+};
+p.r             // =&gt; 1.4142135623730951
+</code></pre>
+
+<h2>属性的特性</h2>
+
+<p>除了包含名字和值之外，属性还包含一些标识它们可写、可枚举和可配置的特性。ECMAScript 3 程序创建的属性都是可写、可枚举、可配置的，且无法对这些特性做出修改。ECMAScript 5 中却提供了查询和设置这些属性鹅的 API，这些 API 对于库的开发者来说非常重要，因为：</p>
+
+<ul>
+<li>可以通过这些 API 给原型对象添加方法，并将它们设置成不可枚举的，<strong>让它们看起来更像内置方法</strong></li>
+<li>可以通过这些 API 给对象定义不修改或删除的属性借此「锁定」这个对象</li>
+</ul>
+
+
+<p><strong>数据属性</strong> 的 4 个属性分别是它的值（value）、可写性（writable）、可枚举性（enumerable）和可配置性（configurable）</p>
+
+<p><strong>存取器属性</strong> 不具有值（value）特性和可写性，它们的可写性是由 setter 方法存在与否决定，因此存取器属性的 4 个特性是读取（get）、写入（set）、可枚举性和可配置性</p>
+
+<p>为了实现属性特性的查询和设置操作，ECMAScript 5 中定义了一个名为「<strong>属性描述符</strong>」（property descriptor）的对象，这个对象代表那 4 个特性。描述符对象的属性和它们所描述的属性特性是同名的。因此，数据属性的描述符对象的属性有 value, writable, enumerable 和 configurable。存取器属性描述符对象则用 get, set 属性代替 value, writable。其中 writable、enumerable 和 configurable 都是布尔值，get、set 都是函数值</p>
+
+<p>通过调用 Object.getOwnPropertyDescriptor() 可以获得某个对象特定属性的属性描述符</p>
+
+<pre><code class="javascript">// =&gt; {value: 1, writable: true, enumerable: true, configurable: true}
+Object.getOwnPropertyDescriptor({ x: 1}, "x")
+var random = {
+    get octet() {
+        return Math.floor(Math.random() * 256)
+    },
+    get uint16() {
+        return Math.floor(Math.random() * 65536)
+    },
+    get int16() {
+        return Math.floor(Math.random() * 65536 - 32768)
+    }
+}
+// =&gt; {set: undefined, get: function, enumerable: true, configurable: true}
+Object.getOwnPropertyDescriptor(random, "octet")
+// =&gt; undefined
+Object.getOwnPropertyDescriptor({}, "x")
+</code></pre>
+
+<p>从函数名字就可以看出来 Object.getOwnPropertyDescriptor() 只能得到自有属性的描述符。继承属性的特性需要遍历原型链</p>
+
+<p>要想设置属性的特性，或者让新建属性具有某种特性，则需要调用 Object.defineProperty()，传入要修改的对象、要创建或者修改的属性的名称以前属性描述符对象：</p>
+
+<pre><code class="javascript">var o = {};
+Object.defineProperty(o, "x", {
+    value: 1,
+    writable: true,
+    enumerable: false,
+    configurable: true
+});
+// x 属性存在但不可枚举
+Object.keys()       // =&gt; []
+
+Object.defineProperty(o, "x", { writable: false })
+o.x = 2             // 试图更改这个属性的值，会操作失败不报错，严格模式中则抛出类型错误异常
+o.x                 // =&gt; 1
+
+// 将 x 从数据属性修改为存取器属性
+Object.defineProperty(o, "x", { value: 2 })
+Object.defineProperty(o, "x", { get: function() { return 0} }
+o.x                 // =&gt; 0
+</code></pre>
+
+<p>传入 Object.defineProperty() 的属性描述符对象 <strong>不必</strong> 包含所有 4 个特性。对于创建属性来说，默认的特性值是 false 或 undefined。对于修改的已有属性来说，默认的特性值没有做任何修改。注意，这个方法要么修改已有属性要么新建自胡属性，但 <strong>不能修改继承属性</strong>，想要同时修改或者创建多个属性则需要使用 Object.defineProperties()，使用方法可以参考 MDN <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">相关 api</a></p>
+
+<p>对于那些不允许创建或者修改的属性来说，如果用 Object.defineProperty() 对其操作就会抛出类型错误异常，比如给一个不可扩展的对象新增属性就会抛出类型错误异常。<strong>可写性控制着对特定值特性的修改，可配置性控制着对其它特性的修改</strong>，使用的时候以下情况会抛出类型错误异常：</p>
+
+<ul>
+<li>如果对象是不可扩展的，则可以编辑已有的自有属性，但不能给它添加新属性</li>
+<li>如果属性是不可配置的，则不能修改它的可配置性和可枚举性</li>
+<li>如果存取器属性是不可配置的，则不能修改其 getter 和 setter 方法，也不能将它转换为数据属性</li>
+<li>如果数据属性是不可配置的，则不能将它转换为存取器属性</li>
+<li>如果数据属性是不可配置的，则不能将它的可写性从 false 修改为 true，但可以从 true  修改为 false</li>
+<li>如果数据属性是不可配置且不可写的，则不能修改它的值，然而 <strong>可配置但不可写的属性值是可以修改的</strong></li>
+</ul>
+
+
+<pre><code class="javascript">// 给 Object.prototype 添加一个不可枚举的 extend() 方法
+// 这个方法继承自调用它的对象，将作为参数什入的对象属性都复制
+Object.defineProperty(Object.prototype, "extend", {
+    writable: true,
+    enumerable: false,
+    configurable: true,
+    value: function(o) {
+        var names = Object.getOwnPropertyNames(0);
+
+        for (var i = 0, l = names.length; i &lt; l; i++) {
+            if (names[i] in this) continue;
+
+            var desc = Object.getOwnPropertyDescriptor(o, name[i]);
+            Object.defineProperty(this, names[i], desc)
+        }
+    }
+});
+</code></pre>
+
+<p><strong>getter 和 setter 的老式 API</strong></p>
+
+<p>在ECMAScript 5标准被采纳之前，大多数 JavaScript 的实现（IE 除外）已经可以支持对象直接量语法中的 get 和 set 写法。这些实现提供了非标准的老式 API 用来查询和设置 getter 和 setter。这些 API 由 4 个方法组成，所有对象都拥有这些方法。<code>__lookupGetter__()</code> 和 <code>__lookupSetter__()</code> 用以返回一个命名属性的 getter 和 setter 方法，<code>__defineSetter__()</code> 和 <code>__defineGetter__()</code> 用以定义 getter 和 setter</p>
+
+<h2>对象的三个属性</h2>
+
+<p>每个对象都胡与之相关的 <strong>原型</strong>（prototype）、<strong>类</strong>（class）和 <strong>可扩展性</strong>（extensible attribute）</p>
+
+<h3>原型属性</h3>
+
+<p>原型属性是在实例对象创建之初就设置好的，ECMAScript 5 中，对象作为参数传入 <code>Object.getPrototypeOf()</code> 可以查看它的原型，在 ECMAScript 3 中，则没有与之等价的函数，但经常使用表达式 o.constructor.prototype 来检测一个对象的原型。通过 new 表达式创建的对象，通常继承一个 constructor 属性，这个属性指代创建这个对象的构造函数</p>
+
+<p>要想检测一个对象是否是另一个对象的原型（或者处于原型链中），请使用 isPrototypeOf() 方法，这个方法和 instanceof 运算符非常类似，例如：</p>
+
+<pre><code class="javascript">var p = { x:1 };
+var o = Object.create(p);
+p.isPrototypeOf(o)                  // =&gt; true
+Object.prototype.isPrototypeOf(o)   // =&gt; true
+</code></pre>
+
+<h3>类属性</h3>
+
+<p>对象的类属性是一个字符串，用以表示对象的类型信息。ECMAScript 3/5 都未提供设置这个属性的方法，并只有一种间接的方法可以查询它。默认的 toString() 方法（继承自 Object.prototype），返回了如下这种格式的字符串：</p>
+
+<blockquote><p>[object class]</p></blockquote>
+
+<p>所以可以通过 toString() 方法返回的字符串截取处理取到 class 名，不过很多对象继承的 toString() 方法被重写了，为了能调用正确的 toString() 版本，必须间接地调用 Function.call() 方法</p>
+
+<pre><code class="javascript">function classof(o) {
+    if (o === null) return "Null";
+    if (o === undefined) return "Undefined";
+    return Object.prototype.toString.call(o).slice(8, -2);
+}
+classof(null)     // =&gt; "Null"
+classof(1)        // =&gt; "Number"
+classof("")       // =&gt; "String"
+classof(true)     // =&gt; "Boolean"
+classof({})       // =&gt; "Object"
+classof([])       // =&gt; "Array"
+classof(/./)      // =&gt; "Regexp"
+classof(new Date) // =&gt; "Date"
+function f() {}
+classof(new f())  // =&gt; "Object"
+</code></pre>
+
+<h3>可扩展属性</h3>
+
+<p>可扩展性用以表示是否可以给对象是添加新属性。所有内置对象和自定义对象都是显式可扩展的，宿主对象的可扩展属性是由 JavaScript 引擎定义的，ECMAScript 5 中，所有的内置对象和自定义对象都是可扩展的，除非将它们转换为不可扩展的，宿主对象的可扩展性也是由实现 ECMAScript 5 的 JavaScript 引擎定义的</p>
+
+<p>ECMAScript 5 定义了用来查询和设置对象可扩展性的函数：Object.isExtensible()，如果将对象转换为不可扩展的，需要调用 Object.preventExtensions()，不过一量旦将对象转换为不可扩展的，就无法再转换回去了。</p>
+
+<p>Object.seal() 和 Object.preventExtensions() 类似，除了能将对象设置为不可扩展的，还可以将对象的所有自有属性都设置为不可配置的，也就是说不能给对象添加新的属性，已有的属性也不能删除或配置，已封闭（sealed）的对象是不能解封的，可以使用 Object.isSealed() 来检测对象是否封闭</p>
+
+<p>Object.freeze() 将更严格地锁定对象 —— 「冻结」，它还可以将它自有的所有数据属性设置为只读，可以使用 Object.isFrozen() 来检测对象是否冻结</p>
+
+<h2>序列化对象</h2>
+
+<p>对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。ECMAScript 5 提供了内置函数 JSON.stringify 和 JSON.parse() 用来序列化和还原 JavaScript 对象。这些方法都使用 JSON 作为数据交换格式，JSON的全称是「JavaScript Object Notation」—— JavaScript 对象表示法，正如其名，它的语法和 JavaScript 对象与数组直接量的语法非常相近</p>
+
+<p>ECMAScript 3 环境中可以引用 <a href="https://github.com/douglascrockford/JSON-js">json2</a> 类库来支持这两个序列化函数</p>
+
+<p>JSON 语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值，函数、RegExp、Error 对象和 undefined 值不能序列化和不愿。JSON.stringify() <strong>只能序列化对象可枚举的自有属性</strong>，关于 JSON 对象更多 API 可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">JSON.stringify</a></p>
+
+<h2>对象方法</h2>
+
+<h3>toString() 方法</h3>
+
+<p>toString() 方法没有参数，在需要将对象转换为字符串的时候，JavaScript 都调用这个方法</p>
+
+<pre><code class="javascript">var s = { x: 1, y: 1 }
+s.toString();       // =&gt; "[object Ojbect]"
+</code></pre>
+
+<h3>toLocaleString() 方法</h3>
+
+<p>返回一个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身操作，它仅调用 toString() 方法并返回值。Date 和 Number 类对 toString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换</p>
+
+<h3>toJSON() 方法</h3>
+
+<p>Object.prototype 实际上不有定义 toJSON() 方法，但对于需要执行序列化的对象来说，JSON.stringify() 方法会调用 toJSON() 方法，如果存在则调用它，返回值即是序列化的结果，而不是原始对象，参见 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON">Date.toJSON</a></p>
+
+<h3>valueOf() 方法</h3>
+
+<p>valueOf() 和 toString() 方法非常类似，但往往当 JavaScript 需要 <strong>将对象转换为某种原始值而非字符串</strong> 的时候才会用到它，尤其是转换为数字的时候。如果在需要使用原始值的上下文中使用了对象，JavaScript 就会自动调用这个方法，同样有些内置类自定义了 valueOf() 方法，比如 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/valueOf">Date.valueOf</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 5 - 语句]]></title>
+    <link href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/"/>
+    <updated>2016-06-23T19:10:28+08:00</updated>
+    <id>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4</id>
+    <content type="html"><![CDATA[<p>表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生</p>
+
+<!--more-->
+
+
+<h2>表达式语句</h2>
+
+<p>赋值语句、递增/减运算、delete 运算符删除对象属性、函数调用都是表达式语句</p>
+
+<pre><code class="javascript">gretting = "Hello " + name;
+i *= 3;
+count++;
+delete o.x;
+alert(greeting)
+window.close();
+Math.cos(x)
+cs = Math.cos(x);
+</code></pre>
+
+<h2>复合语句和空语句</h2>
+
+<p>逗号运算符将几个表达式连接在一起形成一个表达式，同样，JavaScript 中还可以将多条语句联合在一起，形成一条复合语句（compound statement）。只须用花括号括起来即可，下面几行代码就可以当成一条单独语句</p>
+
+<pre><code class="javascript">{
+    x = Math.PI;
+    cx = Math.cos(x);
+    console.log("cos(x) = " cx);
+}
+</code></pre>
+
+<p>需要注意的两点：</p>
+
+<ul>
+<li>语句块的结尾不需要分号。块中的原始语句 <strong>必须</strong> 以分号结束</li>
+<li>语句块中的行缩进不是必须的，但是合理的缩进更容易理解</li>
+<li>语句块并没有块级作用域名，语句块中声明的变量不是语句块私有的</li>
+</ul>
+
+
+<p>空语句（empty statement）允许包含 0 条语句，空语句在初化一个数组时偶尔会用到</p>
+
+<pre><code class="javascript">var a = Array(50);
+a                                           // =&gt; [undefined,,,,undefined]
+for (i = 0; i &lt; a.length; a[i++] = 0) ;     // 初始化一个数组，注意末尾的分号不能少
+a                                           // =&gt; [0,,,0]
+</code></pre>
+
+<p>这个循环中，所有操作都在表达式 a[i++]=0 中完成，这里并不需要任何循环体。然而 JavaScript 需要循环体中 <strong>至少包含一条语句</strong>，因此，这里只使用了一个单独的分号来表示一条空语句</p>
+
+<h2>声明语句</h2>
+
+<p>var 和 function 都是声明语句，声明语句本身什么也不做，只用来更好地组织代码的语义</p>
+
+<h3>var</h3>
+
+<p>var 语句用来声明一个或者多个变量，用法如下：</p>
+
+<pre><code class="javascript">var name_1 [= value_1] [,..., name_n [= value_n]]
+</code></pre>
+
+<p>如果 var 语句出现在函数体内，那么它定义的是一个 <strong>局部变量</strong>，其作用域就是这个函数，如果在顶层代码中使用 var 语句，它声明的是 <strong>全局变量</strong>，整个程序中都是可用的</p>
+
+<p>全局变量是全局对象的属性。然而通过 var 声明的全局变量 <strong>无法</strong> 通过 delete 删除</p>
+
+<p>如果 var 语句中的变量没有指定初始化表达式，那么这个变量的值初始为 undefined</p>
+
+<h3>function</h3>
+
+<p>函数声明的语句的语法如下：</p>
+
+<pre><code class="javascript">function fun_name([arg1 [, arg2 [..., argn]]]) {
+    statements
+}
+</code></pre>
+
+<pre><code class="javascript">var f = function(x) { return x+1; };        // 通过 var 声明函数
+function f(x) { return x+1; }
+</code></pre>
+
+<h2>条件语句</h2>
+
+<h3>if</h3>
+
+<pre><code class="javascript">if (expression) {
+    statement
+}
+</code></pre>
+
+<p>这种形式中，需要计算 expression 的值，如果结果是真值，那么就执行 statement</p>
+
+<p>为了避免歧义，建议 <strong>总是</strong> 给 if 语句添加花括号</p>
+
+<h3>else if</h3>
+
+<pre><code class="javascript">if (expression) {
+    statement
+} else if (expression) {
+    statement
+}
+</code></pre>
+
+<h3>switch</h3>
+
+<pre><code class="javascript">switch(expression) {
+    statement
+}
+</code></pre>
+
+<h2>循环</h2>
+
+<h3>while</h3>
+
+<pre><code class="javascript">var count = 0;
+while (count &lt; 10) {
+    console.log(count);
+    count++
+}
+</code></pre>
+
+<h3>do/while</h3>
+
+<pre><code class="javascript">function printArray(a) {
+    var len = a.length, i = 0;
+    if (len == 0) {
+        console.log('Empty Array);
+    } else {
+        do {
+            console.log(a[i]);
+        } while(++i &lt; len);
+    }
+}
+</code></pre>
+
+<h3>for</h3>
+
+<p>for 循环的 <strong>执行顺序</strong> 是：</p>
+
+<ol>
+<li>initialize</li>
+<li>test 条件为真</li>
+<li>statement</li>
+<li>increment</li>
+</ol>
+
+
+<pre><code class="javascript">for (initialize; test; increment) {
+    statement
+}
+</code></pre>
+
+<p>多数情况下与之等价的 while 循环写法：</p>
+
+<pre><code class="javascript">initialize;
+while(test) {
+    statement
+    increment;
+}
+</code></pre>
+
+<h3>for/in</h3>
+
+<pre><code class="javascript">for (variable in object) {
+    statement
+}
+</code></pre>
+
+<p>variable 通常是一个变量名（也可以是个表达式），也可以是一个可以产生左值的表达式或者一个通过 var 语句声明的变量，总之必须是一个适用于赋值表达式左侧的值。object 是一个 <strong>表达式</strong>，这个表达式计算结果是一个对象</p>
+
+<p>在执行 for/in 语句的过程中，JavaScript 解释器首先计算 object 表达式。如果表达式为 null 或者 undefined，解释器将会跳过循环并执行后续代码（ECMAScript 3 可能会抛出一个类型错误异常）。如果表达式等于一个原始值，这个原始值将会转换为与之对应的 <a href="/2016/06/16/javascript-definitive-guide-note-2/">包装对象</a>（wrapper object）否则，expression 本身已经是对象了。JavaScript 会依次遍历 <strong>可枚举</strong> 的对象属性来执行循环体语句</p>
+
+<p>for/in 循环并不会遍历对象的所有属性，只有「可枚举」（emumerable）的属性才会遍历到。JavaScript 语言核心所定义的内置方法就 <strong>不是</strong>「可枚举的」，比如，所有对象都有方法 toString()，但 for/in 循环并不枚举 toString 这个属性，还有很多内置属性也是不可枚举的（nonenumerable）。而代码中定义的所有属性和方法都是可枚举的</p>
+
+<p><strong>属性枚举的顺序</strong></p>
+
+<p>ECMAScript 规范并没有指定 for/in 循环按照何种顺序来枚举对象属性。但实际上，主流浏览器厂商的 JavaScript 实现是按照 <strong>属性定义的先后顺序</strong> 来枚举简单对象的属性</p>
+
+<h2>跳转</h2>
+
+<p>JavaScript 中另一类语句是跳转语句（jump statement）。通常有 break, continue, return, throw</p>
+
+<h3>标签语句</h3>
+
+<p>语句是可以添加标签的，标签由语句前的标识符和冒号组成：</p>
+
+<pre><code class="javascript">indetifier: statement
+</code></pre>
+
+<p>标识符必须是一个合法的 JavaScript 标识符</p>
+
+<pre><code class="javascript">mainloop: while(token != null) {
+    // statement
+    continue mainloop;
+}
+</code></pre>
+
+<h3>break 语句</h3>
+
+<p>单独使用 break 语句的作用是立即退出最内层的 <strong>循环</strong> 或者 <strong>switch 语句</strong>，break 关键字后面也可以跟一个语句标签，当 break 和标签一块使用时，程序将跳转到这个标签所标识的语句块的结束</p>
+
+<p><strong>不管 break 语句带不带标签，它的控制权都无法超过函数的边界</strong></p>
+
+<h3>continue 语句</h3>
+
+<p>类似于 break，但是它不退出循环，而是转而执行下一次循环。continue 语句只能在循环体内使用，其它地方使用会报错</p>
+
+<p>在不同类型的循环中，continue 的行为也是有所区别：</p>
+
+<ul>
+<li>在 while 循环中，在循环开始处指定的 expression 会重复检测，如果检测结果为 true，循环休会从头开始执行</li>
+<li>在 do/while 循环中，程序的执行直接跳到循环结尾处，这里会重新判断循环条件，之后才会继续下一次循环</li>
+<li>在 for 循环中，首先计算自增表达式，然后再次检测 test 表达式，用以判断是否执行循环体</li>
+<li>在 for/in 循环中，循环开始遍历下一个属性名，这个属性名赋给了指定的变量</li>
+</ul>
+
+
+<p>需要注意的是 continue 语句在 while 和 for 循环中的区别，while 循环直接进入一下轮的循环条件判断，但 for 循环首先计算其 increment 表达式，然后判断循环条件，所以 for 循环并不能完全等价模拟出 while 循环</p>
+
+<pre><code class="javascript">// while 语句中的写法会造成死循环，for 语句则不会
+// for 语句中的 increment 表达式总是会执行到
+var i = 0;
+while (i &lt; 10) {
+    if (i &lt; 5 ) {
+        continue;
+    }
+    console.log(i);
+    i++;
+}
+
+for (var k = 1; k &lt; 10; k++) {
+    if (k &lt; 5) {
+        continue;
+    }
+    console.log(k);
+}
+</code></pre>
+
+<h3>return 语句</h3>
+
+<pre><code class="javascript">return expression;
+</code></pre>
+
+<p>return 语句 <strong>只能</strong> 出现在函数体内，如果不是的话会报语法错误。当执行到 return 语句的时候，函数终止执行，并返回 expression 的值给调用程序，例如：</p>
+
+<pre><code class="javascript">function square(x) { return x*x; }
+square(2)   // =&gt; 4
+</code></pre>
+
+<p>return 可以单独使用而不必带有 expression，这样的话函数会向调用程序返回 undefined</p>
+
+<h3>throw 语句</h3>
+
+<p>所谓异常（exception）是当发生了落地生根异常情况或错误时产生的一个信号。抛出异常（throw exception），就是用信号通知发生错误或者异常头部。捕获（catch）异常是指处理这个信号，即采取必要的手段从异常中恢复</p>
+
+<pre><code class="javascript">throw expression;
+</code></pre>
+
+<p>expression 的值可以是任意类型的。当 JavaScript 解释器抛出异常的时候通常采用 Error 类型和其子类型</p>
+
+<pre><code class="javascript">function factorial(x) {
+    // 如果输出参数是非法的，则抛出一个异常
+    if (x &lt; 0) throw new Error('x 不能是负数');
+    for (var f = 1; x &gt; 1; f*= x, x--) ;
+    return f;
+}
+</code></pre>
+
+<p>当异常招聘时，JavaScript 解释器会 <strong>立即停止</strong> 当前正在执行的逻辑，并跳转到 <strong>就近的</strong> 异常处理程序。异常钼是程序是用 try/catch/finally 语句的 catch 从句编写的，JavaScript 会沿着方法的词法结构和调用栈向上传播</p>
+
+<h3>try/catch/finally 语句</h3>
+
+<p>try 从句定义了需要处理的异常所有代码块。catch 从句跟在其后，当 try 块内某处发生了异常时，调用 catch 内的代码逻辑。catch 从句后跟随 finally 块，后者中放置清理代码，不管 try 块中是否产生异常，finally 块内的逻辑总是会执行。尽管 catch 和 finally 都是可先的，但 try 从句需要至少二者之一（catch/finally）与之组成完整的语句。</p>
+
+<p>try, catch 和 finally 语句块都 <strong>必须</strong> 使用花括号括起来，即使只有一条语句</p>
+
+<pre><code class="javascript">try {
+    // 通常来讲，这里的代码会从头执行到尾而不会产生任何问题，
+    // 但有时会招聘一个异常，要么是由 throw 语句直接抛出，要
+    // 么是通过调用一个方法间接抛出异常
+} catch (e) {
+    // 当且仅当 try 语句块抛出了异常，才会执行这里的代码
+    // 这里可以通过局部变量 e 来警告对 Error 对象或者抛出的其他值的引用
+    // 还可以通过 throw 语句重新抛出异常
+} finally {
+    // 不管 try 语句是否抛出了异常，这里的逻辑总是会执行，终止 try 语句块的方式有：
+    // 1. 正常终止，执行完语句块的最后一条语句
+    // 2. 通过 break, continue 或 return 语句终止
+    // 3. 抛出一个异常，异常被 catch 从句捕获
+    // 4. 抛出一个异常，异常未被捕获，继续向上传播
+}
+</code></pre>
+
+<p>一般来说 JavaScript 使用 try/catch 语句的时候很少使用 finally。通常在一些后端语言 IO 操作中使用 finally 的比较多，比如打开一个文件，出现异常或者正常执行完 try 从句都需要关闭文件句柄</p>
+
+<h2>其它语句类型</h2>
+
+<p>with, debugger 和 use strict</p>
+
+<h3>with 语句</h3>
+
+<p>with 语句用于临时扩展作用域链，语法如下：</p>
+
+<pre><code class="javascript">with (object) {
+    statement
+}
+</code></pre>
+
+<p>这条语句将 object 添加到 <strong>作用域链的头部</strong>，然后执行 statement，最后把作用域链恢复到原始状态</p>
+
+<p>严格模式中是禁止使用 with 语句的，并且在非严格模式里也是 <strong>不推荐</strong> 使用 with 语句的。使用 with 语句的 JavaScript 代码非常难于优化，并且和没有使用 width 语句的代码相比，运行更慢</p>
+
+<p>在对象嵌套层次很深的时候通常会使用 with 语句来简化代码编写。比如：</p>
+
+<pre><code class="javascript">document.forms[0].address.value = 'a'
+document.forms[0].name.value = 'b'
+document.forms[0].job.value = 'c'
+
+// 等价于
+with (document.forms[0]) {
+    address.value = 'a'
+    name.value = 'b'
+    job.value = 'c'
+}
+// 使用 with 语句减少了对象访问前缀，但是仍然可以不使用 with 解决这个问题
+// 使用变量 f 缓存对象引用
+var f = document.forms[0];
+f.address.value = 'a'
+f.name.value = 'b'
+f.job.value = 'c'
+</code></pre>
+
+<p>只有在查找标识符的时候才会用到作用域链，创建新的变量的时候不使用</p>
+
+<pre><code class="javascript">var d = 0;
+var o = { a: 1, b: 2, c: 3};
+
+with(o) {
+   a = 2;
+   d = 1
+}
+d           // =&gt; 1
+o           // =&gt; {a: 2, b: 2, c: 3}
+</code></pre>
+
+<h3>debugger 语句</h3>
+
+<p>debugger 语句通常什么也不做。当调试程序可用并运行的时候，JavaScript 解释器将会（非必需）以调试模式运行。这条语句用来产生一个断点（breakpoint），JavaScript 代码的挂靠会停止在断点的位置，这时可以使用调试器转出当前的变量、调用栈等</p>
+
+<p>ECMAScript 5 中，debugger 语句正式加入到了语言规范里，在此之前注流浏览器厂商基本都已经实惠过了</p>
+
+<h3>&lsquo;use strict&rsquo;</h3>
+
+<p>&lsquo;use strict&rsquo; 是 ECMAScript 5 引入的一条指定。非常类似语句但不是，区别在于：</p>
+
+<ul>
+<li>它 <strong>不包含</strong>任何语言的关键字，指令仅仅是一个包含一个特殊字符串直接量的表达式，它是一条没有副作用的表达式语句，什么也没做</li>
+<li>它只能出现在脚本代码的开始或者函数体的开始、任何实体语句之前。但不必一定出现在脚本或者函数休内的首行</li>
+</ul>
+
+
+<p>使用 &lsquo;use strict&rsquo; 指令的目的是说明（脚本或函数中）后续的代码将会解析为严格代码</p>
+
+<p>严格代码以 <strong>严格模式</strong> 执行，严格模式悠了语言的重要缺陷，并提供健壮的查氏功能和增强的安全机制，和非严格模式的区别如下：</p>
+
+<ul>
+<li>严格模式中 <strong>禁止</strong> 使用 width 语句</li>
+<li>严格模式中，所有的变量都要先声明，如果给一个未声明的变量、函数、函数参数、catch 从句参数或全局对象的属性赋值，将会抛出一个引用错误异常</li>
+<li>严格模式中，调用的函数（不是方法）中的一个 this 值是 undefined（非严格模式下 this 值总是全局对象），可以利用这个特性来判断当前的 JavaScript 是否支持严格模式 <code>var hasStrictMode = (function() { "use strict"; return this === undefined }())</code></li>
+<li>严格模式中，给只读属性赋值和给不可扩展的对象创建新成员都将抛出一个类型错误异常（非严格模式中不会报错）</li>
+<li>严格模式中，传入 eval() 的代码不能在调用程序所在的上下文中声明变量或定义函数，非严格模式中可以</li>
+<li>严格模式中，函数里的 arguments 对象拥有传入函数值的 <strong>静态副本</strong>。非严格模式下，arguments 里的数组元素和函数参数都指向同一个值的引用</li>
+<li>严格模式中，当 delete 运算符后跟随非法的标识符（变量、函数、当函数参数）时，将会抛出一个语法错误异常</li>
+<li>严格模式中试图删除一个 <strong>不可配置</strong> 的属性将抛出一个类型错误异常（非严格模式中，返回 false）</li>
+<li>严格模式中，一个对象直接量中定义两个或多个 <strong>同名属性</strong> 将产生一个语法错误</li>
+<li>严格模式中，函数声明中存在两个或多个同名参数将产生一个语法错误</li>
+<li>严格模式中，<strong>不允许使用八进制</strong> 整数直接量（以 0 为前缀）</li>
+<li>严格模式中，标识符 eval 和 arguments 当做关键字，它们的值是不能更改的，不能给它们赋值，也不能把它们声明为变量、函数名</li>
+<li>严格模式中，限制了对调用栈的检测能力，在严格模式的函数中，arguments.caller 和 arguments.callee 都会抛出一个类型错误异常</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 4 - 表达式和运算符]]></title>
+    <link href="http://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/"/>
+    <updated>2016-06-20T19:10:28+08:00</updated>
+    <id>http://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3</id>
+    <content type="html"><![CDATA[<p>表达式（expression）是 JavaScript 中的一个短语（phrases），JavaScript 解释器会将其计算（evaluate）出一个结果。程序中的常量、变量名、数组访问等都是表达式</p>
+
+<p>简单表达式组合成复杂表达式最常用的方法就是使用运算符（operator）</p>
+
+<!--more-->
+
+
+<h2>原始表达式</h2>
+
+<p>是最简单的表达式是「原始表达式」（primary expression）。是表达式的 <strong>最小单位</strong> ———— 不再包含其他表达式。常量、直接量、关键字、变量都是原始表达式</p>
+
+<pre><code>1.23
+"hello"
+/pattern/
+
+true
+false
+null
+this
+
+i
+sum
+undefined
+</code></pre>
+
+<h2>对象和数组的始化表达式</h2>
+
+<p>对象和数组的始化表达式实际上是一个新创建的对象和数组，这些表达式有时也称做「对象直接量」和「数组直接量」</p>
+
+<pre><code class="javascript">[]
+[1+2, 3+4]
+
+var sparseArray = [1,,,,,5]           // 数组分割逗号之前的元素可以省略，空位默认填充 undefined
+var matrix = [[1,2,3], [4,5,6], [7,8,9]]
+
+var p = { x: 2.3, y: -1.2}
+var q = {}
+q.x = 2.3; q.y = -1.3
+</code></pre>
+
+<p>JavaScript 对数组始化表达式进行求值的时候，数组初始化表达式中的元素表达式也都会各自计算一次。也就是说，数组初始化表达式每次计算的值有可能是不同的</p>
+
+<h2>函数定义表达式</h2>
+
+<pre><code class="javascript">var square = function(x) { return x*x }
+</code></pre>
+
+<h2>属性访问表达式</h2>
+
+<pre><code class="javascript">// expression.identifier
+// expression[expression]
+
+var o = { x:1, y:{z:3} };
+var a = [0, 4, [5, 6]];
+o.x             // =&gt; 1 表达式 o 的 x 属性
+o.y.z           // =&gt; 3 表达式 o.y 的属性 z
+o["x"]          // =&gt; 1 对象 o 的 x 属性
+a[1]            // =&gt; 4 表达式 a 中索引为 1 的元素
+a[2]["1"]       // =&gt; 6 表达式 a[2] 中索引为 1 的元素
+a[0].x          // =&gt; 1 表达式 a[0] 的 x 属性
+</code></pre>
+
+<p>不管使用哪种形式的属性访问表达式，在「.」和「[」 <strong>之前的表达式总是会首先计算</strong>。如果计算结果是 null 或者 undefined，表达式会抛出一个类型错误异常，因为这两个值都不能包含任意属性。如果运算结果不是对象（或者数组），JavaScript 会将其转换为对象。如果对象表达式后跟随一对方括号，则会计算方括号内的表达式的值并将它转换为字符串，<strong>不论哪种情况</strong>，如果命名的属性不存在，那么整个属性访问表达式的值就是 undefined</p>
+
+<h2>调用表达式</h2>
+
+<p>JavaScript 中的调用表达式（invocation expression）是一种调用（或者执行）函数或者方法的语法表示。它以一个函数表达式开始，后面跟随一对圆括号，括号内是一个以逗号隔开的参数列表</p>
+
+<pre><code class="javascript">f(0)
+Math.max(x, y, z)
+a.sort()
+</code></pre>
+
+<h2>对象创建表达式</h2>
+
+<pre><code class="javascript">new Object()
+new Point(2, 3)
+
+// 如果不需要传入参数给构造函数，圆括号可以省略
+new Object
+new Date
+</code></pre>
+
+<h2>运算符概述</h2>
+
+<p>JavaScript 中的运算符用于自述表达式、比较表达式、逻辑表达式、赋值表达式等。大多数运算符都是由标点符号表示的，比如：「+」和「= 」，另外的一些运算符则是由关键字表示的，比如：delete 和 instanceof。</p>
+
+<p><em>表4-1</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 运算符      </th>
+<th> 操作                   </th>
+<th style="text-align:center;"> A      </th>
+<th style="text-align:center;"> N     </th>
+<th> 类型             </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> ++          </td>
+<td> 前/后增量              </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> lval→num         </td>
+</tr>
+<tr>
+<td> &ndash;          </td>
+<td> 前/后增量              </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> lval→num         </td>
+</tr>
+<tr>
+<td> -           </td>
+<td> 求反                   </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> num→num          </td>
+</tr>
+<tr>
+<td> +           </td>
+<td> 转换为数字             </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> num→num          </td>
+</tr>
+<tr>
+<td> ~           </td>
+<td> 按位求反               </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> int→int          </td>
+</tr>
+<tr>
+<td> !           </td>
+<td> 逻辑非                 </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> bool→bo          </td>
+</tr>
+<tr>
+<td> delete      </td>
+<td> 删除属性               </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> lval→bool        </td>
+</tr>
+<tr>
+<td> typeof      </td>
+<td> 检测操作数类型         </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> any→str          </td>
+</tr>
+<tr>
+<td> void        </td>
+<td> 返回 undefined 值      </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 1     </td>
+<td> any→undef        </td>
+</tr>
+<tr>
+<td> *, /, %     </td>
+<td> 乘、除、求余           </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> num,num→num      </td>
+</tr>
+<tr>
+<td> +, -        </td>
+<td> 加减                   </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> num,num→num      </td>
+</tr>
+<tr>
+<td> +           </td>
+<td> 字符串链接             </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> str,str→str      </td>
+</tr>
+<tr>
+<td> &lt;&lt;          </td>
+<td> 左移位                 </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> >>          </td>
+<td> 有符号右移             </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> >>>         </td>
+<td> 无符号右移             </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> &lt;, &lt;=,>, >= </td>
+<td> 比较顺序               </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> num,num→bool     </td>
+</tr>
+<tr>
+<td> &lt;, &lt;=,>, >= </td>
+<td> 比较在字母表中的顺序   </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> str,str→bool     </td>
+</tr>
+<tr>
+<td> instanceof  </td>
+<td> 测试对象类             </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> obj,func→bool    </td>
+</tr>
+<tr>
+<td> in          </td>
+<td> 测试属性是否存在       </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> str,obj→bool     </td>
+</tr>
+<tr>
+<td> ==          </td>
+<td> 判断相等               </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→bool     </td>
+</tr>
+<tr>
+<td> !=          </td>
+<td> 判断不等               </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→bool     </td>
+</tr>
+<tr>
+<td> ===         </td>
+<td> 判断恒等               </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→bool     </td>
+</tr>
+<tr>
+<td> !==         </td>
+<td> 判断非恒等             </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→bool     </td>
+</tr>
+<tr>
+<td> &amp;           </td>
+<td> 按位与                 </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> ^           </td>
+<td> 按位异或               </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> |          </td>
+<td> 按位或                 </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> int,int→int      </td>
+</tr>
+<tr>
+<td> &amp;&amp;          </td>
+<td> 按位与                 </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→any      </td>
+</tr>
+<tr>
+<td> ||        </td>
+<td> 逻辑或                 </td>
+<td style="text-align:center;"> L      </td>
+<td style="text-align:center;"> 2     </td>
+<td> any,any→any      </td>
+</tr>
+<tr>
+<td> ?:          </td>
+<td> 条件运算符             </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 3     </td>
+<td> bool,any,any→any </td>
+</tr>
+<tr>
+<td> =           </td>
+<td> 变量赋值或对象属性赋值 </td>
+<td style="text-align:center;"> R      </td>
+<td style="text-align:center;"> 2     </td>
+<td> lval,any→any     </td>
+</tr>
+<tr>
+<td> *=, /=, %=, += <br> -=, &amp;=, ^=, | = <br> &lt;&lt;=, >>=, >>>= </td>
+<td> 运算且赋值 </td>
+<td style="text-align:center;"> R </td>
+<td style="text-align:center;"> 2 </td>
+<td> lval,any→any </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>操作数的个数</h3>
+
+<p>运算符可以根据操作数的个数进行分类，JavaScript 中的大多数运算符（比如「*」乘法运算符）是一个二元运算符（binary operator），将两个表达式合并成一个稍复杂的表达式。JavaScript 同样支持一元运算符（unary operator），表达式 -x 中的「-」运算符就是一个一元运算符，是将操作数 x 求负值。JavaScript 支持一个三元运算符（ternary operator），条件判断运算符「?:」，它将三个表达式合并成一个表达式</p>
+
+<h3>操作数的类型和结果类型</h3>
+
+<p>JavaScript 运算符通常会根据需要对操作数进行类型转换。乘法运算符「*」希望操作数为籽安，但是表达式 &ldquo;3&rdquo; * &ldquo;5&rdquo; 却是合法的，因为 JavaScript 会将操作数转换为数字。结果是数字类型的 15</p>
+
+<p>一些运算符对操作数类型有着不同程度的依赖。比如加法运算符「+」可以对数字进行加法，也可以做字符串连接。同样「&lt;」比较运算符可以进行数值大小比较，也可以比较字符在字母表中的次序先后</p>
+
+<h3>左值（lvalues）</h3>
+
+<p>左传是一个古老的术语，它指「表达式只能出现在赋值运算符的左侧」。在 JavaScript 中，变量、对象属性、数组元素均是左值，ECMAScript 规范中允许内置函数返回一个左值，但自定义函数则不能</p>
+
+<h3>运算符的副作用（opreator side effects）</h3>
+
+<p>计算一个简单的表达式（比如 2*3）不会对程序的运行状态造成任何影响，程序后续执行的计算也不会受到该计算的影响。而有一些表达式则具有很多副作用，赋值运算符是最明显的一个例子：如果给一个变量或者属性赋值，那么那些使用这个变量或者属性的表达式的值都会发生改变。「++」和「&ndash;」与些类似，因为它们包含 <strong>隐式的</strong> 赋值。delete 运算符同样有副作用删除一个属性就像（但不完全一样）给这个属性赋值 undefined</p>
+
+<h3>运算符优先级</h3>
+
+<p>如果你不确定你所使用的运算符的优先级，最简单的方法就是使用圆括号来强行指定运算次序</p>
+
+<h3>运算符的结合性</h3>
+
+<p>表 4-1 标题为 A 的列说明了运算符的结合性。<strong>L 指从左至右结合，R 指从右至左结合</strong>。结合性指定了在多个具有同样优先级的运算符表达式中的运算顺序。</p>
+
+<pre><code class="javascript">w = x - y - z;              // 减法运算符具有从左至右的结合性
+x = ~-y                     // 等价于 ~(-y)
+w = x = y = z               // 等价于 w = (x = (y = z))
+q = a?b:c?d:e?f:g           // 等价于 q = a?b:(c?d:(e?f:g))
+</code></pre>
+
+<h3>运算顺序</h3>
+
+<p>运算符优先级和结合性规定了它们在复杂的表达式中的运算顺序，但并没有规定子表达式的计算过程中的运算顺序。JavaScript 总是严格按照从左至右的顺序来计算表达式。例如，在表达式 w = x + y * z 中，将首先计算子表达式 w， 然后计算 x, y 和 z，然后，y,z 相乘，再加上 x 的值，最后赋值给表达式 w 所指代的变量或者属性</p>
+
+<p>假设存在 a = 1，那么「b = (a++) + a」将如何计算呢？</p>
+
+<ol>
+<li>计算 b</li>
+<li>计算 a++ （假设为 c）</li>
+<li>计算 a</li>
+<li>计算 c + a</li>
+<li>将 c + a 的结果赋值给 b</li>
+</ol>
+
+
+<p>按照「++」的定义，第 [2] 步中 a++ 的结果依然是 1，即 c 为 1，随后 a 立即增 1， 因此在执行第 [3] 步时，a 的值已经是 2。所以 b 的结果为 3</p>
+
+<h2>算术表达式</h2>
+
+<p>所有那些无法转换数字的操作数都转换为 NaN 值，如果操作数（或者转换结果）是 NaN 值，算术运算的结果也是 NaN。</p>
+
+<h3>「+」运算符</h3>
+
+<p>加号的转换规则 <strong>优先</strong> 考虑字符串链接，如果其中一个操作数是字符串或者转换为字符串的对象，另外一个操作数将会转换为字符串，加法将进行字符串的连接操作</p>
+
+<p><strong>加法操作符的行为表现为：</strong></p>
+
+<p>如果其中一个操作数是对象，则对象会遵循对象到原始值的转换规则转换成原始类值：日期对象通过 toString() 方法执行转换，其它对象则通过 valueOf() 方法执行转换（如果 valueOf 谅坂加一个原始值的话）。由于多数对象都不具备可用的 valueOf() 方法，因为它们会通过 toString() 方法来执行转换</p>
+
+<ul>
+<li>在进行了对象到原始值的转换后，如果其中一个操作数是字符串的话，另外一个操作数也会被转换为字符串，然后进行字符串连接</li>
+<li>否则，两个操作数都将转换为数字（或者 NaN），然后进行加法操作</li>
+</ul>
+
+
+<pre><code class="javascript">1 + 2                   // =&gt; 3
+"1" + "2"               // =&gt; "12"
+"1" + 2                 // =&gt; "12"
+1 + {}                  // =&gt; "1[object Object]"
+true + true             // =&gt; 2
+2 + null                // =&gt; 2
+2 + undefined           // =&gt; NaN
+
+1 + 2 + " blind mice"    // =&gt; "3 blind mice"
+1 + (2 + " blind mice")  // =&gt; "12 blind mice"
+</code></pre>
+
+<h3>一元运算符</h3>
+
+<p>一元运算符作用于一个单独的操作数，并产生一个新值。在 JavaScript 中一元运算符有很高的优先级，而且都是 <strong>右结合</strong>（right-associative），「+」和「-」是一元运算符，也是二元运算符</p>
+
+<h3>一元加法（+）</h3>
+
+<p>一元加运算符把操作数转换为数字（或者 NaN），并返回这个转换后的数字。如果操作数本身就是数字，则直接返回这个数字</p>
+
+<h3>一元减（-）</h3>
+
+<p>当「-」胜仗和一元运算时，它会根据需要把操作数转换为数字，然后改变运算结果的符号</p>
+
+<h3>递增（++）</h3>
+
+<p>递增「++」运算符对其操作数进行增量（加一）操作，操作数是一个左传（lvalue）（变量、数组元素或对象属性）。运算符将操作数转换为数字，然后给数字加 1，并将加 1 后的数值重新赋值给变量、数组或者对象属性</p>
+
+<p>递增「++」运算符的返回值 <strong>依赖于</strong> 它相对于操作数的位置。当运算符在操作数之前，称为「前增量」（pre-increment）运算符，它对操作数进行增量计算，并返回计算后的值。当运算符在操作数之后，称为「后增量」（post-increment）运算符，它对操作数进行增量计算，但返回未做增量计算的（unincremented）值</p>
+
+<pre><code class="javascript">var i = 1, j = ++i;     // i,j 都是 2
+var i = 1, j = i++;     // i 是 2， j 是 1
+</code></pre>
+
+<h3>递减（&ndash;）</h3>
+
+<p>同递增</p>
+
+<h3>位运算符</h3>
+
+<p>位运算符可以对由数字表壳的二进制数据进行更低层级的按位运算</p>
+
+<p>位运算要求它的操作数是整数，这些整数表示为 32 位整数而不是 64 位。必要时运算符先将操作数转换为数字，并将数字强制表示为 32 位整型，这时会魅力原格式中的小数部分和任何超过 32 位的二进制位。移位运算符要求右操作数在 0 ~ 31 之前。在将其操作数转换为无符号的 32 位整数后，它们将作序第 5 位之后的二进制位，以便生成一个位数正确的数字。需要注意的是，位运算符会将 NaN, Infinity, -Infinity 都转换为 0</p>
+
+<h2>关系表达式</h2>
+
+<h3>相等和不等运算符</h3>
+
+<p>「==」和「===」运算符用于比较两个值是否相等，两个运算符 <strong>允许任意类型</strong> 的操作数，如果操作数相等返回 true，否则返回 false。「===」也称为严格相等（strict equality）运算符，有时也称做恒等运算符（identity operator）</p>
+
+<p><strong>严格相等运算符</strong>「===」首先计算期操作数的值，然后比较这两个值，比较过程 <strong>没有任何类型转换</strong>：</p>
+
+<ul>
+<li>如果两个值类型不相同，则它们不相等</li>
+<li>如果两个值都是 null 或著都是 undefined，则它们不相等</li>
+<li>如果两个值都是布尔值 true 或 false，则它们相等</li>
+<li>如果其中一个值是 NaN，或者两个值都是 NaN，则它们不相等。NaN 和其他任何值都不相等，<strong>包括它本身</strong></li>
+<li>如果两个值为数字且数值相等。如果一个值为 0，另一个值为 -0，则它们同样相等</li>
+<li>如果两个值为字符串，且所售的对应位上的 16 位数完全相等，则它们相等。如果它们的长度或内容不同，则不相等。</li>
+<li>如果两个引用值指向同一个对象、数组或者函数，则它们是相等的。如果指向不同的对象，则不相等，尽管两个对象可能具有完全一样的属性</li>
+</ul>
+
+
+<p><strong>相等运算符</strong>「==」和恒等类似，但是如果操作数不是同一类型，相等运算符会尝试进行一些类型转换，然后比较：</p>
+
+<ul>
+<li>如果两个操作数的类型相同，则和上文所述的严格相等规则一样</li>
+<li>如果两个操作数类型不同，相等操作符也可能会认为它们相等。检测相等规则如下：
+
+<ul>
+<li>如果一个值是 null，另一个是 undefined，则它们相等</li>
+<li>如果一个值是数字，另一个是字符串，先将字符串转换为数字，然后比较</li>
+<li>如果其中一个值是 true，则将其转换为 1 再进行比较。false 为 0</li>
+<li>如果一个值是对象，另一个值是数字或者字符串，则使用「转换规则」将对象转换为原始值，然后再比较</li>
+<li>其他不同类型之前的比较均不相等</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>比较运算符</h3>
+
+<p>比较运算符用来检测两个操作数的大小关系（数值大小或者字母表顺序），例如：&lt;, >, &lt;=, >=</p>
+
+<p>比较运算符的操作数可能是任意类型。然而 <strong>只有数字和字符串才能真正执行比较操作</strong>，因此那些不是数字和字符串的操作都将进行类型转换，规则如下：</p>
+
+<ul>
+<li>如果操作数为对象，那么这个对象将依照「转换规则」转换为原始值</li>
+<li>在对象转换为原始值之后，如果至少有一个操作数不是字符串，那么两个操作数都将转换为数字进行数值比较。0 和 -0 是相等的。Infinity 比其它任何数字都大（除它本身），如果一个操作数是（或者转换后是）NaN，那么比较操作符 <strong>总是</strong> 返回 false</li>
+</ul>
+
+
+<p>需要注意的是，JavaScript 字符串是一个由 16 位整数值组成的序列，字符串的比较也只是两个字符的数值比较。字符串的比较是区分大小写的，所有的大写 ASCII 字母都「小于」小写的 ASCII 字母。比如比较「Zoo」和「aardvark」，结果为 true</p>
+
+<pre><code class="javascript">1 + 2               // =&gt; 3
+"1" + 2             // =&gt; "12"
+"11" &lt; "3"          // =&gt; true 字符串的比较
+"11" &lt; 3            // =&gt; false 转换后数字的比较
+"one" &lt; 3           // =&gt; false 数字的比较，"one"转换成 NaN
+</code></pre>
+
+<p>注意比较运算符（&lt;=, >=）并没有严格「大、小」于的说法</p>
+
+<h3>in 运算符</h3>
+
+<p>in 运算符希望它的左操作数是一个字符串或者可以转换为字符串，希望它的右操作数是一个对象。如果右侧的对象拥有一个名为右操作数值的属性名，那么表达式返回 true，例如：</p>
+
+<pre><code class="javascript">var point = { x:1, y:1 }
+"x" in point
+"z" in point
+"toString" in point
+var data = [7,8,9]
+"0" in data                 // =&gt; true      data["0"]
+1 in data                   // =&gt; true      data[1]
+3 in data                   // =&gt; false     data[3]
+</code></pre>
+
+<h3>instanceof 运算符</h3>
+
+<p>instanceof 运算符希望左侧操作数是一个对象，右操作数标识对象的类。如果左侧的对象是右侧类的实例，则表达式返回 true，否则返回 false。</p>
+
+<pre><code class="javascript">var d = new Date();
+d instanceof Date;   // =&gt; true
+d instanceof Object; // =&gt; true
+d instanceof Number; // =&gt; false
+
+var a = [1,2,3];
+a instanceof Array   // =&gt; true
+a instanceof Object  // =&gt; true
+a instanceof RegExp  // =&gt; false
+</code></pre>
+
+<p>需要注意的是，<strong>所有的对象都是 Ojbect 的实例</strong>。当通过 instanceof 判断一个对象是否是一个类的实例的时候，<strong>这个判断也会包含对「父类」</strong>（superclass）的检测。如果左操作数不是对象的话，instanceof 返回 false。如果右操作数不是函数，则抛出一个类型错误异常</p>
+
+<h2>逻辑表达式</h2>
+
+<h3>逻辑与（&amp;&amp;）</h3>
+
+<p>如果逻辑与运算符的左操作数转换成逻辑值为假的时候 &amp;&amp; 操作符不会去计算右操作数，比如：</p>
+
+<pre><code class="javascript">var o = { x: 1 }
+var p = null;
+o &amp;&amp; o.x            // =&gt; 1
+p &amp;&amp; p.x            // =&gt; null p 是伟假值，因此将其返回，并不计算 p.x
+</code></pre>
+
+<p>「&amp;&amp;」的行为有时候称做「短路」（short circuiting），我们经常看到很多代码利用这一我来有条件的执行代码，例如下面两条代码完全等价：</p>
+
+<pre><code class="javascript">if (a == b) stop();
+(a == b) &amp;&amp; stop;
+</code></pre>
+
+<h3>逻辑或（||）</h3>
+
+<p>|| 会首先计算第一个操作数的值，也就是说会首先计算左侧的表达式。如果计算结果为真值，就返回这个真值。否则，再计算第二个操作数的值，即右侧的表达式，并返回计算结果</p>
+
+<p>通常我们用「||」来从一组备选表达式中选出第一个真值：</p>
+
+<pre><code class="javascript">var max = max_width || preferences.max_width || 500
+
+function copy(o, p) {
+    p = p || {}         // 用来给函数参数添加默认值
+}
+</code></pre>
+
+<h3>逻辑非（!）</h3>
+
+<pre><code class="javascript">// 对于 p 和 q 取任意值，这两个等式都永远成立
+!(p &amp;&amp; q) === !p || !q
+!(p || q) === !p &amp;&amp; !q
+</code></pre>
+
+<h2>赋值表达式</h2>
+
+<pre><code class="javascript">i = 0
+o.x = 1
+(a = b) == 0              // b 的值赋给 a 再进行相等判断
+
+i = j = k = 0;            // 把三个变量寝化为 0
+total += sales_tax        // 带操作的赋值运算
+total = total + sales_tax // 和上面等价
+</code></pre>
+
+<p><em>表4-2</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 运算符   </th>
+<th> 示例     </th>
+<th> 等价于      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> +=       </td>
+<td> a += b   </td>
+<td> a = a + b   </td>
+</tr>
+<tr>
+<td> -=       </td>
+<td> a -= b   </td>
+<td> a = a - b   </td>
+</tr>
+<tr>
+<td> *=       </td>
+<td> a *= b   </td>
+<td> a = a * b   </td>
+</tr>
+<tr>
+<td> /=       </td>
+<td> a /= b   </td>
+<td> a = a / b   </td>
+</tr>
+<tr>
+<td> %=       </td>
+<td> a %= b   </td>
+<td> a = a % b   </td>
+</tr>
+<tr>
+<td> &lt;&lt;=      </td>
+<td> a &lt;&lt;= b  </td>
+<td> a = a &lt;&lt; b  </td>
+</tr>
+<tr>
+<td> >>=      </td>
+<td> a >>= b  </td>
+<td> a = a >> b  </td>
+</tr>
+<tr>
+<td> >>>=     </td>
+<td> a >>>= b </td>
+<td> a = a >>> b </td>
+</tr>
+<tr>
+<td> &amp;=       </td>
+<td> a &amp;= b   </td>
+<td> a = a &amp; b   </td>
+</tr>
+<tr>
+<td> |=      </td>
+<td> a |= b  </td>
+<td> a = a | b  </td>
+</tr>
+<tr>
+<td> ^=       </td>
+<td> a ^= b   </td>
+<td> a = a ^ b   </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>表达式计算</h2>
+
+<h3>eval()</h3>
+
+<p>eval() 是一个函数，但是它通常被当成运算符。如果一个池娄调用了 eval()，那么解释器将无法对这个函数做进一步的优化。而将 eval() 定义为函数的另一个问题是，它可以被赋予其他的名字：</p>
+
+<pre><code class="javascript">var f = eval;
+var g = f;
+</code></pre>
+
+<p>eval() 只有一个参数。如果传入的参数不是字符串，它直接返回这个参数。如果参数是字符串，它会把字符串当成 JavaScript 代码进行编译（parse），如果编译失败则抛出一个语法错误（SyntaxError）异常。如果编译成功，则开始执行这段代码，并返回字符串中的最后一个表达式或者语句的值，如果最后一个表达式或者语句没有值，则最终返回 undefined</p>
+
+<p><strong>eval() 使用了调用它的变量作用域</strong> 环境。也就是说，它查找变量的值和定义新变量和函数的操作和局部作用域中的代码完全一样</p>
+
+<h3>全局 eval()</h3>
+
+<p>eval() 具有更改局部变量的能力。ECMAScript 3 标准规定了任何解释器都不允许对 eval() 赋予别名，通过别名调用会抛出一个 EvalError 异常</p>
+
+<p>实际上，大多数的实现并不是这么做的。当通过别名调用时，eval()  会将其字符串当成顶层的全局代码来执行</p>
+
+<p>ECMAScript 5 是返回使用 EvalError 的，并且规范了 eval() 的行为</p>
+
+<pre><code class="javascript">var geval = eval;
+var x = "global", y = "global";
+function f() {
+    var x = "local";
+    eval("x += 'changed'");
+    return x
+}
+function g(){
+    var y = 'local';
+    geval("y += 'changed'");
+    return y
+}
+
+console.log(f(), x);
+"changed global"
+console.log(g(), y);
+"globalchanged"
+</code></pre>
+
+<h3>严格 eval()</h3>
+
+<p>ECMAScript 5 严格模式函数的行为施加了更多的限制，甚至对标识符 eval 的使用也施加了限制。当在严格模式下调用 eval() 时，或者 eval() 执行的代码段以「use strict」指令开始，这里的 eval() 是私有上下文环境中的局部 eval。也就是说，在严格模式下，eval 挂靠的代码段可以查询或者更改局部变量。但不能在局部作用域中定义新的变量或者函数，此外严格模式将「eval」列为保留字，这让 eval() 更像一个运算符。不能用一人上别名覆盖 eval() 函数。并且变量名、函数名、函数参数或者异常捕获的参数都不能取名为「eval」</p>
+
+<h2>其它运算符</h2>
+
+<h3>条件运算符（?:）</h3>
+
+<p>条件运算符是 JavaScript 中唯一的个三元运算符（三个操作数）。</p>
+
+<p>条件运算符的操作数可以是任意类型。第一个操作数当成布尔值，如果它是真值，那么将计算第二个操作数，并返回其计算结果。否则，如果第一个操作数是假值，那么将计算第三个操作数，并返回期计算结果。第二、三个操作数总是会计算其中一个，不可能同时执行</p>
+
+<pre><code class="javascript">gretting = "hello " + (username ? username : "there");
+
+// 等价于下面的条件语句
+gretting = "hello ";
+if (username)
+    gretting += username;
+else
+    gretting += "there";
+</code></pre>
+
+<h3>typeof 运算符</h3>
+
+<p>typeof 是一元运算符，放在其单个操作数前面，操作数可以是任意类型。返回值为表示操作数类型的一个字符串</p>
+
+<p><em>表4-3</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 值                     </th>
+<th> typeof运算结果 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> undefined              </td>
+<td> &ldquo;undefined&rdquo;    </td>
+</tr>
+<tr>
+<td> null                   </td>
+<td> &ldquo;object&rdquo;       </td>
+</tr>
+<tr>
+<td> true/false             </td>
+<td> &ldquo;boolean&rdquo;      </td>
+</tr>
+<tr>
+<td> 任意数字或者NaN        </td>
+<td> &ldquo;number&rdquo;       </td>
+</tr>
+<tr>
+<td> 任意字符串             </td>
+<td> &ldquo;string&rdquo;       </td>
+</tr>
+<tr>
+<td> 任意函数               </td>
+<td> &ldquo;function&rdquo;     </td>
+</tr>
+<tr>
+<td> 任意内置对象（非函数） </td>
+<td> &ldquo;object&rdquo;       </td>
+</tr>
+<tr>
+<td> 任意宿主对象           </td>
+<td> 由编译器各自实现的字符串，但不是<br> &ldquo;undefined&rdquo;, &ldquo;boolean&rdquo;, &ldquo;number&rdquo;, &ldquo;string&rdquo; </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>delete 运算符</h3>
+
+<p>delete 是一元运算符，它用来删除对象属性或者数组元素。就像赋值、递增/减运算符一样，delete 也是有副作用的</p>
+
+<pre><code class="javascript">var o = { x: 1, y: 2 }
+delete o.x                  // =&gt; true 删除成功
+"x" in o                    // =&gt; false 没有 "x" 元素
+var a = [1,2,3]
+delete a[2]                 // =&gt; true 删除最后一个元素成功
+2 in a                      // =&gt; false 不存在 2 这个元素
+a.length                    // =&gt; 3
+</code></pre>
+
+<p>需要注意的是，删除属性或者数组元素不难舍难分是设置了一个 undefined 值。当删除一个属性时，这个属性将不再存在。庋了一个不存在的属性将返回 undefined，但是可以通过 in 运算符来检测这个属性是否在对象中存在</p>
+
+<p>delete 希望他的操作数是一个左传，如果它不是左传，那么 delete 将 <strong>不进行任何操作同时返回 true</strong>。否则，delete 将试图删除这个指定的左传。如果删除不成功，delete 将返回 true。然后并不是所有的属性都可删除，一些内置核心和客户端属性是不能删除的，用户通过 var 语句声明的变量、function语句声明的函数 也不能删除</p>
+
+<p>ECMAScript 5 严格模式中，如果 delete 的操作数是非法的，比如变量、函数或者函数参数，delete 操作将抛出一个语法错误（SyntaxError）异常，只有操作数是一个属性访问表达式的时候它才会正常工作。在严格模式下，delete 删除不可配置的属性时会抛出一个错误异常，非严格模式下，不会报错，只是简单地返回了 false</p>
+
+<pre><code class="javascript">var o = { x:1, y: 2 }
+delete o.x              // =&gt; true
+typeof o.x              // =&gt; "undefined"
+delete o.x              // =&gt; true 删除一个不存在的属性
+delete o                // =&gt; false 不能删除通过 var 声明的变量
+
+delete 1                // =&gt; true 参数不是一个左值
+this.x = 1              // =&gt; 给全局对象一个属性 x，没使用 var
+delete x                // =&gt; 试图删除它，在非严格模式下返回 true，严格模式下会抛出异常，这时只能使用 delete this.x
+</code></pre>
+
+<h3>void 运算符</h3>
+
+<p>void 是一元运算符，它出现在操作数之前，操作数可以是任意类型。这个运算符不经常使用：操作数会照常计算，但忽略计算结果并返回 undefined。由于 void 会忽略操作数的值，因为在操作数具有副作用的时候使用 void 来让程序更具语义</p>
+
+<p>这个运算符最学用丰客户端的 URL —— javascript: URL 中，在 URL 中写带有副作用的表达式，而 void 则让浏览器不必显示这个表达式的计算结果</p>
+
+<pre><code class="html">&lt;a href="javascript: void window.open();"&gt;打开一个窗口&lt;/a&gt;
+</code></pre>
+
+<h3>逗号运算符</h3>
+
+<p>逗号运算符是二元运算符，它的操作数是任意类型。它首先计算左操作数，然后计算右操作数，最后返回右操作数的值，看下面的示例代码</p>
+
+<pre><code class="javascript">i = 0, j = 1, k = 2;
+// 和下面的代码基本上是等价的
+i = 0; j = 1; k = 2;
+</code></pre>
+
+<p>总会计算左侧的表达式，但计算结果魅力掉，也就是说只有左侧表达式具有副作用，最常用的场景是 for 循环</p>
+
+<pre><code class="javascript">for (var i = 0, j = 10; i &lt; j; i++,j--)
+    console.log(i+j);
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

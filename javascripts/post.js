@@ -1,5 +1,5 @@
 /**
- * Name: Auto generate nested TOC for otcopress
+ * Name: Auto generate nested TOC for octopress
  * Author: keelii
  */
 (function($) {

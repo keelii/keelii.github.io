@@ -5,9 +5,15 @@
 (function($) {
     // Get headding items
     var $content = $('#content');
+    var $defaultSidebar = $('.default-post-sidebar');
     var headdings = $content.find('h2,h3,h4,h5,h6')
     var results = [];
     var count = 0;
+
+    if (headdings.length < 2) {
+        $defaultSidebar.show();
+        return false;
+    }
 
     headdings.each(function(index) {
         this.id = 'TOC-' + index;

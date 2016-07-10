@@ -11,7 +11,7 @@
   <meta name="author" content="keelii">
 
   
-  <meta name="description" content="函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 局部变量 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &hellip;">
+  <meta name="description" content="用 Node 实现异步 I/O Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,146 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-10T19:47:18+08:00'><span class='date'>07,10,2016</span> <span class='time'>7:47 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>用 Node 实现异步 I/O</h2>
+
+<p>Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/10/javascript-definitive-guide-note-10/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-06T12:43:30+08:00'><span class='date'>07,06,2016</span> <span class='time'>12:43 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/06/javascript-definitive-guide-note-9/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-04T09:32:45+08:00'><span class='date'>07,04,2016</span> <span class='time'>9:32 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
+
+<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a>算术定义的求 x 和 y 之和的过程</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/04/describe-a-simple-add-method-use-lisp/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-02T13:58:30+08:00'><span class='date'>07,02,2016</span> <span class='time'>1:58 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/02/javascript-definitive-guide-note-8/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -299,147 +439,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/16/javascript-definitive-guide-note-1/">《JavaScript 权威指南》读书笔记 2 - 词法结构</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>词法结构（Lexical Structure）是程序语言的一套基础性规则，用来描述如何使用这门语言来编写程序</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/16/javascript-definitive-guide-note-1/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/16/javascript-definitive-guide-note-0/">《JavaScript 权威指南》读书笔记 1 - 简介</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《<a href="https://book.douban.com/subject/10549733/">JavaScript 权威指南</a>》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 <a href="http://shop.oreilly.com/product/9780596805531.do">JavaScript The Definitive Guide</a>，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误</p>
-
-<p>中文排版指南遵守 <a href="https://github.com/mzlogin/chinese-copywriting-guidelines">中文文案排版指北</a>，欢迎批评批正</p></blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/16/javascript-definitive-guide-note-0/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/14/compile-vim-on-windows-with-lua-support/">Windows 下使用 MinGW 编译安装 (G)vim 添加 Lua 等编程语言支持</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-14T10:39:40+08:00'><span class='date'>06,14,2016</span> <span class='time'>10:39 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
-官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/14/compile-vim-on-windows-with-lua-support/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/13/awsome-window-vimrc/">可能是 Windows 下最漂亮的 Gvim 配置了</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-13T21:25:57+08:00'><span class='date'>06,13,2016</span> <span class='time'>9:25 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim</p>
-
-<p>不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/13/awsome-window-vimrc/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -455,23 +454,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
+      </li>
+    
+      <li class="post">
         <a href="/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/06/23/javascript-definitive-guide-note-6/">《JavaScript 权威指南》读书笔记 7 - 数组</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/06/23/javascript-definitive-guide-note-5/">《JavaScript 权威指南》读书笔记 6 - 对象</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/06/23/javascript-definitive-guide-note-4/">《JavaScript 权威指南》读书笔记 5 - 语句</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/06/20/javascript-definitive-guide-note-3/">《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</a>
       </li>
     
   </ul>
@@ -482,7 +481,7 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/javascript/'>javascript (9)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (8)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/javascript/'>javascript (12)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (11)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
 </section>
 
   

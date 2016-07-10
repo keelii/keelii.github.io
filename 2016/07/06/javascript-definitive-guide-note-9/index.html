@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配 - Something</title>
+  <meta name="author" content="keelii">
+
+  
+  <meta name="description" content="正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换 正则表达式的定义 JavaScript 中的正则表达式用 RegExp 对象表示，可以使用 RegExp() &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-06T12:43:30+08:00'><span class='date'>07,06,2016</span> <span class='time'>12:43 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换</p>
+
+<!-- more -->
+
+
+<h2>正则表达式的定义</h2>
+
+<p>JavaScript 中的正则表达式用 RegExp 对象表示，可以使用 RegExp() 构造函数来创建 RegExp 对象，不过也可以通过两个双斜杠「/reg/」以正则直接量的形式创建</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="sr">/s$/</span><span class="p">;</span>             <span class="c1">// 通过直接量创建</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;s$&#39;</span><span class="p">);</span> <span class="c1">// 通过构造函数创建</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>直接量字符</h3>
+
+<p>JavaScript 正则表达式语法也支持非字母的字符匹配，这些字符需要通过反斜线（\）作为前缀进行转义</p>
+
+<p><em>表10-1</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 字符       </th>
+<th> 匹配                                  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 字母和数字 </td>
+<td> 自身                                  </td>
+</tr>
+<tr>
+<td> \0         </td>
+<td> NUL 字符（\u0000）                    </td>
+</tr>
+<tr>
+<td> \t         </td>
+<td> 制表符（\u0009）                      </td>
+</tr>
+<tr>
+<td> \n         </td>
+<td> 换行符（\u000A）                      </td>
+</tr>
+<tr>
+<td> \v         </td>
+<td> 垂直制表符（\u000B）                  </td>
+</tr>
+<tr>
+<td> \f         </td>
+<td> 换页符（\u000C）                      </td>
+</tr>
+<tr>
+<td> \r         </td>
+<td> 回车符（\u000D）                      </td>
+</tr>
+<tr>
+<td> \xnn       </td>
+<td> 由十六进制数 nn 指定的拉丁字符        </td>
+</tr>
+<tr>
+<td> \uxxxx     </td>
+<td> 由十六进制数 xxxx 指定的 unicode 字符 </td>
+</tr>
+<tr>
+<td> \cX        </td>
+<td> 控制字符 ^x                           </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>正则表达式中，许多标点符号也具有特殊含义，它们是：</p>
+
+<blockquote><p>^ $ . * + ? = ! : | \ / ( ) { }</p></blockquote>
+
+<h3>字符类</h3>
+
+<p>将直接量字符单独放进方括号内组成了字符类（charactor class）</p>
+
+<p><em>表10-2</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 字符   </th>
+<th> 匹配                                               </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> [&hellip;]  </td>
+<td> 方括号内的任意字符                                 </td>
+</tr>
+<tr>
+<td> [^&hellip;] </td>
+<td> 不在方括号内的任意字符                             </td>
+</tr>
+<tr>
+<td> .      </td>
+<td> 除换行符和其它 Unicode 行终止符之外的任意字符      </td>
+</tr>
+<tr>
+<td> \w     </td>
+<td> 任何 ASCII 字符组成的单词，等价于 [a-zA-Z0-9]      </td>
+</tr>
+<tr>
+<td> \W     </td>
+<td> 任何不是 ASCII 字符组成的单词，等价于 [^a-zA-Z0-9] </td>
+</tr>
+<tr>
+<td> \s     </td>
+<td> 任何 Unicode 空白符                                </td>
+</tr>
+<tr>
+<td> \S     </td>
+<td> 任何非 Unicode 空白符                              </td>
+</tr>
+<tr>
+<td> \d     </td>
+<td> 任何 ASCII 数字，等价于 [0-9]                      </td>
+</tr>
+<tr>
+<td> \D     </td>
+<td> 任何非 ASCII 数字，等价于 [^0-9]                   </td>
+</tr>
+<tr>
+<td> [\b]   </td>
+<td> 退格直接量                                         </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>重复</h3>
+
+<p><em>表10-3</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 字符   </th>
+<th> 含义                                                           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> {n, m} </td>
+<td> 匹配前一项至少 n 次，但不能超过 m 次                           </td>
+</tr>
+<tr>
+<td> {n,}   </td>
+<td> 匹配前一项 n 次或者更多次                                      </td>
+</tr>
+<tr>
+<td> {n}    </td>
+<td> 匹配前一项 n 次                                                </td>
+</tr>
+<tr>
+<td> ?      </td>
+<td> 匹配前一项 0 次或者 1 次，也就是说前一项是可选的，等价于 {0,1} </td>
+</tr>
+<tr>
+<td> +      </td>
+<td> 匹配前一项 1 次或者多次，等价于 {1,}                           </td>
+</tr>
+<tr>
+<td> *      </td>
+<td> 匹配前一项 0 次或者多次，等价于{0,}                            </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>举例说明：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="sr">/\d{2,4}/</span>           <span class="c1">// 匹配 2 ~ 4 个数字</span>
+</span><span class='line'><span class="o">/</span><span class="err">\</span><span class="nx">w</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="err">\</span><span class="nx">d</span><span class="o">?</span><span class="sr">/          /</span><span class="o">/</span> <span class="err">匹配三个单词和一个可选的数字</span>
+</span><span class='line'><span class="o">/</span><span class="err">\</span><span class="nx">s</span><span class="o">+</span><span class="nx">java</span><span class="err">\</span><span class="nx">s</span><span class="o">+</span><span class="sr">/        /</span><span class="o">/</span> <span class="err">匹配前后带有一个或者多个空白字符串</span> <span class="s2">&quot;java&quot;</span>
+</span><span class='line'><span class="o">/</span><span class="p">[</span><span class="o">^</span><span class="p">(]</span><span class="o">*</span><span class="sr">/             /</span><span class="o">/</span> <span class="err">匹配一个或多个非左括号字符</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>非贪婪的重复</h4>
+
+<p>表10-3 中列出一匹配重复字符是尽可能多地匹配，而且允许后续的正则表达式继续匹配。因此，我们称之为「<strong>贪婪的</strong>」匹配。我们同样可以使用正则表达式进行非贪婪匹配。只需在特匹配的字符后跟随一个问题即可：「??」、「+?」、「*?」或「{1,5}?」</p>
+
+<h3>选择、分级和引用</h3>
+
+<p><em>表10-4</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 字符   </th>
+<th> 含义  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> |     </td>
+<td> 选择，匹配的是该符号左边的子表达式或者右边的子表达式               </td>
+</tr>
+<tr>
+<td> (&hellip;)  </td>
+<td> 组合，将几个项组合为一个单元，这个单元可通过「*」、「+」、「?」和「|」等符号<br>加以修饰，而且可以记住和这个组合相匹配的字符串<br>以供此后的引用使用 </td>
+</tr>
+<tr>
+<td> (?:&hellip;)</td>
+<td> 只组合，把项组合到一个单元，但不记忆与该组想匹配的字符 </td>
+</tr>
+<tr>
+<td> \n     </td>
+<td> 和第 n 个分级第一次匹配的字符相匹配，组是圆括号中的子表达式<br>（也有可能是嵌套的），组索引是从左到右的左括号数，<br>「(?:」形式的分组不编码 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>指定匹配位置</h3>
+
+<p><em>表10-5</em></p>
+
+<table>
+<thead>
+<tr>
+<th> 字符  </th>
+<th> 含义                                                                       </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> ^     </td>
+<td> 匹配字符串的开头                                                           </td>
+</tr>
+<tr>
+<td> $     </td>
+<td> 匹配字符串的结尾                                                           </td>
+</tr>
+<tr>
+<td> \b    </td>
+<td> 匹配一个单词的边界                                                         </td>
+</tr>
+<tr>
+<td> \B    </td>
+<td> 匹配非单词边界的位置                                                       </td>
+</tr>
+<tr>
+<td> (?=p) </td>
+<td> 零宽正向先行断言，要求接下来的字符都与 p 匹配，但不能包括匹配 p 的那些字符 </td>
+</tr>
+<tr>
+<td> (?!p) </td>
+<td> 零宽负向先行断言，要求接下来的字符都不与 p 匹配                            </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>标识</h3>
+
+<blockquote><p>/reg/flag</p></blockquote>
+
+<p>标识是放在斜扛右边的，通常有 i, g, m 三种</p>
+
+<ul>
+<li>i 执行不区分大小写的匹配</li>
+<li>g 执行一个全局匹配，即 找到所有的匹配，而不是找到第一个就停止</li>
+<li>m 多行匹配模式</li>
+</ul>
+
+
+<h2>用于模式匹配的 string 方法</h2>
+
+<p>String 支持 4 种使用正则表达式的方法</p>
+
+<h3>String.prototype.search()</h3>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search">search()</a> 方法返回第一个与之匹配的子串起始位置，如果找不到匹配的子串，它将返回 -1</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;JavaScript&quot;</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/script/i</span><span class="p">);</span>         <span class="c1">// =&gt; 4</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 search() 参数不是正则表达式，则首先会 <strong>通过 RegExp 构造函数将它转换成正则表达式</strong>，search() 方法不支持全局检索，因为它 <strong>忽略</strong> 正则表达式参数中的标识 g</p>
+
+<h3>String.prototype.replace()</h3>
+
+<blockquote><p>str.replace(regexp|substr, newSubStr|function)</p></blockquote>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace">replace()</a> 方法用以执行检索与替换操作，正则表达式如果带标识 g，则会替换所有匹配子串</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 将所有不区分大小写的 javascript 都替换成 JavaScript</span>
+</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/javascript/gi</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 用中文引号替换英文应该引号，同时要保持引号之间的内容（存储在 $1 中）没有被修改</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">quote</span> <span class="o">=</span> <span class="sr">/&quot;([^&quot;]*)&quot;/g</span><span class="p">;</span>
+</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">quote</span><span class="p">,</span> <span class="s1">&#39;“$1”&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>String.prototype.match()</h3>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match">match()</a> 方法返回一个由匹配结果组成的数组，如果没有标识全局搜索，match() 只检索第一个匹配</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;1 plus 2 equals 3&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d+/g</span><span class="p">);</span>  <span class="c1">// =&gt; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RegExp 对象</h2>
+
+<blockquote><p>RegExp(pattern [, flags])</p></blockquote>
+
+<p>RegExp 构造函数一般用在动态创建正则表达式的时候，这种情况往往没办法通过写死在代码中的正则直接量来实现，比如检索字符串是用户输出的</p>
+
+<h3>RegExp 的属性</h3>
+
+<p>每个 RegExp 对象都包含 5 个属性：</p>
+
+<ul>
+<li>source 只读字符串，包含正则表达式的文本</li>
+<li>global 只读布尔值，说明正则表达式是否带全局标识 g</li>
+<li>ignoreCase 也是一个只读布尔值，说明正则表达式是否带标识 i</li>
+<li>multiline 也是一个只读布尔值，说明正则表达式是否带标识 m</li>
+<li>lastIndex 它是一个可读/写的整数。如果匹配模式带有 g 标识，这个属性存储在整个字符串中下一次检索的开始位置</li>
+</ul>
+
+
+<h3>RegExp 的方法</h3>
+
+<h4>exec()</h4>
+
+<p>exec() 对一个指定的字符串执行一个正则表达式，如果没有找到任何匹配，它就返回 null，但如果它找到一个匹配，将返回一个数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="sr">/Java/g</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;JavaScript is more fun than Java!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span><span class="p">((</span><span class="nx">result</span> <span class="o">=</span> <span class="nx">pattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">text</span><span class="p">))</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Matched &#39;%s&#39; at position &#39;%s&#39;; next search begins at %s&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">result</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">pattern</span><span class="p">.</span><span class="nx">lastIndex</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// Matched &#39;Java&#39; at position &#39;0&#39;; next search begins at 4</span>
+</span><span class='line'><span class="c1">// Matched &#39;Java&#39; at position &#39;28&#39;; next search begins at 32</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>test()</h4>
+
+<p>test() 对方法转入字符串进行检测，匹配到结果返回 true，否则返回 false</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="sr">/java/i</span><span class="p">;</span>
+</span><span class='line'><span class="nx">pattern</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;JavaScript&#39;</span><span class="p">);</span>     <span class="c1">// =&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-07-06T12:43:30+08:00'><span class='date'>07,06,2016</span> <span class='time'>12:43 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/" data-via="keelii" data-counturl="http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/07/04/describe-a-simple-add-method-use-lisp/" title="Previous Post: 使用 lisp 简单描述加法运算">&laquo; 使用 lisp 简单描述加法运算</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/07/10/javascript-definitive-guide-note-10/" title="Next Post: 《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  <div class="default-post-sidebar hide">
+    
+      <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/javascript/'>javascript (12)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (11)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+</section>
+
+    
+  </div>
+</aside>
+
+
+<!--TOC-->
+<script src="/javascripts/post.js"></script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/';
+        var disqus_url = 'http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+-->
+
+
+</body>
+</html>

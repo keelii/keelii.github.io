@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Something]]></title>
   <link href="http://keelii.github.io/categories/javascript/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-07-06T18:36:10+08:00</updated>
+  <updated>2016-07-18T09:46:54+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -12,6 +12,409 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 12 - Web 浏览器中的 JavaScript]]></title>
+    <link href="http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/"/>
+    <updated>2016-07-14T14:11:08+08:00</updated>
+    <id>http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11</id>
+    <content type="html"><![CDATA[<h2>客户端的 JavaScript</h2>
+
+<p>Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:</p>
+
+<!--more-->
+
+
+<pre><code class="javascript">// 页面跳转
+window.location = 'http://www.oreilly.com/';
+// 页面圣诞框
+alert('Hello World')
+setTimeout(function () { alert('Hello later World') }, 1000)
+</code></pre>
+
+<p>window 对象也是全局对象。可以省略「window.」来调用上面的方法。这意味着 windows 对象牌作用域链的顶部，它的属性和方法实际上是全局变量和全局函数。window 对象有一个引用自己的属性，叫做 window。如果需要引用窗口对象本身可以用这个属性，但是如果只想要引用全局窗口对象的属性，通常并不需要用 window</p>
+
+<p>windows 对象还定义了很多其他重要的属性、方法和构造函数。其中最重要的一个属性是 document，它引用 Document 对象，后者表示显示在窗口中的文档。document 对象有一些重要方法，比如 getElementById() 获取一个 DOM 元素，它返回一个 Element 对象也有其他重要属性和方法，比如，给元素绑定点击事件 onclick</p>
+
+<h2>在 HTML 里嵌入 JavaScript</h2>
+
+<p>在 HTML 里嵌入 客户端 JavaScript 有 4 种方法：</p>
+
+<ul>
+<li>内联，放置在 &lt;script&gt; 和 &lt;/script&gt; 标签之间</li>
+<li>外链，放置在由 script 标签的 src 属性指定的外部文件中</li>
+<li>放置在 HTML 事件处理程序中，该事件处理程序由 onclick 或 on[eventType] 这样的 HTML 属性指定</li>
+<li>放在一个 URL 里，这个 URL 使用特殊的「javascript:」协议</li>
+</ul>
+
+
+<p>```html</p>
+
+<!--html 中的事件处理程序-->
+
+
+<p><input type="checkbox" onchange="any_javascript_statement" /></p>
+
+<!--url 中的javascript-->
+
+
+<p><a href="javascript: new Date().toLocaleTimeString();">What time is it?</a>
+```</p>
+
+<p>使用外链 src 文件方式有一些优点：</p>
+
+<ul>
+<li>可以把 JavaScript 代码从 HTML 文件中删除，这有助于保持内容和行为的分离，从而简化 HTML 文件</li>
+<li>如果多个 Web 页面共用相同的 JavaScript 代码，用 src 属性可以让你只管理一份代码，而不用在代码变更时每个页面都更新</li>
+<li>如果一个 JavaScript 文件由多个页面共享，就只需要下载一次，以后的页面只要引用过就可以使用缓存检索它</li>
+<li>src 属性值可以是任意的 URL，因此来自一个 Web 服务器的 JavaScript 程序或 Web 页面可以使用由 <strong>另外一个</strong> Web 服务器输出的代码，很多广告依赖与些</li>
+<li>从其它网站载入脚本的能力，可以让我们更好地利用缓存，使用 CDN</li>
+</ul>
+
+
+<h3>脚本的类型</h3>
+
+<p>script 标签默认的类型「type」是「text/javascript」，如果要使用不标准的脚本语言，如 Microsoft 的 VBScript（只有 IE 支持），就必须用 type 属性指定脚本的 MIME 类型：</p>
+
+<p>```html</p>
+
+<script type="text/vbscript">
+// 这里是 VBScript 代码
+</script>
+
+
+<pre><code>
+另外很多老的浏览器还支持 language 属性，作用和 type 一样，不过已经废弃了，不应该再使用了
+
+当 Web 浏览器遇到 &amp;lt;script&amp;gt; 元素，并且这个元素包含其值不之前能点浏览器识别的 type 属性时，它会解析这个元素但不会尝试显示或执行它的内容。这意味着可以使用 &amp;lt;script&amp;gt; 来嵌入任意的文件数据到文档里，比如 [handlebars](http://handlebarsjs.com/) 模板引擎，通常把模板放在自定义 type 的 script 标签中：
+</code></pre>
+
+<script id="entry-template" type="text/x-handlebars-template">
+    <div class="entry">
+        <h1></h1>
+        <div class="body">
+            
+        </div>
+    </div>
+</script>
+
+
+<pre><code>
+### 同步、异步和延迟的脚本
+
+JavaScript 第一次添加到 Web 浏览器时，还没有 API 可以用来遍历和操作文档的结构和内容。当文档还在载入时，JavaScript 影响文档内容的唯一方法是使用 document.write() 方法
+</code></pre>
+
+<h1>Table of Factorials</h1>
+
+
+<script>
+function factorial(n) {
+    if ( n <= 1 ) return n;
+    else return n * factorial(n - 1);
+}
+document.write('<table>');
+document.write('<tr><th>n</th><th>n!</th></tr>');
+for (var i = 1; i <= 10; i++) {
+    document.write('<tr><td>'+ i +'</td><td>'+ factorial(i) +'</td></tr>')
+}
+document.write('</table>');
+document.write('Generated ad ' + new Date());
+</script>
+
+
+<pre><code>
+当脚本把文本传递给 document.write() 时，这个文本被添加到文档输入流中，HTML 解析器会在当前位置创建一个文本节点，将文本插入这个文本节点后面。我们并不推荐使用 document.write()，但在某些场景下它有很重要的用途。当 HTML 解析器遇到 script 元素时，它默认 **必须先执行脚本**，然后恢复文档的解析和渲染。这对于内联脚本没什么问题，但如果脚本源代码是一个由 src 属性指定的外部文件，这意味着脚本后面的文档部分在下载和执行脚本之间，都不会出现在浏览器中
+
+脚本的执行只在默认情况下是同步和阻塞的。script 标签可以有 defer 和 async 属性，这可以改变脚本的执行方式。HTML 5 说这些属性只在和 src 属性联合使用时才有效，但有些浏览器还支持延迟的内联脚本
+</code></pre>
+
+<script src="a.js" defer></script>
+
+
+<script src="b.js" async></script>
+
+
+<pre><code>
+defer 和 async 属性都在告诉浏览器链接进来的脚本不会使用 document.write()，也不会生成文档内容，因此不蜂鸣器可以在下载脚本时继续解析和渲染文档，defer 属性使得浏览器延迟脚本的执行，直到文档的载入和解析完成，并可以操作。async 属性使得浏览器可以尽快地挂靠脚本，而不用在下载脚本时阻塞文档解析。如果 script 标签同时有两个属性，同时支持两者的浏览器会 **遵从 async 属性并忽略 defer 属性**
+
+注意，延迟的脚本会按它们在文档里的 **出现顺序执行**。而异步脚本在它们载入后执行，这意味着它们可能会 **无序执行**
+
+### 事件驱动的 JavaScript
+
+上面的打印斐波那契数列程序在页面载入时开始挂靠，生成一些输出，这种程序今天已经不沉凶了。通常我们使用注册事件处理程序函数来写程序。之后在注册的事件发生时 **异步** 调用这些函数。
+
+事件都有名字，比如 click, change, load, mouseover, keypress, readystatechange 等，如果想要程序响应一个事件，就需要注册一个事件处理函数
+
+事件处理程序的属性名字一般都以「on」开始，后面跟着事件的名字。大部分浏览器中的事件会把一个对象传递给事件处理程序作为参数，那个对象的属性提供了事件的详细信息。比如，传递给点击事件的对象，会有一个属性说明鼠标的哪个按钮被点击了。（在 IE 里，这些事件信息被存储在全局 event 对象里，而不是传给处理程序的函数）
+
+有些事件的目标是文档元素，它们会经常往上传递事件给文档树。这个过程叫做「**冒泡**」
+
+关于事件传播顺序可以参考 ppk 的 [这篇文章](http://www.quirksmode.org/js/events_order.html)
+
+### 客户端 JavaScript 线程模型
+
+JavaScript 语言核心并不包含任何线程机制，并且客户端 JavaScript 传统上也没有定义任何线程机制。HTML 5 定义了一种作为后台线程的「WebWorker」，但是客户端 JavaScript 还像严格的单线程一样工作。甚至当可能并发执行的时候，客户端 JavaScript 也不会知道是否真的的有并行逻辑执行
+
+单线程执行是𧫂让编程更加简单。编写代码时可以确保两个事件处理程序不会同一时刻运行，操作文档的内容时也不必操心会有其它线程试图同时修改应该没配，并且永远不需要在写 JavaScript 代码的时候操心锁、死锁和竟态条件（race condition）
+
+单线程执行意味着浏览器 **必须在脚本和事件处理程序运行的时候停止响应用户输入**。这为 JavaScript 程序员带来了负担，它意味着 JavaScript 脚本和事件处理程序不能运行太长时间。如果一个脚本执行 **计算密集** 的任务，它将会使文档载入带来延迟，用户无法在脚本执行完成前看到内容。浏览器可能变得无法响应甚至崩溃
+
+### 客户端 JavaScript 时间线
+
+JavaScript 程序执行的时间线
+
+1. Web 浏览器创建 Document 对象，并且开始解析 Web 页面，解析 HTML 元素和它们的文本内容后添加 Element 对象和 Text 节点到文档中。在这个阶段 document.readystate 属性的值是「loading」
+2. 当 HTML 解析器遇到没有 async 和 defer 属性的 script 元素时，它把这些元素添加到文档中，然后执行内或外部脚本。这些脚本会同步执行，并且在脚本下载和执行时解析器会暂停。这样脚本就可以用 document.write() 来把文本插入到输入流中。解析器恢复时这些文本会成为文档的一部分。同步脚本经常简单定义函数和注册后面使用的注册事件处理程序，但它们可以遍历和操作文档树，因为在它们执行时已经存在了。这样，同步脚本可以看到它自己的 script 元素和它们之前的文档内容
+3. 当解析器遇到设置了 async 属性的 script 元素时，它开始下载脚本文本，并继续解析文档。脚本会在它下载完成后尽快执行，但是解析器没有停下来等它下载。异步脚本禁止使用 document.write() 方法。它们可以看到自己的 script 元素和它之前的所有文档元素，并且可能或干脆不可能访问其它的文档内容
+4. 当文档完成解析，document.readyState 属性变成「interactive」
+5. 所有有 defer 属性的脚本，会按它们在文档里出现的顺序执行。异步脚本可能也会在这个时间执行。延迟脚本能访问完整的文档树，禁止使用 document.write() 方法
+6. 浏览器在 Document 对象上触发 DOMContentLoaded 事件。这标志着程序执行 **从同步脚本执行阶段转换到了异步事件驱动阶段**。但要注意，这时可能还胡异步脚本没有执行完成
+7. 这时，文档已经完全解析完成，但是浏览器可能还在等待其它内容载入，如图片。当所有这些内容完成时，并且所有异步脚本完成载入和执行，document.readyState 属性改变为「complete」，Web 浏览器触发 window 对象上的 load 事件
+8. 从此刻起，会调用异步事件，以异步响应用户输入事件、网络事件、计时器过期等
+
+这是一条理想的时间线，但是所有浏览器都没支持它的全部细节，所有浏览器普遍都支持 load 事件，都会触发它，它是决定文档完全载入并可以操作最通用的技术，除了 IE 之外，document.readyState 属性已被大部分浏览器实现，但是属性的值在浏览器之间有细微的差别
+
+## 兼容性和互用性
+
+客户端 JavaScript 兼容性和互用性的问题可以归纳为以下三类：
+
+**演化**
+
+Web 平台一直在演变和发展当中。一个标准规范会倡导一个新的特性或 API。如果特性看起来有用，浏览器开发商实现它。如果足够多的开发商实现，开发者开始试用这个特性。有时新浏览器支持一些特性老的却不支持
+
+**未实现**
+
+比如，IE 8 不支持 convas 元素，虽然其它浏览器已经实现了它。IE 也没有对 DOM Level 2 Event 规范实现，即使这个规范在十年前就是标准化了
+
+**bug**
+
+每个浏览器都有 bug，并且没有按照规范准确地实现所有客户端 JavaScript API。有时候编写能兼容各个浏览器的 JavaScript 程序是个很麻烦的工作，必须要研究各种浏览器的兼容性问题
+
+### 处理兼容性问题的类库
+
+比如有的浏览器客户端不支持 canvas 元素，可以使用开源的「explorer canvas」项目，引用 excanvas.js 即可模拟 canvas 元素的功能
+
+### 分级浏览器支持
+
+分级浏览器支持（graded browser support）是由 Yahoo! 率先提出的一种测试技术。从某种维度对浏览器厂商/版本/操作系统进行分级。根据分级来确定哪些特性在哪些浏览器需要支持的程度
+
+### 功能测试
+
+功能测试（capability testing）是解决不兼容性问题的一种技术。比如添加事件 API，在标准浏览器里面是 addEventListener 而低版浏览器里面是 attachEvent，我们就可以通过特性检测来给一个添加事件的公共方法
+</code></pre>
+
+<script>
+if (element.addEventListener) {
+    element.addEventListener("keydown", handler, false);
+} else if (element.attachEvent) {
+    element.attachEvent("keydown", handler);
+} else {
+    element.onkeydown = handler
+}
+</script>
+
+
+<pre><code>
+### 怪异模式和标准模式
+
+doctype 可以触发浏览器的渲染模式，IE 浏览器有怪异模式，可以通过 document.compatMode 属性判断是否是标准模式。如果返回值为「CSS1Compat」则说明浏览器工作在标准模式；如果值是「BackCompat」或者 「undefined」则说明工作在怪异模式
+
+### 浏览器测试
+
+通常我们用功能测试来处理兼容性问题，但有时候可能需要在某种浏览器中解决个别的 bug，同时又没有可用的特性 API，这里只能通过判断浏览器来做兼容性处理，通常可以使用浏览器 UA（user agent）来解析浏览器版本、类型等
+
+### IE 里的条件注释
+
+IE 浏览器中可以通过在 HTML 中添加特殊的注释来告诉浏览器代码在哪个浏览器中作用
+</code></pre>
+
+<!--[if IE 6]>
+这里面的内容只会显示在 IE 6 浏览器中
+<![endif]-->
+
+
+<pre><code>
+IE 的 JavaScript 解释器也支持条件注释，以文本 `/*@cc_on` 开头，以文本 `@*/`结束。下面的条件注释包含了只在 IE 中执行的代码
+</code></pre>
+
+<script><!--忽略 script 标签系统解析有问题-->
+/*@cc_on
+ @if (@_jscript)
+    alert("in IE")
+ @end
+ @*/
+</script>
+
+
+<pre><code>
+## 安全性
+
+### JavaScript 不能做什么
+
+Web 浏览器针对恶意代码的第一条防线就是它们不支持某些功能。例如，客户端的 JavaScript 没有权限来写入或删除计算机上的文件/目录，这意味着 JavaScript 不能删除数据或者植入病毒
+
+类似地，客户端 JavaScript 没有任何通用的网络能力。HTML 5 有一个附属标准叫 WebSockets 定义了一个类套接字的 API，用于和指定的服务器通信。但是这些 API 都不允许对于范围更广的网络进行直接访问
+
+浏览器针对恶意代码的第二条防线是在自己支持的某些功能上施加限制。比如：
+
+* JavaScript 程序可以打开一个新的浏览器窗口，但是为了防止广告商滥用弹出窗口，很多浏览器限制了这一功能，使得只有为了响应鼠标单击这样的用户触发事件的时候，才能用它
+* JavaScript 程序可以关闭 **自己打开的** 浏览器窗口，但是不允许不经过用户确认就关闭其它窗口
+* HTML FileUpload 元素的 value 属性是只读的。如果可以设置这个属性，脚本就能设置它为任意期望的文件名，从而导致表单上传指定的文件（比如密码文件）内容到服务器
+* 脚本不能读取从不同服务器载入的文档内容，除非这个就是包含该脚本的文档。类似地，一个脚本不能在来自不同服务器的文档上注册事件监听器。这就防止脚本窃取其他页面的用户输入
+
+### 同源策略
+
+同源策略是对 JavaScript 代码能够操作哪些 Web 内容的一条完整的安全限制。当 Web 页面使用多个 iframe 元素或者打开其它浏览器窗口的时候，这一策略通常就会发挥作用。在这情况下，同源策略负责管理窗口或窗体中的 JavaScript 代码以及和其它窗口或帧的交互
+
+文档的来源包含协议、主机、以及载入文档的 URL 商品。从不同 Web 服务器载入的文档具有不同的来源。通过同一主机不同商品载入的文档具有不同来源。使用 `http:` 协议载入的文档和使用 `https:` 协议载入的文档具有不同的来源，**即使它们来自同一个服务器**
+
+**脚本本身的来源和同源策略并不相关**，相关的是脚本所嵌入文档的来源。例如，来自主机 A 的脚本被包含到宿主 B 的一个 Web 页面中。这个脚本的 **来源（origin）** 是主机 B，并且可以完整地访问包含它的文档的内容。如果脚本打开一个新的窗口并载入来自主机 B 的另一个文档，脚本对这个文档的内容也具有完全的访问权限。但是如果脚本打开第三个窗口并载入一个来自主机 C 的文档（或者来自主机 A），同源策略就会发挥作用，阻止脚本访问这个文档
+
+&gt; A 页面包含一个 B 脚本，B 脚本对 A 页面有完全的访问权限，如果 B 脚本控制打开一个 A 服务器上另外一个页面 C，那么脚本也可以访问这个 C 页面，如果 B 脚本控制打开了一个 D 页面，这时就会触发同源策略，即 B 脚本不可以访问 D 页面，**因为 A 和 C 同源，A 和 D 不同源**
+
+**不严格的同源策略**
+
+在某些情况下，同源策略就显得太过严格了，常常表现在多个子域名站点的场景中。比如：来自 A.yourdomain.com 的文档里脚本无法直接读取 B.yourdomain.com 页面的文档，不过可以通过设置 document.domain 为同一个主域来获取访问权限，即给两个域名下的页面都设置 `document.domain="yourdomain.com"`，这样以来两个文档就有了同源性可以相互访问
+
+还有一项已经标准化的技术：**跨域资源共享**（Cross-Origin Resource Sharing）这个标准草案用新的「Origin:」请求头和新的 Access-Control-Allow-Origin 响应头来扩展 HTTP，它允许服务器用头信息显式地列出源，或使用能本符来匹配所有的源并允许由任何地址请求文件，这样就可以实现跨域的 HTTP 请求， XMLHttpRequest 也不会被同源策略所限制了
+
+还有一种新技术，叫做跨文档消息（cross-document messaging），允许来自一个文档的脚本可以传递文本消息到另一个文档的脚本，而不管脚本的来源是否不同。调用 window 对象上的 postMessage() 方法，可以异步传递消息事件
+
+### 跨站脚本
+
+跨站脚本（Cross-site scripting），或者叫 XXS，这个术语表示一类安全问题。攻击者向目标 Web 站点注入 HTML 标签或者脚本
+
+如果 Web 页面动态地产生文档内容，并且这些文档内容是用户提交的，如果没有过滤用户提交内容的话，这个页面很容易遭到跨站脚本攻击，比如：
+</code></pre>
+
+<script>
+var name = decodeURIComponent(window.location.search.substring(1) || "");
+document.write("hello " + name)
+</script>
+
+
+<pre><code>
+当页面的 url 被手动拼成恶意参数提交时就会产生 XXS 攻击，比如：
+
+&gt; http://example.com/greet.html?%3Cscript%3Ealert(%22XXS%20attack%22)%3C%2Fscript%3E
+
+打开这个 url 就会弹出「XXS attack」，解决办法通过是对接收参数进行标签屏蔽
+</code></pre>
+
+<script>
+name = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+</script>
+
+
+<p>```</p>
+
+<h2>客户端框架</h2>
+
+<p>从某种意义上讲类库也是框架，它们对 Web 浏览器提供的标准和专用 API 进行封闭，向上提供更高级别的 API，用以更高效地进行客户端编程开发。一但使用就要用框架定义的 API 来写代码，后面有专门的章节讲 jQuery，除了这个常用的类库还有一些其它广泛使用的：</p>
+
+<ul>
+<li><a href="http://prototypejs.org/">Prototype</a></li>
+<li><a href="https://dojotoolkit.org/">Dojo</a></li>
+<li><a href="http://yuilibrary.com/">YUI</a></li>
+<li><a href="https://developers.google.com/closure/">Closure</a></li>
+<li><a href="http://www.gwtproject.org/">GWT</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript]]></title>
+    <link href="http://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/"/>
+    <updated>2016-07-10T19:47:18+08:00</updated>
+    <id>http://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10</id>
+    <content type="html"><![CDATA[<h2>用 Node 实现异步 I/O</h2>
+
+<p>Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现</p>
+
+<!--more-->
+
+
+<p>Node 在其全局对象中实现了所有标准的 ECMAScript 5 构造函数、属性和函数。除此之外，它也支持客户端講器函数集 setTimeout(), setInterval()</p>
+
+<p>Node 在 process 名字空间中定义了其它重要的 <strong>全局</strong> 属性：</p>
+
+<pre><code class="javascript">process.version         // Node 的版本字符串信息
+process.argv            // 'node' 命令行数组参数，argv[0] 是 "node"
+process.pid             // 进程 id
+process.getuid()        // 返回用户 id
+process.cwd()           // 返回当前的工作目录
+process.chdir()         // 改变当目录
+process.exit()          // 退出
+</code></pre>
+
+<p>在有的情况下，可以使用 Node 的事件机制。Node 对象产生事件（称为事件触发器(event emitter)），定义 on() 方法来注册处理程序。当传入参数时，将事件类型（一个字符串）作为第一参数，处理程序函数作为第二参数。不同的事件类型传递给处理程序函数的参数不同：</p>
+
+<pre><code class="javascript">emitter.on(name, f)
+emitter.addListener(name, f)
+emitter.once(name, f)
+emitter.removeListener(name, f)
+emitter.removeListeners(name)
+</code></pre>
+
+<p>上面的 process 全局对象也是一个事件触发器，它继承了 EventEmitter 类</p>
+
+<pre><code class="javascript">process.on('exit', function () { console.log('Goodbye'); });
+process.on('uncaughException', function (e) { console.log(Exception, e); });
+</code></pre>
+
+<p>Node 的文件和文件系统 API 位于「fs」模块中，这个模块提供了大部分方法的「同步版本」。任何名字以「Sync」结尾的方法都是一个 <strong>阻塞方法</strong>，它返回一个值或抛出一个异常，不以「Sync」结尾的文件系统方法都是非阻塞的，它们会把结果或者错误传给指定的回调函数</p>
+
+<pre><code class="javascript">// 同步读取文件，指定编码获取文本而不是字节
+var text = fs.readFileSync('config.json', 'utf8');
+// 异步读取二进制文件，通过传递函数获得数据
+fs.readFile('image.png', function (err, buffer) {
+    if (err) throw err;
+    process(buffer);
+})
+</code></pre>
+
+<p>类似地，存在用来写文件的 writeFile() 和 writeFileSync() 函数：</p>
+
+<pre><code class="javascript">fs.writeFile('config.json', JSON.stringify(json))
+</code></pre>
+
+<p>「net」模块是用于基于 TCP 网络的 API，下面是 Node 中一个非常简单的 TCP 服务器</p>
+
+<pre><code class="javascript">var net = require('net');
+var server = net.createServer();
+server.listen(2000, function() { console.log('Listening on port 2000'); });
+server.on('connection', function (stream) {
+    console.log('Accepting connection from', stream.remoteAddress);
+    stream.on('data', function (data) {
+        stream.write(data)
+    });
+    stream.on('end', function(data) {
+        console.log('Connection closed');
+    });
+});
+</code></pre>
+
+<h3>Node 示例：HTTP 服务器</h3>
+
+<pre><code class="javascript">var http = require('http');
+
+var hostname = '127.0.0.1';
+var port = 3000;
+
+var server = http.createServer(function(req, res) {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World\n');
+});
+
+server.listen(port, hostname, function() {
+    console.log('Server running at http://$s:%s/', hostname, port);
+});
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配]]></title>
@@ -1345,920 +1748,6 @@ memorize(factorial)(3)
 // =&gt; 'Actually invoked.'
 // =&gt; 6
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 7 - 数组]]></title>
-    <link href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/"/>
-    <updated>2016-06-23T19:10:28+08:00</updated>
-    <id>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6</id>
-    <content type="html"><![CDATA[<p>数组是值的 <strong>有序集合</strong>。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型</p>
-
-<p>JavaScript 数组是 <strong>动态的</strong>，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小</p>
-
-<p>JavaScript 数组可能是 <strong>稀疏的</strong>，数组元素索引不一定要连续</p>
-
-<p>JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 <strong>快很多</strong></p>
-
-<!--more-->
-
-
-<h2>创建数组</h2>
-
-<pre><code class="javascript">var empty = [];             // 使用数组直接量创建一个空数组
-var primes = [2, 3, 5, 7, 11];
-var base = 1024；
-var misc = [1.2, true, "a", base + 1, [1,2,3], { a: 1}]     // 元素可以是任意值，甚至表达式
-var count = [1, ,3];            // 数组有三个元素中间那个值为 undefined
-
-var a = new Array();        // 调用构造函数 Array() 也可以创建数组
-var a = new Array(10);
-a.length;                   // =&gt; 10 创建一个长度为 10 的数组
-var a = new Array(1, 2, 3);
-a;                          // =&gt; [1, 2, 3]
-</code></pre>
-
-<h2>数组元素的读和写</h2>
-
-<p>使用方括号 [] 操作符来访问数组中的一个元素，方括号左边是数组的引用，右边是一个返回 <strong>非负整数值</strong> 的任意表达式</p>
-
-<pre><code class="javascript">var a = ["world"];
-a[0]                    // =&gt; "world"
-a[1] = 3.14             // =&gt; 写入第 1 个元素 3.14
-a                       // =&gt; ["world", 3.14]
-i = 2;
-a[i] = 3;               // =&gt; 写入第 2 个元素
-a[i+1] = "hello";       // =&gt; 写入第 2 个元素
-</code></pre>
-
-<p>可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就当做数组索引，而非对象属性</p>
-
-<pre><code class="javascript">a[-1.23] = true             // 给数组 a 创建一个名为 "-1.23" 的属性
-a["1000"] = 0               // 这是数组的第 1001 个元素
-a[1.000]                    // 和 a[1] 相等
-</code></pre>
-
-<p>事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组 <strong>没有越界</strong> 错误的概念。当试图查询任何对象中不存在的属性时，不会报错，只会得到 undefined 值，这一点类似于对象</p>
-
-<h2>稀疏数组（Sparse Arrays）</h2>
-
-<p>通常，数组的 length 属性代表数组中的元素个数。如果是稀疏数组，length 属性值大于元素个数。当在数组直接量中省略值是不会创建稀疏数组。省略的元素是存在的只是值为 undefined。使用 Array() 构造函数或者手动指定 length 大于当前的数组可以创建稀疏数组</p>
-
-<pre><code class="javascript">a = new Array(5);       // 数组没元素，但 a.length 是 5
-a = [];
-a[1000] = 0;            // 赋值添加一个元素，但设置 length 为　1001
-var a1 = [,,,];         // 数组是 [undefined, undefined, undefined]
-var a2 = new Array(3);
-var a3 = [1,,3];
-0 in a1                 // =&gt; true 非稀疏数组
-0 in a2                 // =&gt; false 稀疏数组
-1 in a3                 // =&gt; false 稀疏数组
-</code></pre>
-
-<p>在一些旧版的实现中，[1,,3] 和 [1, undefined, 3] 却是一模一样的</p>
-
-<h2>数组的长度</h2>
-
-<p>每个数组都有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密数组，length 属性值代表数组中元素的个数，其值比数组中最大的索引大 1</p>
-
-<p>数组有两个 <strong>特殊行为</strong>：</p>
-
-<ol>
-<li>如果为一个数组元素赋值，它的索引 i 大于或者等于现有数组的长度时，length 属性的值将设置为 i + 1</li>
-<li>如果设置一个数组的 length 属性小于这个数组长度的非负整数 n 时，当前数组中那些索引值大于或等于 n 的元素将被从中删除</li>
-</ol>
-
-
-<pre><code class="javascript">a = [1,2,3,4,5];
-a.length = 3;
-a                   // =&gt; [1,2,3]
-a.length = 0;
-a.length = 5;       // 长度为 5，类似 new Array(5)
-</code></pre>
-
-<p>数组也继承了对象的一些方法，比如 Object.defineProperty(), 可以使用这个方法让数组的 length 属性变成只读</p>
-
-<pre><code class="javascript">a = [1,2,3]
-Object.defineProperty(a, "length", {
-    writable: false
-});
-a.length = 0
-a                   // =&gt; [1,2,3] 不会改变
-</code></pre>
-
-<h2>数组元素的添加和删除</h2>
-
-<p>可以给新的索引赋值来添加元素，也可以调用 Array 对象的内置方法 push() 来在数组 <strong>末尾</strong> 增加一个或者多个元素，或者用 unshift() 给数组头部插入一个元素，并且将其它元素依次移动到更高的索引处</p>
-
-<pre><code class="javascript">a = []
-a[0] = "zero"
-a[1] = "one"
-a               // =&gt; ["zero", "one"]
-
-a = []
-a.push("zero")
-a.push("one", "two")
-a               // =&gt; ["zero", "one", "two"]
-a.unshift(0)
-a               // =&gt; [0, "zero", "one", "two"]
-</code></pre>
-
-<p>可以使用 delete 运算符来删除数组元素，效果和对数组元素赋值 undefined 类似，使用 delete 删除数组后数组的长度是不变的</p>
-
-<h2>数组遍历</h2>
-
-<p>使用 for 循环是遍历数组元素最常见的方法，for/in 也可以但并不推荐</p>
-
-<pre><code class="javascript">var keys = Object.keys(o);
-var values = [];
-for (var i = 0; i &lt; keys.length; i++) {
-    var key = keys[i];
-    values[i] = o[key]
-}
-
-for (var i = 0; i &lt; keys.length; i++) {
-    if (!a[i]) continue;    // 跳过 null, undefined 和不存在的元素
-}
-for (var i = 0; i &lt; keys.length; i++) {
-    if (!(i in a)) continue;    // 只跳过不存在的元素
-}
-for (var i in a) {
-    if (!a.hasOwnProperty(i)) continue; // 跳过继承属性
-}
-</code></pre>
-
-<p>ECMAScript 5 定义了一些遍历数组元素的新方法，比如 forEach()</p>
-
-<pre><code class="javascript">[1,2,3,4,5].forEach(function(x) {
-    console.log(x);
-});
-</code></pre>
-
-<h2>多维数组</h2>
-
-<p>JavaScript 并不支持真正的多维数组，但可以模拟出来</p>
-
-<pre><code class="javascript">var table = new Array(10);
-for (var i = 0; i &lt; table.length; i++) {
-    table[i] = new Array(10);
-}
-
-for (var row = 0; row &lt; table.length; row++) {
-    for (var col = 0; col &lt; table[row].length; col++) {
-        table[row][col] = row * col;
-    }
-}
-
-table[5][7];        // =&gt; 35
-</code></pre>
-
-<h2>数组方法</h2>
-
-<p>将所有元素都转化为字符串并通过分隔符链接起来，分隔符默认是逗号「,」</p>
-
-<p>与之相反的 split 方法则是把字符串按分割符分割开来并返回数组，并且分割符可以是正则表达式</p>
-
-<pre><code class="javascript">var a = [1,2,3];
-a.join();               // =&gt; "1,2,3"
-a.join(" ")             // =&gt; "1 2 3"
-a.join("")              // =&gt; "123"
-new Array(10).join('-') // =&gt; "----------"
-
-var str = "Hello world";
-str.split(' ')          // =&gt; ["Hello", "world"]
-var str = "0a1b2c3d";
-str.split(/\d/g);       // =&gt; ["", "a", "b", "c", "d"]
-</code></pre>
-
-<h3>reverse()</h3>
-
-<p>反转数组元素</p>
-
-<pre><code class="javascript">var a = [1,2,3];
-a.reverse();        // =&gt; [3,2,1]
-</code></pre>
-
-<h3>sort()</h3>
-
-<p>将数组中的元素排序并返回排序后的数组。不带参数调用 sort() 时，数组元素以字母表顺序排序，如果数组包含 undefined 元素，它们会被排到数组的尾部</p>
-
-<pre><code class="javascript">var a = ["banana", "cherry", "apple"]
-a.sort();               // =&gt; ["apple", "banana", "cherry"]
-</code></pre>
-
-<p>sort 方法可以接收一个函数参数，该函数决定了它的两个参数在排好序的数组中的先后顺序。假设第一个参数应该在前，比较函数应该返回一个小于 0 的数值</p>
-
-<pre><code class="javascript">var a = [3,4,1,2]
-a.sort()            // [1,2,3,4]
-a.sort(function(a, b) {
-    return b - a
-})                  // [4,3,2,1]
-</code></pre>
-
-<h3>concat()</h3>
-
-<blockquote><p>Array.concat(value1, value2, &hellip;, valueN)</p></blockquote>
-
-<p>创建并返回一个新数组，它的元素包括调用 concat 的原始数组元素和 concat 的每个参数</p>
-
-<pre><code class="javascript">var a = [1,2,3]
-a.concat(4,5)           // =&gt; [1,2,3,4,5]
-a.concat([4,5])         // =&gt; [1,2,3,4,5]
-a.concat([4,5], [6,7])  // =&gt; [1,2,3,4,5,6,7]
-a.concat(4, [5, [6,7]]) // =&gt; [1,2,3,4,5,[6,7]]
-</code></pre>
-
-<h3>slice()</h3>
-
-<blockquote><p>Array.slice([begin[, end]])</p></blockquote>
-
-<p>返回指定数组的一个片段或子数组，它的两个参数分别指定了片段的开始和结束的 <strong>位置</strong>，如果只指定一个参数（开始位置），返回的数组将包含从开始位置到数组结尾的所有元素，如果参数中出现了负数，它表示相对于数组中最后一个元素的位置，slice 不会修改原数组</p>
-
-<pre><code class="javascript">var a = [1,2,3,4,5]
-a.slice(0, 3)       // =&gt; [1,2,3]
-a.slice(3)          // =&gt; [4,5]
-a.slice()           // =&gt; [1,2,3,4,5]
-a.slice(1, -1)      // =&gt; [2,3,4]
-a.slice(-3, -2)     // =&gt; [3]
-</code></pre>
-
-<h3>splice()</h3>
-
-<blockquote><p>Array.splice(start, deleteCount[, item1[, item2[, &hellip;]]])</p></blockquote>
-
-<p>splice 方法是在数组中插入或删除元素的通用方法，会 <strong>修改</strong> 调用的数组</p>
-
-<p>splice 能够从数组中删除元素、插入元素到数组中或者 <strong>同时完成</strong> 这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其它部分仍然保持连续。splice 第一个参数指定了插入和（或）删除的起始位置。第二个参数指定了应该从数组中删除的元素个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice 返回一个由删除元素组成的数组</p>
-
-<pre><code class="javascript">var a = [1,2,3,4,5,6,7,8]
-a.splice(4)             // =&gt; [5,6,7,8]
-a                       // =&gt; [1,2,3,4]
-a.splice(1,2)           // =&gt; [2,3]
-a                       // =&gt; [1,4]
-a.splice(1,1)           // =&gt; [4]
-a                       // =&gt; [1]
-</code></pre>
-
-<p>splice 前两个参数指定了需要删除的数组元素。其后任意个数参数指定了需要插入到数组中的元素</p>
-
-<pre><code class="javascript">var a = [1,2,3,4,5]
-a.splice(2, 0, "a", "b")        // =&gt; 0
-a                               // =&gt; [1,2,"a","b",3,4,5]
-a.splice(2, 2, [1,2], 3)        // =&gt; ["a", "b"]
-a                               // =&gt; [1,2,[1,2],3,3,4,5]
-</code></pre>
-
-<h3>push() 和 pop()</h3>
-
-<p>push 和 pop 方法谲诈将数组当做 <a href="https://cloud.githubusercontent.com/assets/458894/16374650/f8b0fa6c-3c89-11e6-9e61-bc391f7f3cf4.png">栈</a> 来使用，push 方法在数组尾部添加一个或者多个元素，并返回新的数组长度。pop 删除数组的最后一个元素，减小数组长度并返回它删除的值</p>
-
-<pre><code class="javascript">var stack = [];
-stack.push(1,2)         // =&gt; 2 stack: [1,2]
-stack.pop(1,2)          // =&gt; 1 stack: [2]
-stack.push(3)           // =&gt; 2 stack: [1,3]
-</code></pre>
-
-<h3>unshift() 和 shift()</h3>
-
-<p>unshift 在数组的头部添加一个或者多个元素，shift 删除数组的第一个元素并将其返回</p>
-
-<p>需要注意的是，当使用多个参数调用 unshift() 的时候，参数是一次性插入的，而非一次一个插入。这会影响插入到数组中元素的位置</p>
-
-<pre><code class="javascript">var a = [4,5,6];
-a.unshift(3)
-a               // =&gt; [3,4,5,6]
-a.unshift(1,2)
-a               // =&gt; [1,2,3,4,5,6]如果一次一个插入的话结果应该是 [2,1,3,4,5]
-</code></pre>
-
-<h2>ECMAScript 5 的数组方法</h2>
-
-<h3>forEach()</h3>
-
-<p>forEach() 从头至尾遍历数组，为每个元素调用指定的函数。传递函数作为 forEach() 的第一个参数，然后 forEach() 使用三个参数调用该当函数：数组元素、元素的索引和数组本身。forEach() 无法在所有元素都传递给调用的函数之前终止遍历，除非 forEach() 方法放在一个 try 块中，并抛出一个异常</p>
-
-<pre><code class="javascript">[1,2,3,4,5].forEach(function(value, index, arr) { arr[i] = v + 1 });
-// =&gt; [2,3,4,5,6]
-</code></pre>
-
-<h3>map()</h3>
-
-<p>map() 方法将调用数组的每个元素传递给指定的函数，并返回一个数组。如果是稀疏数组，返回的也是相同方式的稀疏数组</p>
-
-<pre><code class="javascript">a = [1,2,3]
-b = a.map(function(x) { return x*x })
-b               // [1, 4, 9]
-</code></pre>
-
-<h3>filter()</h3>
-
-<p>filter() 方法返回数组元素是调用数组的一个 <strong>子集</strong>。传递的函数是用来逻辑判定的（true 或 false），如果返回 true 或者能转化为 true 的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的数组中，<strong>filter() 会跳过稀疏数组中缺少的元素</strong>，总是返回稠密的</p>
-
-<pre><code class="javascript">a = [5,4,3,2,1]
-smallvalues = a.filter(function(x) { return x &lt; 3 })    // [2, 1]
-</code></pre>
-
-<h3>every() 和 some()</h3>
-
-<p>数组的逻辑判定，它们对数组元素应用指定的函数进行判定，返回 true 或 false</p>
-
-<pre><code class="javascript">a = [1,2,3,4,5]
-a.every(function(x) { return x &lt; 10 })      // =&gt; true 数组元素都少于 10
-a.some(function(x) { return x%2 === 0 })    // =&gt; true 数组中有一些值是偶数
-</code></pre>
-
-<p>注意，一旦 every() 和 some() 确认应该返回什么值时它们就会停止遍历数组元素（可以认为是惰性判断）。即：</p>
-
-<ul>
-<li>some() 在判定函数第一次返回 true 后就返回 true，不再进行遍历操作</li>
-<li>every() 在判定函数第一次返回 false 后就返回false，不再进行遍历操作</li>
-</ul>
-
-
-<h3>reduce() 和 reduceRight()</h3>
-
-<blockquote><p>Array.reduce(callback, [initialValue])</p></blockquote>
-
-<p>reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 <strong>函数式编程（functional programming）</strong> 中是很常见的操作，也可以称为「注入」和「折叠」，他们只是执行化简操作的顺序不一样，一个从左到右，一个从右到左</p>
-
-<pre><code class="javascript">var a = [1,2,3,4,5]
-var sum = a.reduce(function(x, y) { return x + y }, 0)          // 数组求和
-/**
-+---------------------------------+
-|                                 |
-|     x      +     y     return   |
-|                                 |
-|   init: 0     a[0]: 1    1      |
-|                                 |
-|     1         a[1]: 2    3      |
-|                                 |
-|     3         a[2]: 3    6      |
-|                                 |
-|     6         a[3]: 4    10     |
-|                                 |
-|     10        a[4]: 5    15     |
-|                                 |
-+---------------------------------+
-*/
-var product = a.reduce(function(x, y) { return x * y }, 1)      // 数组求积
-</code></pre>
-
-<p>reduce 需要两个参数。第一个是执行化简操作的函数，它的任意就是用某种方法把两个值组合或化简为一个值，并返回化简后的值，第二个参数是传递给函数的初始值，如果没有指定初始值，它将使用数组的第一个元素作为其初始值。<strong>这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为 x,y</strong></p>
-
-<h3>indexOf() 和 lastIndexOf()</h3>
-
-<blockquote><p>Array.indexOf(searchElement[, fromIndex = 0])</p></blockquote>
-
-<p>搜索整个数组中指定值的索引，没找到就返回 -1。indexOf() 从头至尾搜索，而 lastIndexOf() 则反向搜索。它们都接收第二个参数，指定数组中的一个索引，从这个索引处开始搜索</p>
-
-<pre><code class="javascript">a = [0,1,2,1,0]
-a.indexOf(1)        // =&gt; 1
-a.lastIndexOf(1)    // =&gt; 3
-a.indexOf(3)        // =&gt; -1
-
-// 在数组中查找所有出现的 x，并返回一个包含匹配索引的数组
-function findall(a, x) {
-    var results = [];
-    var len = a.length;
-    var pos = 0;
-
-    while(pos &lt; len) {
-        pos = a.indexOf(x, pos);
-        if (pos === -1) break;
-
-        results.push(pos)
-        pos = pos + 1;
-    }
-
-    return results;
-}
-findall([1,2,3,1,3,2], 1)       // =&gt; [0, 3]
-</code></pre>
-
-<h2>数组类型</h2>
-
-<p>ECMAScript 5 中可以使用 Array.isArray() 函数来判断是否为数组，在 ECMAScript 5 之前判断却没这么简单，因为 typeof 运算符操作数组返回的是「对象」，一般用下面的方法下判断是否是数组</p>
-
-<pre><code class="javascript">var isArray = Array.isArray || function(o) {
-    return typeof o === "object" &amp;&amp;
-            Object.prototype.toString.call(0) === '[object Array]';
-};
-</code></pre>
-
-<h2>类数组对象</h2>
-
-<p>JavaScript 数组的一些特性是其他对象没有的：</p>
-
-<ul>
-<li>当有新的元素添加到列表中时，自动更新 length 属性</li>
-<li>设置 length 为一个较小值将截断数组</li>
-<li>从 Array.prototype 中继承一些有用的方法</li>
-<li>其类属性为「Array」</li>
-</ul>
-
-
-<p>以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的「元素」</p>
-
-<pre><code class="javascript">var a = {}
-
-var i = 0;
-while (i &lt; 10) {
-    a[i] = i * i;
-    i++;
-}
-a.length = i;
-a               // =&gt; { 0: 0, 1: 1, 2: 4, 3: 9 ..., length: 10 }
-
-// 现在就可以当成真正的数组遍历它
-var total = 0;
-for (var j = 0; j &lt; a.length; j++) {
-    total+=a[j]
-}
-</code></pre>
-
-<p>Arguments 对象就是一个类数组对象，DOM 方法 document.getElementsByTagName() 也返回类数组对象，它们都有数组的一些特性，比如索引访问、length 属性，但它们并不是真正的数组</p>
-
-<pre><code class="javascript">function isArrayLike(o) {
-    if ( o &amp;&amp;
-        typeof o === "object" &amp;&amp;
-        isFinite(o.length) &amp;&amp;
-        o.length &gt;= 0 &amp;&amp;
-        o.length === Math.floor(o.length) &amp;&amp;
-        o.length &lt; 4294967296 ) {       // 数组长度的最大值 2^32
-        return true;
-    } else {
-        return false;
-    }
-}
-</code></pre>
-
-<p>JavaScript 数组方法是 <strong>特意定义为通用的</strong>，它们不仅可以应用在数组而且可以应用在类数组对象上，一般使用 Array.prototype.method.call 来使用</p>
-
-<pre><code class="javascript">var a = {"0": "a", "1": "b", "2": "c", length: 3};
-Array.prototype.join.call(a, "+")           // =&gt; "a+b+c"
-</code></pre>
-
-<h2>作为数组的字符串</h2>
-
-<p>在 ECMAScript 5 中，字符串的行为类似于 <strong>只读</strong> 的数组。除子用 charAt() 方法来访问单个字符以外，还可以使用方括号：</p>
-
-<pre><code class="javascript">var s = "test";
-s.charAt(0)         // =&gt; "t"
-s.[1]               // =&gt; "e"
-</code></pre>
-
-<p>字符串的行为类似于数组的事实使得通用的数组方法可以应用到字符串上。不过请记住，字符串是 <strong>不可变值</strong>，当把它们作为数组看待时，它们是只读的。所以诸如：push(), sort(), reverse 等 <strong>会修改数组</strong> 的方法 如果被使用在字符串上是无效的，而且会导致错误并且没有相关提示</p>
-
-<pre><code class="javascript">s = "JavaScript"
-Array.prototype.join.call(s, " ")       // =&gt; "J a v a S c r i p t"
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 6 - 对象]]></title>
-    <link href="http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/"/>
-    <updated>2016-06-23T19:10:28+08:00</updated>
-    <id>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5</id>
-    <content type="html"><![CDATA[<p>对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 <strong>原型</strong> 的对象继承属性</p>
-
-<p>JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象</p>
-
-<p>对象是可变的，通过引用操作对象原对象也会受到影响</p>
-
-<!--more-->
-
-
-<p>属性包括名字和值。名字是可以包含空字符串在内的 <strong>任意字符串</strong>，值可以是任意 JavaScript 值，或者（在 ECMAScript 5中）可以是一个 getter 或者 setter （或都有），每个属性还有一些与之相关的值称为「属性特性」（property attribute）：</p>
-
-<ul>
-<li>可写（writable）</li>
-<li>可枚举（enumerable）</li>
-<li>可配置（configurable），表明是否可以删除或者修改</li>
-</ul>
-
-
-<p>ECMAScript 5 之前，<strong>通过代码给对象创建的所有属性都是可写、可枚举和可配置的</strong></p>
-
-<p>除了包含属性之外，每个对象还拥有三个相关的对象特性（object attribute）：</p>
-
-<ul>
-<li>对象的原型（prototype）指向另外一个对象，本对象的属性继承自它的原型对象</li>
-<li>对象的类（class）是一个标识对象类型的字符串</li>
-<li>对象的扩展标记（extensible flag）指明了（在 ECMAScript 5 中）是否可以向该对象添加新属性</li>
-</ul>
-
-
-<p>下面这些术语用来区分三类 JavaScript 对象和两类属性：</p>
-
-<ul>
-<li>内置对象（native object），由 ECMAScript 规范定义的对象或类。例如 数组、日期</li>
-<li>宿主对象（host object），由 JavaScript 解释器所嵌入的宿主环境（比如浏览器）定义的。比如浏览器中的 HTMLElement，document</li>
-<li>自定义对象（user-defined object），由运行中的 JavaScript 代码创建的对象</li>
-<li>自有属性（own property），直接在对象中定义的属性</li>
-<li>继承属性（inherited property）是在对象的原型对象中定义的属性</li>
-</ul>
-
-
-<h2>创建对象</h2>
-
-<h3>对象直接量</h3>
-
-<pre><code class="javascript">var empty = {}
-var point = { x:0, y:0 }
-var point2 = { x:point.x, y:point.y + 1 }
-var book = {
-    "main title": "JavaScript",
-    "for": "all audiences",
-    author: {
-        firstname: "David",
-        surname: "Flanagan"
-    }
-}
-</code></pre>
-
-<p>在 ECMAScript 5 中，保留字可以用做不带引号的属性名。然后对于 ECMAScript 3 来说，使用保留字作为属性名必须使用引号引起来。ECMAScript 5 中属性最后一个逗号会被忽略，但在 IE 中则报错</p>
-
-<h3>通过 new 创建对象</h3>
-
-<p>new 运算符创建并初始化一个新对象。new 后跟随一个函数调用。这里的函数称做构造函数（constructor），用来初始化一个新创建的对象。JavaScript 语言核心的原始类型都包含内置构造函数（另一方面也证实了 JavaScript 中一切皆对象）</p>
-
-<pre><code class="javascript">var o = new Object();
-var a = new Array();
-var d = new Date();
-var r = new RegExp('js');
-</code></pre>
-
-<h3>原型</h3>
-
-<p>每一个 JavaScript 对象（null 除外）都和另一个对象相关联，这个对象就是「原型」，每一个对象都从原型继承属性</p>
-
-<p>通过 new 创建的对象原型就是构造函数的 prototype 属性值，通过 new Object() 创建的对象也继承自 Obejct.property</p>
-
-<p>没有原型对象的为数不多，Obejct.prototype 就是其中之一。它不继承任何属性，普通对象都具有原型。所有的内置构造函数都具有一个继承自 Object.prototype 的原型。例如，Date.prototype 的属性继承自 Object.prototype，因此由 new Date() 创建的 Date 对象的属性现时继承自 Date.prototype 和 Object.prototype，这一系列链接的原型对象就是所谓的「原型链」（prototype chain）</p>
-
-<h3>Object.create()</h3>
-
-<p>ECMAScript 5 定义了一个名为 Obejct.create() 的方法，用来创建一个新对象，其中第一个参数是这个对象的原型，第二个可选参数用来对对象的属性进行进一步描述，Object.create() 是一个 <strong>静态函数</strong>，不是提供给对象调用的方法</p>
-
-<pre><code class="javascript">var o1 = Object.create({ x:1, y:2 });       // o1 继承了属性 x 和 y
-var o2 = Obejct.create(null);               // o2 不继承任何属性和方法
-</code></pre>
-
-<p>在 ECMAScript 3 中可以用类似代码来模拟原型继承：</p>
-
-<pre><code class="javascript">function inherit(p) {
-    if (p == null) throw TypeError();
-    if (Object.create) return Object.create(p);
-
-    var t = typeof p;
-    if (t !== "object" &amp;&amp; t !== "undefined") throw TypeError();
-
-    function f() {}
-    f.prototype = p;
-
-    return new f();
-}
-
-var o = { x: "test o" }
-
-var c = inherit(o);
-
-c.x = "test c";
-
-console.log(c.x);       // =&gt; "test c"
-console.log(o.x);       // =&gt; "test o"
-</code></pre>
-
-<h2>属性的查询和设置</h2>
-
-<pre><code class="javascript">var author = book.author;           // 取得 book 的 author 属性
-var title = book["main title"];     // 使用 [] 访问属性时 [] 内必须是一个计算结果为字符串的表达式
-
-book.edition = 6;                   // 给 book 创建一个名为 edition 的属性，「.」号运算符后的标识符不能是保留字
-</code></pre>
-
-<h3>作为关联数组的对象</h3>
-
-<p>当通过 [] 来访问对象属性时，属性名通过字符串来表示。字符串是 JavaScript 的数据类型，在程序运行时可以修改创建它们。因此，可以在 JavaScript 中使用下面这种代码来动态添加/查找属性：</p>
-
-<pre><code class="javascript">var addr = "";
-for (i = 0; i &lt; 4; i++) {
-    addr += customer["address" + i] + '\n';
-}
-</code></pre>
-
-<h3>继承</h3>
-
-<p>假设要查询对象 o 的属性 x，如果 o 中不存在 x，那么将会继续在 o 的原型对象中查询属性 x。如果原型对象中也没有 x，但这个原型对象还有原型，那么继续在这个原型对象的原型上执行查找，直到找到 x 或者找到一个原型是 null 的对象为止。可以看出来，原型的属性构成了一个「链接」，通过这个「链」可以实现属性的继承</p>
-
-<pre><code class="javascript">var o = {}
-o.x = 1;
-
-var p = inherit(o);
-p.y = 2;
-
-var q = inherit(p);
-q.z = 3;
-
-var s = q.toString();   // =&gt; "[object Object]"
-q.x + q.y               // =&gt; 3
-</code></pre>
-
-<h3>属性访问错误</h3>
-
-<p>属性访问并不总是返回或设置一个值，下页场景给对象 o 设置 属性 p 会失败：</p>
-
-<ul>
-<li>o 中的属性 p 是只读的（defineProperty() 方法中有一个例外，可以对可配置的只读属性重新赋值）</li>
-<li>o 中不存在自有属性 p：o 没有使用 setter 方法继承属性 p，并且 o 的可扩展性（extensible attribute）是 false。如果 o 中不存在 p，而且没有 setter 方法可供调用，则 p 一定会添加至 o 中。如果 o 不是可扩展的，那么在 o 中不能定义新的属性</li>
-</ul>
-
-
-<h2>删除属性</h2>
-
-<p>使用 delete 运算符可以删除对象的属性，delete 运算符只能删除 <strong>自有属性</strong>，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）</p>
-
-<p>如果删除成功或者删除了一个没有影响的值（不存在的属性），delete 表达式返回 true。当 delete 运算符的操作数不是一个对象的属性的时候也返回 true</p>
-
-<pre><code class="javascript">var o = { x: 1 }
-delete o.x;             // =&gt; true
-delete o.x;             // =&gt; true x 并不存在
-delete o.toString;      // =&gt; true toString 是继承属性
-delete 1                // =&gt; true 不是对象属性
-this.b = 1;
-delete b;               // =&gt; true 删除全局对象上的变量 b
-
-delete Object.property  // =&gt; false
-var x = 1;
-delete this.x;          // =&gt; false 不能删除这个属性，因为是通过 var 声明的
-function f() {}
-delete f                // =&gt; false 不能删除全局函数
-</code></pre>
-
-<h2>检测属性</h2>
-
-<p>可以通过 in 运算符、hasOwnProperty() 方法和 propertyIsEnumerable() 方法来检测对象是否存在某属性，propertyIsEnumerable 只有检测到是自有属性且这个属性的可枚举性为 true 时它才返回 true</p>
-
-<pre><code class="javascript">var o = { x: 1 };
-"x" in o;                          // =&gt; true
-"y" in o;                          // =&gt; false
-"toString" in o                    // =&gt; true
-
-o.hasOwnProperty("x")              // =&gt; true
-o.hasOwnProperty("y")              // =&gt; false
-o.hasOwnProperty("toString")       // =&gt; false
-
-var o = inherit({ y: 2});
-o.x = 1;
-o.propertyIsEnumerable("x")        // =&gt; true
-o.propertyIsEnumerable("y")        // =&gt; false
-o.propertyIsEnumerable("toString") // =&gt; false
-</code></pre>
-
-<p>还可以通过判断属性是否是 undefined 来模拟 in 运算符</p>
-
-<pre><code class="javascript">o.x !== undefined;                 // =&gt; true
-o.y !== undefined;                 // =&gt; false
-o.toString !== undefined;          // =&gt; true
-</code></pre>
-
-<p>然而有一种场景只能使用 in 运算符而不能通过只判断 undefined 的方式。<strong>in 可以区分不存在的属性和存在但值为 undefined 的属性</strong></p>
-
-<pre><code class="javascript">var o = { x: undefined }
-o.x !== undefined           // =&gt; false 存在 x，只是值为 undefined
-o.y !== undefined           // =&gt; false
-"x" in o                    // =&gt; true
-"y" in o                    // =&gt; false
-delete o.x                  // =&gt; true
-"x" in o                    // =&gt; false delete 后 o 完全不存在了
-</code></pre>
-
-<h2>枚举属性</h2>
-
-<p>许多工具库给 Object.prototype 添加了新的方法或者属性（通常不建议这么做），这些方法和属性可以被所有对象继承并使用。然而在 ECMAScript 5 标签之前，这些添加的方法是 <strong>不能定义为不可枚举的</strong>，因此它们都可以在 for/in 循环枚举出来。为了避免这和践情况，需要过滤 for/in 循环返回的属性，下面两种方法是最常见的：</p>
-
-<pre><code class="javascript">Object.prototype.test = 1;
-var o = { a: 1, b:2, c: function() {} };
-for (p in o) {
-    if (!o.hasOwnProperty(p)) continue;
-    console.log(p);
-}
-for (p in o) {
-    if (typeof o[p] === "function") continue;
-}
-</code></pre>
-
-<p>除了 for/in 循环之外，ECMAScript 5 定义了两个用以枚举属性名称的函数。第一个是 Object.keys()，它返回一个数组，由对象中的 <strong>可枚举的自有属性名称</strong> 组成，第二个是 Object.getOwnPropertyNames()，它和上面的方法类似，只是它返回对象的 <strong>所有自有属性名称</strong>，不仅仅是可枚举的属性</p>
-
-<h2>属性 getter 和 setter</h2>
-
-<p>在 ECMAScript 5 中，属性的值可以用一个或两个方法替代，这两个方法就是 getter 和 setter。由它们定义的属性称做「存取器属性」（accessor property），不同于「数据属性」（data property），数据属性只有一个简单的值</p>
-
-<p>当程序查询存取器属性的值时，JavaScript 调用 getter 方法（无参数）。这个方法返回属性的存取表达式值。当程序设置一个存取器属性的值时，调用 setter 方法，将赋值表达式右侧的值当做参数传入 setter。从某种意义上讲，这个方法负责「设置」属性值。可以忽略 setter 方法的返回值</p>
-
-<p>使用存取器属性写入的属性不具有可写性（writable）。如果属性同时具有 getter 和 setter 方法，那么它是一个读/写属性。哪果它只有 getter 方法，那么它是一个只读属性。如果只有 setter 方法，那么它是一个只写属性，读取只写属性总是返回 undefined</p>
-
-<pre><code class="javascript">var p = {
-  x: 1.0,
-  y: 1.0,
-
-  get r() {
-    return Math.sqrt(this.x*this.x + this.y*this.y);
-  },
-  set r(newValue) {
-    var oldValue = Math.sqrt(this.x*this.x + this.y*this.y);
-    var ratio = newValue/oldValue;
-
-    this.x *= ratio;
-    this.y *= ratio;
-  },
-  get theta() {
-    return Math.atan2(this.y, this.x)
-  }
-};
-p.r             // =&gt; 1.4142135623730951
-</code></pre>
-
-<h2>属性的特性</h2>
-
-<p>除了包含名字和值之外，属性还包含一些标识它们可写、可枚举和可配置的特性。ECMAScript 3 程序创建的属性都是可写、可枚举、可配置的，且无法对这些特性做出修改。ECMAScript 5 中却提供了查询和设置这些属性鹅的 API，这些 API 对于库的开发者来说非常重要，因为：</p>
-
-<ul>
-<li>可以通过这些 API 给原型对象添加方法，并将它们设置成不可枚举的，<strong>让它们看起来更像内置方法</strong></li>
-<li>可以通过这些 API 给对象定义不修改或删除的属性借此「锁定」这个对象</li>
-</ul>
-
-
-<p><strong>数据属性</strong> 的 4 个属性分别是它的值（value）、可写性（writable）、可枚举性（enumerable）和可配置性（configurable）</p>
-
-<p><strong>存取器属性</strong> 不具有值（value）特性和可写性，它们的可写性是由 setter 方法存在与否决定，因此存取器属性的 4 个特性是读取（get）、写入（set）、可枚举性和可配置性</p>
-
-<p>为了实现属性特性的查询和设置操作，ECMAScript 5 中定义了一个名为「<strong>属性描述符</strong>」（property descriptor）的对象，这个对象代表那 4 个特性。描述符对象的属性和它们所描述的属性特性是同名的。因此，数据属性的描述符对象的属性有 value, writable, enumerable 和 configurable。存取器属性描述符对象则用 get, set 属性代替 value, writable。其中 writable、enumerable 和 configurable 都是布尔值，get、set 都是函数值</p>
-
-<p>通过调用 Object.getOwnPropertyDescriptor() 可以获得某个对象特定属性的属性描述符</p>
-
-<pre><code class="javascript">// =&gt; {value: 1, writable: true, enumerable: true, configurable: true}
-Object.getOwnPropertyDescriptor({ x: 1}, "x")
-var random = {
-    get octet() {
-        return Math.floor(Math.random() * 256)
-    },
-    get uint16() {
-        return Math.floor(Math.random() * 65536)
-    },
-    get int16() {
-        return Math.floor(Math.random() * 65536 - 32768)
-    }
-}
-// =&gt; {set: undefined, get: function, enumerable: true, configurable: true}
-Object.getOwnPropertyDescriptor(random, "octet")
-// =&gt; undefined
-Object.getOwnPropertyDescriptor({}, "x")
-</code></pre>
-
-<p>从函数名字就可以看出来 Object.getOwnPropertyDescriptor() 只能得到自有属性的描述符。继承属性的特性需要遍历原型链</p>
-
-<p>要想设置属性的特性，或者让新建属性具有某种特性，则需要调用 Object.defineProperty()，传入要修改的对象、要创建或者修改的属性的名称以前属性描述符对象：</p>
-
-<pre><code class="javascript">var o = {};
-Object.defineProperty(o, "x", {
-    value: 1,
-    writable: true,
-    enumerable: false,
-    configurable: true
-});
-// x 属性存在但不可枚举
-Object.keys()       // =&gt; []
-
-Object.defineProperty(o, "x", { writable: false })
-o.x = 2             // 试图更改这个属性的值，会操作失败不报错，严格模式中则抛出类型错误异常
-o.x                 // =&gt; 1
-
-// 将 x 从数据属性修改为存取器属性
-Object.defineProperty(o, "x", { value: 2 })
-Object.defineProperty(o, "x", { get: function() { return 0} }
-o.x                 // =&gt; 0
-</code></pre>
-
-<p>传入 Object.defineProperty() 的属性描述符对象 <strong>不必</strong> 包含所有 4 个特性。对于创建属性来说，默认的特性值是 false 或 undefined。对于修改的已有属性来说，默认的特性值没有做任何修改。注意，这个方法要么修改已有属性要么新建自胡属性，但 <strong>不能修改继承属性</strong>，想要同时修改或者创建多个属性则需要使用 Object.defineProperties()，使用方法可以参考 MDN <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">相关 api</a></p>
-
-<p>对于那些不允许创建或者修改的属性来说，如果用 Object.defineProperty() 对其操作就会抛出类型错误异常，比如给一个不可扩展的对象新增属性就会抛出类型错误异常。<strong>可写性控制着对特定值特性的修改，可配置性控制着对其它特性的修改</strong>，使用的时候以下情况会抛出类型错误异常：</p>
-
-<ul>
-<li>如果对象是不可扩展的，则可以编辑已有的自有属性，但不能给它添加新属性</li>
-<li>如果属性是不可配置的，则不能修改它的可配置性和可枚举性</li>
-<li>如果存取器属性是不可配置的，则不能修改其 getter 和 setter 方法，也不能将它转换为数据属性</li>
-<li>如果数据属性是不可配置的，则不能将它转换为存取器属性</li>
-<li>如果数据属性是不可配置的，则不能将它的可写性从 false 修改为 true，但可以从 true  修改为 false</li>
-<li>如果数据属性是不可配置且不可写的，则不能修改它的值，然而 <strong>可配置但不可写的属性值是可以修改的</strong></li>
-</ul>
-
-
-<pre><code class="javascript">// 给 Object.prototype 添加一个不可枚举的 extend() 方法
-// 这个方法继承自调用它的对象，将作为参数什入的对象属性都复制
-Object.defineProperty(Object.prototype, "extend", {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value: function(o) {
-        var names = Object.getOwnPropertyNames(0);
-
-        for (var i = 0, l = names.length; i &lt; l; i++) {
-            if (names[i] in this) continue;
-
-            var desc = Object.getOwnPropertyDescriptor(o, name[i]);
-            Object.defineProperty(this, names[i], desc)
-        }
-    }
-});
-</code></pre>
-
-<p><strong>getter 和 setter 的老式 API</strong></p>
-
-<p>在ECMAScript 5标准被采纳之前，大多数 JavaScript 的实现（IE 除外）已经可以支持对象直接量语法中的 get 和 set 写法。这些实现提供了非标准的老式 API 用来查询和设置 getter 和 setter。这些 API 由 4 个方法组成，所有对象都拥有这些方法。<code>__lookupGetter__()</code> 和 <code>__lookupSetter__()</code> 用以返回一个命名属性的 getter 和 setter 方法，<code>__defineSetter__()</code> 和 <code>__defineGetter__()</code> 用以定义 getter 和 setter</p>
-
-<h2>对象的三个属性</h2>
-
-<p>每个对象都胡与之相关的 <strong>原型</strong>（prototype）、<strong>类</strong>（class）和 <strong>可扩展性</strong>（extensible attribute）</p>
-
-<h3>原型属性</h3>
-
-<p>原型属性是在实例对象创建之初就设置好的，ECMAScript 5 中，对象作为参数传入 <code>Object.getPrototypeOf()</code> 可以查看它的原型，在 ECMAScript 3 中，则没有与之等价的函数，但经常使用表达式 o.constructor.prototype 来检测一个对象的原型。通过 new 表达式创建的对象，通常继承一个 constructor 属性，这个属性指代创建这个对象的构造函数</p>
-
-<p>要想检测一个对象是否是另一个对象的原型（或者处于原型链中），请使用 isPrototypeOf() 方法，这个方法和 instanceof 运算符非常类似，例如：</p>
-
-<pre><code class="javascript">var p = { x:1 };
-var o = Object.create(p);
-p.isPrototypeOf(o)                  // =&gt; true
-Object.prototype.isPrototypeOf(o)   // =&gt; true
-</code></pre>
-
-<h3>类属性</h3>
-
-<p>对象的类属性是一个字符串，用以表示对象的类型信息。ECMAScript 3/5 都未提供设置这个属性的方法，并只有一种间接的方法可以查询它。默认的 toString() 方法（继承自 Object.prototype），返回了如下这种格式的字符串：</p>
-
-<blockquote><p>[object class]</p></blockquote>
-
-<p>所以可以通过 toString() 方法返回的字符串截取处理取到 class 名，不过很多对象继承的 toString() 方法被重写了，为了能调用正确的 toString() 版本，必须间接地调用 Function.call() 方法</p>
-
-<pre><code class="javascript">function classof(o) {
-    if (o === null) return "Null";
-    if (o === undefined) return "Undefined";
-    return Object.prototype.toString.call(o).slice(8, -2);
-}
-classof(null)     // =&gt; "Null"
-classof(1)        // =&gt; "Number"
-classof("")       // =&gt; "String"
-classof(true)     // =&gt; "Boolean"
-classof({})       // =&gt; "Object"
-classof([])       // =&gt; "Array"
-classof(/./)      // =&gt; "Regexp"
-classof(new Date) // =&gt; "Date"
-function f() {}
-classof(new f())  // =&gt; "Object"
-</code></pre>
-
-<h3>可扩展属性</h3>
-
-<p>可扩展性用以表示是否可以给对象是添加新属性。所有内置对象和自定义对象都是显式可扩展的，宿主对象的可扩展属性是由 JavaScript 引擎定义的，ECMAScript 5 中，所有的内置对象和自定义对象都是可扩展的，除非将它们转换为不可扩展的，宿主对象的可扩展性也是由实现 ECMAScript 5 的 JavaScript 引擎定义的</p>
-
-<p>ECMAScript 5 定义了用来查询和设置对象可扩展性的函数：Object.isExtensible()，如果将对象转换为不可扩展的，需要调用 Object.preventExtensions()，不过一量旦将对象转换为不可扩展的，就无法再转换回去了。</p>
-
-<p>Object.seal() 和 Object.preventExtensions() 类似，除了能将对象设置为不可扩展的，还可以将对象的所有自有属性都设置为不可配置的，也就是说不能给对象添加新的属性，已有的属性也不能删除或配置，已封闭（sealed）的对象是不能解封的，可以使用 Object.isSealed() 来检测对象是否封闭</p>
-
-<p>Object.freeze() 将更严格地锁定对象 —— 「冻结」，它还可以将它自有的所有数据属性设置为只读，可以使用 Object.isFrozen() 来检测对象是否冻结</p>
-
-<h2>序列化对象</h2>
-
-<p>对象序列化（serialization）是指将对象的状态转换为字符串，也可将字符串还原为对象。ECMAScript 5 提供了内置函数 JSON.stringify 和 JSON.parse() 用来序列化和还原 JavaScript 对象。这些方法都使用 JSON 作为数据交换格式，JSON的全称是「JavaScript Object Notation」—— JavaScript 对象表示法，正如其名，它的语法和 JavaScript 对象与数组直接量的语法非常相近</p>
-
-<p>ECMAScript 3 环境中可以引用 <a href="https://github.com/douglascrockford/JSON-js">json2</a> 类库来支持这两个序列化函数</p>
-
-<p>JSON 语法是 JavaScript 语法的子集，它并不能表示 JavaScript 里的所有值，函数、RegExp、Error 对象和 undefined 值不能序列化和不愿。JSON.stringify() <strong>只能序列化对象可枚举的自有属性</strong>，关于 JSON 对象更多 API 可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">JSON.stringify</a></p>
-
-<h2>对象方法</h2>
-
-<h3>toString() 方法</h3>
-
-<p>toString() 方法没有参数，在需要将对象转换为字符串的时候，JavaScript 都调用这个方法</p>
-
-<pre><code class="javascript">var s = { x: 1, y: 1 }
-s.toString();       // =&gt; "[object Ojbect]"
-</code></pre>
-
-<h3>toLocaleString() 方法</h3>
-
-<p>返回一个对象的本地化字符串。Object 中默认的 toLocaleString() 方法并不做任何本地化自身操作，它仅调用 toString() 方法并返回值。Date 和 Number 类对 toString() 方法做了定制，可以用它对数字、日期和时间做本地化的转换</p>
-
-<h3>toJSON() 方法</h3>
-
-<p>Object.prototype 实际上不有定义 toJSON() 方法，但对于需要执行序列化的对象来说，JSON.stringify() 方法会调用 toJSON() 方法，如果存在则调用它，返回值即是序列化的结果，而不是原始对象，参见 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON">Date.toJSON</a></p>
-
-<h3>valueOf() 方法</h3>
-
-<p>valueOf() 和 toString() 方法非常类似，但往往当 JavaScript 需要 <strong>将对象转换为某种原始值而非字符串</strong> 的时候才会用到它，尤其是转换为数字的时候。如果在需要使用原始值的上下文中使用了对象，JavaScript 就会自动调用这个方法，同样有些内置类自定义了 valueOf() 方法，比如 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/valueOf">Date.valueOf</a></p>
 ]]></content>
   </entry>
   

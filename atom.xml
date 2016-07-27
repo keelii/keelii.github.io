@@ -4,7 +4,7 @@
   <title><![CDATA[Something]]></title>
   <link href="http://keelii.github.io/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-07-18T09:46:54+08:00</updated>
+  <updated>2016-07-27T11:22:02+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -14,7 +14,252 @@
 
   
   <entry>
-    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 12 - Web 浏览器中的 JavaScript]]></title>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 14 - Window 对象]]></title>
+    <link href="http://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/"/>
+    <updated>2016-07-26T11:35:42+08:00</updated>
+    <id>http://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12</id>
+    <content type="html"><![CDATA[<p>本章介绍 window 对象的属性和方法</p>
+
+<h2>计时器</h2>
+
+<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用</p>
+
+<!--more-->
+
+
+<p>由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 4 秒后显示 log</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">t1</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;show after 4s&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">},</span> <span class="mi">4000</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">fn</span><span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;show every 1s&#39;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="nx">setTimeout</span><span class="p">(</span><span class="s1">&#39;fn()&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>浏览器定位和导航</h2>
+
+<p>window 对象的 location 属性引用的是 location 对象，它表示窗口中当前显示的文档 URL。并且定义了方法来使窗口载入新的文档</p>
+
+<p>document 对象上的 location 属性也引用到 location 对象：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>document 对象也有一个 URL 属性，是文档首次载入后保存的该文档的 URL 静态字符串。如果定位到文档中的片段标识符（如#table-of-content，其实就是锚点），location 对象会做相应的更新，<strong>而 document.URL 属性不会</strong></p>
+
+<h2>解析 URL</h2>
+
+<p>location 对象的 href 属性是一个字符串，后者包含 URL 的完整文本。location 对象的 toString() 方法返回 href 属性的值，因此会隐式调用 toString() 的情况下，可以使用 location 代替 location.href</p>
+
+<p>这个对象的其它属性——protocol, host, hostname, port, pathname 和 search 分别表示 URL 的各个部分。它们称为「URL 分解」属性，同时被 link 对象（通过 HTML 文档中的 a 和 area 元素创建）支持</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/458894/17127989/2285a748-533c-11e6-946d-a1d129e845c7.gif" alt="url" /></p>
+
+<h3>载入新的文档</h3>
+
+<p>location 对象的 assign() 方法可以使用窗口载入并显示你指定的 URL 中的文档。replace() 方法也类似，但它在 <strong>载入新文档之前会从浏览器历史中把当前文档删除</strong>，assign 会产生一个新的历史记录，也就是说可以使用浏览器的返回按钮到上一页，replace 则不行</p>
+
+<h2>浏览历史</h2>
+
+<p>window 对象的 history 属性用来把窗口的浏览历史用文档和文档状态列表的形式表示。history 对象的 length 属性表示浏览历史列表中的元素数量，但是脚本并不能访问已保存的 URL</p>
+
+<p>history 对象的 bace() 和 forward() 方法与浏览器的「后退」和「前端」按钮一样。go() 方法接收一个整数参数，可以在历史列表中向前（正数）或向后（负数）跳过任意多个页</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">history</span><span class="p">.</span><span class="nx">go</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>     <span class="c1">// 后退两个历史记录</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果窗口包含多个子窗口（比如 iframe 元素），子窗口的浏览历史也会被记录，这音中着在主窗口调用 history.back() 可能会使子窗口跳转而主窗口不变</p>
+
+<h2>浏览器和屏幕信息</h2>
+
+<h3>navigator 对象</h3>
+
+<p>window 对象的 navigator 属性引用的是包含浏览器厂商和版本信息的 navigator 对象。navigator 有四个属性用于提供关于运行中的浏览器版本信息，并且可以用来做浏览器嗅探</p>
+
+<p><strong>appName</strong></p>
+
+<p>Web 浏览器的全称。在 IE 中，就是「Microsoft Internet Explorer」，在 Firefox 中就是「Netscape」</p>
+
+<p><strong>appVersion</strong></p>
+
+<p>此属性通常以数字开始，并跟着包含浏览器厂商和版本信息的详细字符串。字符串前面的数字通常是 4.5 或 5.0，表示它是第 4 或 5 代兼容的浏览器</p>
+
+<p><strong>userAgent</strong></p>
+
+<p>浏览器在它的 USER-AGENT HTTP 头部中发送的字符串。这个属性通常包含 appVersion 中的所有信息，以及其它细节</p>
+
+<p><strong>platform</strong></p>
+
+<p>在其上运行浏览器的操作系统字符串</p>
+
+<h3>screen 对象</h3>
+
+<p>screen 对象提供有关窗口显示的大小和可用的颜色数量信息，属性 width 和 height 指定的是以像素为单位的窗口大小。属性 avilWidth 和 avilHeight 指定的是实际可用的显示大小，它们排除了像浏览器任务栏这样的特性所占用的屏幕空间</p>
+
+<h2>对话框</h2>
+
+<p>window 对象提供了 3 个方法来向用户显示简单的对话框。</p>
+
+<p><strong>alert()</strong> 向用户显示一条消息并等待用户关闭
+<strong>confirm()</strong> 也显示一条消息并要求用户单击「确定」或「取消」，并返回一个布尔值
+<strong>prompt()</strong> 也显示一条消息并等待用户输入字符串，并返回那个字符串</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">do</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;What is your name?&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">correct</span> <span class="o">=</span> <span class="nx">confirm</span><span class="p">(</span><span class="s1">&#39;You entered: &#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;\n\</span>
+</span><span class='line'><span class="s1">                            Click OK to processed or Cancel to re-enter&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="nx">correct</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这三个方法都会产生阻塞，也就是说，在用户关掉它们所显示的对话框之前，它们不会返回，这就意味着在弹出一个对话框前，代码就会停止运行。如果当前正在载入文档，也会停止载入。直到用户用要求的输入进行响应为止</p>
+
+<h2>错误处理</h2>
+
+<p>window 对象的 onerror 属性是一个事件处理程序，当未捕获的异常传播到调用栈上的时候就会触发它，并把错误消息输出到浏览器的 JavaScript 控制台上，onerror 事件处理函数调用通过三个字符串参数，而不是事件对象。分别是<code>错误信息</code>、<code>产生错误的页面地址</code>、<code>错误源代码的行号</code>，onerror 的返回值也很重要，如果 onerror 处理程序返回 false，表示它通知浏览器事件处理程序已经处理错误了，不需要其它操作。Firefox 则刚好相反</p>
+
+<h2>作为 window 对象属性的文档元素</h2>
+
+<p><strong>如果 HTML 文档中用 id 属性来为元素命名，并且如果 window 对象没有此名字的属性（并且这个id是个合法的标识符），window 对象会赋予一个属性，它的名字就是 id 属性的值</strong>，而它的值指向表示文档元素的 HTMLElement 对象</p>
+
+<p>元素 ID 作为全局变量的隐式应用是 Web 浏览器进化过程中遗留的问题，主要是出于兼容性的考虑。<strong>但并不推荐使用这种做法</strong></p>
+
+<h2>多窗口和窗体</h2>
+
+<p>Web 浏览器的窗口中每一个标签页都是独立的「浏览上下文」（browsing context），每一个上下文都有独立的 window 对象，而且相互之间不干扰，也不知道其他标签页的存在</p>
+
+<p>但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 <a href="http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/#TOC-16">同源策略</a>）</p>
+
+<h3>打开和关闭窗口</h3>
+
+<p>使用 window 对象的 open() 方法可以打开一个新的浏览器窗口</p>
+
+<blockquote><p>var windowObjectReference = window.open(url, name, [features]);</p></blockquote>
+
+<p>第一个参数 <code>url</code> 是要在新窗口中显示文档的 URL，如果参数省略，默认会使用空页面的 URL about:blank</p>
+
+<p>第二个参数 <code>name</code> 表示打开窗口的名字，如果指定的是一个已经存在的窗口名字（并且脚本允许跳转到那个窗口），会直接用已存在的窗口。否则，会打开新的窗口，并将这个指定的名字赋值给它。如果省略此参数，会使用指定的名字「_blank」打开一个新的未命名窗口</p>
+
+<p>第三个参数 <code>features</code>（非标准）是一个以逗号分隔的列表，包含表示打开窗口的大小和各种属性</p>
+
+<p>open() 也可以有第四个参数，且只在第二个参数命名的是一个存在的窗口时才有用。它是一个布尔值，𡔬了由第一个参数指定的 URL 是应用替换掉窗口浏览器历史的当前条目（true），还是应该在窗口浏览历史中创建一个新的条目（false），后者是默认设置</p>
+
+<p>open() 的返回值是代表命名或新创建的窗口的 window 对象。可以在自己的 JavaScript 代码中使用这个 windows 对象来引用新创建的窗口，就像用隐式的 window 对象 window 来引用运行代码的窗口一样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
+</span><span class='line'><span class="nx">w</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;About to visit http://jd.com&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">w</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;http://jd.com&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由 window.open() 方法创建的窗口中，opener 属性引用的是打开它的脚本的 window 对象，在其它窗口中，opener 为 null</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">w</span><span class="p">.</span><span class="nx">opener</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">;</span>      <span class="c1">// =&gt; true</span>
+</span><span class='line'><span class="nx">w</span><span class="p">.</span><span class="nx">open</span><span class="p">().</span><span class="nx">opener</span> <span class="o">===</span> <span class="nx">w</span>   <span class="c1">// =&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>关闭窗口</strong></p>
+
+<p>像 open() 方法一样，close() 用来关闭一个（脚本打开的）窗口，注意，<strong>大多数浏览器只允许自己关闭自己的 JavaScript 代码创建的窗口</strong>，要关闭其它窗口，可以用一个对话框提示用户，要求他关闭窗口的请求进行确认。在表示窗体而不是顶级窗口或者标签页上的 window 对象上执行 close() 方法不会有任何效果，它不能关闭一个窗体</p>
+
+<p>即使一个窗口关闭了，代表它的 window 对象 <strong>仍然存在</strong>。已关闭的窗口会有一个值为 true 的 closed 属性，它的 document 会是 null， 它的方法通常也不会再工作</p>
+
+<h3>窗体之间的关系</h3>
+
+<p>任何窗口中的 JavaScript 代码都可以将自己的窗口引用为 window 或 self。窗体可以用 parent 属性引用包含它的窗口的 window 对象。如果一个窗口是顶级窗口或标签，那么其 parent 属性引用的就是这个窗口本身：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">parent</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+</span><span class='line'><span class="nx">parent</span> <span class="o">==</span> <span class="nx">self</span><span class="p">;</span>            <span class="c1">// 只有顶级窗口才会返回 true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果一个窗体包含在另一个窗体中，而后者又包含在顶级窗口中，那么该窗体就可以使用 parent.parent 来引用顶级窗口。top 属性是一个通用的快捷方式，无论一个窗体被嵌套几层，它的 top 属性引用的都是指向包含它的顶级窗口。如果一个 window 对象代表的是一个顶级窗口，那么它的 top 属性就是窗口本身。对于那些顶级窗口的直接子窗体，top 属性就等价于 parent 属性</p>
+
+<p>parent 和 top 属性允许脚本引用它的窗体的祖先。有不止一种方法可以引用窗口的子孙窗体。窗口是通过 iframe 元素创建的，可以获取其他元素的方法来获取一个表示 iframe 的元素对象，iframe 元素有 contentWindow 属性，引用该窗体的 window 对象。也可以反向操作，使用 window 对象的 frameElement 属性来引用被包含的 iframe 元素，对于顶级窗口来说 window 对象的 frameElement 属性为 null</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 假设页面有一个 id=&quot;f1&quot; 的 iframe 元素</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">iframeElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;f1&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">iframeWindowObject</span> <span class="o">=</span> <span class="nx">iframeElement</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 对于 iframe 来说永远是 true</span>
+</span><span class='line'><span class="nx">iframeWindowObject</span><span class="p">.</span><span class="nx">frameElement</span> <span class="o">===</span> <span class="nx">iframeElement</span>
+</span><span class='line'><span class="c1">// 对于顶级窗口来说 frameElement 永远是 null</span>
+</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">frameElement</span> <span class="o">===</span> <span class="kc">null</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>每个 window 上都会有一个 frames 属性，表示当前窗口里面引用的窗口。frames 是个类数组对象，并可以通过数字或者窗体名称（如 iframe name 属性）进行索引。注意 frames 元素引用的是窗口的 window 对象，而不是 iframe 元素</p>
+
+<h3>交互窗口中的 JavaScript</h3>
+
+<p>每个窗口都是它自身的 JavaScript 执行上下文，以 window 做为全局对象</p>
+
+<p>设想一个 Web 页面里面有两个 iframe 元素，分别叫「A」和「B」，并假设这些窗体所包含的文档来自于相同的一个服务器，并且包含交互脚本。我们在窗体 A 里的脚本定义了一个变量 i：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个变量只是全局对象的一个属性，也是 window 对象的一个属性。窗体 A 中的代码可以用标识符 i 来引用变量，或者用 window 对象显示地引用这个变量：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">i</span>           <span class="c1">// =&gt; 3</span>
+</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">i</span>    <span class="c1">// =&gt; 3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由于窗体 B 中的脚本可以引用窗体 A 的 window 对象，因此它也可以引用那个 window 对象的属性：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">parent</span><span class="p">.</span><span class="nx">A</span><span class="p">.</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>             <span class="c1">// 修改窗体 A 中的变量</span>
+</span><span class='line'><span class="nx">parent</span><span class="p">.</span><span class="nx">A</span><span class="p">.</span><span class="nx">fun</span><span class="p">();</span>             <span class="c1">// 调用 A 窗体中的全局函数</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">Set</span><span class="p">();</span>   <span class="c1">// 甚至可以构造父窗口中的对象</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>和用户定义的类不同，内置类（比如 String, Date 和 RegExp）都会在所有的窗口中自动预定义。但是要注意，<strong>每个窗口都有构造函数的一个独立副本和构造函数对应的原型对象的一个独立副本</strong>。例如，每个窗口都有自己的 String() 构造函数和 String.prototype 对象副本。因此，如果编写一个操作 JavaScript 字符串的新方法，并且通过把它赋值给当前窗口中的 String.prototype 对象而使它成为 String 类的一个方法，那么该窗口中的所有字符串就可以使用这个新方法。但是，<strong>别的窗口中定义的字符串不能使用这个新方法</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript]]></title>
     <link href="http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/"/>
     <updated>2016-07-14T14:11:08+08:00</updated>
     <id>http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11</id>
@@ -917,7 +1162,7 @@
     <id>http://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp</id>
     <content type="html"><![CDATA[<p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
 
-<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a>算术定义的求 x 和 y 之和的过程</p>
+<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
 
 <!--more-->
 

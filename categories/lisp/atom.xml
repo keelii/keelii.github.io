@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Lisp | Something]]></title>
   <link href="http://keelii.github.io/categories/lisp/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-07-18T09:46:54+08:00</updated>
+  <updated>2016-07-27T11:22:02+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -20,7 +20,7 @@
     <id>http://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp</id>
     <content type="html"><![CDATA[<p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
 
-<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a>算术定义的求 x 和 y 之和的过程</p>
+<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
 
 <!--more-->
 

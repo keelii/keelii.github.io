@@ -176,3 +176,23 @@
     toc.init();
 
 })(jQuery);
+
+// Share to weibo
+function shareToWeibo() {
+    var url = 'http://service.weibo.com/share/share.php?';
+    var param = {
+        appkey: 1928961218,
+        url: location.href,
+        title: document.title + ' @keelii',
+        source: 'Something',
+        sourceUrl: location.protocol + '//' + location.hostname,
+        content: 'utf8',
+        searchPic: true
+    };
+    var $firstImage = $('#content img').eq(0);
+    if ( $firstImage.length ) {
+        param.pic = $firstImage.attr('src');
+    }
+    var shareUrl = url + $.param(param);
+    window.open(shareUrl);
+}

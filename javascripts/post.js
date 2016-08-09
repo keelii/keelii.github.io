@@ -16,6 +16,8 @@
 
             var $defaultSidebar = $('.default-post-sidebar');
 
+            this.enabled = true;
+
             // if has headdings only show toc
             // else just show normal sidebar(default is hide on post page)
             if (this.$headdings.length < 2) {
@@ -25,38 +27,45 @@
                 this.bindEvent();
             }
         },
+        handleScroll: function () {
+            var sWidth = $('.sidebar').width();
+            var sTop = $('html').scrollTop() || $('body').scrollTop();
+
+            if (sTop > this.oTop && this.enabled) {
+                this.$toc.addClass('toc-fixed').css('width', sWidth);
+            } else {
+                this.$toc.removeClass('toc-fixed').css('width', '100%');
+            }
+        },
+        handleFold: function (e) {
+            var $this = $(e.target);
+            var $item = $this.parent();
+            var $childs = $item.children('ol,ul');
+            var isUnFold = $item.attr('data-fold') === "false";
+            if (isUnFold) {
+                $childs.hide();
+                $this.html(foldChar[1]);
+                $item.attr('data-fold', 'true');
+            } else {
+                $childs.show();
+                $this.html(foldChar[0]);
+                $item.attr('data-fold', 'false');
+            }
+        },
+        handleSideShow: function () {
+            this.enabled = !$('body').hasClass('collapse-sidebar');
+        },
         bindEvent: function () {
             var foldChar = this.foldChars;
             // Bind some event
-            var $toc = $('#side-toc')
-            var oTop = $toc.offset().top;
+            this.$toc = $('#side-toc')
+            this.oTop = this.$toc.offset().top;
 
-            $(window).bind('scroll.checkToc resize.checkToc', function() {
-                var sWidth = $('.sidebar').width();
-                var sTop = $('html').scrollTop() || $('body').scrollTop();
+            $('body').bind('onSideShow', $.proxy(this.handleSideShow, this))
 
-                if (sTop > oTop) {
-                    $toc.addClass('toc-fixed').css('width', sWidth);
-                } else {
-                    $toc.removeClass('toc-fixed').css('width', 'auto');
-                }
-            });
-
+            $(window).bind('scroll.checkToc resize.checkToc', $.proxy(this.handleScroll, this));
             // fold
-            $toc.delegate('.fold-toc', 'click', function() {
-                var $item = $(this).parent();
-                var $childs = $item.children('ol,ul');
-                var isUnFold = $item.attr('data-fold') === "false";
-                if (isUnFold) {
-                    $childs.hide();
-                    $(this).html(foldChar[1]);
-                    $item.attr('data-fold', 'true');
-                } else {
-                    $childs.show();
-                    $(this).html(foldChar[0]);
-                    $item.attr('data-fold', 'false');
-                }
-            });
+            this.$toc.delegate('.fold-toc', 'click', $.proxy(this.handleFold, this));
         },
         buildTOC: function () {
             var foldChar = this.foldChars;

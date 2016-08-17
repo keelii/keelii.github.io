@@ -4,7 +4,7 @@
   <title><![CDATA[Something]]></title>
   <link href="http://keelii.github.io/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-08-12T17:42:22+08:00</updated>
+  <updated>2016-08-17T11:02:00+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -1123,7 +1123,7 @@
 
 <p>当时我还在组内做过一个分享，有兴趣的可以去围观一下 <a href="https://speakerdeck.com/keelii/best-workflow-with-grunt">Best Workflow With Grunt</a></p>
 
-<p>其实这些工具出现的原因是：当时前端领域的各种基础设施很缺乏，而前端的工作内容又相对零散。工作时需要开很多的软件。再加上 JavaScript 语言本身也很弱，就连包管理这种基础的东西也没有内置，以至于模块化要通过一些第三方类库来实现，比如：RequireJS, SesJS</p>
+<p>其实这些工具出现的原因是：当时前端领域的各种基础设施很缺乏，而前端的工作内容又相对零散。工作时需要开很多的软件。再加上 JavaScript 语言本身也很弱，就连包管理这种基础的东西也没有内置，以至于模块化要通过一些第三方类库来实现，比如：RequireJS, SeaJS</p>
 
 <p>工具的重要性可以在我之前的一个分享中找到 <a href="https://speakerdeck.com/keelii/qian-duan-kai-fa-gong-ju">前端开发工具系列</a></p>
 

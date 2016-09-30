@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Something]]></title>
   <link href="http://keelii.github.io/categories/javascript/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-09-30T21:02:39+08:00</updated>
+  <updated>2016-09-30T21:05:07+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[JavaScript 浏览器事件]]></title>
+    <title type="html"><![CDATA[JavaScript 浏览器事件解析]]></title>
     <link href="http://keelii.github.io/2016/09/29/javascript-browser-event/"/>
     <updated>2016-09-29T17:22:29+08:00</updated>
     <id>http://keelii.github.io/2016/09/29/javascript-browser-event</id>

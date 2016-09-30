@@ -11,7 +11,7 @@
   <meta name="author" content="keelii">
 
   
-  <meta name="description" content="用 Node 实现异步 I/O Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞， &hellip;">
+  <meta name="description" content="JavaScript、浏览器、事件之间的关系 JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是： 事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,188 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-29T17:22:29+08:00'><span class='date'>09,29,2016</span> <span class='time'>5:22 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>JavaScript、浏览器、事件之间的关系</h2>
+
+<p>JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是：</p>
+
+<blockquote><p>事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/09/29/javascript-browser-event/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-08-12T15:36:59+08:00'><span class='date'>08,12,2016</span> <span class='time'>3:36 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/08/12/javascript-definitive-guide-note-13/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-31T10:48:57+08:00'><span class='date'>07,31,2016</span> <span class='time'>10:48 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>简介</h2>
+
+<p>详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页面。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/31/something-have-to-say-with-JD-item/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-26T11:35:42+08:00'><span class='date'>07,26,2016</span> <span class='time'>11:35 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本章介绍 window 对象的属性和方法</p>
+
+<h2>计时器</h2>
+
+<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/26/javascript-definitive-guide-note-12/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-14T14:11:08+08:00'><span class='date'>07,14,2016</span> <span class='time'>2:11 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>客户端的 JavaScript</h2>
+
+<p>Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/07/14/javascript-definitive-guide-note-11/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -172,7 +354,7 @@
 
   <div class="entry-content"><p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
 
-<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a>算术定义的求 x 和 y 之和的过程</p>
+<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
 
 </div>
   
@@ -253,192 +435,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/23/javascript-definitive-guide-note-6/">《JavaScript 权威指南》读书笔记 7 - 数组</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>数组是值的 <strong>有序集合</strong>。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型</p>
-
-<p>JavaScript 数组是 <strong>动态的</strong>，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小</p>
-
-<p>JavaScript 数组可能是 <strong>稀疏的</strong>，数组元素索引不一定要连续</p>
-
-<p>JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 <strong>快很多</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/23/javascript-definitive-guide-note-6/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/23/javascript-definitive-guide-note-5/">《JavaScript 权威指南》读书笔记 6 - 对象</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 <strong>原型</strong> 的对象继承属性</p>
-
-<p>JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象</p>
-
-<p>对象是可变的，通过引用操作对象原对象也会受到影响</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/23/javascript-definitive-guide-note-5/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/23/javascript-definitive-guide-note-4/">《JavaScript 权威指南》读书笔记 5 - 语句</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/23/javascript-definitive-guide-note-4/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/20/javascript-definitive-guide-note-3/">《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-20T19:10:28+08:00'><span class='date'>06,20,2016</span> <span class='time'>7:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>表达式（expression）是 JavaScript 中的一个短语（phrases），JavaScript 解释器会将其计算（evaluate）出一个结果。程序中的常量、变量名、数组访问等都是表达式</p>
-
-<p>简单表达式组合成复杂表达式最常用的方法就是使用运算符（operator）</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/20/javascript-definitive-guide-note-3/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/16/javascript-definitive-guide-note-2/">《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值</p>
-
-<p>JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。它们通常代表了各自特殊类型的唯一的成员</p>
-
-<p>除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/16/javascript-definitive-guide-note-2/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -454,23 +450,23 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
+        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a>
+        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a>
+        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
+        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
       </li>
     
       <li class="post">
-        <a href="/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a>
+        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
       </li>
     
   </ul>
@@ -481,7 +477,7 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/javascript/'>javascript (12)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (11)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
 </section>
 
   

@@ -60,6 +60,7 @@ function addSidebarToggler() {
     $('.toggle-sidebar').bind('click', function(e) {
       e.preventDefault();
       $('body').toggleClass('collapse-sidebar');
+      $('body').trigger('onSideShow');
     });
   }
   var sections = $('aside.sidebar > section');

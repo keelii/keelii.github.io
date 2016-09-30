@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Webdev | Something]]></title>
   <link href="http://keelii.github.io/categories/webdev/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-07-10T22:51:06+08:00</updated>
+  <updated>2016-09-30T20:05:28+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -83,6 +83,13 @@ ssl_ciphers HIGH:!aNULL:!MD5;
     server_name your.domain.com;
     return 301 https://$server_name$request_uri;
 }
+</code></pre>
+
+<h2>7. 证书更新</h2>
+
+<p>免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let&rsquo;s encrypt 旗下还有一个 <a href="https://letsmonitor.org/">Let&rsquo;s monitor</a> 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功</p>
+
+<pre><code class="bash">./certbot-auto renew
 </code></pre>
 ]]></content>
   </entry>

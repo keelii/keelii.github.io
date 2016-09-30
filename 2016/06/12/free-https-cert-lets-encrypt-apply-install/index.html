@@ -196,6 +196,15 @@ cd certbot
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<h2>7. 证书更新</h2>
+
+<p>免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let&rsquo;s encrypt 旗下还有一个 <a href="https://letsmonitor.org/">Let&rsquo;s monitor</a> 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./certbot-auto renew
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -229,6 +238,11 @@ cd certbot
   
   
   
+
+<div class="share-weibo" onclick="shareToWeibo()" title="分享到新浪微博">
+  <i></i> 微博
+</div>
+
 </div>
 
     
@@ -259,23 +273,23 @@ cd certbot
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
+        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a>
+        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a>
+        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
       </li>
     
       <li class="post">
-        <a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
+        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
       </li>
     
       <li class="post">
-        <a href="/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a>
+        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
       </li>
     
   </ul>
@@ -286,7 +300,7 @@ cd certbot
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/javascript/'>javascript (12)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (11)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
 </section>
 
     

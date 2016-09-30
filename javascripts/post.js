@@ -38,10 +38,12 @@
             }
         },
         handleFold: function (e) {
+            var foldChar = this.foldChars;
             var $this = $(e.target);
             var $item = $this.parent();
             var $childs = $item.children('ol,ul');
             var isUnFold = $item.attr('data-fold') === "false";
+
             if (isUnFold) {
                 $childs.hide();
                 $this.html(foldChar[1]);

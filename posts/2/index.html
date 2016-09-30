@@ -11,7 +11,7 @@
   <meta name="author" content="keelii">
 
   
-  <meta name="description" content="对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative &hellip;">
+  <meta name="description" content="数组是值的 有序集合。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型 JavaScript 数组是 动态的，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2016/06/23/javascript-definitive-guide-note-6/">《JavaScript 权威指南》读书笔记 7 - 数组</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-23T19:10:28+08:00'><span class='date'>06,23,2016</span> <span class='time'>7:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>数组是值的 <strong>有序集合</strong>。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型</p>
+
+<p>JavaScript 数组是 <strong>动态的</strong>，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小</p>
+
+<p>JavaScript 数组可能是 <strong>稀疏的</strong>，数组元素索引不一定要连续</p>
+
+<p>JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 <strong>快很多</strong></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2016/06/23/javascript-definitive-guide-note-6/">Read More &raquo;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -400,40 +440,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/11/javascript-throttle/">JavaScript 节流函数 Throttle 详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-11T06:52:57+08:00'><span class='date'>06,11,2016</span> <span class='time'>6:52 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在浏览器 DOM 事件里面，有一些事件会随着用户的操作不间断触发。比如：重新调整浏览器窗口大小（resize），浏览器页面滚动（scroll），鼠标移动（mousemove）。也就是说用户在触发这些浏览器操作的时候，如果脚本里面绑定了对应的事件处理方法，这个方法就不停的触发。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/11/javascript-throttle/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -451,6 +457,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
+      </li>
+    
+      <li class="post">
         <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
       </li>
     
@@ -466,10 +476,6 @@
         <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
       </li>
     
-      <li class="post">
-        <a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -478,7 +484,7 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (15)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
 </section>
 
   

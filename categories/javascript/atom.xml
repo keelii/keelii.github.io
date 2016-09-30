@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Something]]></title>
   <link href="http://keelii.github.io/categories/javascript/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-09-30T20:11:24+08:00</updated>
+  <updated>2016-09-30T21:02:39+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -29,7 +29,7 @@
 
 <p>简页言之，在 web 前端编程里面 JavaScript 通过浏览器提供的事件模型 API 和用户交互，接收用户的输入</p>
 
-<p>另一方面用户的行为是不确定的，也就是说不知道用户什么时候发生点击、滚动这些动作。这种场景是传统的同步编程模型没法解决的，因为你不可能等用户操作完了才执行后面的代码</p>
+<p>由于用户的行为是不确定的，也就是说不知道用户什么时候发生点击、滚动这些动作。这种场景是传统的同步编程模型没法解决的，因为你不可能等用户操作完了才执行后面的代码</p>
 
 <p>比如我们在 Python 里面调用接收用户输入的方法 <code>raw_input()</code> 后终端就会一直等待用户的输入，直到输入完成才会执行后面的代码逻辑。但是在下面这段 NodeJS 代码中，接收用户输入的方法 <code>process.stdin.read</code> 是在一个事件中调用的。后面的代码不会被阻塞（blocked）</p>
 
@@ -49,13 +49,13 @@ process.stdin.on('end', () =&gt; {
 console.log('Will not be blocked');
 </code></pre>
 
-<p>事件驱动程序模型基本的实现原理基本上都是使用 <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">事件循环（Event Loop）</a>，这部分内容涉及浏览器事件模型、回调原理，有兴趣的去链接里面学习下</p>
+<p>事件驱动程序模型基本的实现原理基本上都是使用 <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">事件循环（Event Loop）</a>，这部分内容涉及浏览器事件模型、回调原理，有兴趣的去看链接里面的视频学习下</p>
 
 <p>需要说明的是在客户端 JavaScript 中像 setTimeout, XMLHTTPRequest 这类 API <strong>并不是</strong> JavaScript 语言本身就有的。而是 JavaScript 的宿主环境（在客户端 JavaScript 中就是浏览器），同样像 DOM、BOM、Event API 都是浏览器提供的</p>
 
-<h3>事件绑定的方法</h3>
+<h2>事件绑定的方法</h2>
 
-<h4>DOM 元素行内绑定</h4>
+<h3>DOM 元素行内绑定</h3>
 
 <p>直接在 DOM 元素上通过设置 <code>on + eventType</code> 来绑定事件处理程序</p>
 
@@ -64,21 +64,15 @@ console.log('Will not be blocked');
 
 <p>这种绑定方法是最原始的，有两个缺点：</p>
 
-<ol>
-<li>事件处理程序和 HTML 结构混杂在一起</li>
-</ol>
-
+<p><strong>1 事件处理程序和 HTML 结构混杂在一起</strong></p>
 
 <p>早期在结构、样式、表现分离的时代被视为最佳实践，现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则</p>
 
-<ol>
-<li>命名空间冲突</li>
-</ol>
-
+<p><strong>2 命名空间冲突</strong></p>
 
 <p>因为 <code>onclick</code> 中的 JavaScript 代码片段执行环境是全局作用域。然而在 JavaScript 语言中并没有相关的命名空间特性。所以就很容易造成命名空间的冲突，非要用这种方法绑定事件的话只能用对象来做一些封装</p>
 
-<h4>古老的绑定方法</h4>
+<h3>古老的绑定方法</h3>
 
 <p>使用 DOM Element 上面的 <code>on + eventType</code> 属性 API</p>
 
@@ -117,7 +111,7 @@ addLoadEvent(function() { alert('onload 2') });
 <pre><code>
 注意这只是个示例，生产环境很少会用到。一般用 DOM Ready 就可以了，因为 JavaScript 的执行通常不用等到页面资源全部加载完，DOM 加载完就可以了
 
-#### 现代/标准的绑定方法
+### 现代/标准的绑定方法
 
 标准的绑定方法有两种，`addEventListener` 和 `attachEvent` 前者是标准浏览器支持的 API，后者是 IE 8 以下浏览器支持的 API。通常需要我们做个兼容封装
 </code></pre>
@@ -165,8 +159,38 @@ addLoadEvent(function() { alert('onload 2') });
     var link = document.getElementById('link');
     link.onclick = function() { alert(3); }
 
-    $('#link').bind('click', function() {
-        alert(4);
+    $('#link').bind('click', function() { alert(4); });
+    $('#link').bind('click', function() { alert(5); });
+</script>
+
+
+<pre><code>
+正确的结果应该是 `3,4,5,1`，根据结果我们可以得出以下结论：
+
+* 链接上的 href 伪 javascript 协议相当于在浏览器地址栏执行了一段 JavaScript 代码，链接如果是这种格式，点击的时候相当于执行了这段 JavaScript 脚本
+* 行内的事件绑定和元素调用 onclick 绑定事件会覆盖
+* 使用 jQuery（内部使用标准事件注册 API）可以绑定多个事件处理程序
+
+## 事件冒泡
+
+大部分事件会沿着事件触发的目标元素往上传播。比如：`body&gt;div&gt;p&gt;span` 如果他们都注册了点击事件，那么在 span 元素上触发点击事件后 p,div,body 各自的点击事件也会按顺序触发
+
+事件冒泡是可以被停止的，下面这个函数封闭了停止事件冒泡的方法：
+</code></pre>
+
+<script>
+    function stopPropagation(event) {
+        event = event || window.event;
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        } else {// IE
+            event.cancelBubble = true
+        }
+    }
+
+    addEvent('ele', 'click', function(e) {
+        // click handler
+        stopPropagation(e);
     });
 </script>
 

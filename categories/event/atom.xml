@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Event | Something]]></title>
   <link href="http://keelii.github.io/categories/event/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-09-30T21:05:07+08:00</updated>
+  <updated>2016-10-01T08:32:50+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -66,7 +66,7 @@ console.log('Will not be blocked');
 
 <p><strong>1 事件处理程序和 HTML 结构混杂在一起</strong></p>
 
-<p>早期在结构、样式、表现分离的时代被视为最佳实践，现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则</p>
+<p>早期在结构、样式、表现分离的时代很忌讳这一点。现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则</p>
 
 <p><strong>2 命名空间冲突</strong></p>
 
@@ -131,7 +131,7 @@ addLoadEvent(function() { alert('onload 2') });
 
 
 <pre><code>
-上面的例子在 IE 8 以下和标准浏览器的效果是不一样的，问题就在于 `addEventListener` 中的事件回调函数中的 this 指向元素（target）本身，而 `attachEvent` 则指向 `window` 为了修复这个问题上面的 attachEvent 可以做一点小调整让其保持和 `addEventListener` 的效果一样，不过这样的话注册的 handler 就是个匿名函数，无法再移除！
+上面的例子在 IE 8 以下和标准浏览器的效果是不一样的，问题就在于 `addEventListener` 中的事件回调函数中的 this 指向元素（target）本身，而 `attachEvent` 则指向 `window` 为了修复这个问题上面的 attachEvent 可以做一点小调整让其保持和 `addEventListener` 的效果一样，不过这样的话注册的 handler 就是个匿名函数，**无法移除**！
 </code></pre>
 
 <script>

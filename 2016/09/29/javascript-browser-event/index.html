@@ -162,7 +162,7 @@
 
 <p><strong>1 事件处理程序和 HTML 结构混杂在一起</strong></p>
 
-<p>早期在结构、样式、表现分离的时代被视为最佳实践，现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则</p>
+<p>早期在结构、样式、表现分离的时代很忌讳这一点。现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则</p>
 
 <p><strong>2 命名空间冲突</strong></p>
 
@@ -257,7 +257,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>上面的例子在 IE 8 以下和标准浏览器的效果是不一样的，问题就在于 <code>addEventListener</code> 中的事件回调函数中的 this 指向元素（target）本身，而 <code>attachEvent</code> 则指向 <code>window</code> 为了修复这个问题上面的 attachEvent 可以做一点小调整让其保持和 <code>addEventListener</code> 的效果一样，不过这样的话注册的 handler 就是个匿名函数，无法再移除！</p>
+<p>上面的例子在 IE 8 以下和标准浏览器的效果是不一样的，问题就在于 <code>addEventListener</code> 中的事件回调函数中的 this 指向元素（target）本身，而 <code>attachEvent</code> 则指向 <code>window</code> 为了修复这个问题上面的 attachEvent 可以做一点小调整让其保持和 <code>addEventListener</code> 的效果一样，不过这样的话注册的 handler 就是个匿名函数，<strong>无法移除</strong>！</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

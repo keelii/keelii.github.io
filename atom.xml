@@ -4,7 +4,7 @@
   <title><![CDATA[Something]]></title>
   <link href="http://keelii.github.io/atom.xml" rel="self"/>
   <link href="http://keelii.github.io/"/>
-  <updated>2016-10-01T08:32:50+08:00</updated>
+  <updated>2016-10-04T21:21:57+08:00</updated>
   <id>http://keelii.github.io/</id>
   <author>
     <name><![CDATA[keelii]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[简单方法解决 Macbook 电源接口接触不良的问题]]></title>
+    <link href="http://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/"/>
+    <updated>2016-10-04T17:22:29+08:00</updated>
+    <id>http://keelii.github.io/2016/10/04/rebuild-mbp-power-cord</id>
+    <content type="html"><![CDATA[<p>Macbook 电源用的时候久了，接口里面的几个针脚弹性变差，有时候接通电源然而灯不能亮</p>
+
+<p>在网上搜索了下发现一个好方法：<strong>接电源那头是突出金属的，稍微打磨下去一点就可以了</strong>，亲测有效</p>
+
+<p>PS: 如果没有打磨工具可以直接找个空地面磨，有条件的话磨完再用砂纸抛光下就可以了</p>
+
+<p>来两张图片看看</p>
+
+<!-- more -->
+
+
+<p><img src="http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-57___SRC_6094.jpg" alt="mbp-power-cord1" />
+<img src="http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-53___1719964175.jpg" alt="mbp-power-cord2" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript 浏览器事件解析]]></title>
@@ -9627,117 +9648,6 @@
 <h2>引用</h2>
 
 <p><a href="https://gist.github.com/keelii/1aab5f9aa5b47afa651c7fc84b8e9875">完整配置文件</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[免费 Https 证书（Let's Encrypt）申请与配置]]></title>
-    <link href="http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/"/>
-    <updated>2016-06-12T18:04:47+08:00</updated>
-    <id>http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install</id>
-    <content type="html"><![CDATA[<p>之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。</p>
-
-<!--more-->
-
-
-<h2>1. 下载 certbot</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/certbot/certbot
-</span><span class='line'><span class="nb">cd </span>certbot
-</span><span class='line'>./certbot-auto --help
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>解压打开执行就会有相关提示</p>
-
-<h2>2. 生成免费证书</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>./certbot-auto certonly --webroot --agree-tos -v -t --email 邮箱地址 -w 网站根目录 -d 网站域名
-</span><span class='line'>./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>注意</strong> 这里 默认会自动生成 /<strong>网站根目录</strong>/.well-known/acme-challenge，然后 shell 脚本会对应的访问 <strong>网站域名</strong>/.well-known/acme-challenge</p>
-
-<p>如果返回正常就确认了你对这个网站的所有权，就能顺利生成</p>
-
-<h2>3. 获取证书</h2>
-
-<p>如果上面的步骤正常 shell 脚本会展示如下信息：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>- Congratulations! Your certificate and chain have been saved at
-</span><span class='line'>/etc/letsencrypt/live/网站域名/fullchain.pem
-</span><span class='line'>...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>4. 生成 dhparams</h2>
-
-<p>使用 openssl 工具生成 dhparams</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>5. 配置 Nginx</h2>
-
-<p>打开 nginx server 配置文件加入如下设置：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">listen</span> <span class="mi">443</span>
-</span><span class='line'>
-</span><span class='line'><span class="s">ssl</span> <span class="no">on</span><span class="p">;</span>
-</span><span class='line'><span class="k">ssl_certificate</span> <span class="s">/etc/letsencrypt/live/网站域名/fullchain.pem</span><span class="p">;</span>
-</span><span class='line'><span class="k">ssl_certificate_key</span> <span class="s">/etc/letsencrypt/live/网站域名/privkey.pem</span><span class="p">;</span>
-</span><span class='line'><span class="k">ssl_dhparam</span> <span class="s">/etc/ssl/certs/dhparams.pem</span><span class="p">;</span>
-</span><span class='line'><span class="k">ssl_protocols</span> <span class="s">SSLv3</span> <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
-</span><span class='line'><span class="k">ssl_ciphers</span> <span class="s">HIGH:!aNULL:!MD5</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后重启 nginx 服务就可以了</p>
-
-<h2>6. 强制跳转 https</h2>
-
-<p>https 默认是监听 443 端口的，没开启 https 访问的话一般默认是 80 端口。如果你确定网站 80 端口上的站点都支持 https 的话加入下面的配件可以自动重定向到 https</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">server</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
-</span><span class='line'>    <span class="kn">server_name</span> <span class="s">your.domain.com</span><span class="p">;</span>
-</span><span class='line'>    <span class="kn">return</span> <span class="mi">301</span> <span class="s">https://</span><span class="nv">$server_name$request_uri</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>7. 证书更新</h2>
-
-<p>免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let&rsquo;s encrypt 旗下还有一个 <a href="https://letsmonitor.org/">Let&rsquo;s monitor</a> 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>./certbot-auto renew
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

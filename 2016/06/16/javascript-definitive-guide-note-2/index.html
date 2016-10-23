@@ -1,110 +1,102 @@
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<!DOCTYPE html>   
 <html class="no-js" lang="zh-CN">
-<!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>《JavaScript 权威指南》读书笔记 3 - 类型、值和变量 - Something</title>
-  <meta name="author" content="keelii">
+    <meta charset="utf-8">
+    <title>《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</title>
+    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.17" />
 
-  
-  <meta name="description" content="JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值 JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。 &hellip;">
-  
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/">
+    <link href="https://keelii.github.io/favicon.png" rel="icon">
+    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something" />
 
-  
-  <link rel="canonical" href="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
-  ga('create', 'UA-79264835-1', 'auto');
-  ga('send', 'pageview');
-  </script>
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 
 </head>
+<body>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Something</a></h1>
-  
-    <h2>There are always __ you don't know yet</h2>
-  
-</hgroup>
-
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>There&#39;s always __ you do not know yet</h2>
+    </hgroup>
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="keelii.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-</ul>
 
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
 </nav>
-  <div id="main">
+
+
+<div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</h1>
-    
-    
-      <p class="meta">
-        
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-06-16 13:06:13">
+                            <span class="date">Jun,16 2016</span>
+                            <span class="time">13:06 PM</span>
+                        </time>
+                    </p>
+                </header>
 
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值</p>
+                <div class="entry-content"><p>JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值</p>
 
 <p>JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。它们通常代表了各自特殊类型的唯一的成员</p>
 
-<p>除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样</p>
-
-<!--more-->
-
+<p>除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样
+</p>
 
 <p>普通对象是「命名值」的 <strong>无序</strong> 集合。数组则是一种有序集合对象</p>
 
@@ -118,92 +110,65 @@
 
 <p>JavaScript 数据类型还可以分为：可以拥有方法和不可以拥有方法类型、<strong>可变</strong>（nutable）类型和 <strong>不可变</strong>（imutable）类型</p>
 
-<blockquote><p>JavaScript 程序可以更改对象属性值和数组元素的值。数字、布尔值、null 和 undefined 属于不可变类型 —— 比如，修改一个数值的内容本身就说不通。字符串可以看成由字符组成的数组，你可能会认为它是可变的。然而在 JavaScript 中，字符串是不可变的。可以访问字符串任意位置的文本，但不能修改其内容</p></blockquote>
+<blockquote>
+<p>JavaScript 程序可以更改对象属性值和数组元素的值。数字、布尔值、null 和 undefined 属于不可变类型 —— 比如，修改一个数值的内容本身就说不通。字符串可以看成由字符组成的数组，你可能会认为它是可变的。然而在 JavaScript 中，字符串是不可变的。可以访问字符串任意位置的文本，但不能修改其内容</p>
+</blockquote>
 
 <p>JavaScript 可以自由地进行数据类型转换。比如程序期望使用字符串的地方使用了数字， JavaScript 会自动将数字转换为字符串。期望使用布尔值的地方使用了非布尔值也会自动进行相应转换</p>
 
 <p>JavaScript 变量是无/弱类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用 <strong>词法作用域</strong>（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见</p>
 
-<h2>数字</h2>
+<h2 id="数字">数字</h2>
 
 <p>JavaScript <strong>不区分</strong> 整数和浮点数。所有的数字均用浮点数值表示。JavaScript 采用 <a href="https://zh.wikipedia.org/wiki/IEEE_754">IEEE 754</a> 标准定义的 64 位浮点格式表示数字</p>
 
-<p>当一个数字直接出现在 JavaScript 程序中，我们称为数字直接量（numberic literal）。JavaScript 支持多种格式的籽安直接量。注意，在任何数字直接量前添加负号（-）可以得到它们的负值。但负号是 <strong>一元 <a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C">求反</a></strong> 运算符，并不是数字直接量语法组成部分</p>
+<p>当一个数字直接出现在 JavaScript 程序中，我们称为数字直接量（numberic literal）。JavaScript 支持多种格式的籽安直接量。注意，在任何数字直接量前添加负号（-）可以得到它们的负值。但负号是 <strong>一元 <a href="https://zh.wikipedia.org/wiki/位操作">求反</a></strong> 运算符，并不是数字直接量语法组成部分</p>
 
-<h3>整型直接量</h3>
+<h3 id="整型直接量">整型直接量</h3>
 
 <p>十进制整数，例如：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mi">0</span>
-</span><span class='line'><span class="mi">3</span>
-</span><span class='line'><span class="mi">1000000</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">0
+3
+1000000
+</code></pre>
 
 <p>十六进制值，指直接量以「」或为前缀，其后跟随十六进制数串的直接量。十六进制值是 0 ~ 9 之间的数字和 a(A) ~ f(F) 之前的字母构成，a ~ f 的字母对应的表示数字 10 ~ 15</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mh">0x2Af5</span>         <span class="c1">// 8192 + 2560 + 240 + 5 = 10996（十进制）</span>
-</span><span class='line'><span class="cm">/*</span>
-</span><span class='line'><span class="cm">+-------------------------------------------------+</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|       2          A          F          5        |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|       3          2          1          0        |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|    2*16^3      A*16^2     F*16^1     5*16^0     |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|    2*4096      10*256     15*16       5*1       |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|     8192   +    2560   +   240    +    5        |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">|       十六进制 2AF5 转换成十进制为10996         |</span>
-</span><span class='line'><span class="cm">|                                                 |</span>
-</span><span class='line'><span class="cm">+-------------------------------------------------+</span>
-</span><span class='line'><span class="cm">*/</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">0x2Af5         // 8192 + 2560 + 240 + 5 = 10996（十进制）
+/*
++-------------------------------------------------+
+|                                                 |
+|       2          A          F          5        |
+|                                                 |
+|       3          2          1          0        |
+|                                                 |
+|    2*16^3      A*16^2     F*16^1     5*16^0     |
+|                                                 |
+|    2*4096      10*256     15*16       5*1       |
+|                                                 |
+|     8192   +    2560   +   240    +    5        |
+|                                                 |
+|       十六进制 2AF5 转换成十进制为10996         |
+|                                                 |
++-------------------------------------------------+
+*/
+</code></pre>
 
 <p>ECMAScript 标准 <strong>不支持</strong> 八进制直接量，ECMAScript 6 严格模式下不能使用八进制</p>
 
-<h3>浮点型直接量</h3>
+<h3 id="浮点型直接量">浮点型直接量</h3>
 
 <p>浮点型直接量可以含有小数点，采用传统实数的写法。此外，还可以使用指数记数法表示浮点型直接量，即在实数后跟字母 e 或 E，后面再跟正负号，其后再加一个整形指数。这种记数方法表示的数值，是由前面的实数乘以 10 的指数次幂，例如：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mf">3.14</span>
-</span><span class='line'><span class="mf">2134.789</span>
-</span><span class='line'><span class="p">.</span><span class="mi">33</span>          <span class="c1">// 0.33</span>
-</span><span class='line'><span class="mf">6.02e23</span>      <span class="c1">// 6.02 乘以 10 的 23 次方</span>
-</span><span class='line'><span class="mf">1.47</span><span class="nx">e</span><span class="o">-</span><span class="mi">32</span>     <span class="c1">// 1.47 乘以 10 的负 32 次方</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">3.14
+2134.789
+.33          // 0.33
+6.02e23      // 6.02 乘以 10 的 23 次方
+1.47e-32     // 1.47 乘以 10 的负 32 次方
+</code></pre>
 
-
-<h3>JavaScript 中的算术运算</h3>
+<h3 id="javascript-中的算术运算">JavaScript 中的算术运算</h3>
 
 <p>JavaScript 中的算术运算在 <strong>溢出</strong>（overflow）、<strong>下溢</strong>（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值</p>
 
@@ -211,253 +176,198 @@
 
 <p>实零带除在 JavaScript 中并不报错：它会返回正或者负无穷大。但有一个例外，零除以零是没有意义的，这种整除运算结果也是一个非数字（not-a-number）值，用 NaN 表示</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mi">1</span><span class="o">/</span><span class="mi">0</span>                      <span class="c1">// =&gt; Infinity</span>
-</span><span class='line'><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span>                     <span class="c1">// =&gt; -Infinity</span>
-</span><span class='line'><span class="nb">Number</span><span class="p">.</span><span class="nx">NEGATIVE_INFINITY</span> <span class="c1">// =&gt; -Infinity</span>
-</span><span class='line'><span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span>         <span class="c1">// =&gt; 1.7976931348623157e+308</span>
-</span><span class='line'><span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span> <span class="o">+</span> <span class="mi">1</span>     <span class="c1">// =&gt; Infinity （经测试在 Chrome 里面并不是）</span>
-</span><span class='line'><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>                      <span class="c1">// =&gt; NaN</span>
-</span><span class='line'><span class="nb">Number</span><span class="p">.</span><span class="nx">MIN_VALUE</span> <span class="o">/</span> <span class="mi">2</span>     <span class="c1">// =&gt; 0 发生下溢</span>
-</span><span class='line'><span class="o">-</span><span class="nb">Number</span><span class="p">.</span><span class="nx">MIN_VALUE</span> <span class="o">/</span> <span class="mi">2</span>    <span class="c1">// =&gt; -0 负零</span>
-</span><span class='line'><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="kc">Infinity</span>              <span class="c1">// =&gt; -0</span>
-</span><span class='line'><span class="kc">NaN</span> <span class="o">==</span> <span class="kc">NaN</span>               <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="nb">isNaN</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>           <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="nb">isFinite</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>            <span class="c1">// =&gt; true 参数不是 NaN, Infinity 或 -Infinity 时返回 true</span>
-</span><span class='line'><span class="nb">isFinite</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">)</span>           <span class="c1">// =&gt; false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">1/0                      // =&gt; Infinity
+-1/0                     // =&gt; -Infinity
+Number.NEGATIVE_INFINITY // =&gt; -Infinity
+Number.MAX_VALUE         // =&gt; 1.7976931348623157e+308
+Number.MAX_VALUE + 1     // =&gt; Infinity （经测试在 Chrome 里面并不是）
+0/0                      // =&gt; NaN
+Number.MIN_VALUE / 2     // =&gt; 0 发生下溢
+-Number.MIN_VALUE / 2    // =&gt; -0 负零
+-1/Infinity              // =&gt; -0
+NaN == NaN               // =&gt; false
+isNaN('hello')           // =&gt; false
+isFinite(123)            // =&gt; true 参数不是 NaN, Infinity 或 -Infinity 时返回 true
+isFinite(-1/0)           // =&gt; false
+</code></pre>
 
 <p>JavaScript 中的非数字值（NaN）和任何值都不相等，包括 NaN，<code>NaN == NaN</code> 返回 <code>false</code> 但是可以使用 isNaN 判断一个值是不是 NaN</p>
 
-<h3>二进制浮点数和四舍五入错误</h3>
+<h3 id="二进制浮点数和四舍五入错误">二进制浮点数和四舍五入错误</h3>
 
 <p>IEEE-754 浮点表示法是一种二进制表示法，但是并不能精确表示十进制分数，在任何使用二进制浮点数的编程语言中都会有这个问题</p>
 
 <p>下面的代码中 x 和 y 的值非常 <strong>接近</strong> 彼此和最终正确值。这种计算结果可以用途大多数的计算任务，<strong>这个问题也只有在比较两个值是否相等的时候才会出现</strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mf">0.3</span> <span class="o">-</span> <span class="mf">0.2</span>           <span class="c1">// =&gt; 0.09999999999999998</span>
-</span><span class='line'><span class="mf">0.2</span> <span class="o">-</span> <span class="mf">0.1</span>           <span class="c1">// =&gt; 0.1</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">;</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">;</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">==</span> <span class="nx">y</span>              <span class="c1">// =&gt; false</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">0.3 - 0.2           // =&gt; 0.09999999999999998
+0.2 - 0.1           // =&gt; 0.1
+var x = 0.3 - 0.2;
+var y = 0.2 - 0.1;
+x == y              // =&gt; false
+</code></pre>
 
-
-<h3>日期和时间</h3>
+<h3 id="日期和时间">日期和时间</h3>
 
 <p>JavaScript 语言核心包括 Date() 构造函数，用来创建表示日期和时间对象，大致使用方法如下：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">then</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>                <span class="c1">// 2011 年 1 月 1 日</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">later</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>    <span class="c1">// 下午 5 点 10 分 30 秒</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">elapsed</span> <span class="o">=</span> <span class="nx">now</span> <span class="o">-</span> <span class="nx">then</span><span class="p">;</span>                       <span class="c1">// 日期减法：计算时间间隔的毫秒数</span>
-</span><span class='line'><span class="nx">later</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">();</span>                            <span class="c1">// =&gt; 2011</span>
-</span><span class='line'><span class="nx">later</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">();</span>                               <span class="c1">// =&gt; 0 月份从 0 开始</span>
-</span><span class='line'><span class="p">...</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var then = new Date(2011, 0, 1);                // 2011 年 1 月 1 日
+var later = new Date(2011, 0, 1, 17, 10, 30)    // 下午 5 点 10 分 30 秒
+var elapsed = now - then;                       // 日期减法：计算时间间隔的毫秒数
+later.getFullYear();                            // =&gt; 2011
+later.getMonth();                               // =&gt; 0 月份从 0 开始
+...
+</code></pre>
 
-
-<h2>文本</h2>
+<h2 id="文本">文本</h2>
 
 <p><strong>字符串</strong>（string）是一组 16 位值组成的不可变的有序序列，每个字符通常来自于 Unicode 字符集。字符串的长度（length）是其所含 16 位值的个数。字符串索引从零开始</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;&quot;</span>  <span class="c1">// 空字符串</span>
-</span><span class='line'><span class="s1">&#39;testing&#39;</span>
-</span><span class='line'><span class="s2">&quot;3.14&quot;</span>
-</span><span class='line'><span class="s2">&quot;Wouldn&#39;t you prefer O&#39;Reilly&#39;s book?&quot;</span>
-</span><span class='line'><span class="s2">&quot;This string\nhas Two lines&quot;</span>  <span class="c1">// 显示为两行</span>
-</span><span class='line'><span class="s2">&quot;one\</span>
-</span><span class='line'><span class="s2">long\</span>
-</span><span class='line'><span class="s2">line&quot;</span>   <span class="c1">// 显示为单行，但是可以分行书写</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">&quot;&quot;  // 空字符串
+'testing'
+&quot;3.14&quot;
+&quot;Wouldn't you prefer O'Reilly's book?&quot;
+&quot;This string\nhas Two lines&quot;  // 显示为两行
+&quot;one\
+long\
+line&quot;   // 显示为单行，但是可以分行书写
+</code></pre>
 
-
-<h3>转义字符</h3>
+<h3 id="转义字符">转义字符</h3>
 
 <p>JavaScript 中转文字符用反斜线（\）加一个字符表示，比如 \n 就是一个转义字符，表示一个换行符</p>
 
 <table>
 <thead>
 <tr>
-<th> 转义字符 </th>
-<th> 含义                               </th>
-<th style="text-align:center;"> Unicode </th>
+<th>转义字符</th>
+<th>含义</th>
+<th align="center">Unicode</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td> \o       </td>
-<td> NUL 字符                           </td>
-<td style="text-align:center;"> \u0000  </td>
+<td>\o</td>
+<td>NUL 字符</td>
+<td align="center">\u0000</td>
 </tr>
+
 <tr>
-<td> \b       </td>
-<td> 退格符                             </td>
-<td style="text-align:center;"> \u0008  </td>
+<td>\b</td>
+<td>退格符</td>
+<td align="center">\u0008</td>
 </tr>
+
 <tr>
-<td> \t       </td>
-<td> 水平制表符                         </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\t</td>
+<td>水平制表符</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \n       </td>
-<td> 换行符                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\n</td>
+<td>换行符</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \v       </td>
-<td> 垂直制表符                         </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\v</td>
+<td>垂直制表符</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \f       </td>
-<td> 换页符                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\f</td>
+<td>换页符</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \r       </td>
-<td> 回车符                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\r</td>
+<td>回车符</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \&ldquo;       </td>
-<td> 双引号                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\&rdquo;</td>
+<td>双引号</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \&lsquo;       </td>
-<td> 单引号                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\&rsquo;</td>
+<td>单引号</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \       </td>
-<td> 反斜线                             </td>
-<td style="text-align:center;"> \u0009  </td>
+<td>\</td>
+<td>反斜线</td>
+<td align="center">\u0009</td>
 </tr>
+
 <tr>
-<td> \xXX     </td>
-<td> 2位十六进制数XX指定的 Latin-1 字符 </td>
-<td style="text-align:center;">         </td>
+<td>\xXX</td>
+<td>2位十六进制数XX指定的 Latin-1 字符</td>
+<td align="center"></td>
 </tr>
+
 <tr>
-<td> \uXXXX   </td>
-<td> 4位十六进制数XX指定的 Unicode 字符 </td>
-<td style="text-align:center;">         </td>
+<td>\uXXXX</td>
+<td>4位十六进制数XX指定的 Unicode 字符</td>
+<td align="center"></td>
 </tr>
 </tbody>
 </table>
 
-
-<h3>字符串的使用</h3>
+<h3 id="字符串的使用">字符串的使用</h3>
 
 <p>加号（+）运算符作用于字符串表示链接，字符串通过访问 length 属性得到长度</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                 <span class="c1">// =&gt; &quot;h&quot; 下标为 0 的字符</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>           <span class="c1">// =&gt; &quot;ell&quot; 下标从 1 ~ 4 的字符</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>               <span class="c1">// =&gt; &quot;ell&quot; 同上</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>                 <span class="c1">// =&gt; &quot;rld&quot; 最后三个字符</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>              <span class="c1">// =&gt; 2 字符 l 首次出现的下标</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>          <span class="c1">// =&gt; 10 字符 l 最后一次出现的下标</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>               <span class="c1">// =&gt; [&quot;hello&quot;, &quot;world&quot;] 分割字符串</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">)</span>         <span class="c1">// =&gt; &quot;Hello, world&quot; 全文字替换</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span>             <span class="c1">// =&gt; &quot;HELLO, WORLD&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var s = &quot;hello world&quot;
+s.charAt(0)                 // =&gt; &quot;h&quot; 下标为 0 的字符
+s.substring(1, 4)           // =&gt; &quot;ell&quot; 下标从 1 ~ 4 的字符
+s.slice(1, 4)               // =&gt; &quot;ell&quot; 同上
+s.slice(-3)                 // =&gt; &quot;rld&quot; 最后三个字符
+s.indexOf(&quot;l&quot;)              // =&gt; 2 字符 l 首次出现的下标
+s.lastIndexOf(&quot;l&quot;)          // =&gt; 10 字符 l 最后一次出现的下标
+s.split(&quot;, &quot;)               // =&gt; [&quot;hello&quot;, &quot;world&quot;] 分割字符串
+s.replace(&quot;h&quot;, &quot;H&quot;)         // =&gt; &quot;Hello, world&quot; 全文字替换
+s.toUpperCase()             // =&gt; &quot;HELLO, WORLD&quot;
+</code></pre>
 
 <p>一定要记住，在 JavaScript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都 <strong>返回新字符串</strong>，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符</p>
 
-<h3>模式匹配</h3>
+<h3 id="模式匹配">模式匹配</h3>
 
 <p>JavaScript 定义了 RegExp() 构造函数，用来创建表示文本匹配模式的对象。这些模式称为「正则表达式」（regular expression）， JavaScript 采用 Perl 中的正则表达式语法。String 和 RegExp 对象均定义了正则模式匹配、查找和替换的函数</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="sr">/^HTML/</span>                       <span class="c1">// 匹配以 HTML 开始的字符串</span>
-</span><span class='line'><span class="o">/</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">*</span><span class="sr">/                 /</span><span class="o">/</span> <span class="err">匹配一个非零数字，后面是任意个数字</span>
-</span><span class='line'><span class="o">/</span><span class="err">\</span><span class="nx">bjavascript</span><span class="o">/</span><span class="nx">i</span>               <span class="c1">// 匹配单词「javascript」，忽略大小写</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;testing: 1, 2, 3&quot;</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="sr">/\d+/g</span>          <span class="c1">// 匹配所有包含一个或者多个数字的实例</span>
-</span><span class='line'><span class="nx">pattern</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span>            <span class="c1">// =&gt; true 匹配成功</span>
-</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">pattern</span><span class="p">)</span>          <span class="c1">// =&gt; 9 首次匹配成功的位置</span>
-</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">pattern</span><span class="p">)</span>           <span class="c1">// =&gt; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;] 所有匹配组成的数组</span>
-</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">pattern</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>    <span class="c1">// =&gt; &quot;testing: #, #, #&quot;</span>
-</span><span class='line'><span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\D+/</span><span class="p">)</span>             <span class="c1">// =&gt; [&quot;&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;] 用非数字字符截取字符串</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">/^HTML/                       // 匹配以 HTML 开始的字符串
+/[1-9][0-9]*/                 // 匹配一个非零数字，后面是任意个数字
+/\bjavascript/i               // 匹配单词「javascript」，忽略大小写
 
+var text = &quot;testing: 1, 2, 3&quot;
+var pattern = /\d+/g          // 匹配所有包含一个或者多个数字的实例
+pattern.test(text)            // =&gt; true 匹配成功
+text.search(pattern)          // =&gt; 9 首次匹配成功的位置
+text.match(pattern)           // =&gt; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;] 所有匹配组成的数组
+text.replace(pattern, &quot;#&quot;)    // =&gt; &quot;testing: #, #, #&quot;
+text.split(/\D+/)             // =&gt; [&quot;&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;] 用非数字字符截取字符串
+</code></pre>
 
-<h2>布尔值</h2>
+<h2 id="布尔值">布尔值</h2>
 
 <p>JavaScript 中比较语句的结果通常都是布尔值，布尔值通常用于控制结构中。任意 JavaScript 的值都可以转换成布尔值。所有对象（数组）都会转换成 true, 面这些则都是 false</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kc">undefined</span>
-</span><span class='line'><span class="kc">null</span>
-</span><span class='line'><span class="mi">0</span>
-</span><span class='line'><span class="o">-</span><span class="mi">0</span>
-</span><span class='line'><span class="kc">NaN</span>
-</span><span class='line'><span class="s2">&quot;&quot;</span>     <span class="c1">// 空字符串</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">undefined
+null
+0
+-0
+NaN
+&quot;&quot;     // 空字符串
+</code></pre>
 
-
-<h2>null 和 undefined</h2>
+<h2 id="null-和-undefined">null 和 undefined</h2>
 
 <p>null 是 JavaScript 语言的关键字，执行 typeof 运算返回 「object」，也就是说，可以将 null 认为是一个特殊的对象值，含义是「非对象」。但实际上，通常认为 null 是它自有类型的唯一一个成员，它可以表示数字、字符串或对象是「无值」的</p>
 
@@ -467,7 +377,7 @@
 
 <p>null 和 undefined 都 <strong>不包含任何属性和方法</strong></p>
 
-<h2>全局对象</h2>
+<h2 id="全局对象">全局对象</h2>
 
 <p>全局对象的属性是全局定义的符号，JavaScript 程序可以直接使用。当解释器启动时，它将创建一个新的全局对象，并给它一组初始属性：</p>
 
@@ -478,105 +388,67 @@
 
 <p>全局对象的 <strong>初始属性</strong> 并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性</p>
 
-<h2>包装对象</h2>
+<h2 id="包装对象">包装对象</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">S</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">N</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">s</span> <span class="o">==</span> <span class="nx">S</span>                  <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">s</span> <span class="o">===</span> <span class="nx">S</span>                 <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="k">typeof</span> <span class="nx">s</span>                <span class="c1">// =&gt; &quot;string&quot;</span>
-</span><span class='line'><span class="k">typeof</span> <span class="nx">S</span>                <span class="c1">// =&gt; &quot;object&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var s = &quot;test&quot;, n = 1, b = true;
+var S = new String(s);
+var N = new Number(N);
+var B = new Boolean(b);
 
+s == S                  // =&gt; true
+s === S                 // =&gt; false
+typeof s                // =&gt; &quot;string&quot;
+typeof S                // =&gt; &quot;object&quot;
+</code></pre>
 
 <p>可以通过 Number() 或 Boolean() 构造函数来显式创建包装对象，JavaScript 会在必要的时候将包装对象转换成原始值。上段代码中的对象 S, N 和 B 常常但不总是表现的和值 s, n 和 b 一样。「==」运算符将原始值和其包装对象视为相等，但「===」全等运算符将它们视为不等，通过 typeof 运算符可以看到原始值和其包装对象的不同</p>
 
-<h2>不可变的原始值和可变的对象引用</h2>
+<h2 id="不可变的原始值和可变的对象引用">不可变的原始值和可变的对象引用</h2>
 
 <p>JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别，<strong>原始值是不可更改的</strong>，比如字符串的所有方法都是新返回一个值</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="nx">s</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>    <span class="c1">// =&gt; &quot;HELLO&quot;</span>
-</span><span class='line'><span class="nx">s</span>                   <span class="c1">// =&gt; &quot;hello&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var s = &quot;hello&quot;;
+s.toUpperCase();    // =&gt; &quot;HELLO&quot;
+s                   // =&gt; &quot;hello&quot;
+</code></pre>
 
 <p>对象和原始值不同，首先，它他是 <strong>可变的</strong> —— 值可以修改</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
-</span><span class='line'><span class="nx">o</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</span><span class='line'><span class="nx">oxy</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var o = { x: 1};
+o.x = 2;
+oxy = 3;
 
+var a = [1,2,3]
+a[0] = 0;
+a[3] = 4;
+</code></pre>
 
 <p><strong>对象的比较并非值的比较，即使两个对象包含同样的属性及相同的值</strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="mi">1</span><span class="p">},</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="mi">1</span><span class="p">};</span>
-</span><span class='line'><span class="nx">o</span> <span class="o">===</span> <span class="nx">p</span>                 <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[];</span>
-</span><span class='line'><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span>                 <span class="c1">// =&gt; false</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var o = {x:1}, p = {x:1};
+o === p                 // =&gt; false
+var a = [], b = [];
+a === b                 // =&gt; false
+</code></pre>
 
 <p>通常将对象𤠕引用类型（reference type）,以此来和 JavaScript 基本类型区分开。按术语的叫法，对象值都是引用（reference）,对象的比较均是引用的比较：<strong>当且仅当它们引用同一个基本对象时，它们才相等</strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
-</span><span class='line'><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1">// =&gt; 1 变量 a 也会修改</span>
-</span><span class='line'><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span>     <span class="c1">// =&gt; true a 和 b 引用一个相同的数组，所以它们相等</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var a = [];
+var b = a;
+b[0] = 1;
+a[0]        // =&gt; 1 变量 a 也会修改
+a === b     // =&gt; true a 和 b 引用一个相同的数组，所以它们相等
+</code></pre>
 
-
-<h2>类型转换</h2>
+<h2 id="类型转换">类型转换</h2>
 
 <p>JavaScript 中的取值类型非常灵活，从布尔值可以看到这一点：当 JavaScript 期望使用一个布尔值的时候，你可以提供任意类型值， JavaScript 将根据需要自行转换类型。这在其它类型转换中同样适用</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mi">10</span> <span class="o">+</span> <span class="s2">&quot; objects&quot;</span>         <span class="c1">// =&gt; &quot;10 objects&quot; 数字 10 转换成字符串</span>
-</span><span class='line'><span class="s2">&quot;7&quot;</span> <span class="o">*</span> <span class="s2">&quot;4&quot;</span>               <span class="c1">// =&gt; 28 两个字符串均转换为数字</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="s2">&quot;x&quot;</span>         <span class="c1">// =&gt; NaN 字符串 &quot;x&quot; 无法转换为数字</span>
-</span><span class='line'><span class="nx">n</span> <span class="o">+</span> <span class="s2">&quot; objects&quot;</span>          <span class="c1">// =&gt; &quot;NaN objects&quot; NaN 转换为字符串 &quot;NaN&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">10 + &quot; objects&quot;         // =&gt; &quot;10 objects&quot; 数字 10 转换成字符串
+&quot;7&quot; * &quot;4&quot;               // =&gt; 28 两个字符串均转换为数字
+var n = 1 - &quot;x&quot;         // =&gt; NaN 字符串 &quot;x&quot; 无法转换为数字
+n + &quot; objects&quot;          // =&gt; &quot;NaN objects&quot; NaN 转换为字符串 &quot;NaN&quot;
+</code></pre>
 
 <p><strong>常用值转换成对应的类型结果</strong></p>
 
@@ -585,235 +457,220 @@
 <table>
 <thead>
 <tr>
-<th> 值                      </th>
-<th> 字符串            </th>
-<th> 数字        </th>
-<th> 布尔值 </th>
-<th> 对象                  </th>
+<th>值</th>
+<th>字符串</th>
+<th>数字</th>
+<th>布尔值</th>
+<th>对象</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td> undefined               </td>
-<td> &ldquo;undefined&rdquo;       </td>
-<td> NaN         </td>
-<td> false  </td>
-<td> throws TypeError      </td>
+<td>undefined</td>
+<td>&ldquo;undefined&rdquo;</td>
+<td>NaN</td>
+<td>false</td>
+<td>throws TypeError</td>
 </tr>
+
 <tr>
-<td> null                    </td>
-<td> &ldquo;null&rdquo;            </td>
-<td> 0           </td>
-<td> false  </td>
-<td> throws TypeError      </td>
+<td>null</td>
+<td>&ldquo;null&rdquo;</td>
+<td>0</td>
+<td>false</td>
+<td>throws TypeError</td>
 </tr>
+
 <tr>
-<td> true                    </td>
-<td> &ldquo;true&rdquo;            </td>
-<td> 1           </td>
-<td>        </td>
-<td> new Boolean(true)     </td>
+<td>true</td>
+<td>&ldquo;true&rdquo;</td>
+<td>1</td>
+<td></td>
+<td>new Boolean(true)</td>
 </tr>
+
 <tr>
-<td> false                   </td>
-<td> &ldquo;false&rdquo;           </td>
-<td> 0           </td>
-<td>        </td>
-<td> new Boolean(false)    </td>
+<td>false</td>
+<td>&ldquo;false&rdquo;</td>
+<td>0</td>
+<td></td>
+<td>new Boolean(false)</td>
 </tr>
+
 <tr>
-<td> &ldquo;&rdquo; (空字符串)           </td>
-<td>                   </td>
-<td> 0           </td>
-<td> false  </td>
-<td> new String(&ldquo;&rdquo;)        </td>
+<td>&rdquo;&rdquo; (空字符串)</td>
+<td></td>
+<td>0</td>
+<td>false</td>
+<td>new String(&ldquo;&rdquo;)</td>
 </tr>
+
 <tr>
-<td> &ldquo;1.2&rdquo; (非空数字)        </td>
-<td>                   </td>
-<td> 1.2         </td>
-<td> true   </td>
-<td> new String(&ldquo;1.2&rdquo;)     </td>
+<td>&ldquo;1.2&rdquo; (非空数字)</td>
+<td></td>
+<td>1.2</td>
+<td>true</td>
+<td>new String(&ldquo;1.2&rdquo;)</td>
 </tr>
+
 <tr>
-<td> &ldquo;one&rdquo; (非空，非数字)    </td>
-<td>                   </td>
-<td> NaN         </td>
-<td> true   </td>
-<td> new String(&ldquo;one&rdquo;)     </td>
+<td>&ldquo;one&rdquo; (非空，非数字)</td>
+<td></td>
+<td>NaN</td>
+<td>true</td>
+<td>new String(&ldquo;one&rdquo;)</td>
 </tr>
+
 <tr>
-<td> 0                       </td>
-<td> &ldquo;0&rdquo;               </td>
-<td>             </td>
-<td> false  </td>
-<td> new Number(0)         </td>
+<td>0</td>
+<td>&ldquo;0&rdquo;</td>
+<td></td>
+<td>false</td>
+<td>new Number(0)</td>
 </tr>
+
 <tr>
-<td> -0                      </td>
-<td> &ldquo;0&rdquo;               </td>
-<td>             </td>
-<td> false  </td>
-<td> new Number(-0)        </td>
+<td>-0</td>
+<td>&ldquo;0&rdquo;</td>
+<td></td>
+<td>false</td>
+<td>new Number(-0)</td>
 </tr>
+
 <tr>
-<td> NaN                     </td>
-<td> &ldquo;NaN&rdquo;             </td>
-<td>             </td>
-<td> false  </td>
-<td> new Number(NaN)       </td>
+<td>NaN</td>
+<td>&ldquo;NaN&rdquo;</td>
+<td></td>
+<td>false</td>
+<td>new Number(NaN)</td>
 </tr>
+
 <tr>
-<td> Infinity                </td>
-<td> &ldquo;Infinity&rdquo;        </td>
-<td>             </td>
-<td> true   </td>
-<td> new Number(Infinity)  </td>
+<td>Infinity</td>
+<td>&ldquo;Infinity&rdquo;</td>
+<td></td>
+<td>true</td>
+<td>new Number(Infinity)</td>
 </tr>
+
 <tr>
-<td> -Infinity               </td>
-<td> &ldquo;-Infinity&rdquo;       </td>
-<td>             </td>
-<td> true   </td>
-<td> new Number(-Infinity) </td>
+<td>-Infinity</td>
+<td>&rdquo;-Infinity&rdquo;</td>
+<td></td>
+<td>true</td>
+<td>new Number(-Infinity)</td>
 </tr>
+
 <tr>
-<td> 1 (无穷大，非零)        </td>
-<td> &ldquo;1&rdquo;               </td>
-<td>             </td>
-<td> true   </td>
-<td> new Number(1)         </td>
+<td>1 (无穷大，非零)</td>
+<td>&ldquo;1&rdquo;</td>
+<td></td>
+<td>true</td>
+<td>new Number(1)</td>
 </tr>
+
 <tr>
-<td> {} (任意对象)           </td>
-<td> 参考 §3.8.3       </td>
-<td> 参考 §3.8.3 </td>
-<td> true   </td>
-<td>                       </td>
+<td>{} (任意对象)</td>
+<td>参考 §3.8.3</td>
+<td>参考 §3.8.3</td>
+<td>true</td>
+<td></td>
 </tr>
+
 <tr>
-<td> [] (任意数组)           </td>
-<td> &ldquo;&rdquo;                </td>
-<td> 0           </td>
-<td> true   </td>
-<td>                       </td>
+<td>[] (任意数组)</td>
+<td>&rdquo;&rdquo;</td>
+<td>0</td>
+<td>true</td>
+<td></td>
 </tr>
+
 <tr>
-<td> [9] (1 个数字元素)      </td>
-<td> &ldquo;9&rdquo;               </td>
-<td> 9           </td>
-<td> true   </td>
-<td>                       </td>
+<td><a href="1 个数字元素">9</a></td>
+<td>&ldquo;9&rdquo;</td>
+<td>9</td>
+<td>true</td>
+<td></td>
 </tr>
+
 <tr>
-<td> [&lsquo;a&rsquo;] (其它数组)        </td>
-<td> use join() method </td>
-<td> NaN         </td>
-<td> true   </td>
-<td>                       </td>
+<td><a href="其它数组">&lsquo;a&rsquo;</a></td>
+<td>use join() method</td>
+<td>NaN</td>
+<td>true</td>
+<td></td>
 </tr>
+
 <tr>
-<td> function(){} (任意函数) </td>
-<td> 参考 §3.8.3       </td>
-<td> NaN         </td>
-<td> true   </td>
-<td>                       </td>
+<td>function(){} (任意函数)</td>
+<td>参考 §3.8.3</td>
+<td>NaN</td>
+<td>true</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 
-
-<h3>转换和相等性</h3>
+<h3 id="转换和相等性">转换和相等性</h3>
 
 <p>以下结果均为 true</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kc">null</span> <span class="o">==</span> <span class="kc">undefined</span>
-</span><span class='line'><span class="s2">&quot;0&quot;</span> <span class="o">==</span> <span class="mi">0</span>
-</span><span class='line'><span class="mi">0</span> <span class="o">==</span> <span class="kc">false</span>
-</span><span class='line'><span class="s2">&quot;0&quot;</span> <span class="o">==</span> <span class="kc">false</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">null == undefined
+&quot;0&quot; == 0
+0 == false
+&quot;0&quot; == false
+</code></pre>
 
-
-<h3>显式类型转换</h3>
+<h3 id="显式类型转换">显式类型转换</h3>
 
 <p>显式类型转换最简单的方法就是使用 Boolean(), Number(), String() 或 Object() 函数。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>     <span class="c1">// =&gt; 3</span>
-</span><span class='line'><span class="nb">String</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>   <span class="c1">// =&gt; &quot;false&quot;</span>
-</span><span class='line'><span class="nb">Boolean</span><span class="p">([])</span>     <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nb">Object</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>       <span class="c1">// =&gt; new Number(3)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">Number(&quot;3&quot;)     // =&gt; 3
+String(false)   // =&gt; &quot;false&quot;
+Boolean([])     // =&gt; true
+Object(3)       // =&gt; new Number(3)
+</code></pre>
 
 <p>除了 null 和 undefined 之外 <strong>任何值</strong> 都具有 toString() 方法</p>
 
 <p>JavaScript 中的某些运算符会做隐式的类型转换。如果「+」运算符的一个操作数是字符串，它将会把另外一个操作数转换为字符串。一元「!」运算符将其操作数转换为布尔值并取反</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span>      <span class="c1">// 等价于 String(x)</span>
-</span><span class='line'><span class="o">+</span><span class="nx">x</span>          <span class="c1">// 等价于 Number(x)</span>
-</span><span class='line'><span class="o">!!</span><span class="nx">x</span>         <span class="c1">// 等价于 Boolean(x)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">x + &quot;&quot;      // 等价于 String(x)
++x          // 等价于 Number(x)
+!!x         // 等价于 Boolean(x)
+</code></pre>
 
 <p>Number 类型定义的 toString() 方法可以接收表示转换基数的可选参数，默认是基于十进制的，toFixed(), toExponential(), toPrecision() 三个方法都会适当地进行四舍五入或填充 0</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">17</span>
-</span><span class='line'><span class="nx">binary_sting</span> <span class="o">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>        <span class="c1">// 转换为 &quot;10001&quot;</span>
-</span><span class='line'><span class="nx">octal_string</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nx">n</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>  <span class="c1">// 转换为 &quot;021&quot;</span>
-</span><span class='line'><span class="nx">hex_string</span> <span class="o">=</span> <span class="s2">&quot;0x&quot;</span> <span class="o">+</span> <span class="nx">n</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>  <span class="c1">// 转换为 &quot;0x11&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var n = 17
+binary_sting = n.toString(2)        // 转换为 &quot;10001&quot;
+octal_string = &quot;0&quot; + n.toString(8)  // 转换为 &quot;021&quot;
+hex_string = &quot;0x&quot; + n.toString(16)  // 转换为 &quot;0x11&quot;
+</code></pre>
 
 <p>通过 Number() 转换函数传入一个字符串，它会试图将其转换为一个整数或浮点数直接量，这个方法只能基于十进制数进行转换，并且不能出现 <strong>非法的尾随字符</strong>。parseInt() 和 parseFloat() 函数（全局函数，不属于任何类的方法）更加灵活。如果字符前缀是「0x」或「0X」，parseInt() 将其解释为十六进制数，parseInt() 和 parseFloat() 都会跳过任意数量的前导空格，尽可能解析更多数值字符，并忽略 <strong>后面的内容</strong></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;3 blind mice&quot;</span><span class="p">)</span>        <span class="c1">// =&gt; 3</span>
-</span><span class='line'><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot; 3.14 meters&quot;</span><span class="p">)</span>      <span class="c1">// =&gt; 3.14</span>
-</span><span class='line'><span class="nb">parseInt</span><span class="p">(</span><span class="mh">0xFF</span><span class="p">)</span>                  <span class="c1">// =&gt; 255</span>
-</span><span class='line'><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;0.1&quot;</span><span class="p">)</span>                 <span class="c1">// =&gt; 0</span>
-</span><span class='line'><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;.1&quot;</span><span class="p">)</span>                  <span class="c1">// =&gt; NaN</span>
-</span><span class='line'><span class="nb">parseFloat</span><span class="p">(</span><span class="s2">&quot;$72.47&quot;</span><span class="p">)</span>            <span class="c1">// =&gt; NaN</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">parseInt(&quot;3 blind mice&quot;)        // =&gt; 3
+parseFloat(&quot; 3.14 meters&quot;)      // =&gt; 3.14
+parseInt(0xFF)                  // =&gt; 255
+parseInt(&quot;0.1&quot;)                 // =&gt; 0
+parseInt(&quot;.1&quot;)                  // =&gt; NaN
+parseFloat(&quot;$72.47&quot;)            // =&gt; NaN
+</code></pre>
 
-
-<h3>对象转换为原始值</h3>
+<h3 id="对象转换为原始值">对象转换为原始值</h3>
 
 <p>所有对象继承了两个转换方法 toString(), valueOf()</p>
 
 <p><strong>toString()</strong> 的作用是返回一个反映这个对象的字符串</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">2</span><span class="p">}).</span><span class="nx">toString</span><span class="p">()</span>             <span class="c1">// =&gt; &quot;[object Object]&quot;</span>
-</span><span class='line'><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">].</span><span class="nx">toString</span><span class="p">()</span>                  <span class="c1">// ==&gt; &quot;1,2,3&quot;</span>
-</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">f</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="p">}).</span><span class="nx">toString</span><span class="p">()</span>  <span class="c1">// =&gt; &quot;function(x) {\n f(x);\n }&quot;</span>
-</span><span class='line'><span class="o">/</span><span class="err">\</span><span class="nx">d</span><span class="o">+</span><span class="sr">/g.toString()                   /</span><span class="o">/</span> <span class="o">=&gt;</span> <span class="s2">&quot;/\\d+/g&quot;</span>
-</span><span class='line'><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>       <span class="c1">// =&gt; &quot;Fri Jan 01 2010 00:00:00 GMT+0800 (中国标准时间)&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">({x:1, y:2}).toString()             // =&gt; &quot;[object Object]&quot;
+[1,2,3].toString()                  // ==&gt; &quot;1,2,3&quot;
+(function(x) { f(x); }).toString()  // =&gt; &quot;function(x) {\n f(x);\n }&quot;
+/\d+/g.toString()                   // =&gt; &quot;/\\d+/g&quot;
+new Date(2010,0,1).toString()       // =&gt; &quot;Fri Jan 01 2010 00:00:00 GMT+0800 (中国标准时间)&quot;
+</code></pre>
 
 <p><strong>valueOf()</strong> 这个方法的作答并未详细定义：如果存在任意原始值，它就默认将对象转换为表示它的原始值。复合值默认返回对象本身</p>
 
@@ -825,377 +682,271 @@
 <li>否则，无法从 toString() 和 valueOf() 获得一个原始值，这些将抛出一个类型错误异常</li>
 </ul>
 
+<pre><code class="language-javascript">var now = new Date();
+typeof (now +1)             // =&gt; &quot;string&quot; 「+」将日期转换为字符串
+typeof (now -1)             // =&gt; &quot;number&quot; 「-」使用对象到数字的转换
+now == now.toString()       // =&gt; true
+now &gt; (now - 1)             // =&gt; true
+</code></pre>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
-</span><span class='line'><span class="k">typeof</span> <span class="p">(</span><span class="nx">now</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span>             <span class="c1">// =&gt; &quot;string&quot; 「+」将日期转换为字符串</span>
-</span><span class='line'><span class="k">typeof</span> <span class="p">(</span><span class="nx">now</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>             <span class="c1">// =&gt; &quot;number&quot; 「-」使用对象到数字的转换</span>
-</span><span class='line'><span class="nx">now</span> <span class="o">==</span> <span class="nx">now</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>       <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">now</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nx">now</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>             <span class="c1">// =&gt; true</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2 id="变量声明">变量声明</h2>
 
-
-<h2>变量声明</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">sum</span><span class="p">;</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">sum</span><span class="p">;</span>     <span class="c1">// 单 var 声明多个变量</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var i;
+var sum;
+var i, sum;     // 单 var 声明多个变量
+</code></pre>
 
 <p>如果未在 var 声明语句中给变量指定初始值，那么虽然声明了这个变量，但在给它存入一个值之前，它的初始值就是 undefined</p>
 
 <p>JavaScript 是弱类型语言，变量可以是任意数据类型，下面的写法是合法的：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'><span class="nx">i</span> <span class="o">=</span> <span class="s2">&quot;ten&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var i = 10;
+i = &quot;ten&quot;;
+</code></pre>
 
-
-<h2>变量作用域</h2>
+<h2 id="变量作用域">变量作用域</h2>
 
 <p>变量作用域（scope）是程序源代码中定义它的区域。在函数体内，局部变量的优先级高于 <strong>同名</strong> 的全局变量，并且函数内部可以修改外部变量</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">checkScope</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">&#39;local&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">scope</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">var scope = &quot;global&quot;;
+function checkScope() {
+  var scope = 'local';
+  return scope
+}
+</code></pre>
 
 <p>在声明全局变量时可以不使用 var 前缀，但在声明局部变量时 <strong>一定</strong> 要使用 var</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">scope</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span><span class="p">;</span>       <span class="c1">// 定义一个全局变量</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">checkScope2</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">scope</span> <span class="o">=</span> <span class="s1">&#39;local&#39;</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">myscope</span> <span class="o">=</span> <span class="s1">&#39;local&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">myscope</span><span class="p">]</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">checkScope2</span><span class="p">()</span>           <span class="c1">// =&gt; [&#39;local&#39;, &#39;local&#39;]</span>
-</span><span class='line'><span class="nx">scope</span>                   <span class="c1">// =&gt; &quot;local&quot;</span>
-</span><span class='line'><span class="nx">myscope</span>                 <span class="c1">// =&gt; &quot;local&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">scope = &quot;global&quot;;       // 定义一个全局变量
+function checkScope2() {
+    scope = 'local';
+    myscope = 'local';
 
+    return [scope, myscope]
+}
 
-<h3>函数作用域和声明提前（Hoisting）</h3>
+checkScope2()           // =&gt; ['local', 'local']
+scope                   // =&gt; &quot;local&quot;
+myscope                 // =&gt; &quot;local&quot;
+</code></pre>
+
+<h3 id="函数作用域和声明提前-hoisting">函数作用域和声明提前（Hoisting）</h3>
 
 <p>像一些类 C 的编程语言中，花括号（{}）内的每一段代码都具有各自的作用域，变量在声明它们的代码段之外是不可见的，我们称为 <strong>块级作用域</strong>（block scope），而 JavaScript 中没有块级作用域。JavaScript 中使用了 <strong>函数作用域</strong>（function scope）：</p>
 
-<blockquote><p>变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是可以被访问到的</p></blockquote>
+<blockquote>
+<p>变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是可以被访问到的</p>
+</blockquote>
 
 <p>下面的代码中，在不同位置定义了变量 i,j 和 k，它们都在同一个作用域内。当调用 <code>test()</code> if 语句并没有执行，但是变量 j 已经定义却没被始化</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">test</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">function test(o) {
+    var i = 0;
+    if ( typeof o === 'object' ) {
+        var j = 0;
+        for (var k = 0; k &lt; 10; k++) {
+            console.log(k);
+        }
+        console.log(k);
+    }
+    console.log(j);
+}
+</code></pre>
 
+<blockquote>
+<p>JavaScript 的函数作用域是指在函数内声明的所有变量在函数体内始终是可见的。这就意味着变量在声明之前甚至已经可用。JavaScript 的这个被非正式地称为声明提前（hoisting），即 JavaScript 函数里声明的所有变量（不包括赋值）都被「提前」到函数体的顶部 <a href="http://www.slideshare.net/lijing00333/javascript-engine">参考</a></p>
+</blockquote>
 
-<blockquote><p>JavaScript 的函数作用域是指在函数内声明的所有变量在函数体内始终是可见的。这就意味着变量在声明之前甚至已经可用。JavaScript 的这个被非正式地称为声明提前（hoisting），即 JavaScript 函数里声明的所有变量（不包括赋值）都被「提前」到函数体的顶部 <a href="http://www.slideshare.net/lijing00333/javascript-engine">参考</a></p></blockquote>
+<pre><code class="language-javascript">var scope = &quot;global&quot;;
+function f() {
+    console.log(scope);     // =&gt; undefined
+    var scope = &quot;local&quot;;
+    console.log(scope);     // =&gt; &quot;local&quot;
+}
+f();
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>     <span class="c1">// =&gt; undefined</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&quot;local&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>     <span class="c1">// =&gt; &quot;local&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">f</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>     <span class="c1">// =&gt; &quot;global&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">b</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
+function b() {
+    console.log(scope);     // =&gt; &quot;global&quot;
+}
+b();
+</code></pre>
 
 <p>上面的代码中函数 f 的局部变量 scope 由于 <strong>声明提前</strong>，代码刚执行进入 f 内部的时候 scope 就被赋值 undefined，这时局部变量优先级高于同名全局变量，所以就返回了 undefined，只有代码执行到 var 的时候 scope 才真正被赋值。所以函数 f 等价于：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">scope</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>     <span class="c1">// =&gt; undefined</span>
-</span><span class='line'>    <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&quot;local&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>     <span class="c1">// =&gt; &quot;local&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">function f() {
+    var scope;
+    console.log(scope);     // =&gt; undefined
+    scope = &quot;local&quot;;
+    console.log(scope);     // =&gt; &quot;local&quot;
+}
+</code></pre>
 
 <p>这也是为什么建议函数体内的变量尽量放在上面，避免造成混乱或者误解</p>
 
-<h3>作为属性的变量</h3>
+<h3 id="作为属性的变量">作为属性的变量</h3>
 
 <p>当声明一个 JavaScript 全局变量时，实际上是定义了全局对象的一个属性。当使用 var 声明一个变量时，这个变量是无法通过 delete 运算符删除的。不使用 var 声明的全局变量却是可以被 delete 的</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">truevar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="nx">fakevar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>                <span class="c1">// 不用 var 创建一个全局变量</span>
-</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">fakevar2</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</span><span class='line'><span class="k">delete</span> <span class="nx">truevar</span>              <span class="c1">// =&gt; false 不可删除</span>
-</span><span class='line'><span class="k">delete</span> <span class="nx">fakevar</span>              <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">fakevar2</span>        <span class="c1">// =&gt; true</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">var truevar = 1;
+fakevar = 2;                // 不用 var 创建一个全局变量
+this.fakevar2 = 3;
+delete truevar              // =&gt; false 不可删除
+delete fakevar              // =&gt; true
+delete this.fakevar2        // =&gt; true
+</code></pre>
 
-
-<h3>作用域链（scope chain）</h3>
+<h3 id="作用域链-scope-chain">作用域链（scope chain）</h3>
 
 <p>JavaScript 是基于 <strong>词法作用域</strong>（lexically scoped）的语言：通过阅读包含变量定义在内的源代码就能知道变量的作用域</p>
 
 <p>每一段 JavaScript 代码（全局代码或函数）都有一个与之关联的作用域链。这个作用域链是一个对象列表或者链表，这组对象定义了这段代码「作用域中」的变量。当 JavaScript 需要查找变量 x 值的时候（这个过程称做「变量解析」（valable resolution）），它会从链中的第一个对象开始查找，如果有则直接使用，如果没有 JavaScript 就会继续查找链上的下一个对象，以此类推。如果作用域名链上没有任何一个对象含有属性 x，那么就认为这段代码的作用域链接上不存在 x，并最终抛出一个引用错误（ReferenceError）异常</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span><span class="p">();</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">a</span><span class="p">();</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">a</span><span class="p">();</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'><span class="nx">a</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">a();
+function a() {
+    alert('1');
+}
+a();
+function a() {
+    alert('2');
+}
+a();
+var a = function() {
+    alert('3');
+};
+a();
+</code></pre>
 
-
-<h3>引用</h3>
+<h3 id="引用">引用</h3>
 
 <ul>
 <li>IEEE 754 <a href="https://zh.wikipedia.org/wiki/IEEE_754">https://zh.wikipedia.org/wiki/IEEE_754</a></li>
-<li>位操作 <a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C">https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C</a></li>
+<li>位操作 <a href="https://zh.wikipedia.org/wiki/位操作">https://zh.wikipedia.org/wiki/位操作</a></li>
 <li>JavaScript Engine <a href="http://www.slideshare.net/lijing00333/javascript-engine">http://www.slideshare.net/lijing00333/javascript-engine</a></li>
-</ul>
+</ul></div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|2" href="https://keelii.github.io/categories/javascript">javascript</a>,
+                            
+                            <a class="category 1|2" href="https://keelii.github.io/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                            
+                        </span>
+                        
+                        <span class="span">Last modified</span>
+                        <time class="entry-date" datetime="2016-06-16 13:06:13">
+                            <span class="date">Jun,16 2016</span>
+                            <span class="time">13:06</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/" title="Previous Post: Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持">Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</a>
+                        </span>
+                        
 
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
-
-      
-
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/" >Tweet</a>
-  
-  
-  
-
-<div class="share-weibo" onclick="shareToWeibo()" title="分享到新浪微博">
-  <i></i> 微博
-</div>
-
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2016/06/16/javascript-definitive-guide-note-1/" title="Previous Post: 《JavaScript 权威指南》读书笔记 2 - 词法结构">&laquo; 《JavaScript 权威指南》读书笔记 2 - 词法结构</a>
-      
-      
-        <a class="basic-alignment right" href="/2016/06/20/javascript-definitive-guide-note-3/" title="Next Post: 《JavaScript 权威指南》读书笔记 4 - 表达式和运算符">《JavaScript 权威指南》读书笔记 4 - 表达式和运算符 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/" title="Nextious Post: 《JavaScript 权威指南》读书笔记 2 - 词法结构">《JavaScript 权威指南》读书笔记 2 - 词法结构</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
     <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
-</div>
 
-<aside class="sidebar">
-  <div class="default-post-sidebar hide">
+        </div>
+
+        <aside class="sidebar">
     
-      <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2016/10/04/rebuild-mbp-power-cord/">简单方法解决 Macbook 电源接口接触不良的问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件解析</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
-      </li>
-    
-  </ul>
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h1>Table  of contents</h1>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#数字">数字</a>
+<ul>
+<li><a href="#整型直接量">整型直接量</a></li>
+<li><a href="#浮点型直接量">浮点型直接量</a></li>
+<li><a href="#javascript-中的算术运算">JavaScript 中的算术运算</a></li>
+<li><a href="#二进制浮点数和四舍五入错误">二进制浮点数和四舍五入错误</a></li>
+<li><a href="#日期和时间">日期和时间</a></li>
+</ul></li>
+<li><a href="#文本">文本</a>
+<ul>
+<li><a href="#转义字符">转义字符</a></li>
+<li><a href="#字符串的使用">字符串的使用</a></li>
+<li><a href="#模式匹配">模式匹配</a></li>
+</ul></li>
+<li><a href="#布尔值">布尔值</a></li>
+<li><a href="#null-和-undefined">null 和 undefined</a></li>
+<li><a href="#全局对象">全局对象</a></li>
+<li><a href="#包装对象">包装对象</a></li>
+<li><a href="#不可变的原始值和可变的对象引用">不可变的原始值和可变的对象引用</a></li>
+<li><a href="#类型转换">类型转换</a>
+<ul>
+<li><a href="#转换和相等性">转换和相等性</a></li>
+<li><a href="#显式类型转换">显式类型转换</a></li>
+<li><a href="#对象转换为原始值">对象转换为原始值</a></li>
+</ul></li>
+<li><a href="#变量声明">变量声明</a></li>
+<li><a href="#变量作用域">变量作用域</a>
+<ul>
+<li><a href="#函数作用域和声明提前-hoisting">函数作用域和声明提前（Hoisting）</a></li>
+<li><a href="#作为属性的变量">作为属性的变量</a></li>
+<li><a href="#作用域链-scope-chain">作用域链（scope chain）</a></li>
+<li><a href="#引用">引用</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
 </section>
 
 
 
-
-<section>
-  <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/mbp/'>mbp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
-</section>
-
     
-  </div>
 </aside>
 
-
-<!--TOC-->
-<script src="/javascripts/post.js"></script>
-
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - keelii -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+</div>
 
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2016 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'keelii-blog';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/';
-        var disqus_url = 'http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script src="https://keelii.github.io/javascripts/octopress.js"></script>
 
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
 
 
 
@@ -1208,8 +959,8 @@
 [l] for next article
 [j] for scroll page up 300px
 [k] for scroll page down 300px
+[G] for scroll page bottom
 -->
-
 
 </body>
 </html>

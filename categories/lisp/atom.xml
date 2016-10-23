@@ -1,31 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Something</title>
+    <link>https://keelii.github.io/categories/lisp/atom/index.xml</link>
+    <description>Recent content on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://keelii.github.io/categories/lisp/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用 lisp 简单描述加法运算</title>
+      <link>https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</link>
+      <pubDate>Mon, 04 Jul 2016 09:32:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</guid>
+      <description>&lt;p&gt;最近在看 &lt;a href=&#34;http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522&#34;&gt;MIT 公开课-计算机程序的构造和解释&lt;/a&gt;，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值&lt;/p&gt;
 
-  <title><![CDATA[Category: Lisp | Something]]></title>
-  <link href="http://keelii.github.io/categories/lisp/atom.xml" rel="self"/>
-  <link href="http://keelii.github.io/"/>
-  <updated>2016-10-04T21:21:57+08:00</updated>
-  <id>http://keelii.github.io/</id>
-  <author>
-    <name><![CDATA[keelii]]></name>
-    <email><![CDATA[keeliizhou@gmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+&lt;p&gt;由 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86&#34;&gt;皮亚诺&lt;/a&gt; 算术定义的求 x 和 y 之和的过程&lt;/p&gt;
 
-  
-  <entry>
-    <title type="html"><![CDATA[使用 Lisp 简单描述加法运算]]></title>
-    <link href="http://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/"/>
-    <updated>2016-07-04T09:32:45+08:00</updated>
-    <id>http://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp</id>
-    <content type="html"><![CDATA[<p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
+&lt;p&gt;&lt;/p&gt;
 
-<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
-
-<!--more-->
-
-
-<pre><code class="lisp">; Define a [+] processor
+&lt;pre&gt;&lt;code class=&#34;language-lisp&#34;&gt;; Define a [+] processor
 (define (+ x y)
     (if (= x 0)
         y
@@ -44,8 +39,8 @@
 (+ 0 7)
 (if (= 0 0) 7 (-1+0) (1+7))
 7
-</code></pre>
-]]></content>
-  </entry>
-  
-</feed>
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

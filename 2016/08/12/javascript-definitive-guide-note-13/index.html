@@ -1,212 +1,278 @@
-<!DOCTYPE html>   
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
 <html class="no-js" lang="zh-CN">
+<!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <title>《JavaScript 权威指南》读书笔记 15 - 脚本化文档</title>
-    <meta name="description" content="There&#39;s always __ you do not know yet">
-    <meta name="keywords" content="">
-    <meta name="author" content="keelii">
-    <meta name="generator" content="Hugo 0.17" />
+  <meta charset="utf-8">
+  <title>《JavaScript 权威指南》读书笔记 15 - 脚本化文档 - Something</title>
+  <meta name="author" content="keelii">
 
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容 DOM 概览 HTML 或 XML &hellip;">
+  
 
-    <link rel="canonical" href="https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/">
-    <link href="https://keelii.github.io/favicon.png" rel="icon">
-    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
-    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    
-    <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
 
-    ga('create', 'UA-79264835-1', 'auto');
-    ga('send', 'pageview');
-    </script>
 
 </head>
-<body>
 
-<header role="banner">
-    <hgroup>
-        <h1><a href="https://keelii.github.io/">Something</a></h1>
-        <h2>There&#39;s always __ you do not know yet</h2>
-    </hgroup>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
 
-
-<nav role="navigation">
-    <ul class="subscription" data-subscription="rss">
-        <li>
-            
-        </li>
-    </ul>
-
-    <form action="https://www.google.com/search" method="get">
-        <fieldset role="search">
-            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
-            <input class="search" type="text" name="q" results="0" placeholder="Search" />
-        </fieldset>
-    </form>
-
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.github.io/">Blog</a> </li>
-        
-        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.github.io/about">About</a> </li>
-        
-    </ul>
 </nav>
-
-
-<div id="main">
+  <div id="main">
     <div id="content">
-        <div>
-            <article class="hentry" role="article">
-                <header>
-                    <h1 class="entry-title">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2016-08-12 15:36:59">
-                            <span class="date">Aug,12 2016</span>
-                            <span class="time">15:36 PM</span>
-                        </time>
-                    </p>
-                </header>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</h1>
+    
+    
+      <p class="meta">
+        
 
-                <div class="entry-content"><p>每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容</p>
 
-<p></p>
 
-<h2 id="dom-概览">DOM 概览</h2>
+
+<time class='entry-date' datetime='2016-08-12T15:36:59+08:00'><span class='date'>08,12,2016</span> <span class='time'>3:36 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容</p>
+
+<!--more-->
+
+
+<h2>DOM 概览</h2>
 
 <p>HTML 或 XML 文档的嵌套元素在 DOM 中以「树」的形式展示。HTML 文档的树装结构包含表示 HTML 标签或元素（如 body, p）和表示文本字符串的节点，也可能包含表示 HTML 注释的节点</p>
 
-<pre><code class="language-html">&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;Simple Document&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Heading&lt;/h1&gt;
-    &lt;p&gt;This is a &lt;i&gt;paragraph&lt;/i&gt;&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>Simple Document<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h1&gt;</span>Heading<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>This is a <span class="nt">&lt;i&gt;</span>paragraph<span class="nt">&lt;/i&gt;&lt;/p&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>置换成 DOM 树表示</p>
 
-<pre><code class="language-html">
-                    +------------+
-                    |  Document  |
-                    +-----+------+
-                          |
-                    +-----+------+
-                    |   &lt;html&gt;   |
-                    +-----+------+
-                          |
-     +--------------------+--------------------+
-     |                                         |
-+----+------+                             +----+-----+
-|  &lt;head&gt;   |                             |  &lt;body&gt;  |
-+----+------+                             +----+-----+
-     |                                         |
-+----+------+                     +------------+------------+
-|  &lt;title&gt;  |                     |                         |
-+-----------+                 +----+---+               +---------+
-                              |  &lt;h1&gt;  |               |   &lt;p&gt;   |
-+------------------+          +--------+               +---------+
-| &quot;Simple Document&quot;|                                        |
-+------------------+                            +-----------+-----------+
-                                                |                       |
-                                         +------+--------+         +----+-----+
-                                         | &quot;This is a&quot;   |         |   &lt;i&gt;    |
-                                         +---------------+         +----+-----+
-                                                                        |
-                                                                   +----+------+
-                                                                   |&quot;paragraph&quot;|
-                                                                   +-----------+
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>                    +------------+
+</span><span class='line'>                    |  Document  |
+</span><span class='line'>                    +-----+------+
+</span><span class='line'>                          |
+</span><span class='line'>                    +-----+------+
+</span><span class='line'>                    |   <span class="nt">&lt;html&gt;</span>   |
+</span><span class='line'>                    +-----+------+
+</span><span class='line'>                          |
+</span><span class='line'>     +--------------------+--------------------+
+</span><span class='line'>     |                                         |
+</span><span class='line'>+----+------+                             +----+-----+
+</span><span class='line'>|  <span class="nt">&lt;head&gt;</span>   |                             |  <span class="nt">&lt;body&gt;</span>  |
+</span><span class='line'>+----+------+                             +----+-----+
+</span><span class='line'>     |                                         |
+</span><span class='line'>+----+------+                     +------------+------------+
+</span><span class='line'>|  <span class="nt">&lt;title&gt;</span>  |                     |                         |
+</span><span class='line'>+-----------+                 +----+---+               +---------+
+</span><span class='line'>                              |  <span class="nt">&lt;h1&gt;</span>  |               |   <span class="nt">&lt;p&gt;</span>   |
+</span><span class='line'>+------------------+          +--------+               +---------+
+</span><span class='line'>| &quot;Simple Document&quot;|                                        |
+</span><span class='line'>+------------------+                            +-----------+-----------+
+</span><span class='line'>                                                |                       |
+</span><span class='line'>                                         +------+--------+         +----+-----+
+</span><span class='line'>                                         | &quot;This is a&quot;   |         |   <span class="nt">&lt;i&gt;</span>    |
+</span><span class='line'>                                         +---------------+         +----+-----+
+</span><span class='line'>                                                                        |
+</span><span class='line'>                                                                   +----+------+
+</span><span class='line'>                                                                   |&quot;paragraph&quot;|
+</span><span class='line'>                                                                   +-----------+
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>上图中每个方框是文档的一个节点（node），它表示一个 Node 对象。注意树形的根部是 Document 节点，它代表整个文档。代表 HTML 元素的节点是 Element 节点。代表文本的节点是 Text 节点。Document、Element 和 Text 是 Node 的子类</p>
 
-<h2 id="选取文档元素">选取文档元素</h2>
+<h2>选取文档元素</h2>
 
-<h3 id="通过-id-选择元素">通过 ID 选择元素</h3>
+<h3>通过 ID 选择元素</h3>
 
 <p>HTML 元素可以有一个 id 属性，在文档中该值必须 <strong>唯一</strong>，可以使用 getElementById() 方法选取一个基于唯一 ID 的元素</p>
 
-<pre><code class="language-javascript">var section1 = document.getElementById('selection1');
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">section1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;selection1&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>在低于 IE 8 版本的浏览器中，<strong>getElementById() 对匹配元素的 ID 不区分大小写，而且也返回匹配 name 属性的元素</strong></p>
 
-<h3 id="通过名字选取元素">通过名字选取元素</h3>
+<h3>通过名字选取元素</h3>
 
-<pre><code class="language-javascript">var radiobuttons = document.getElementsByName('favorite_color');
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">radiobuttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByName</span><span class="p">(</span><span class="s1">&#39;favorite_color&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>getElementsByName() 定义在 HTMLDocument 类中，而不在 Document 类中，所以它 <strong>只针对 HTML 文档可用</strong>，XML 中不可用。它返回一个 NodeList 对象，后者的行为类似一个包含若干 Element 对象的只读数组。在 IE 中，也会返回 id 属性匹配指定的元素</p>
 
-<h3 id="通过标签名选取元素">通过标签名选取元素</h3>
+<h3>通过标签名选取元素</h3>
 
-<pre><code class="language-javascript">// 返回所有的 span 标签元素
-var spans = document.getElementsByTagName('span');
-// 返回所有元素
-var allTags = document.getElementsByTagName('*');
-// 选取第一个 span 里面的所有 a 标签
-// Element 类也定义 getElementsByTagName() 方法，
-// 它只取调用该方法的元素（spans）的后代元素
-var links = spans[0].getElementsByTagName('a');
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 返回所有的 span 标签元素</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">spans</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 返回所有元素</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">allTags</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 选取第一个 span 里面的所有 a 标签</span>
+</span><span class='line'><span class="c1">// Element 类也定义 getElementsByTagName() 方法，</span>
+</span><span class='line'><span class="c1">// 它只取调用该方法的元素（spans）的后代元素</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">links</span> <span class="o">=</span> <span class="nx">spans</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>HTMLDocument 对象还定义了两个属性，它们指代特殊的单个元素而不是集合：<code>document.body</code> 是一个 HTML 文档的 <body> 元素；<code>document.head</code> 是 <head> 元素。这些属性总是会定义的。<strong>即使文档中没有 head 或 body 元素，浏览器也将隐式地创建他们</strong></p>
 
-<blockquote>
-<p>getElementsByName() 和 getElementsByTagName() 都返回 NodeList 对象，而类似 document.images 和 document.forms 的属性为 HTMLCollection 对象。
-这些对象都是只读类数组对象。有 length 属性，也可以被索引到，也可以进行循环迭代</p>
-</blockquote>
+<blockquote><p>getElementsByName() 和 getElementsByTagName() 都返回 NodeList 对象，而类似 document.images 和 document.forms 的属性为 HTMLCollection 对象。
+这些对象都是只读类数组对象。有 length 属性，也可以被索引到，也可以进行循环迭代</p></blockquote>
 
-<h3 id="通过-css-类选取元素">通过 CSS 类选取元素</h3>
+<h3>通过 CSS 类选取元素</h3>
 
 <p>HTML 元素的 class 属性值是一个以空格隔开的列表，可以为空或者包含多个标识符</p>
 
-<pre><code class="language-javascript">// 查找 class 属性追念 warning 的所有元素
-var warnings = document.getElementsByClassName('warning')
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 查找 class 属性追念 warning 的所有元素</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">warnings</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>注意除了 IE8 及以下低版本浏览器，getElementsByClassName() 在所有的浏览器中都实现了</p>
 
-<h3 id="通过-css-选择器选取元素">通过 CSS 选择器选取元素</h3>
+<h3>通过 CSS 选择器选取元素</h3>
 
 <p>CSS 样式表有一种非常强大的语法，那就是选择器，用来描述文档中的若干元素</p>
 
-<pre><code class="language-html">#nav          // id=&quot;nav&quot; 的元素
-div           // 所有 &lt;div&gt; 元素
-.warning      // 所有 class 属性值包含 &quot;warning&quot; 的元素
-p[lang=&quot;fr&quot;]  // 所有属性 lang 为 fr 的 &lt;p&gt; 元素
-*[lang=&quot;fr&quot;]  // 所有属性 lang 为 fr 的元素
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>#nav          // id=&quot;nav&quot; 的元素
+</span><span class='line'>div           // 所有 <span class="nt">&lt;div&gt;</span> 元素
+</span><span class='line'>.warning      // 所有 class 属性值包含 &quot;warning&quot; 的元素
+</span><span class='line'>p[lang=&quot;fr&quot;]  // 所有属性 lang 为 fr 的 <span class="nt">&lt;p&gt;</span> 元素
+</span><span class='line'>*[lang=&quot;fr&quot;]  // 所有属性 lang 为 fr 的元素
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="文档结构和遍历">文档结构和遍历</h2>
 
-<h3 id="作为节点树的文档">作为节点树的文档</h3>
+<h2>文档结构和遍历</h2>
+
+<h3>作为节点树的文档</h3>
 
 <p>Document 对象、它的 Element 对象和文档中表示文本的 Text 对象都是 Node 对象。Node 对象有以下属性：</p>
 
@@ -223,42 +289,61 @@ p[lang=&quot;fr&quot;]  // 所有属性 lang 为 fr 的 &lt;p&gt; 元素
 <li><strong>8</strong> - Comment 节点</li>
 <li><strong>3</strong> - Text 节点</li>
 <li><strong>1</strong> - Element 节点</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>nodeVlaue</strong> Text 节点或 Comment 节点的文本内容</li>
 <li><strong>nodeName</strong> 元素标签名，以大写形式表示</li>
 </ul>
 
-<pre><code class="language-javascript">// 注意删除了空格和换行
-// &lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Hello World!&lt;/body&gt;&lt;/html&gt;
-document.childNodes[0].childNodes[1]      // =&gt; body 节点
-document.firstChild.firstChild.nextSibling // =&gt; null title 节点的下个兄弟节点为 null
-</code></pre>
 
-<h2 id="属性">属性</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 注意删除了空格和换行</span>
+</span><span class='line'><span class="c1">// &lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Hello World!&lt;/body&gt;&lt;/html&gt;</span>
+</span><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="c1">// =&gt; body 节点</span>
+</span><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">nextSibling</span> <span class="c1">// =&gt; null title 节点的下个兄弟节点为 null</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>属性</h2>
 
 <p>HTML 元素由一个标签和一组称为属性（attribute）的名/值对组成</p>
 
-<h3 id="html-属性作为-element-的属性">HTML 属性作为 Element 的属性</h3>
+<h3>HTML 属性作为 Element 的属性</h3>
 
-<pre><code class="language-javascript">var image = document.getElementById('myimage');
-var imgurl = image.src;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myimage&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">imgurl</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">src</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="nx">f</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="s1">&#39;http://www.example.com/submit.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">f</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s1">&#39;POST&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-var f = document.forms[0];
-f.action = 'http://www.example.com/submit.php';
-f.method = 'POST';
-</code></pre>
 
 <p>HTML 属性名不区分大小写，但是 JavaScript 则区分。用 JavaScript 取元素属性名的时候一般用小写，如果属性名是多个单词用驼峰式的规则，例如：defaultChecked、tabIndex。如果属性是 JavaScript 中的保留字，一般用 html 前缀，比如 for 属性，使用 htmlFor 来访问。class 则不同，使用 className 来访问</p>
 
-<h3 id="获取和设置非标准-html-属性">获取和设置非标准 HTML 属性</h3>
+<h3>获取和设置非标准 HTML 属性</h3>
 
-<pre><code class="language-javascript">var image = document.images[0];
-// getAttribute 始终返回字符串
-var width = parseInt(image.getAttribute('width'))
-image.setAttribute('class', 'thumbnail)
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// getAttribute 始终返回字符串</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="nx">image</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="nx">thumbnail</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h3 id="数据集属性">数据集属性</h3>
+
+<h3>数据集属性</h3>
 
 <p>有时候在 HTML 元素上绑定一些额外的信息会很有帮助（通常给 JavaScript 来读取），一般可以把信息存储在 HTML 属性上</p>
 
@@ -266,7 +351,7 @@ image.setAttribute('class', 'thumbnail)
 
 <p>HTML 5 还在 Element 对象上定义了 dataset 属性。该属性指代一个对象，它的各个属性对应于去掉前缀的 data- 属性。因此 dataset.x 应该保存 data-x 属性的值。带连字符的属性对应于驼峰命名法属性名：data-jquery-test 属性就变成 dataset.jqueryTest 属性</p>
 
-<h3 id="作为-html-的元素内容">作为 HTML 的元素内容</h3>
+<h3>作为 HTML 的元素内容</h3>
 
 <p>读取 Element 的 innerHTML 属性作为字符串标记返回那个元素的内容。设置元素的 innerHTML 属性则调用 Web 浏览器的解析器，用新的字符串内容解析替换当前内容</p>
 
@@ -276,87 +361,128 @@ image.setAttribute('class', 'thumbnail)
 
 <p>另外 IE 引入了一个 insertAdjacentHTML() 方法，它将任意的 HTML 标记字符串插入到指定的元素「相邻」的位置。标记是该方法的第二个参数。并且「相邻」的精确含义依赖于第一个参数的值。第一个参数为具有以下值之一的字符串：「beforebegin」、「afterbegin」、「beforeend」、「afterend」</p>
 
-<pre><code class="language-html">    |&lt;div id=&quot;target&quot;&gt;|This is the element content|&lt;/div&gt;|
-    |                 |                           |      |
- beforebegin     afterbegin                  beforeend afterend
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>|<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;target&quot;</span><span class="nt">&gt;</span>|This is the element content|<span class="nt">&lt;/div&gt;</span>|
+</span><span class='line'>|                 |                           |      |
+</span><span class='line'> beforebegin     afterbegin                  beforeend afterend
+</span></code></pre></td></tr></table></div></figure>
 
-<h3 id="作为纯文本的元素内容">作为纯文本的元素内容</h3>
+
+<h3>作为纯文本的元素内容</h3>
 
 <p>查询线文本形式的元素内容，
 标准的方法是 Node 的 textContent 属性</p>
 
-<pre><code class="language-javascript">var para = document.getElementsByTagName('p')[0]
-var text = para.textContent;
-para.textContent = 'Hello World!';
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">para</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">para</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+</span><span class='line'><span class="nx">para</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>textContent 属性除 IE 其它浏览器都支持，不支持的可以用 innerText 属性来代替。textContent 属性就是将指定元素所有的后代 Text 节点简单地串联在一起。但是和 textContent 不同。innerText 不返回 script 元素的内容，它会忽略多余空白，并试图保留表格格式。同时 innerText 针对某些表格元素（如 table、tbody、tr）是只读的属性</p>
 
-<pre><code class="language-javascript">function textContente(e) {
-    var child, type, s = '';
-    for (child = e.firstChild; child != null; child = child.nextSibling ) {
-        type = child.nodeType;
-        if ( type === 3 || type === 4 )
-            s += child.nodeValue;
-        else if ( type === 1 )
-            s += textContent(child);
-    }
-    return s;
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">textContente</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="nx">child</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">;</span> <span class="nx">child</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">;</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">nextSibling</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">type</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">3</span> <span class="o">||</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">4</span> <span class="p">)</span>
+</span><span class='line'>            <span class="nx">s</span> <span class="o">+=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">1</span> <span class="p">)</span>
+</span><span class='line'>            <span class="nx">s</span> <span class="o">+=</span> <span class="nx">textContent</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">s</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="创建-插入和删除节点">创建、插入和删除节点</h2>
+
+<h2>创建、插入和删除节点</h2>
 
 <p>一个简单的动态插入脚本的方法</p>
 
-<pre><code class="language-javascript">function loadasyn(url) {
-    var head = document.getElementsByTagName('head')[0];
-    var s = document.createElement('script');
-    s.src = url;
-    head.appendChild(s);
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">loadasyn</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">head</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h3 id="创建节点">创建节点</h3>
 
-<pre><code class="language-javascript">document.createElement('script')
-document.createTextNode('text node content')
-</code></pre>
+<h3>创建节点</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;text node content&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>还有一种创建新文档节点的方法是复制已存在的节点。第个节点有一个 cloneNode() 方法来返回该节点的一个全新副本。给方法传递参数 true 也能够递归地复制所有后代节点，或传递参数 false 只执行一个浅复制</p>
 
-<h3 id="插入节点">插入节点</h3>
+<h3>插入节点</h3>
 
 <p>下面代码展示了 insertBefore() 和 appendChild() 方法使用场景</p>
 
-<pre><code class="language-javascript">function insertAt(parent, child, n) {
-    if ( n &lt; 0 || n &gt; parent.childNodes.length ) throw new Error('invalid index');
-    else if ( n == parent.childNodes.length ) parent.appendChild(child);
-    else parent.insertBefore(child, parent.childNodes[n]);
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">insertAt</span><span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;invalid index&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">n</span> <span class="o">==</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">else</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">n</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h3 id="删除和替换节点">删除和替换节点</h3>
+
+<h3>删除和替换节点</h3>
 
 <p>removeChild() 方法删除一个子节点并用一个新的节点取而代之</p>
 
-<pre><code class="language-javascript">n.parentNode.removeChild(n);
-n.parentNode.replaceChild(document.createTextNode('[ REDACTED ]'), n)
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">n</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+</span><span class='line'><span class="nx">n</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;[ REDACTED ]&#39;</span><span class="p">),</span> <span class="nx">n</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h3 id="使用-documentfragment">使用 DocumentFragment</h3>
+
+<h3>使用 DocumentFragment</h3>
 
 <p>DocumentFragment 是一种特殊的 Node，它作为其他节点的一个临时窗口。像这样创建一个 DocumentFragment：</p>
 
-<pre><code class="language-javascript">var frag = document.createDocumentFragment();
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">frag</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createDocumentFragment</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>像 Document 节点一样，DocumentFragment 是独立的，而不是任何其他文档的一部分。它的 parentNode 总是 null。但类似 Element，它可以有任意多的子节点，可以用 appendChild()、insertBefore() 等方法来操作它们</p>
 
-<h2 id="文档和元素的几何开头和滚动">文档和元素的几何开头和滚动</h2>
+<h2>文档和元素的几何开头和滚动</h2>
 
-<h3 id="文档坐标和视口坐标">文档坐标和视口坐标</h3>
+<h3>文档坐标和视口坐标</h3>
 
 <p>元素的位置是以像素来表示的，向右代表 X 坐标增加，向下代表 Y 坐标增加。但是，有两个不同的点作为坐标系原点：元素的 X 和 Y 坐标可以相对于文档的左上角或者相对于在其中显示文档的视口左上角。在顶级窗口和标签页中，「视口」只是实际显示文档内容的浏览器的一部分：它 <strong>不包括</strong> 浏览器「外壳」（如菜单、工具条和标签页）。针对框架页中显示的文档，视口是定义了框架页的 iframe 元素。无论在何种情况下，当讨论元素的位置时，必须弄清楚所使用的坐标是文档坐标还是视口（窗口）坐标</p>
 
@@ -364,171 +490,186 @@ n.parentNode.replaceChild(document.createTextNode('[ REDACTED ]'), n)
 
 <p>为了在坐标系之间互相转换，我们需要判定浏览器窗口的流动条的位置。Window 对象的 pageXOffset 和 pageYOffset 属性在所有浏览器中提供这些值。除了 IE 8 以及更早的版本以外。也可以使用 scrollLeft 和 scrollTop 属性来获得滚动条的位置。令人迷惑的是，正常情况下通过查询文档的根节点（document.documentElement）来获取这些属性值，但在怪异模式下，必须在文档的 body 元素上查询它们，下面这个是一种兼容方法</p>
 
-<pre><code class="language-javascript">function getScrollOffsets(w) {
-    w = w || window;
-    if ( w.pageXOffset != null ) return { x: w.pageXOffset, y: pageYOffset };
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">getScrollOffsets</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">w</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">||</span> <span class="nb">window</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span><span class="p">.</span><span class="nx">pageXOffset</span> <span class="o">!=</span> <span class="kc">null</span> <span class="p">)</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">w</span><span class="p">.</span><span class="nx">pageXOffset</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="nx">pageYOffset</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">w</span><span class="p">.</span><span class="nb">document</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">compatMode</span> <span class="o">==</span> <span class="s1">&#39;CSS1Compat&#39;</span> <span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    var d = w.document;
-    if ( document.compatMode == 'CSS1Compat' )
-        return { x: d.documentElement.scrollLeft, y: d.documentElement.scrollTop };
 
-    return { x: d.body.scrollLeft, y: d.body.scrollTop };
-}
-</code></pre>
-
-<h3 id="查询元素的尺寸">查询元素的尺寸</h3>
+<h3>查询元素的尺寸</h3>
 
 <p>判定一个元素的尺寸和位置最简单的方法是调用它的 getBoundingClientRect() 方法。该方法是在 IE 5 中引入的，而珔当前的所有浏览器都实现了（然而并非如此）。它不需要参数，返回一个有 left, right, top 和 bottom 属性的对象</p>
 
-<h3 id="滚动">滚动</h3>
+<h3>滚动</h3>
 
 <p>window 对象的 scrollTop() 方法接受一个点的 X 和 Y 坐标，并作为滚动条的偏移量设置它们。也就是窗口滚动到指定的点出现在视口的左上角</p>
 
-<h3 id="关于元素尺寸-位置和溢出更多的信息">关于元素尺寸、位置和溢出更多的信息</h3>
+<h3>关于元素尺寸、位置和溢出更多的信息</h3>
 
 <p>getBoundingClientRect() 方法在所有当前的浏览器上都有定义，但如果需要支持老式浏览器就不行了。元素的尺寸比较简单：任何 HTML 元素的只读属性 offsetWidth 和 offsetHeight 以 CSS 像素返回它的屏幕尺寸。返回尺寸 <strong>包含</strong> 元素的边框和内边距，除去了外边距</p>
 
 <p>所有 HTML 元素拥有 offsetLeft 和 offsetTop 属性来返回元素的 X 和 Y 坐标。对于很多元素，这些值是文档坐标，并直接指定元素的位置。<strong>但对于已定位的元素的后代元素和一些其他元素（如表格），这些属性返回的坐标是相对于祖先元素的而非文档。</strong> offsetParent 属性指定这些属性所相对的父元素。如果 offsetParent 为 null，这些属性都是文档坐标，因此，一般来说用 offsetLeft 和 offsetTop 来计算元素 e 的位置需要一个循环：</p>
 
-<pre><code class="language-javascript">function getElementPosition(e) {
-    var x = 0, y = 0;
-    while (e != null) {
-        x += e.offsetLeft;
-        y += e.offsetTop;
-        e = e.offsetParent;
-    }
-    return { x: x, y: y };
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">getElementPosition</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="nx">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">x</span> <span class="o">+=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">y</span> <span class="o">+=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">e</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="nx">y</span> <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>除了这些名字以 offset 开头的属性外，所有的文档元素定义了其它的两组属性，基名称一组以 client 开头，另一组以 scroll 开头。即，每个 HTML 元素都有以下这些属性：</p>
 
-<pre><code class="language-html">offsetWidth         clientWidth          scrollWidth
-offsetHeight        clientHeight         scrollHeight
-offsetLeft          clientLeft           scrollLeft
-offsetTop           clientTop            scrollTop
-offsetParent
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>offsetWidth         clientWidth          scrollWidth
+</span><span class='line'>offsetHeight        clientHeight         scrollHeight
+</span><span class='line'>offsetLeft          clientLeft           scrollLeft
+</span><span class='line'>offsetTop           clientTop            scrollTop
+</span><span class='line'>offsetParent
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>clientWidth 和 clientHeight 类似 offsetWidth 和 offsetHeight，不同的是它们 <strong>不包含边框大小</strong>，只包含内容和它的内边距。同时，如果浏览器在内边距和边框之间添加了滚动条，clientWidth 和 clientHeight 在其返回值中也不包含滚动条。内联元素，clientWidth 和 clientHeight 总是返回 0</p>
 
-<h2 id="html-表单">HTML 表单</h2>
+<h2>HTML 表单</h2>
 
 <p><em>表 15-1 HTML 表单元素</em></p>
 
 <table>
 <thead>
 <tr>
-<th>HTML 元素</th>
-<th>类型属性</th>
-<th>事件处理程序</th>
-<th>描述和事件</th>
+<th> HTML 元素                                                       </th>
+<th> 类型属性          </th>
+<th> 事件处理程序 </th>
+<th> 描述和事件                                                           </th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td>&lt;input type=&ldquo;button&rdquo;&gt; or<br> &lt;button type=&ldquo;button&rdquo;&gt;</td>
-<td>“button”</td>
-<td>onclick</td>
-<td>按钮</td>
+<td> &lt;input type=&ldquo;button&rdquo;&gt; or<br> &lt;button type=&ldquo;button&rdquo;&gt; </td>
+<td> “button”          </td>
+<td> onclick      </td>
+<td> 按钮                                                                 </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;checkbox&rdquo;&gt;</td>
-<td>“checkbox”</td>
-<td>onchange</td>
-<td>复选按钮</td>
+<td> &lt;input type=&ldquo;checkbox&rdquo;&gt;                                   </td>
+<td> “checkbox”        </td>
+<td> onchange     </td>
+<td> 复选按钮                                                             </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;file&rdquo;&gt;</td>
-<td>“file”</td>
-<td>onchange</td>
-<td>文件域，value 属性只读</td>
+<td> &lt;input type=&ldquo;file&rdquo;&gt;                                       </td>
+<td> “file”            </td>
+<td> onchange     </td>
+<td> 文件域，value 属性只读                                               </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;hidden&rdquo;&gt;</td>
-<td>“hidden”</td>
-<td>none</td>
-<td>数据由表单提交，但对用户不可见</td>
+<td> &lt;input type=&ldquo;hidden&rdquo;&gt;                                     </td>
+<td> “hidden”          </td>
+<td> none         </td>
+<td> 数据由表单提交，但对用户不可见                                       </td>
 </tr>
-
 <tr>
-<td>&lt;option&gt;</td>
-<td>none</td>
-<td>none</td>
-<td>Select 对象的单个选项，事件对象 <br> 在 Select 对象上，而不是 option</td>
+<td> &lt;option&gt;                                                  </td>
+<td> none              </td>
+<td> none         </td>
+<td> Select 对象的单个选项，事件对象 <br> 在 Select 对象上，而不是 option </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;password&rdquo;&gt;</td>
-<td>“password”</td>
-<td>onchange</td>
-<td>密码输出框，输入的字符不可见</td>
+<td> &lt;input type=&ldquo;password&rdquo;&gt;                                   </td>
+<td> “password”        </td>
+<td> onchange     </td>
+<td> 密码输出框，输入的字符不可见                                         </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;radio&rdquo;&gt;</td>
-<td>“radio”</td>
-<td>onchange</td>
-<td>单选按钮</td>
+<td> &lt;input type=&ldquo;radio&rdquo;&gt;                                      </td>
+<td> “radio”           </td>
+<td> onchange     </td>
+<td> 单选按钮                                                             </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;reset&rdquo;&gt; or<br> &lt;button type=&ldquo;reset&rdquo;&gt;</td>
-<td>“reset”</td>
-<td>onclick</td>
-<td>重置表单按钮</td>
+<td> &lt;input type=&ldquo;reset&rdquo;&gt; or<br> &lt;button type=&ldquo;reset&rdquo;&gt;   </td>
+<td> “reset”           </td>
+<td> onclick      </td>
+<td> 重置表单按钮                                                         </td>
 </tr>
-
 <tr>
-<td>&lt;select&gt;</td>
-<td>“select-one”</td>
-<td>onchange</td>
-<td>单选下拉框</td>
+<td> &lt;select&gt;                                                  </td>
+<td> “select-one”      </td>
+<td> onchange     </td>
+<td> 单选下拉框                                                           </td>
 </tr>
-
 <tr>
-<td>&lt;select multiple&gt;</td>
-<td>“select-multiple”</td>
-<td>onchange</td>
-<td>多选列表</td>
+<td> &lt;select multiple&gt;                                         </td>
+<td> “select-multiple” </td>
+<td> onchange     </td>
+<td> 多选列表                                                             </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;submit&rdquo;&gt; or<br> &lt;button type=&ldquo;submit&rdquo;&gt;</td>
-<td>“submit”</td>
-<td>onclick</td>
-<td>表单提交按钮</td>
+<td> &lt;input type=&ldquo;submit&rdquo;&gt; or<br> &lt;button type=&ldquo;submit&rdquo;&gt; </td>
+<td> “submit”          </td>
+<td> onclick      </td>
+<td> 表单提交按钮                                                         </td>
 </tr>
-
 <tr>
-<td>&lt;input type=&ldquo;text&rdquo;&gt;</td>
-<td>“text”</td>
-<td>onchange</td>
-<td>单行文本输出域；type 默认 text</td>
+<td> &lt;input type=&ldquo;text&rdquo;&gt;                                       </td>
+<td> “text”            </td>
+<td> onchange     </td>
+<td> 单行文本输出域；type 默认 text                                       </td>
 </tr>
-
 <tr>
-<td>&lt;textarea&gt;</td>
-<td>“textarea”</td>
-<td>onchange</td>
-<td>多行文本输入域</td>
+<td> &lt;textarea&gt;                                                </td>
+<td> “textarea”        </td>
+<td> onchange     </td>
+<td> 多行文本输入域                                                       </td>
 </tr>
 </tbody>
 </table>
 
-<h3 id="选择框和选项元素">选择框和选项元素</h3>
+
+<h3>选择框和选项元素</h3>
 
 <p>Select 元素表示用户可以做出选择的一组选项（用 Option 元素表示）。浏览器通常将其渲染为下拉菜单的形式，但当指定其 size 属性值大于 1 时，它将显示为列表中的选项（可能有滚动条）。Select 元素的 multiple 属性决定了 Select 是不是可以多选</p>
 
 <p>当用户选取或取消一个选项时， Select 元素触发 onchange 事件。针对「select-one」属性的 Select 元素，它的可读/写属性 selectedIndex 指定了哪个选项当前被选中。针对「select-multiple」元素，单个 selectedIndex 属性不足以表示被选中的一组选项。这种情况下需要遍历 options[] 数组的元素，检测每个 Option 对象的 selected 属性。注意 Option 并没有相关事件处理程序，一般只能给 Select 元素绑定事件</p>
 
-<h2 id="其他文档特性">其他文档特性</h2>
+<h2>其他文档特性</h2>
 
-<h3 id="document-的属性">Document 的属性</h3>
+<h3>Document 的属性</h3>
 
 <ul>
 <li><strong>cookie</strong> 允许 JavaScript 读、写 HTTP cookie 的属性</li>
@@ -540,153 +681,173 @@ offsetParent
 <li><strong>URL</strong> 文档的 URL，只读字符串而不是 Location 对象。该属性值与 location.href 的 <strong>初始值</strong>相同，不会发生变化</li>
 </ul>
 
-<h3 id="document-write-方法">document.write() 方法</h3>
+
+<h3>document.write() 方法</h3>
 
 <p>document.write() 会将其字符串参数连接起来，然后将结果字符串插入到文档中调用它的脚本元素的位置。当脚本执行结束，浏览器解析生成输出并显示它。例如，下面代码把信息输出到一个静态的 HTML 文档中：</p>
 
-<pre><code class="language-html">&lt;script&gt;
-    document.write('Document title: ' + document.title);
-    document.write('URL: ' + document.URL);
-    document.write('Referred by: ' + document.referrer);
-&lt;/script&gt;
-</code></pre>
-
-<p><strong>只有在解析文档时才能使用 write() 方法输出 HTML 到当前文档中</strong>。也就是说能够在 script 元素的顶层代码中调用 document.write()，就是因为这些脚本的执行是文档解析流程的一部分。如果将 docuemnt.write() 放在一个函数的定义中，而该函数的调用是从一个事件处理程序中发起的，产生的结果未必是你想要的——事实上，它会擦除当前文档和它包含的脚本。同理，在设置了 defer 或 async 属性的脚本中不要使用 document.write()</p></div>
-                <footer>
-                    <p class="meta">
-                        <span class="byline author vcard">Posted</span>
-                        
-                        <span class="span">on</span>
-                        <span class="categories">
-                            
-                            
-                            <a class="category 0|2" href="https://keelii.github.io/categories/javascript">javascript</a>,
-                            
-                            <a class="category 1|2" href="https://keelii.github.io/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                            
-                        </span>
-                        
-                        <span class="span">Last modified</span>
-                        <time class="entry-date" datetime="2016-08-12 15:36:59">
-                            <span class="date">Aug,12 2016</span>
-                            <span class="time">15:36</span>
-                        </time>
-                    </p>
-                    <p class="meta">
-                        
-                        <span class="basic-alignment left">
-                            &laquo; <a href="https://keelii.github.io/2016/07/31/something-have-to-say-with-jd-item/" title="Previous Post: 京东单品页前端开发那些不得不说的事儿">京东单品页前端开发那些不得不说的事儿</a>
-                        </span>
-                        
-
-                        
-                        <span class="basic-alignment right">
-                            <a href="https://keelii.github.io/2016/09/29/javascript-browser-event/" title="Nextious Post: JavaScript 浏览器事件">JavaScript 浏览器事件</a> &raquo;
-                        </span>
-                        
-                    </p>
-                </footer>
-            </article>
-            <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread"></div>
-    <script>
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = '//keelii-blog.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;Document title: &#39;</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;URL: &#39;</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">URL</span><span class="p">);</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;Referred by: &#39;</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">referrer</span><span class="p">);</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-        </div>
-
-        <aside class="sidebar">
-    
-        
-<section id="side-toc" class="side-toc odd" style="width: 100%;">
-    <h1>Table  of contents</h1>
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#dom-概览">DOM 概览</a></li>
-<li><a href="#选取文档元素">选取文档元素</a>
-<ul>
-<li><a href="#通过-id-选择元素">通过 ID 选择元素</a></li>
-<li><a href="#通过名字选取元素">通过名字选取元素</a></li>
-<li><a href="#通过标签名选取元素">通过标签名选取元素</a></li>
-<li><a href="#通过-css-类选取元素">通过 CSS 类选取元素</a></li>
-<li><a href="#通过-css-选择器选取元素">通过 CSS 选择器选取元素</a></li>
-</ul></li>
-<li><a href="#文档结构和遍历">文档结构和遍历</a>
-<ul>
-<li><a href="#作为节点树的文档">作为节点树的文档</a></li>
-</ul></li>
-<li><a href="#属性">属性</a>
-<ul>
-<li><a href="#html-属性作为-element-的属性">HTML 属性作为 Element 的属性</a></li>
-<li><a href="#获取和设置非标准-html-属性">获取和设置非标准 HTML 属性</a></li>
-<li><a href="#数据集属性">数据集属性</a></li>
-<li><a href="#作为-html-的元素内容">作为 HTML 的元素内容</a></li>
-<li><a href="#作为纯文本的元素内容">作为纯文本的元素内容</a></li>
-</ul></li>
-<li><a href="#创建-插入和删除节点">创建、插入和删除节点</a>
-<ul>
-<li><a href="#创建节点">创建节点</a></li>
-<li><a href="#插入节点">插入节点</a></li>
-<li><a href="#删除和替换节点">删除和替换节点</a></li>
-<li><a href="#使用-documentfragment">使用 DocumentFragment</a></li>
-</ul></li>
-<li><a href="#文档和元素的几何开头和滚动">文档和元素的几何开头和滚动</a>
-<ul>
-<li><a href="#文档坐标和视口坐标">文档坐标和视口坐标</a></li>
-<li><a href="#查询元素的尺寸">查询元素的尺寸</a></li>
-<li><a href="#滚动">滚动</a></li>
-<li><a href="#关于元素尺寸-位置和溢出更多的信息">关于元素尺寸、位置和溢出更多的信息</a></li>
-</ul></li>
-<li><a href="#html-表单">HTML 表单</a>
-<ul>
-<li><a href="#选择框和选项元素">选择框和选项元素</a></li>
-</ul></li>
-<li><a href="#其他文档特性">其他文档特性</a>
-<ul>
-<li><a href="#document-的属性">Document 的属性</a></li>
-<li><a href="#document-write-方法">document.write() 方法</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</section>
-
-
-
-    
-</aside>
-
-    </div>
+<p><strong>只有在解析文档时才能使用 write() 方法输出 HTML 到当前文档中</strong>。也就是说能够在 script 元素的顶层代码中调用 document.write()，就是因为这些脚本的执行是文档解析流程的一部分。如果将 docuemnt.write() 放在一个函数的定义中，而该函数的调用是从一个事件处理程序中发起的，产生的结果未必是你想要的——事实上，它会擦除当前文档和它包含的脚本。同理，在设置了 defer 或 async 属性的脚本中不要使用 document.write()</p>
 </div>
 
-<footer role="contentinfo">
-    <p>
-        Copyright &copy; 2016 - keelii -
-        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
-        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-08-12T15:36:59+08:00'><span class='date'>08,12,2016</span> <span class='time'>3:36 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
+  
+</span>
+
+
     </p>
-</footer>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/" data-via="keelii" data-counturl="http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/" >Tweet</a>
+  
+  
+  
+
+<div class="share-weibo" onclick="shareToWeibo()" title="分享到新浪微博">
+  <i></i> 微博
+</div>
+
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/07/31/something-have-to-say-with-JD-item/" title="Previous Post: 京东单品页前端开发那些不得不说的事儿">&laquo; 京东单品页前端开发那些不得不说的事儿</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/09/29/javascript-browser-event/" title="Next Post: JavaScript 浏览器事件">JavaScript 浏览器事件 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  <div class="default-post-sidebar hide">
+    
+      <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
+      </li>
+    
+  </ul>
+</section>
 
 
-<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-<script src="https://keelii.github.io/javascripts/octopress.js"></script>
 
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+</section>
+
+    
+  </div>
+</aside>
+
+
+<!--TOC-->
 <script src="/javascripts/post.js"></script>
-<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/';
+        var disqus_url = 'http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
 
 
 
@@ -699,8 +860,8 @@ offsetParent
 [l] for next article
 [j] for scroll page up 300px
 [k] for scroll page down 300px
-[G] for scroll page bottom
 -->
+
 
 </body>
 </html>

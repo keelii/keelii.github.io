@@ -1,263 +1,358 @@
-<!DOCTYPE html>   
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
 <html class="no-js" lang="zh-CN">
+<!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <title>免费 Https 证书（Let&#39;S Encrypt）申请与配置</title>
-    <meta name="description" content="There&#39;s always __ you do not know yet">
-    <meta name="keywords" content="">
-    <meta name="author" content="keelii">
-    <meta name="generator" content="Hugo 0.17" />
+  <meta charset="utf-8">
+  <title>免费 Https 证书（Let's Encrypt）申请与配置 - Something</title>
+  <meta name="author" content="keelii">
 
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。 1. 下载 certbot 1
+2
+3
+git clone https://github.com/certbot/certbot
+cd certbot
+./certbot-auto &hellip;">
+  
 
-    <link rel="canonical" href="https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/">
-    <link href="https://keelii.github.io/favicon.png" rel="icon">
-    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
-    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+  
+  <link rel="canonical" href="http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    
-    <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-79264835-1', 'auto');
+  ga('send', 'pageview');
+  </script>
 
-    ga('create', 'UA-79264835-1', 'auto');
-    ga('send', 'pageview');
-    </script>
 
 </head>
-<body>
 
-<header role="banner">
-    <hgroup>
-        <h1><a href="https://keelii.github.io/">Something</a></h1>
-        <h2>There&#39;s always __ you do not know yet</h2>
-    </hgroup>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Something</a></h1>
+  
+    <h2>There are always __ you don't know yet</h2>
+  
+</hgroup>
+
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="keelii.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
 
-
-<nav role="navigation">
-    <ul class="subscription" data-subscription="rss">
-        <li>
-            
-        </li>
-    </ul>
-
-    <form action="https://www.google.com/search" method="get">
-        <fieldset role="search">
-            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
-            <input class="search" type="text" name="q" results="0" placeholder="Search" />
-        </fieldset>
-    </form>
-
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.github.io/">Blog</a> </li>
-        
-        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.github.io/about">About</a> </li>
-        
-    </ul>
 </nav>
-
-
-<div id="main">
+  <div id="main">
     <div id="content">
-        <div>
-            <article class="hentry" role="article">
-                <header>
-                    <h1 class="entry-title">免费 Https 证书（Let&#39;S Encrypt）申请与配置</h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2016-06-12 18:04:47">
-                            <span class="date">Jun,12 2016</span>
-                            <span class="time">18:04 PM</span>
-                        </time>
-                    </p>
-                </header>
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">免费 Https 证书（Let's Encrypt）申请与配置</h1>
+    
+    
+      <p class="meta">
+        
 
-                <div class="entry-content"><p>之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。
-</p>
 
-<h2 id="1-下载-certbot">1. 下载 certbot</h2>
 
-<pre><code class="language-bash">git clone https://github.com/certbot/certbot
-cd certbot
-./certbot-auto --help
-</code></pre>
+
+<time class='entry-date' datetime='2016-06-12T18:04:47+08:00'><span class='date'>06,12,2016</span> <span class='time'>6:04 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。</p>
+
+<!--more-->
+
+
+<h2>1. 下载 certbot</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/certbot/certbot
+</span><span class='line'><span class="nb">cd </span>certbot
+</span><span class='line'>./certbot-auto --help
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>解压打开执行就会有相关提示</p>
 
-<h2 id="2-生成免费证书">2. 生成免费证书</h2>
+<h2>2. 生成免费证书</h2>
 
-<pre><code class="language-bash">./certbot-auto certonly --webroot --agree-tos -v -t --email 邮箱地址 -w 网站根目录 -d 网站域名
-./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./certbot-auto certonly --webroot --agree-tos -v -t --email 邮箱地址 -w 网站根目录 -d 网站域名
+</span><span class='line'>./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>注意</strong> 这里 默认会自动生成 /<strong>网站根目录</strong>/.well-known/acme-challenge，然后 shell 脚本会对应的访问 <strong>网站域名</strong>/.well-known/acme-challenge</p>
 
 <p>如果返回正常就确认了你对这个网站的所有权，就能顺利生成</p>
 
-<h2 id="3-获取证书">3. 获取证书</h2>
+<h2>3. 获取证书</h2>
 
 <p>如果上面的步骤正常 shell 脚本会展示如下信息：</p>
 
-<pre><code>- Congratulations! Your certificate and chain have been saved at
-/etc/letsencrypt/live/网站域名/fullchain.pem
-...
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>- Congratulations! Your certificate and chain have been saved at
+</span><span class='line'>/etc/letsencrypt/live/网站域名/fullchain.pem
+</span><span class='line'>...
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="4-生成-dhparams">4. 生成 dhparams</h2>
+
+<h2>4. 生成 dhparams</h2>
 
 <p>使用 openssl 工具生成 dhparams</p>
 
-<pre><code class="language-bash">openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="5-配置-nginx">5. 配置 Nginx</h2>
+
+<h2>5. 配置 Nginx</h2>
 
 <p>打开 nginx server 配置文件加入如下设置：</p>
 
-<pre><code class="language-nginx">listen 443
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">listen</span> <span class="mi">443</span>
+</span><span class='line'>
+</span><span class='line'><span class="s">ssl</span> <span class="no">on</span><span class="p">;</span>
+</span><span class='line'><span class="k">ssl_certificate</span> <span class="s">/etc/letsencrypt/live/网站域名/fullchain.pem</span><span class="p">;</span>
+</span><span class='line'><span class="k">ssl_certificate_key</span> <span class="s">/etc/letsencrypt/live/网站域名/privkey.pem</span><span class="p">;</span>
+</span><span class='line'><span class="k">ssl_dhparam</span> <span class="s">/etc/ssl/certs/dhparams.pem</span><span class="p">;</span>
+</span><span class='line'><span class="k">ssl_protocols</span> <span class="s">SSLv3</span> <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+</span><span class='line'><span class="k">ssl_ciphers</span> <span class="s">HIGH:!aNULL:!MD5</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-ssl on;
-ssl_certificate /etc/letsencrypt/live/网站域名/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/网站域名/privkey.pem;
-ssl_dhparam /etc/ssl/certs/dhparams.pem;
-ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-ssl_ciphers HIGH:!aNULL:!MD5;
-</code></pre>
 
 <p>然后重启 nginx 服务就可以了</p>
 
-<h2 id="6-强制跳转-https">6. 强制跳转 https</h2>
+<h2>6. 强制跳转 https</h2>
 
 <p>https 默认是监听 443 端口的，没开启 https 访问的话一般默认是 80 端口。如果你确定网站 80 端口上的站点都支持 https 的话加入下面的配件可以自动重定向到 https</p>
 
-<pre><code class="language-nginx">server {
-    listen 80;
-    server_name your.domain.com;
-    return 301 https://$server_name$request_uri;
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>    <span class="kn">server_name</span> <span class="s">your.domain.com</span><span class="p">;</span>
+</span><span class='line'>    <span class="kn">return</span> <span class="mi">301</span> <span class="s">https://</span><span class="nv">$server_name$request_uri</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h2 id="7-证书更新">7. 证书更新</h2>
+
+<h2>7. 证书更新</h2>
 
 <p>免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let&rsquo;s encrypt 旗下还有一个 <a href="https://letsmonitor.org/">Let&rsquo;s monitor</a> 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功</p>
 
-<pre><code class="language-bash">./certbot-auto renew
-</code></pre></div>
-                <footer>
-                    <p class="meta">
-                        <span class="byline author vcard">Posted</span>
-                        
-                        <span class="span">on</span>
-                        <span class="categories">
-                            
-                            
-                            <a class="category 0|1" href="https://keelii.github.io/categories/WebDev">WebDev</a>
-                            
-                        </span>
-                        
-                        <span class="span">Last modified</span>
-                        <time class="entry-date" datetime="2016-06-12 18:04:47">
-                            <span class="date">Jun,12 2016</span>
-                            <span class="time">18:04</span>
-                        </time>
-                    </p>
-                    <p class="meta">
-                        
-                        <span class="basic-alignment left">
-                            &laquo; <a href="https://keelii.github.io/2016/06/11/javascript-throttle/" title="Previous Post: JavaScript 节流函数 throttle 详解">JavaScript 节流函数 throttle 详解</a>
-                        </span>
-                        
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./certbot-auto renew
+</span></code></pre></td></tr></table></div></figure>
 
-                        
-                        <span class="basic-alignment right">
-                            <a href="https://keelii.github.io/2016/06/13/awsome-window-vimrc/" title="Nextious Post: 可能是 Windows 下最漂亮的 Gvim 配置了">可能是 Windows 下最漂亮的 Gvim 配置了</a> &raquo;
-                        </span>
-                        
-                    </p>
-                </footer>
-            </article>
-            <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread"></div>
-    <script>
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = '//keelii-blog.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
-        </div>
-
-        <aside class="sidebar">
-    
-        
-<section id="side-toc" class="side-toc odd" style="width: 100%;">
-    <h1>Table  of contents</h1>
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-下载-certbot">1. 下载 certbot</a></li>
-<li><a href="#2-生成免费证书">2. 生成免费证书</a></li>
-<li><a href="#3-获取证书">3. 获取证书</a></li>
-<li><a href="#4-生成-dhparams">4. 生成 dhparams</a></li>
-<li><a href="#5-配置-nginx">5. 配置 Nginx</a></li>
-<li><a href="#6-强制跳转-https">6. 强制跳转 https</a></li>
-<li><a href="#7-证书更新">7. 证书更新</a></li>
-</ul></li>
-</ul>
-</nav>
-</section>
-
-
-
-    
-</aside>
-
-    </div>
 </div>
 
-<footer role="contentinfo">
-    <p>
-        Copyright &copy; 2016 - keelii -
-        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
-        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-06-12T18:04:47+08:00'><span class='date'>06,12,2016</span> <span class='time'>6:04 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/webdev/'>webdev</a>
+  
+</span>
+
+
     </p>
-</footer>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/" >Tweet</a>
+  
+  
+  
+
+<div class="share-weibo" onclick="shareToWeibo()" title="分享到新浪微博">
+  <i></i> 微博
+</div>
+
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2016/06/11/javascript-throttle/" title="Previous Post: JavaScript 节流函数 throttle 详解">&laquo; JavaScript 节流函数 throttle 详解</a>
+      
+      
+        <a class="basic-alignment right" href="/2016/06/13/awsome-window-vimrc/" title="Next Post: 可能是 Windows 下最漂亮的 Gvim 配置了">可能是 Windows 下最漂亮的 Gvim 配置了 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  <div class="default-post-sidebar hide">
+    
+      <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
+      </li>
+    
+  </ul>
+</section>
 
 
-<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-<script src="https://keelii.github.io/javascripts/octopress.js"></script>
 
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+</section>
+
+    
+  </div>
+</aside>
+
+
+<!--TOC-->
 <script src="/javascripts/post.js"></script>
-<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - keelii -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'keelii-blog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/';
+        var disqus_url = 'http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
 
 
 
@@ -270,8 +365,8 @@ ssl_ciphers HIGH:!aNULL:!MD5;
 [l] for next article
 [j] for scroll page up 300px
 [k] for scroll page down 300px
-[G] for scroll page bottom
 -->
+
 
 </body>
 </html>

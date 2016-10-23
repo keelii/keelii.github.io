@@ -1,112 +1,107 @@
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<!DOCTYPE html>   
 <html class="no-js" lang="zh-CN">
-<!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>《JavaScript 权威指南》读书笔记 1 - 简介 - Something</title>
-  <meta name="author" content="keelii">
+    <meta charset="utf-8">
+    <title>《JavaScript 权威指南》读书笔记 1 - 简介</title>
+    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.17" />
 
-  
-  <meta name="description" content="第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《JavaScript 权威指南》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 JavaScript The &hellip;">
-  
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/">
+    <link href="https://keelii.github.io/favicon.png" rel="icon">
+    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
 
-  
-  <link rel="canonical" href="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
-  ga('create', 'UA-79264835-1', 'auto');
-  ga('send', 'pageview');
-  </script>
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 
 </head>
+<body>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Something</a></h1>
-  
-    <h2>There are always __ you don't know yet</h2>
-  
-</hgroup>
-
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>There&#39;s always __ you do not know yet</h2>
+    </hgroup>
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="keelii.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-</ul>
 
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
 </nav>
-  <div id="main">
+
+
+<div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">《JavaScript 权威指南》读书笔记 1 - 简介</h1>
-    
-    
-      <p class="meta">
-        
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">《JavaScript 权威指南》读书笔记 1 - 简介</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-06-16 13:06:13">
+                            <span class="date">Jun,16 2016</span>
+                            <span class="time">13:06 PM</span>
+                        </time>
+                    </p>
+                </header>
 
+                <div class="entry-content"><blockquote>
+<p>第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《<a href="https://book.douban.com/subject/10549733/">JavaScript 权威指南</a>》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 <a href="http://shop.oreilly.com/product/9780596805531.do">JavaScript The Definitive Guide</a>，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误</p>
 
+<p>中文排版指南遵守 <a href="https://github.com/mzlogin/chinese-copywriting-guidelines">中文文案排版指北</a>，欢迎批评批正</p>
+</blockquote>
 
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><blockquote><p>第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《<a href="https://book.douban.com/subject/10549733/">JavaScript 权威指南</a>》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 <a href="http://shop.oreilly.com/product/9780596805531.do">JavaScript The Definitive Guide</a>，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误</p>
-
-<p>中文排版指南遵守 <a href="https://github.com/mzlogin/chinese-copywriting-guidelines">中文文案排版指北</a>，欢迎批评批正</p></blockquote>
-
-<!--more-->
-
+<p></p>
 
 <p>JavaScript 是面向 web 的编程语言，是一门 <strong>高阶的</strong>（high-level）、<strong>动态的</strong>（dynamic）、<strong>弱类型的</strong>（untyped）<strong>解释型</strong>（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self</p>
 
-<h2>JavaScript 的版本</h2>
+<h2 id="javascript-的版本">JavaScript 的版本</h2>
 
 <p>JavaScript 语言规范由 ECMA 国际发布，版本号一般叫做 ECMAScript x，如：ECMAScript 3, ECMAScript 5, ECMAScript 6，简称 ES x</p>
 
@@ -118,653 +113,406 @@
 
 <p>JavaScript 语言核心有很多 API，比如：针对字符串、数组、正则、日期。但这些通常不包括输入输出 API（类似网络、存储、图形相关的特性），输入输出 API 一般是由 JavaScript 的宿主环境（host environment）提供的，通常是浏览器</p>
 
-<h2>JavaScript 语言核心</h2>
+<h2 id="javascript-语言核心">JavaScript 语言核心</h2>
 
-<h3>变量/赋值</h3>
+<h3 id="变量-赋值">变量/赋值</h3>
 
 <p>快速预览下 JavaScript 变量的用法</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 双斜线之后内容是单行注释</span>
-</span><span class='line'><span class="cm">/* 这是多行注释 */</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 变更是表示值的一个符号名字，通过 var 关键字声明</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>              <span class="c1">// 声明一个变量 x</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 值可以通过等号赋值给变量</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span>               <span class="c1">// 现在变量 x 的值为 0</span>
-</span><span class='line'><span class="nx">x</span>                   <span class="c1">// =&gt; 0 通过变量获取其值</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// JavaScript 支持多种数据类型</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>              <span class="c1">// 数字</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>           <span class="c1">// 整数和实数都是数字（number）类型</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span>   <span class="c1">// 字符串</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">;</span>   <span class="c1">// ...</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>           <span class="c1">// 布尔值</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>          <span class="c1">// ...</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>           <span class="c1">// 是一个特殊的值，意思是「空」</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>      <span class="c1">// 和 null 非常累似</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 双斜线之后内容是单行注释
+/* 这是多行注释 */
 
+// 变更是表示值的一个符号名字，通过 var 关键字声明
+var x;              // 声明一个变量 x
 
-<h3>对象/数组</h3>
+// 值可以通过等号赋值给变量
+x = 0               // 现在变量 x 的值为 0
+x                   // =&gt; 0 通过变量获取其值
+
+// JavaScript 支持多种数据类型
+x = 1;              // 数字
+x = 0.01;           // 整数和实数都是数字（number）类型
+x = &quot;hello world&quot;   // 字符串
+x = 'JavaScript';   // ...
+x = true;           // 布尔值
+x = false;          // ...
+x = null;           // 是一个特殊的值，意思是「空」
+x = undefined;      // 和 null 非常累似
+
+</code></pre>
+
+<h3 id="对象-数组">对象/数组</h3>
 
 <p>JavaScript 中两个非常重要的数据类型是对象和数组</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 对象是名/值对的集合，或字符串到值映射的集合</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>                <span class="c1">// 对象由花括号括起来</span>
-</span><span class='line'>    <span class="nx">topic</span><span class="o">:</span> <span class="s1">&#39;JavaScript&#39;</span><span class="p">,</span>    <span class="c1">// book 对象的属性 topic 的值是 &quot;JavaScript&quot;</span>
-</span><span class='line'>    <span class="nx">fat</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 通过「.」或「[]」来访问对象属性</span>
-</span><span class='line'><span class="nx">book</span><span class="p">.</span><span class="nx">topic</span>                  <span class="c1">// =&gt; &quot;JavaScript&quot;</span>
-</span><span class='line'><span class="nx">book</span><span class="p">.[</span><span class="s1">&#39;fat&#39;</span><span class="p">]</span>                <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">book</span><span class="p">.</span><span class="nx">author</span> <span class="o">=</span> <span class="s1">&#39;Flanagan&#39;</span>    <span class="c1">// 通过赋值给 book 对象创建一个新属性 author</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// JavaScript 数组</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">primes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">];</span>
-</span><span class='line'><span class="nx">primes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                   <span class="c1">// =&gt; 2 通过数组下标访问第一个元素</span>
-</span><span class='line'><span class="nx">primes</span><span class="p">.</span><span class="nx">length</span>               <span class="c1">// =&gt; 4 数组中元素的个数</span>
-</span><span class='line'><span class="nx">primes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>               <span class="c1">// =&gt; 9 添加新元素</span>
-</span><span class='line'><span class="nx">primes</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>              <span class="c1">// =&gt; 11 此时数组变成 [2, 3, 5, 7, 9, undefined, 11], 长度也变为 7</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 对象数组</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span> <span class="p">},</span>
-</span><span class='line'>    <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 数组对象</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">listA</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-</span><span class='line'>    <span class="nx">listB</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 对象是名/值对的集合，或字符串到值映射的集合
+var book = {                // 对象由花括号括起来
+    topic: 'JavaScript',    // book 对象的属性 topic 的值是 &quot;JavaScript&quot;
+    fat: true
+};
 
+// 通过「.」或「[]」来访问对象属性
+book.topic                  // =&gt; &quot;JavaScript&quot;
+book.['fat']                // =&gt; true
+book.author = 'Flanagan'    // 通过赋值给 book 对象创建一个新属性 author
 
-<h3>表达式/运算符</h3>
+// JavaScript 数组
+var primes = [2, 3, 5, 7];
+primes[0]                   // =&gt; 2 通过数组下标访问第一个元素
+primes.length               // =&gt; 4 数组中元素的个数
+primes[4] = 9               // =&gt; 9 添加新元素
+primes[6] = 11              // =&gt; 11 此时数组变成 [2, 3, 5, 7, 9, undefined, 11], 长度也变为 7
 
-<p>通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为 <strong>初始化表达式</strong>（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=>）后的值就是表达式的运算结果</p>
+// 对象数组
+var points = [
+    { x: 0, y: 0 },
+    { x: 1, y: 1 }
+];
+
+// 数组对象
+var data = {
+    listA: [1, 3, 5],
+    listB: [2, 4, 6]
+};
+</code></pre>
+
+<h3 id="表达式-运算符">表达式/运算符</h3>
+
+<p>通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为 <strong>初始化表达式</strong>（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=&gt;）后的值就是表达式的运算结果</p>
 
 <p>JavaScript 中最常见的表达式写法就是像下面代码一样使用运算符（operator）,运算符作用于操作数，生成一个新的值</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 最常见的是算术运算符</span>
-</span><span class='line'><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span>                     <span class="c1">// =&gt; 5 加法</span>
-</span><span class='line'><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span>                     <span class="c1">// =&gt; 1 减法</span>
-</span><span class='line'><span class="mi">3</span> <span class="o">*</span> <span class="mi">2</span>                     <span class="c1">// =&gt; 6 乘法</span>
-</span><span class='line'><span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span>                     <span class="c1">// =&gt; 1.5 除法</span>
-</span><span class='line'><span class="nx">points</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">points</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">x</span> <span class="c1">// =&gt; 1 复杂的操作数运算</span>
-</span><span class='line'><span class="s1">&#39;3&#39;</span> <span class="o">+</span> <span class="s1">&#39;2&#39;</span>                 <span class="c1">// =&gt; &#39;32&#39; 字符串连接</span>
-</span><span class='line'>
-</span><span class='line'>                          <span class="c1">// 运算符简写形式</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="nx">count</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// 自增1</span>
-</span><span class='line'><span class="nx">count</span><span class="o">--</span><span class="p">;</span>                  <span class="c1">// 自减1</span>
-</span><span class='line'><span class="nx">count</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>               <span class="c1">// 自加2, 相当于 count = count + 2</span>
-</span><span class='line'><span class="nx">count</span> <span class="o">*=</span> <span class="mi">3</span><span class="p">;</span>               <span class="c1">// ...</span>
-</span><span class='line'><span class="nx">count</span>                     <span class="c1">// =&gt; 6 变量名本身也是表达式</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">==</span> <span class="nx">y</span>                    <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">!=</span> <span class="nx">y</span>                    <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">y</span>                     <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">&lt;=</span> <span class="nx">y</span>                    <span class="c1">// =&gt; true</span>
-</span><span class='line'><span class="nx">x</span> <span class="o">==</span> <span class="nx">y</span>                    <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="s1">&#39;two&#39;</span> <span class="o">==</span> <span class="s1">&#39;three&#39;</span>          <span class="c1">// =&gt; false</span>
-</span><span class='line'><span class="s1">&#39;two&#39;</span> <span class="o">&gt;</span> <span class="s1">&#39;three&#39;</span>           <span class="c1">// =&gt; true &#39;tw&#39; 在字母表中的索引大于 &#39;th&#39;</span>
-</span><span class='line'><span class="kc">false</span> <span class="o">==</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span>          <span class="c1">// =&gt; true</span>
-</span><span class='line'>
-</span><span class='line'>                          <span class="c1">// 逻辑运算符</span>
-</span><span class='line'><span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">y</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>      <span class="c1">// true</span>
-</span><span class='line'><span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>        <span class="c1">// false</span>
-</span><span class='line'><span class="o">!</span><span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="nx">y</span><span class="p">)</span>                 <span class="c1">// true</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 最常见的是算术运算符
+3 + 2                     // =&gt; 5 加法
+3 - 2                     // =&gt; 1 减法
+3 * 2                     // =&gt; 6 乘法
+3 / 2                     // =&gt; 1.5 除法
+points[1].x - points[0].x // =&gt; 1 复杂的操作数运算
+'3' + '2'                 // =&gt; '32' 字符串连接
 
+                          // 运算符简写形式
+var count = 0;
+count++;                  // 自增1
+count--;                  // 自减1
+count += 2;               // 自加2, 相当于 count = count + 2
+count *= 3;               // ...
+count                     // =&gt; 6 变量名本身也是表达式
+
+var x = 2, y = 3
+x == y                    // =&gt; false
+x != y                    // =&gt; true
+x &lt; y                     // =&gt; true
+x &lt;= y                    // =&gt; true
+x == y                    // =&gt; false
+'two' == 'three'          // =&gt; false
+'two' &gt; 'three'           // =&gt; true 'tw' 在字母表中的索引大于 'th'
+false == (x &gt; y)          // =&gt; true
+
+                          // 逻辑运算符
+(x == 2) &amp;&amp; (y == 3)      // true
+(x &gt; 2) &amp;&amp; (y &lt; 3)        // false
+!(x == y)                 // true
+</code></pre>
 
 <p>如果 JavaScript 中的「短语」是表达式，那么整个句子就称做 <strong>语句</strong>（statement），以分号结束的行都是一条语句。语句和表达式有很多共同之处</p>
 
-<blockquote><p>粗略了讲，表达式仅仅计算出一个值并不进行其它操作，不会改变程序的运行状态，而语句并不包含一个值（或者说它包含的值我们并不关心），但它们改变了程序运行状态</p></blockquote>
+<blockquote>
+<p>粗略了讲，表达式仅仅计算出一个值并不进行其它操作，不会改变程序的运行状态，而语句并不包含一个值（或者说它包含的值我们并不关心），但它们改变了程序运行状态</p>
+</blockquote>
 
-<h3>函数</h3>
+<h3 id="函数">函数</h3>
 
 <p>函数是带有名称（named）和参数的 JavaScript 代码片段，可以一次定义多次调用</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">plus1</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>        <span class="c1">// 定义了一个名为 plus1 的函数，带有参数 x</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>          <span class="c1">// 返回一个比传入参数大 1 的数值</span>
-</span><span class='line'><span class="p">}</span>                          <span class="c1">// 函数代码块是由花括号包裹起来的部分</span>
-</span><span class='line'><span class="nx">plus1</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>                   <span class="c1">// =&gt; 4 函数调用结果为 3+1</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">square</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 函数是一种值，可以赋值给变量</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">square</span><span class="p">(</span><span class="nx">plus1</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>           <span class="c1">// =&gt; 16 在一个表达式中调用两个函数</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">
+function plus1(x) {        // 定义了一个名为 plus1 的函数，带有参数 x
+    return x + 1;          // 返回一个比传入参数大 1 的数值
+}                          // 函数代码块是由花括号包裹起来的部分
+plus1(3)                   // =&gt; 4 函数调用结果为 3+1
 
+var square = function(x) { // 函数是一种值，可以赋值给变量
+    return x * x;
+};
+
+square(plus1(3))           // =&gt; 16 在一个表达式中调用两个函数
+
+</code></pre>
 
 <p>当函数和对象合写在一起时，当函数就变成了「方法」（method）:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 当函数赋值给对象的属性，我们称为「方法」，所有 JavaScript 对象都含有方法</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>             <span class="c1">// 创建一个空数组</span>
-</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>        <span class="c1">// 调用数组的添加元素方法</span>
-</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>            <span class="c1">// 调用数组的次序反转方法</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 自定义方法</span>
-</span><span class='line'><span class="nx">points</span><span class="p">.</span><span class="nx">dist</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 勾股定理，用 Math.sqrt 来计算平方根</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">points</span><span class="p">.</span><span class="nx">dist</span><span class="p">();</span>                  <span class="c1">// =&gt; 求得两个点之间的距离</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 当函数赋值给对象的属性，我们称为「方法」，所有 JavaScript 对象都含有方法
+var a = [];             // 创建一个空数组
+a.push(1, 2, 3);        // 调用数组的添加元素方法
+a.reverse();            // 调用数组的次序反转方法
 
+// 自定义方法
+points.dist = function() {
+    var p1 = this[0];
+    var p2 = this[1];
+    var a = p2.x - p1.x;
+    var b = p2.y - p1.y;
+    return Math.sqrt(a*a + b*b) // 勾股定理，用 Math.sqrt 来计算平方根
+}
+points.dist();                  // =&gt; 求得两个点之间的距离
+</code></pre>
 
-<h3>面向对象</h3>
+<h3 id="面向对象">面向对象</h3>
 
 <p>JavaScript 中的面向对象特性和传统语言的很大的区别，下面展示一个类用来表示 2D 平面中的几何点，这个类实例化后的对象有一个名为 r() 的方法，可以计算该点到原点的距离：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">Point</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 通过给构造函数的 prototype 对象赋值，来给 Point 对象定义方法</span>
-</span><span class='line'><span class="nx">Point</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 使用 new 关键字和构造函数来创建一个实例 p</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Point 的实例对象 p（以及所有 Point 的实例对象）继承了方法 r()</span>
-</span><span class='line'><span class="nx">p</span><span class="p">.</span><span class="nx">r</span><span class="p">()</span>               <span class="c1">// =&gt; 1.414...</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
 
+// 通过给构造函数的 prototype 对象赋值，来给 Point 对象定义方法
+Point.prototype.r = function() {
+    return Math.sqrt(this.x * this.x + this.y * this.y)
+};
 
-<h2>客户端的 JavaScript</h2>
+// 使用 new 关键字和构造函数来创建一个实例 p
+var p = new Point(1, 1);
 
-<h3>嵌入到 HTML 中的 JavaScript</h3>
+// Point 的实例对象 p（以及所有 Point 的实例对象）继承了方法 r()
+p.r()               // =&gt; 1.414...
+</code></pre>
+
+<h2 id="客户端的-javascript">客户端的 JavaScript</h2>
+
+<h3 id="嵌入到-html-中的-javascript">嵌入到 HTML 中的 JavaScript</h3>
 
 <p>JavaScript 代码可以通过 &lt;script&gt; 标签来嵌入到 HTML 文件中</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;外链脚本文件.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>正常 HTML 段落<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;script&gt;</span>
-</span><span class='line'>        <span class="c1">// 这里可以写 JavaScript 代码</span>
-</span><span class='line'>        <span class="c1">// 通过弹出一个圣诞框来询问用户一个问题</span>
-</span><span class='line'>        <span class="kd">function</span> <span class="nx">moveon</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>            <span class="kd">var</span> <span class="nx">answer</span> <span class="o">=</span> <span class="nx">confirm</span><span class="p">(</span><span class="s1">&#39;准备好了吗？&#39;</span><span class="p">);</span>
-</span><span class='line'>            <span class="c1">// 单击「确认」按钮，浏览器会跳转到 jd.com</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;jd.com&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>       <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">moveon</span><span class="p">,</span> <span class="mi">6000</span><span class="p">);</span>
-</span><span class='line'>    <span class="nt">&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span><span class='line'><span class="nt">&lt;/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;外链脚本文件.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;正常 HTML 段落&lt;/p&gt;
+    &lt;script&gt;
+        // 这里可以写 JavaScript 代码
+        // 通过弹出一个圣诞框来询问用户一个问题
+        function moveon() {
+            var answer = confirm('准备好了吗？');
+            // 单击「确认」按钮，浏览器会跳转到 jd.com
+            if (answer) window.location = 'jd.com';
+        }
 
+       setTimeout(moveon, 6000);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
-<h3>使用 JavaScript 操作 DOM</h3>
+<h3 id="使用-javascript-操作-dom">使用 JavaScript 操作 DOM</h3>
 
 <p>JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 调用 debug 传入字符串，JavaScript 会动态创建一个 HTML 节点并字符串内容显示其中</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">debug</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;debuglog&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">log</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">log</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">log</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s1">&#39;debuglog&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">log</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;h1&gt; Debug Log &lt;/h1&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">log</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">pre</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;pre&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">pre</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">log</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">pre</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;this is debug message&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 调用 debug 传入字符串，JavaScript 会动态创建一个 HTML 节点并字符串内容显示其中
+function debug(msg) {
+    var log = document.getElementById('debuglog');
 
+    if (!log) {
+        log = document.createElement('div');
+        log.id = 'debuglog';
+        log.innerHTML = '&lt;h1&gt; Debug Log &lt;/h1&gt;';
+        document.body.appendChild(log);
+    }
 
-<h3>使用 JavaScript 操作 CSS 样式</h3>
+    var pre = document.createElement('pre');
+    var text = document.createTextNode(msg);
+    pre.appendChild(text);
+    log.appendChild(pre);
+}
+
+debug('this is debug message');
+</code></pre>
+
+<h3 id="使用-javascript-操作-css-样式">使用 JavaScript 操作 CSS 样式</h3>
 
 <p>JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素，从而影响 CSS 样式</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 设置元素的 CSS 属性 display/visiblity</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">hide</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">reflow</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">reflow</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>    <span class="c1">// 隐藏元素</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s1">&#39;hide&#39;</span><span class="p">;</span> <span class="c1">// 隐藏元素，但元素仍然占空间</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">// 设置 HTML 元素的 class 属性，class 属性可以是多个（空格分割），如：&lt;div class=&quot;c1 c2 c3&quot;&gt;</span>
-</span><span class='line'><span class="kd">function</span> <span class="nx">highlight</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">className</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">e</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;hilite&#39;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">e</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; hilite&#39;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 设置元素的 CSS 属性 display/visiblity
+function hide(el, reflow) {
+    if (reflow) {
+        el.style.display = 'none';    // 隐藏元素
+    } else {
+        el.style.visibility = 'hide'; // 隐藏元素，但元素仍然占空间
+    }
+}
+// 设置 HTML 元素的 class 属性，class 属性可以是多个（空格分割），如：&lt;div class=&quot;c1 c2 c3&quot;&gt;
+function highlight(e) {
+    if (!e.className) {
+        e.className = 'hilite';
+    } else {
+        e.className += ' hilite';
+    }
+}
+</code></pre>
 
-
-<h3>使用 JavaScript 处理事件</h3>
+<h3 id="使用-javascript-处理事件">使用 JavaScript 处理事件</h3>
 
 <p>JavaScript 通过注册事件函数来定义文档/用户的行为，比如：点击，鼠标 hover 等</p>
 
 <p>给 HTML 元素添加事件处理程序的一种方法是直接给 HTML 元素添加行内的 on[event name]，比如给按钮绑定点击事件</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;debug.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;hide.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'>Hello
-</span><span class='line'><span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;hide(this, true);debug(&#39;hide button1&#39;)&quot;</span><span class="nt">&gt;</span>Hide1<span class="nt">&lt;/button&gt;</span>
-</span><span class='line'><span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;hide(this);debug(&#39;hide button2&#39;)&quot;</span><span class="nt">&gt;</span>Hide2<span class="nt">&lt;/button&gt;</span>
-</span><span class='line'>World
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-html">&lt;script src=&quot;debug.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;hide.js&quot;&gt;&lt;/script&gt;
+Hello
+&lt;button onclick=&quot;hide(this, true);debug('hide button1')&quot;&gt;Hide1&lt;/button&gt;
+&lt;button onclick=&quot;hide(this);debug('hide button2')&quot;&gt;Hide2&lt;/button&gt;
+World
+</code></pre>
 
 <p>另外一种方法是调用元素的 <strong>添加事件处理函数</strong>，通常是 addEventListener 或 attachEvent（IE专用）</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 注册 onload 事件，效果和在 HTML 上写 onload 是一样的</span>
-</span><span class='line'><span class="c1">// 不过只有部分 HTML 元素支持，比如： img 标签的 onload</span>
-</span><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">images</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">images</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span> <span class="nx">image</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="p">)</span>
-</span><span class='line'>            <span class="nx">image</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">hide</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">else</span>
-</span><span class='line'>            <span class="nx">image</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">hide</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">function</span> <span class="nx">hide</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s1">&#39;hidden&#39;</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">// 注册 onload 事件，效果和在 HTML 上写 onload 是一样的
+// 不过只有部分 HTML 元素支持，比如： img 标签的 onload
+window.onload = function() {
+    var images = document.getElementsByTagName('img');
 
+    for (var i = 0, l = images.length; i &lt; l; i++) {
+        var image = images[i];
+        if ( image.addEventListener )
+            image.addEventListener('click', hide, false);
+        else
+            image.attachEvent('onclick', hide);
+    }
 
-<h3>使用 jQuery 库</h3>
+    function hide(event) { event.target.style.visibility = 'hidden'; }
+}
+</code></pre>
+
+<h3 id="使用-jquery-库">使用 jQuery 库</h3>
 
 <p>使用 jQuery 类库会使 DOM 操作、事件绑定等操作非常方便，而且不用担心浏览器兼容问题（JavaScript api 层面的兼容）</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">debug</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">$log</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#debuglog&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$log</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">log</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;debuglog&quot;&gt;&lt;h1&gt;Debug Log&lt;/h1&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">log</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">log</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;pre /&gt;&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">msg</span><span class="p">))</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-javascript">function debug(msg) {
+    var $log = $('#debuglog');
+    if (!$log.length) {
+        log = $('&lt;div id=&quot;debuglog&quot;&gt;&lt;h1&gt;Debug Log&lt;/h1&gt;&lt;/div&gt;');
+        log.appendTo(document.body)
+    }
 
+    log.append($('&lt;pre /&gt;').text(msg))
+}
+</code></pre>
 
-<h2>引用</h2>
+<h2 id="引用">引用</h2>
 
 <ul>
 <li>ECMAScript <a href="https://zh.wikipedia.org/wiki/ECMAScript">https://zh.wikipedia.org/wiki/ECMAScript</a></li>
 <li>JScript <a href="https://zh.wikipedia.org/wiki/JScript">https://zh.wikipedia.org/wiki/JScript</a></li>
-</ul>
+</ul></div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|2" href="https://keelii.github.io/categories/javascript">javascript</a>,
+                            
+                            <a class="category 1|2" href="https://keelii.github.io/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                            
+                        </span>
+                        
+                        <span class="span">Last modified</span>
+                        <time class="entry-date" datetime="2016-06-16 13:06:13">
+                            <span class="date">Jun,16 2016</span>
+                            <span class="time">13:06</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/" title="Previous Post: 《JavaScript 权威指南》读书笔记 2 - 词法结构">《JavaScript 权威指南》读书笔记 2 - 词法结构</a>
+                        </span>
+                        
 
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">keelii</span></span>
-
-      
-
-
-
-
-<time class='entry-date' datetime='2016-06-16T13:06:13+08:00'><span class='date'>06,16,2016</span> <span class='time'>1:06 pm</span></time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/categories/javascript/'>javascript</a>, <a class='category' href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/" data-via="keelii" data-counturl="http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/" >Tweet</a>
-  
-  
-  
-
-<div class="share-weibo" onclick="shareToWeibo()" title="分享到新浪微博">
-  <i></i> 微博
-</div>
-
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2016/06/14/compile-vim-on-windows-with-lua-support/" title="Previous Post: Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持">&laquo; Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</a>
-      
-      
-        <a class="basic-alignment right" href="/2016/06/16/javascript-definitive-guide-note-1/" title="Next Post: 《JavaScript 权威指南》读书笔记 2 - 词法结构">《JavaScript 权威指南》读书笔记 2 - 词法结构 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/" title="Nextious Post: 《JavaScript 权威指南》读书笔记 4 - 表达式和运算符">《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
     <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
-</div>
 
-<aside class="sidebar">
-  <div class="default-post-sidebar hide">
+        </div>
+
+        <aside class="sidebar">
     
-      <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
-      </li>
-    
-  </ul>
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h1>Table  of contents</h1>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#javascript-的版本">JavaScript 的版本</a></li>
+<li><a href="#javascript-语言核心">JavaScript 语言核心</a>
+<ul>
+<li><a href="#变量-赋值">变量/赋值</a></li>
+<li><a href="#对象-数组">对象/数组</a></li>
+<li><a href="#表达式-运算符">表达式/运算符</a></li>
+<li><a href="#函数">函数</a></li>
+<li><a href="#面向对象">面向对象</a></li>
+</ul></li>
+<li><a href="#客户端的-javascript">客户端的 JavaScript</a>
+<ul>
+<li><a href="#嵌入到-html-中的-javascript">嵌入到 HTML 中的 JavaScript</a></li>
+<li><a href="#使用-javascript-操作-dom">使用 JavaScript 操作 DOM</a></li>
+<li><a href="#使用-javascript-操作-css-样式">使用 JavaScript 操作 CSS 样式</a></li>
+<li><a href="#使用-javascript-处理事件">使用 JavaScript 处理事件</a></li>
+<li><a href="#使用-jquery-库">使用 jQuery 库</a></li>
+</ul></li>
+<li><a href="#引用">引用</a></li>
+</ul></li>
+</ul>
+</nav>
 </section>
 
 
 
-
-<section>
-  <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
-</section>
-
     
-  </div>
 </aside>
 
-
-<!--TOC-->
-<script src="/javascripts/post.js"></script>
-
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - keelii -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+</div>
 
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2016 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'keelii-blog';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/';
-        var disqus_url = 'http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script src="https://keelii.github.io/javascripts/octopress.js"></script>
 
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
 
 
 
@@ -777,8 +525,8 @@
 [l] for next article
 [j] for scroll page up 300px
 [k] for scroll page down 300px
+[G] for scroll page bottom
 -->
-
 
 </body>
 </html>

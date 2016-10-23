@@ -1,124 +1,129 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>http://keelii.github.io/2016/09/29/javascript-browser-event/</loc>
-<lastmod>2016-09-29T17:22:29+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</loc>
-<lastmod>2016-08-12T15:36:59+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</loc>
-<lastmod>2016-07-31T10:48:57+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</loc>
-<lastmod>2016-07-26T11:35:42+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</loc>
-<lastmod>2016-07-14T14:11:08+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</loc>
-<lastmod>2016-07-10T19:47:18+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</loc>
-<lastmod>2016-07-06T12:43:30+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</loc>
-<lastmod>2016-07-04T09:32:45+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</loc>
-<lastmod>2016-07-02T13:58:30+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</loc>
-<lastmod>2016-06-29T20:22:22+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</loc>
-<lastmod>2016-06-23T19:10:28+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</loc>
-<lastmod>2016-06-23T19:10:28+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</loc>
-<lastmod>2016-06-23T19:10:28+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</loc>
-<lastmod>2016-06-20T19:10:28+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</loc>
-<lastmod>2016-06-16T13:06:13+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</loc>
-<lastmod>2016-06-16T13:06:13+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</loc>
-<lastmod>2016-06-16T13:06:13+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</loc>
-<lastmod>2016-06-14T10:39:40+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/13/awsome-window-vimrc/</loc>
-<lastmod>2016-06-13T21:25:57+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/</loc>
-<lastmod>2016-06-12T18:04:47+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/11/javascript-throttle/</loc>
-<lastmod>2016-06-11T06:52:57+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/2016/06/10/test-post/</loc>
-<lastmod>2016-06-10T18:04:47+08:00</lastmod>
-</url>
-<url>
-<loc>http://keelii.github.io/archives/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/about/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/javascript/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/webdev/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/editor/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/javascript-the-definitive-guide/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/lisp/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/jd/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/item/</loc>
-</url>
-<url>
-<loc>http://keelii.github.io/categories/event/</loc>
-</url>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://keelii.github.io/</loc>
+    <lastmod>2016-10-04T17:22:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/</loc>
+    <lastmod>2016-10-04T17:22:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/09/29/javascript-browser-event/</loc>
+    <lastmod>2016-09-29T17:22:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</loc>
+    <lastmod>2016-08-12T15:36:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/31/something-have-to-say-with-jd-item/</loc>
+    <lastmod>2016-07-31T10:48:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</loc>
+    <lastmod>2016-07-26T11:35:42+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</loc>
+    <lastmod>2016-07-14T14:11:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</loc>
+    <lastmod>2016-07-10T19:47:18+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</loc>
+    <lastmod>2016-07-06T12:43:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</loc>
+    <lastmod>2016-07-04T09:32:45+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</loc>
+    <lastmod>2016-07-02T13:58:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</loc>
+    <lastmod>2016-06-29T20:22:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</loc>
+    <lastmod>2016-06-23T19:10:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</loc>
+    <lastmod>2016-06-23T19:10:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</loc>
+    <lastmod>2016-06-23T19:10:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</loc>
+    <lastmod>2016-06-20T19:10:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</loc>
+    <lastmod>2016-06-16T13:06:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</loc>
+    <lastmod>2016-06-16T13:06:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</loc>
+    <lastmod>2016-06-16T13:06:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</loc>
+    <lastmod>2016-06-14T10:39:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/13/awsome-window-vimrc/</loc>
+    <lastmod>2016-06-13T21:25:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/about/</loc>
+    <lastmod>2016-06-13T18:04:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/</loc>
+    <lastmod>2016-06-12T18:04:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/11/javascript-throttle/</loc>
+    <lastmod>2016-06-11T06:52:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.github.io/2016/06/10/test-post/</loc>
+    <lastmod>2016-06-10T18:04:47+08:00</lastmod>
+  </url>
+  
 </urlset>

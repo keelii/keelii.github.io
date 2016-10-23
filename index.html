@@ -1,526 +1,432 @@
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<!DOCTYPE html>   
 <html class="no-js" lang="zh-CN">
-<!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <title>Something</title>
-  <meta name="author" content="keelii">
+    <meta charset="utf-8">
+    <title>Something</title>
+    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.17" />
 
-  
-  <meta name="description" content="JavaScript、浏览器、事件之间的关系 JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是： 事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。 &hellip;">
-  
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://keelii.github.io/">
+    <link href="https://keelii.github.io/favicon.png" rel="icon">
+    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
 
-  
-  <link rel="canonical" href="http://keelii.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Something" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font with a mirror site => //fonts.lug.ustc.edu.cn -->
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <link href="//fonts.lug.ustc.edu.cn/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-  <meta property="wb:webmaster" content="9e54d7323cc6a75d" />
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
 
-  ga('create', 'UA-79264835-1', 'auto');
-  ga('send', 'pageview');
-  </script>
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 
 </head>
+<body>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Something</a></h1>
-  
-    <h2>There are always __ you don't know yet</h2>
-  
-</hgroup>
-
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>There&#39;s always __ you do not know yet</h2>
+    </hgroup>
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="keelii.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-</ul>
 
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+            <a href="https://keelii.github.io/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
 </nav>
-  <div id="main">
+
+
+<div id="main">
     <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a></h1>
-    
-    
-      <p class="meta">
-        
+        <div class="blog-index">
+            
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/">简单方法解决 Macbook 电源接口接触不良的问题</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-10-04 17:22:29">
+                            <span class="date">Oct, 4, 2016</span>
+                            <span class="time">17:22 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>Macbook 电源用的时候久了，接口里面的几个针脚弹性变差，有时候接通电源然而灯不能亮</p>
 
+<p>在网上搜索了下发现一个好方法：<strong>接电源那头是突出金属的，稍微打磨下去一点就可以了</strong>，亲测有效</p>
 
+<p>PS: 如果没有打磨工具可以直接找个空地面磨，有条件的话磨完再用砂纸抛光下就可以了</p>
 
+<p>来两张图片看看</p>
 
-<time class='entry-date' datetime='2016-09-29T17:22:29+08:00'><span class='date'>09,29,2016</span> <span class='time'>5:22 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>JavaScript、浏览器、事件之间的关系</h2>
+<p></p></p></div>
+                
+                <footer>
+                    <a title="126 Words, 1 Minutes" href="/2016/10/04/rebuild-mbp-power-cord/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-09-29 17:22:29">
+                            <span class="date">Sep, 29, 2016</span>
+                            <span class="time">17:22 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><h2 id="javascript-浏览器-事件之间的关系">JavaScript、浏览器、事件之间的关系</h2>
 
 <p>JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是：</p>
 
-<blockquote><p>事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的</p></blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/09/29/javascript-browser-event/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-08-12T15:36:59+08:00'><span class='date'>08,12,2016</span> <span class='time'>3:36 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/08/12/javascript-definitive-guide-note-13/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-31T10:48:57+08:00'><span class='date'>07,31,2016</span> <span class='time'>10:48 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>简介</h2>
-
-<p>详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页面。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/31/something-have-to-say-with-JD-item/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-26T11:35:42+08:00'><span class='date'>07,26,2016</span> <span class='time'>11:35 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本章介绍 window 对象的属性和方法</p>
-
-<h2>计时器</h2>
-
-<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/26/javascript-definitive-guide-note-12/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-14T14:11:08+08:00'><span class='date'>07,14,2016</span> <span class='time'>2:11 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>客户端的 JavaScript</h2>
-
-<p>Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/14/javascript-definitive-guide-note-11/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-10T19:47:18+08:00'><span class='date'>07,10,2016</span> <span class='time'>7:47 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>用 Node 实现异步 I/O</h2>
-
-<p>Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/10/javascript-definitive-guide-note-10/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-06T12:43:30+08:00'><span class='date'>07,06,2016</span> <span class='time'>12:43 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/06/javascript-definitive-guide-note-9/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 Lisp 简单描述加法运算</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-07-04T09:32:45+08:00'><span class='date'>07,04,2016</span> <span class='time'>9:32 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
+<blockquote>
+<p>事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的</p>
+</blockquote></p></div>
+                
+                <footer>
+                    <a title="2952 Words, 6 Minutes" href="/2016/09/29/javascript-browser-event/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-08-12 15:36:59">
+                            <span class="date">Aug, 12, 2016</span>
+                            <span class="time">15:36 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容</p>
+
+<p></p></p></div>
+                
+                <footer>
+                    <a title="4935 Words, 10 Minutes" href="/2016/08/12/javascript-definitive-guide-note-13/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/31/something-have-to-say-with-jd-item/">京东单品页前端开发那些不得不说的事儿</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-31 10:48:57">
+                            <span class="date">Jul, 31, 2016</span>
+                            <span class="time">10:48 AM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><h2 id="简介">简介</h2>
+
+<p>详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合</p>
+
+<p></p></p></div>
+                
+                <footer>
+                    <a title="8254 Words, 17 Minutes" href="/2016/07/31/something-have-to-say-with-jd-item/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-26 11:35:42">
+                            <span class="date">Jul, 26, 2016</span>
+                            <span class="time">11:35 AM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>本章介绍 Window 对象的属性和方法</p>
+
+<h2 id="计时器">计时器</h2>
+
+<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
+
+由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容</p></p></div>
+                
+                <footer>
+                    <a title="3689 Words, 8 Minutes" href="/2016/07/26/javascript-definitive-guide-note-12/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-14 14:11:08">
+                            <span class="date">Jul, 14, 2016</span>
+                            <span class="time">14:11 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><h2 id="客户端的-javascript">客户端的 JavaScript</h2>
+
+<p>Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
+</p></p></div>
+                
+                <footer>
+                    <a title="5980 Words, 12 Minutes" href="/2016/07/14/javascript-definitive-guide-note-11/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-10 19:47:18">
+                            <span class="date">Jul, 10, 2016</span>
+                            <span class="time">19:47 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><h2 id="用-node-实现异步-i-o">用 Node 实现异步 I/O</h2>
+
+<p>Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现</p></p></div>
+                
+                <footer>
+                    <a title="789 Words, 2 Minutes" href="/2016/07/10/javascript-definitive-guide-note-10/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-06 12:43:30">
+                            <span class="date">Jul, 6, 2016</span>
+                            <span class="time">12:43 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换</p>
+
+<p></p></p></div>
+                
+                <footer>
+                    <a title="1930 Words, 4 Minutes" href="/2016/07/06/javascript-definitive-guide-note-9/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 lisp 简单描述加法运算</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-04 09:32:45">
+                            <span class="date">Jul, 4, 2016</span>
+                            <span class="time">09:32 AM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
 
 <p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
 
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/04/describe-a-simple-add-method-use-lisp/">Read More &raquo;</a>
-    </footer>
-  
+<p></p></p></div>
+                
+                <footer>
+                    <a title="197 Words, 1 Minutes" href="/2016/07/04/describe-a-simple-add-method-use-lisp/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-07-02 13:58:30">
+                            <span class="date">Jul, 2, 2016</span>
+                            <span class="time">13:58 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p><p>每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）</p>
 
+<p></p></p></div>
+                
+                <footer>
+                    <a title="3794 Words, 8 Minutes" href="/2016/07/02/javascript-definitive-guide-note-8/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
+            
+            <div class="pagination">
+                
+                <a class="prev" href="/page/2/">← Older</a>
+                
+                <a href="https://keelii.github.io/archives">Blog Archives</a>
+                
+            </div>
+            
+        </div>
+        <aside class="sidebar">
     
-      <h1 class="entry-title"><a href="/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a></h1>
-    
-    
-      <p class="meta">
         
-
-
-
-
-<time class='entry-date' datetime='2016-07-02T13:58:30+08:00'><span class='date'>07,02,2016</span> <span class='time'>1:58 pm</span></time>
+<section class="odd">
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/07/02/javascript-definitive-guide-note-8/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a></h1>
-    
-    
-      <p class="meta">
+        <li class="post">
+            <a href="/2016/10/04/rebuild-mbp-power-cord/">简单方法解决 Macbook 电源接口接触不良的问题</a>
+        </li>
         
-
-
-
-
-<time class='entry-date' datetime='2016-06-29T20:22:22+08:00'><span class='date'>06,29,2016</span> <span class='time'>8:22 pm</span></time>
+        <li class="post">
+            <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
+        </li>
         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 <strong>局部变量</strong> 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 <strong><a href="/2016/06/20/javascript-definitive-guide-note-3/#TOC-4">调用表达式</a></strong>值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2016/06/29/javascript-definitive-guide-note-7/">Read More &raquo;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
-      </li>
-    
-  </ul>
+        <li class="post">
+            <a href="/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
+        </li>
+        
+        <li class="post">
+            <a href="/2016/07/31/something-have-to-say-with-jd-item/">京东单品页前端开发那些不得不说的事儿</a>
+        </li>
+        
+        <li class="post">
+            <a href="/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
+        </li>
+        
+    </ul>
 </section>
 
 
 
-
-<section>
-  <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/categories/editor/'>editor (2)</a></li><li><a href='/categories/event/'>event (1)</a></li><li><a href='/categories/item/'>item (1)</a></li><li><a href='/categories/javascript/'>javascript (16)</a></li><li><a href='/categories/javascript-the-definitive-guide/'>javascript_the_definitive_guide (14)</a></li><li><a href='/categories/jd/'>jd (1)</a></li><li><a href='/categories/lisp/'>lisp (1)</a></li><li><a href='/categories/webdev/'>webdev (1)</a></li></ul>
+<section class="even">
+    <h1>Categories</h1>
+    <ul id="category-list">
+        
+        <li>
+            <a href="https://keelii.github.io/categories/editor">editor (2)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/event">event (1)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/item">item (1)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/javascript">javascript (16)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/javascript_the_definitive_guide">javascript_the_definitive_guide (14)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/jd">jd (1)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/lisp">lisp (1)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/mbp">mbp (1)</a>
+        </li>
+        
+        <li>
+            <a href="https://keelii.github.io/categories/webdev">webdev (1)</a>
+        </li>
+        
+    </ul>
 </section>
 
-  
+
+    
 </aside>
 
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - keelii -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+</div>
 
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2016 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'keelii-blog';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script src="https://keelii.github.io/javascripts/octopress.js"></script>
 
 
 
@@ -534,8 +440,9 @@
 [l] for next article
 [j] for scroll page up 300px
 [k] for scroll page down 300px
+[G] for scroll page bottom
 -->
-
 
 </body>
 </html>
+

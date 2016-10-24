@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://keelii.github.io/sitemap.xml 

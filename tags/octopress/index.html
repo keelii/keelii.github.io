@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>使用 Lisp 简单描述加法运算</title>
+    <title>Octopress</title>
     <meta name="description" content="There&#39;s always __ you do not know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
@@ -12,7 +12,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/">
+    <link rel="canonical" href="https://keelii.github.io/tags/octopress/">
     <link href="https://keelii.github.io/favicon.png" rel="icon">
     <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
 
@@ -20,7 +20,6 @@
     <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
-    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
     
     <script>
@@ -55,6 +54,8 @@
     <ul class="subscription" data-subscription="rss">
         <li>
             
+            <a href="https://keelii.github.io/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
+            
         </li>
     </ul>
 
@@ -79,98 +80,39 @@
 
 <div id="main">
     <div id="content">
+
         <div>
-            <article class="hentry" role="article">
+            <article role="article">
                 <header>
-                    <h1 class="entry-title">使用 Lisp 简单描述加法运算</h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2016-07-04 09:32:45">
-                            <span class="date">Jul,4 2016</span>
-                            <span class="time">09:32 AM</span>
-                        </time>
-                    </p>
+                    
+                    <h1>Tag: Octopress</h1>
+                    
                 </header>
-
-                <div class="entry-content"><p>最近在看 <a href="http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522">MIT 公开课-计算机程序的构造和解释</a>，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值</p>
-
-<p>由 <a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86">皮亚诺</a> 算术定义的求 x 和 y 之和的过程</p>
-
-<p></p>
-
-<pre><code class="language-lisp">; Define a [+] processor
-(define (+ x y)
-    (if (= x 0)
-        y
-        (+ (-1+x) (1+y))))
-
-; x = 3, y = 4
-(+ 3 4)
-(if (= 3 0) 4 (+ (-1+3) (1+4)))
-(+ (-1+3) (1+4))
-(+ 2 5)
-(if (= 2 0) 5 (+ (-1+2) (1+5)))
-(+ (-1+2) (1+5))
-(+ 1 6)
-(if (= 1 0) 6 (+ (-1+1) (1+6)))
-(+ (-1+1) (1+6))
-(+ 0 7)
-(if (= 0 0) 7 (-1+0) (1+7))
-7
-</code></pre></div>
-                <footer>
-                    <p class="meta">
-                        <span class="byline author vcard">Posted</span>
-                        
-                        <span class="span">on</span>
-                        <span class="categories">
-                            
-                            
-                            <a class="category 0|1" href="https://keelii.github.io/categories/lisp">lisp</a>
-                            
-                        </span>
-                        
-                        <span class="span">Last modified</span>
-                        <time class="entry-date" datetime="2016-07-04 09:32:45">
-                            <span class="date">Jul,4 2016</span>
-                            <span class="time">09:32</span>
-                        </time>
-                    </p>
-                    <p class="meta">
-                        
-                        <span class="basic-alignment left">
-                            &laquo; <a href="https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/" title="Previous Post: 《JavaScript 权威指南》读书笔记 9 - 类和模块">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
-                        </span>
-                        
-
-                        
-                        <span class="basic-alignment right">
-                            <a href="https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/" title="Nextious Post: 《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a> &raquo;
-                        </span>
-                        
-                    </p>
-                </footer>
+                <div id="blog-archives">
+                    
+                        <h2>2016</h2>
+                        <article>
+                            <h1><a href="https://keelii.github.io/2016/10/25/migrating-from-octopress-to-hugo-smoothly/">平滑迁移 Octopress 到 Hugo</a></h1>
+                            <time class="entry-date" datetime="2016-10-25 13:27:20">
+                                <span class="date">Oct</span>
+                                <span class="time">25</span>
+                            </time>
+                            <footer>
+                                <div class="categories">
+                                    posted in
+                                    
+                                    <a class="category" href="/categories/blog">blog</a>
+                                    
+                                </div>
+                            </footer>
+                        </article>
+                    
+                </div>
             </article>
-            <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread"></div>
-    <script>
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = '//keelii-blog.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
         </div>
-
         <aside class="sidebar">
     
         
-    
 <section class="odd">
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
@@ -248,9 +190,6 @@
 </section>
 
 
-
-
-
     
 </aside>
 
@@ -270,10 +209,6 @@
 <script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="/javascripts/octopress.js"></script>
 
-
-<script src="//cdn.bootcss.com/highlight.js/9.7.0/highlight.min.js"></script>
-<script src="/javascripts/post.js"></script>
-<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
 
 
 

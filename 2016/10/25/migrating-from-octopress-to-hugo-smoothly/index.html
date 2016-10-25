@@ -1,0 +1,306 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>平滑迁移 Octopress 到 Hugo</title>
+    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.17" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="canonical" href="https://keelii.github.io/2016/10/25/migrating-from-octopress-to-hugo-smoothly/">
+    <link href="https://keelii.github.io/favicon.png" rel="icon">
+    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
+
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+</head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>There&#39;s always __ you do not know yet</h2>
+    </hgroup>
+</header>
+
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">平滑迁移 Octopress 到 Hugo</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-10-25 13:27:20">
+                            <span class="date">Oct,25 2016</span>
+                            <span class="time">13:27 PM</span>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content"><h2 id="原由">原由</h2>
+
+<p>自从新博客建立以来一直用 <a href="http://octopress.org/">Octopress</a> 这个博客框架来搭建静态文章页面。漂亮的默认主题、方便的发布到 github page 等功能吸引了我</p>
+
+<p>但就在最近因为家里的用 Macbook，刚好升级到了新版的 Sierria，杯具的是之前安装的 Octopress bundle 都失效了。调试了很久还没把环境搭建好，再加上之前发现 Octopress 的 Markdown 解析器老报错，于是就决定要更换一个配置安装简单点的博客生成器了</p>
+
+<p></p>
+
+<p>在参考了这个网站上的各种生成器后 <a href="https://www.staticgen.com/">staticgen</a>，果断选择了 Hugo。没有什么特殊原因，下载安装试用一下就明白了。Hugo 由于是 Go 语言写的，所以你只需要下载好官方给的二进制可执行文件就可以了，再也不用安装各种依赖，然后各种换源什么的乱折腾了。这一点就足以让我转入 Hugo</p>
+
+<h2 id="主题">主题</h2>
+
+<p>由于自己还是比较喜欢 Octopress 默认的这套主题，所以在读过 Hugo 开发文档后，在严格尊重原主题的原则下修改了部分增强样式，制做了一个适配 Hugo 的 Octopress 主题。虽然 Hugo 官方有一个适配 Octopress 的主题 <a href="http://themes.gohugo.io/hugo-octopress/">hugo-octopress</a> 但是对原主题改动太多，我并不喜欢</p>
+
+<h2 id="迁移">迁移</h2>
+
+<h3 id="文章">文章</h3>
+
+<p>Octopress 使用的文章描述头是 yaml 格式的，需要转换成 Hugo 的 toml，自己手动写了个 <a href="https://gist.github.com/keelii/b6c51290e5ee0253f99a6424a7e2faeb">NodeJS 脚本</a> 来完成这个工作，基本上很轻松就完成了。注意：建议放在 <code>content/archives</code> 目录下面，这样的话原来的文件目录和新的就是一致的了</p>
+
+<p>再吐槽下 md 文件名，Octopress 默认是生成时间为前缀的，如：<code>2016-06-13-name.markdown</code>。 如果转移到 Hugo 永久链接还要保持原来文件名格式的话就得把这个前缀干掉（<code>name.md</code>），这样的话排序就乱了。在各种编辑器、文件夹中不按创建顺序排序，看起来很别扭也不方便</p>
+
+<h3 id="文章链接">文章链接</h3>
+
+<p>考虑到之间已经写过很多文章了，搜索引擎都已收录，所以要保持原来的文章链接格式不变。在 Hugo 配置文件里面加上这段，使用文件名做文章永久链接：</p>
+
+<pre><code class="language-toml">[permalinks]
+    archives = &quot;/:year/:month/:day/:filename/&quot;
+</code></pre>
+
+<h3 id="存档">存档</h3>
+
+<p>Octopress 默认的存档地址是 <code>archives</code>，这个我们可以直接在 Hugo 博客目录 content 里面新建一个目录名为 archives 就可以了，以后新建文章都以这个 Section 为准：<code>hugo new archives/your-post-name.md</code></p>
+
+<h3 id="rss">RSS</h3>
+
+<p>Octopress 默认的是 <code>atom.xml</code>，然而 Hugo 中默认的是 <code>index.xml</code>。不过我们可以在 Hugo 中做个配置，和之间保持一致：</p>
+
+<pre><code class="language-toml">RSSUri = &quot;atom.xml&quot;
+</code></pre>
+
+<p>然而实际测试的时候在模板里面调用 <code>{{ .RSSlink }}</code> 始终都返回 index.xml。手动把模板里面的 RSS 链接改成 <code>{{ .Site.BaseURL }}atom.xml</code> 居然能生效？！这估计是 Hugo 的一个 bug。好在被发现了，要不然新老订阅 RSS 地址不一样事情就比较麻烦了</p>
+
+<h3 id="分页">分页</h3>
+
+<p>Octopress 默认的格式是 <code>posts/2</code>，Hugo 中是 <code>posts/2</code> 同样需要加个配置：</p>
+
+<pre><code class="language-toml">paginatePath = &quot;posts&quot;
+</code></pre>
+
+<h2 id="hugo-的几个基本概念">Hugo 的几个基本概念</h2>
+
+<p>这几个概念主要在修改主题的时候能用到</p>
+
+<h3 id="front-matter">Front Matter</h3>
+
+<p>类似 markdown 文件的配置描述，用来配置文章的标题、时间、链接、分类等元信息，提供给模板调用</p>
+
+<pre><code class="language-toml">+++
+title = &quot;post title&quot;
+description = &quot;description.&quot;
+date = &quot;2012-04-06&quot;
+tags = [ &quot;.vimrc&quot;, &quot;plugins&quot;, &quot;spf13-vim&quot;, &quot;vim&quot; ]
+categories = [
+  &quot;cat1&quot;,
+  &quot;cat2&quot;
+]
++++
+</code></pre>
+
+<h3 id="sections">Sections</h3>
+
+<p>在 content 下面的一级目录，通常有分类的概念，但只是文件夹维度的物理隔离</p>
+
+<h3 id="types">Types</h3>
+
+<p>如果没有为文章指定 type 配置，文章默认就属于当前属的 Section，type 可以在 Front Matter 中指定，而
+Section 不可以</p>
+
+<h3 id="archetype">Archetype</h3>
+
+<p>新建文章时候的默认模板，会带有指定的 Front Matter 头</p>
+
+<h3 id="taxonomy">Taxonomy</h3>
+
+<p>分类、标签、系列这种描述文章属性的都属于 Taxonomy Terms</p>
+
+<h2 id="总结">总结</h2>
+
+<p>Hugo 确实是一个不错的博客框架，配置简单、功能强大，很多东西都以「惯例」默认提供了，比如内置 TableOfContents，用来写博客足亦</p>
+
+<p>不过由于是 Go 语言写的，很多人并不知道有这么好用的一个东西，所以社区并不是很好。这可能就是所谓的编程的帮派论吧</p></div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.github.io/categories/blog">blog</a>
+                            
+                        </span>
+                        
+                        <span class="span">Last modified</span>
+                        <time class="entry-date" datetime="2016-10-25 13:27:20">
+                            <span class="date">Oct,25 2016</span>
+                            <span class="time">13:27</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/" title="Previous Post: 简单方法解决 Macbook 电源接口接触不良的问题">简单方法解决 Macbook 电源接口接触不良的问题</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h1>Table  of contents</h1>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#原由">原由</a></li>
+<li><a href="#主题">主题</a></li>
+<li><a href="#迁移">迁移</a>
+<ul>
+<li><a href="#文章">文章</a></li>
+<li><a href="#文章链接">文章链接</a></li>
+<li><a href="#存档">存档</a></li>
+<li><a href="#rss">RSS</a></li>
+<li><a href="#分页">分页</a></li>
+</ul></li>
+<li><a href="#hugo-的几个基本概念">Hugo 的几个基本概念</a>
+<ul>
+<li><a href="#front-matter">Front Matter</a></li>
+<li><a href="#sections">Sections</a></li>
+<li><a href="#types">Types</a></li>
+<li><a href="#archetype">Archetype</a></li>
+<li><a href="#taxonomy">Taxonomy</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+</section>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2016 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
+</footer>
+
+
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="/javascripts/octopress.js"></script>
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+[G] for scroll page bottom
+-->
+
+</body>
+</html>

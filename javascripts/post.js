@@ -1,6 +1,7 @@
 (function(win, doc) {
+    var $toc = $('#side-toc')
+
     function detectFix() {
-        var $toc = $('#side-toc')
         var oTop = $toc.offset().top;
 
         return function() {
@@ -16,6 +17,8 @@
         }
     }
     function fixTOC() {
+        if (!$toc.length) { return false; }
+
         var handler = detectFix();
 
         handler();

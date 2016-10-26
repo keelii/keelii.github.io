@@ -12,7 +12,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/">
+    <link id="permalink" rel="canonical" href="https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/">
     <link href="https://keelii.github.io/favicon.png" rel="icon">
     <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
 
@@ -565,8 +565,11 @@ s.toString();       // =&gt; &quot;[object Ojbect]&quot;
     <h1>Comments</h1>
     <div id="disqus_thread"></div>
     <script>
-    var disqus_identifier = "https:\/\/keelii.github.io\/2016\/06\/23\/javascript-definitive-guide-note-5\/";
-    var disqus_url = "https:\/\/keelii.github.io\/2016\/06\/23\/javascript-definitive-guide-note-5\/";
+    var permalink = document.getElementById('permalink')
+        .getAttribute('href').replace(/^https/, 'http');
+
+    var disqus_identifier = permalink;
+    var disqus_url = permalink;
     (function() {
     var d = document, s = d.createElement('script');
     s.src = '//keelii-blog.disqus.com/embed.js';

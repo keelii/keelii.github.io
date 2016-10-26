@@ -980,7 +980,9 @@ i = 0; j = 1; k = 2;
     <div id="disqus_thread"></div>
     <script>
     var permalink = document.getElementById('permalink')
-        .getAttribute('href').replace(/^https/, 'http');
+        .getAttribute('href')
+        .replace(/^https/, 'http')
+        .replace(/-jd-/, '-JD-');
 
     var disqus_identifier = permalink;
     var disqus_url = permalink;

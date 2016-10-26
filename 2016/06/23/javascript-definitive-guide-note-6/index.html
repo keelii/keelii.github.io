@@ -598,7 +598,9 @@ Array.prototype.join.call(s, &quot; &quot;)       // =&gt; &quot;J a v a S c r i
     <div id="disqus_thread"></div>
     <script>
     var permalink = document.getElementById('permalink')
-        .getAttribute('href').replace(/^https/, 'http');
+        .getAttribute('href')
+        .replace(/^https/, 'http')
+        .replace(/-jd-/, '-JD-');
 
     var disqus_identifier = permalink;
     var disqus_url = permalink;

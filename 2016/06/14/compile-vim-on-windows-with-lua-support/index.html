@@ -200,7 +200,9 @@ make: *** [Make_cyg_ming.mak:860: gobjx86-64] Error 2
     <div id="disqus_thread"></div>
     <script>
     var permalink = document.getElementById('permalink')
-        .getAttribute('href').replace(/^https/, 'http');
+        .getAttribute('href')
+        .replace(/^https/, 'http')
+        .replace(/-jd-/, '-JD-');
 
     var disqus_identifier = permalink;
     var disqus_url = permalink;

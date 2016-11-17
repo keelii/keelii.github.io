@@ -6,8 +6,217 @@
     <description>Recent content in Archives-rsses on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Oct 2016 13:27:20 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 17 Nov 2016 09:55:41 +0800</lastBuildDate>
     <atom:link href="https://keelii.github.io/archives/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践</title>
+      <link>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</link>
+      <pubDate>Thu, 17 Nov 2016 09:55:41 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt;，感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
+&lt;/p&gt;
+
+&lt;h2 id=&#34;为什么需要一个前端监控系统&#34;&gt;为什么需要一个前端监控系统&lt;/h2&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;通常在一个大型的 Web 项目中有很多监控，比如后端的服务 API 监控，接口存活、调用、延迟等监控，这些一般都用来监控后台接口数据层面的信息。而且对于大型网站系统来说，从后端服务到前台展示会有很多层：内网 VIP、CDN 等。但是这些监控并不能准确地反应用户看到的前端页面状态，比如：页面第三方系统数据调用失败，模块加载异常，数据不正确，空白开天窗等。这时候就需要从前端 DOM 展示的角度去分析和收集用户真正看到的东西，从而检测出页面是否出现异常问题&lt;/p&gt;
+
+&lt;h2 id=&#34;需要监控系统解决的问题&#34;&gt;需要监控系统解决的问题&lt;/h2&gt;
+
+&lt;p&gt;页面通常出现以下问题时需要使用邮件、短信通知相关人员修复问题&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;状态码返回错误（50x, 40x）无法打开&lt;/li&gt;
+&lt;li&gt;模块加载失败&lt;/li&gt;
+&lt;li&gt;页面乱码&lt;/li&gt;
+&lt;li&gt;数据正确性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;触发报警时要有现场快照，以便复现问题&lt;/p&gt;
+
+&lt;h2 id=&#34;技术选型&#34;&gt;技术选型&lt;/h2&gt;
+
+&lt;p&gt;监控的意义和回归测试的在本质上是一致的，都是对已上线功能进行回归测试，但不同的是监控需要做长期的可持续可循环的回归测试，而测试仅仅需要在上线之后做一次回归&lt;/p&gt;
+
+&lt;p&gt;既然监控和测试的本质一致，那我们完全可以采用测试的方式来做监控系统。在自动化测试技术遍地开花的时代，不乏很多好用的自动化工具，我们只需要把这些自动化工具进行整合为我们所用即可&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NodeJS - 特别适用于网络密集型任务&lt;/li&gt;
+&lt;li&gt;PhantomJS - 模拟无界面的浏览器，提供丰富的内核交互 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;nodejs&#34;&gt;NodeJS&lt;/h3&gt;
+
+&lt;p&gt;NodeJS 是一个 JavaScript 运行环境，非阻塞 I/O 和异步、事件驱动，这几点对于我们构建基于 DOM 元素的监控是非常重要的&lt;/p&gt;
+
+&lt;h3 id=&#34;phantomjs&#34;&gt;PhantomJS&lt;/h3&gt;
+
+&lt;p&gt;PhantomJS 是一个基于 webkit 的浏览器引擎，可以使用 JavaScript API 来模拟浏览器的操作。它使用 QtWebKit 作为它的浏览器核心，使用 webkit 来编译解释执行 JavaScript 代码。也就是说任何你可以在 webkit 浏览器里做的事情，它都能做到&lt;/p&gt;
+
+&lt;p&gt;它不仅是个隐形的浏览器，提供了诸如 CSS 选择器、支持 Web 标准、DOM 操作、JSON、HTML5、Canvas、SVG 等，同时也提供了处理文件 I/O 的操作等。PhantomJS 的用处可谓非常广泛，诸如网络监测、网页截屏、无浏览器的 Web 测试、页面访问自动化等&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么不是 Selenium&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;做自动化测试的同学肯定都知道 Selenium。可以使用 Selenium 将测试用例在浏览器中执行，而且 Selenium 对各种平台和常见浏览器支持比较好，但是 Selenium 上手难度系数略高，而且使用Selenium 需要在服务器端安装浏览器&lt;/p&gt;
+
+&lt;p&gt;考虑到监控主要任务在监控不在测试。系统并不需要太多考虑兼容性，而且监控功能相对单一，主要对页面进行功能上的回归测试，所以选择了 PhantomJS&lt;/p&gt;
+
+&lt;h2 id=&#34;架构设计&#34;&gt;架构设计&lt;/h2&gt;
+
+&lt;h3 id=&#34;架构概览&#34;&gt;架构概览&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17013271/ec2bc29e-4f4f-11e6-9591-0838a0243206.png&#34; alt=&#34;4&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;架构简述&#34;&gt;架构简述&lt;/h3&gt;
+
+&lt;p&gt;对于 DOM 监控服务，在应用层面上进行了垂直划分：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;规则管理系统&lt;/li&gt;
+&lt;li&gt;规则队列生成器&lt;/li&gt;
+&lt;li&gt;长时持续处理器&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务&lt;/li&gt;
+&lt;li&gt;服务化 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在应用层面上进行的垂直划分可以对应用做分布式部署，提高处理能力。后期也方便做性能优化、系统改造扩展等&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+
+&lt;h3 id=&#34;前台规则录入&#34;&gt;前台规则录入&lt;/h3&gt;
+
+&lt;p&gt;这是一个独立的 Web 系统，系统主要用来收集用户录入的页面信息、页面对应的规则、展示错误信息。通过调用后端页面抓取服务来完成页面检测的任务，系统可以创建三种类型的检测页面：常规监控、高级监控、可用性监控&lt;/p&gt;
+
+&lt;h4 id=&#34;常规监控&#34;&gt;常规监控&lt;/h4&gt;
+
+&lt;p&gt;录入一个页面地址，和若干检测规则。注意这里的检测规则，我们把常用的一些检测点抽象成了一条类似测试用例的语句。每条规则用来匹配页面上的一个 DOM 元素，用 DOM 元素的属性来和预期做匹配，如果匹配失败系统就会产生一条错误信息，后续交由报警系统处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;匹配类型&lt;/strong&gt; 一般有这么几种：&lt;code&gt;长度、文本、HTML、属性&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;处理器&lt;/strong&gt; 类似编程语言中的操作符：&lt;code&gt;大于、大于等于、小于、小于等于、等于、正则&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样做的处就是，录入规则的人只要了解一点 DOM 选择器的知识就可以上手操作了，在我们内部通常是交由测试工程师统一完成规则的录入&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012424/2963f11e-4f4a-11e6-96f1-a962c767e651.png&#34; alt=&#34;1&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;高级监控&#34;&gt;高级监控&lt;/h4&gt;
+
+&lt;p&gt;主要用来提供高级页面测试的功能，一般由有经验的工程师来撰写测试用例。这个测试用例写起来会有一些学习成本，但是可以模拟 Web 页面操作，如：点击、鼠标移动等事件从而做到精确捕捉页面信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012590/324509de-4f4b-11e6-9ddc-63e5a140b208.png&#34; alt=&#34;2&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;可用性监控&#34;&gt;可用性监控&lt;/h4&gt;
+
+&lt;p&gt;可用性监控侧重于对页面的可访问性、内容正确性等比较 &lt;strong&gt;严重的问题&lt;/strong&gt; 做即时监控。通常这类页面我们只需要在程序里面启一个 Worker 不断的去获取页面 HTML 就可以对结果进行检测匹配了，所以我们选择了 NodeJS 来做异步的页面抓取队列，高效快速的完成这种网络密集型任务&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012775/7ccfad00-4f4c-11e6-80b6-60186069bdac.png&#34; alt=&#34;3&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;主动错误上报&#34;&gt;主动错误上报&lt;/h3&gt;
+
+&lt;h4 id=&#34;页面脚本执行错误监控&#34;&gt;页面脚本执行错误监控&lt;/h4&gt;
+
+&lt;p&gt;页面引入一段监控脚本来收集页面产成 error 事件返回的错误信息，自动上报给后端服务，在系统里面可以汇总所有报错信息，以及对应的客户端浏览器版本、操作系统、IP 地址等&lt;/p&gt;
+
+&lt;h4 id=&#34;页面主动上报&#34;&gt;页面主动上报&lt;/h4&gt;
+
+&lt;p&gt;这个功能需要对应的前端工程师在代码中调用错误上报 API，来主动提交错误信息。主要使用的场景有，页面异步服务延时无响应、模块降级兜底主动通知等。监控脚本提供几个简单的 API 来完成这项任务&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-JavaScript&#34;&gt;// error 方法调用后立即上报错误信息并发出邮件、短信通知
+errorTracker.error(&#39;错误描述&#39;)
+// info 方法调用后立即上报信息，并在单位时间内仅产生一条邮件、短信通知
+errorTracker.info(&#39;信息描述&#39;)
+// log 方法调用后由报错检测是否达到设置阀值，最终确认是否报错
+errorTracker.log(&#39;日志信息&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;后端页面抓取服务&#34;&gt;后端页面抓取服务&lt;/h3&gt;
+
+&lt;p&gt;由于京东很多页面内容是异步加载的，像首页、单品等系统有许多第三方异步接口调用，使用后端程序抓取到的页面数据是同步的，并不能取到动态的 JavaScript 渲染的内容，所以就必须使用像 PhantomJS 这种能模拟浏览器的工具&lt;/p&gt;
+
+&lt;p&gt;常规监控我们使用 PhantomJS 模拟浏览器打开页面进行抓取，然后将监控规则解析成 JavaScript 代码片段执行并收集结果&lt;/p&gt;
+
+&lt;p&gt;高级监控我们使用 PhantomJS 打开页面后向页面注入像 jasmine, mocha 等类似的前端 JavaScript 测试框架，然后在页面执行对应的录入测试用例并返回结果&lt;/p&gt;
+
+&lt;h4 id=&#34;规则队列生成器&#34;&gt;规则队列生成器&lt;/h4&gt;
+
+&lt;p&gt;规则队列生成器会将采集的规则转化类成消息队列，然后交由长时持续处理器一次处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么采用类消息队列的处理方式？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这和 PhantomJS 的性能是密不可分的，由多次实践发现，PhantomJS 并不能很好地进行并发处理，当并发过多，会导致 CPU 过载，从而导致机器宕机&lt;/p&gt;
+
+&lt;p&gt;在本机环境下的虚拟机中进行并发测试，数据并不理想，极限基本在 ab -n 100 -c 50 左右。 所以为了防止并发导致的问题，就选择了使用类消息队列来避免因为并发过高导致的服务不可用&lt;/p&gt;
+
+&lt;h4 id=&#34;类消息队列的实现&#34;&gt;类消息队列的实现&lt;/h4&gt;
+
+&lt;p&gt;我们这里通过调用内部的分布式缓存系统生成类消息队列，队列的生成其实可以参考数据结构&amp;ndash;队列。最基本的模型就是在缓存中创建一个 KEY ，然后根据队列数据结构的模式进行数据的插入和读取&lt;/p&gt;
+
+&lt;p&gt;当然，类消息队列的中间介质可根据你实际的条件来选择，你也可以使用本机内存实现。这可能会导致应用和类消息队列竞争内存&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理器&#34;&gt;长时持续处理器&lt;/h4&gt;
+
+&lt;p&gt;长时持续处理器是要功能就是消费规则队列生成器生成的类消息队列&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理实现&#34;&gt;长时持续处理实现&lt;/h4&gt;
+
+&lt;p&gt;在长时持续处理器的具体实现中，我们利用了 JavaScript 的 setInterval 方法来持续获取累消息队列的内容下发给规则转化器，然后转发给负载均衡调度器。之后再对返回的结果进行统一处理，比如邮件或者短信报警&lt;/p&gt;
+
+&lt;h4 id=&#34;api&#34;&gt;API&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务可以做为公共 API 提供给客户端进行测试需求的处理， API 通过 HTTP 方式调用。在 API 的处理上需要提供 HTTP 数据到规则和 PhantomJS 的转换。从而又演化出了 HTTP 数据到规则转换器&lt;/p&gt;
+
+&lt;h4 id=&#34;phantomjs-服务&#34;&gt;PhantomJS 服务&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务是指将 PhantomJS 结合 HTTP 服务和子进程进行服务化的处理&lt;/p&gt;
+
+&lt;p&gt;首先、启动 HTTP 服务，然后将长时处理器下发的规则进行进一步转化，转化后启动子进程，HTTP 服务会监听子进程的处理结果，并在处理完毕之后返回&lt;/p&gt;
+
+&lt;h3 id=&#34;报警系统&#34;&gt;报警系统&lt;/h3&gt;
+
+&lt;p&gt;报警系统我们目前使用的是京东内部自己的统一监控平台 UMP，通过调用平台提供的一些 API 来实现报警邮件与短信通知&lt;/p&gt;
+
+&lt;h4 id=&#34;如何根据报警定位到具体页面&#34;&gt;如何根据报警定位到具体页面？&lt;/h4&gt;
+
+&lt;p&gt;用户通过监控管理系统录入规则后，监控系统会根据 UMP 规则针对用户录入的页面生成 UMP 使用的 key。当长时持续处理器发现 PhantomJS 服务返回的结果标示为异常后，就会使用 key 来进行日志记录&lt;/p&gt;
+
+&lt;h4 id=&#34;何时出发报警&#34;&gt;何时出发报警？&lt;/h4&gt;
+
+&lt;p&gt;报警主要分为了短信和邮件报警。邮件报警是在每条异常之后就会发给指定系统用户。短信则是根据异常次数来进行处理的，当异常次数过大，就会下发短信通知&lt;/p&gt;
+
+&lt;h3 id=&#34;部署&#34;&gt;部署&lt;/h3&gt;
+
+&lt;p&gt;对于系统部署可以分为两大块进行。因为机器资源数量有限，没有将所有部分都单独部署&lt;/p&gt;
+
+&lt;p&gt;规则管理系统以及规则队列生成器和持续处理器整合部署在一台机器上，PhantomJS 服务部署在了其他的机器上。进程管理使用了著名的 NPM 模块 —— PM2&lt;/p&gt;
+
+&lt;p&gt;PM2 是一个带有负载均衡功能的 NodeJS 应用的进程管理器。可充分利用 CPU，并保证进程稳定存活&lt;/p&gt;
+
+&lt;p&gt;PM2 特性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;内建负载均衡（使用 Node cluster 集群模块）&lt;/li&gt;
+&lt;li&gt;无缝重启类似 nginx reload&lt;/li&gt;
+&lt;li&gt;具有 Ubuntu 和 CentOS 的开机启动脚本&lt;/li&gt;
+&lt;li&gt;控制台检测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不过在目前部署任务中，并没有使用内建负载均衡的特性，没用通过集群的方式部署代理。仅使用了后台运行和无缝重启的特性&lt;/p&gt;
+
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+
+&lt;p&gt;其实我们现在开发的这套监控系统并不复杂，只是合理的运用了一些现有的技术框架。抽象出来我们自己需要的一些功能。但却有效的达到了我们的预期功能，并且节省了很多之前需要人肉测试的时间成本。系统本身还有很多问题在待解决状态，比如报警系统的规则处理与阀值设定，JavaScript 报错的准确过滤机制等，这些问题我们都会逐个解决，并且未来的前端监控系统会成为一个平台，核心服务在后端爬取页面服务，应用端可以有多种形式，比如监控、测试工具等&lt;/p&gt;
+
+&lt;p&gt;一些可以持续优化点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;监控系统虽然在应用层面进行了垂直划分，但是由于机器资源等限制，并没有进行单独功能的部署。这点可能会在后期的使用中进行优化&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务还需要进一步优化，以承载大并发，大处理量。提供稳定的服务&lt;/li&gt;
+&lt;li&gt;报警由于依赖于公司内部的 UMP 系统，所以并不是特别灵活，后期可以考虑自己实现一套报警机制&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>平滑迁移 Octopress 到 Hugo</title>
@@ -4107,479 +4316,6 @@ s.toString();       // =&amp;gt; &amp;quot;[object Ojbect]&amp;quot;
 &lt;h3 id=&#34;valueof-方法&#34;&gt;valueOf() 方法&lt;/h3&gt;
 
 &lt;p&gt;valueOf() 和 toString() 方法非常类似，但往往当 JavaScript 需要 &lt;strong&gt;将对象转换为某种原始值而非字符串&lt;/strong&gt; 的时候才会用到它，尤其是转换为数字的时候。如果在需要使用原始值的上下文中使用了对象，JavaScript 就会自动调用这个方法，同样有些内置类自定义了 valueOf() 方法，比如 &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/valueOf&#34;&gt;Date.valueOf&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 7 - 数组</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</guid>
-      <description>&lt;p&gt;数组是值的 &lt;strong&gt;有序集合&lt;/strong&gt;。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型&lt;/p&gt;
-
-&lt;p&gt;JavaScript 数组是 &lt;strong&gt;动态的&lt;/strong&gt;，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小&lt;/p&gt;
-
-&lt;p&gt;JavaScript 数组可能是 &lt;strong&gt;稀疏的&lt;/strong&gt;，数组元素索引不一定要连续&lt;/p&gt;
-
-&lt;p&gt;JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 &lt;strong&gt;快很多&lt;/strong&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&#34;创建数组&#34;&gt;创建数组&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var empty = [];             // 使用数组直接量创建一个空数组
-var primes = [2, 3, 5, 7, 11];
-var base = 1024；
-var misc = [1.2, true, &amp;quot;a&amp;quot;, base + 1, [1,2,3], { a: 1}]     // 元素可以是任意值，甚至表达式
-var count = [1, ,3];            // 数组有三个元素中间那个值为 undefined
-
-var a = new Array();        // 调用构造函数 Array() 也可以创建数组
-var a = new Array(10);
-a.length;                   // =&amp;gt; 10 创建一个长度为 10 的数组
-var a = new Array(1, 2, 3);
-a;                          // =&amp;gt; [1, 2, 3]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;数组元素的读和写&#34;&gt;数组元素的读和写&lt;/h2&gt;
-
-&lt;p&gt;使用方括号 [] 操作符来访问数组中的一个元素，方括号左边是数组的引用，右边是一个返回 &lt;strong&gt;非负整数值&lt;/strong&gt; 的任意表达式&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [&amp;quot;world&amp;quot;];
-a[0]                    // =&amp;gt; &amp;quot;world&amp;quot;
-a[1] = 3.14             // =&amp;gt; 写入第 1 个元素 3.14
-a                       // =&amp;gt; [&amp;quot;world&amp;quot;, 3.14]
-i = 2;
-a[i] = 3;               // =&amp;gt; 写入第 2 个元素
-a[i+1] = &amp;quot;hello&amp;quot;;       // =&amp;gt; 写入第 2 个元素
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以使用负数或者非整数来索引数组。这种情况下，数值转换为字符串，字符串作为属性名来用。既然名字不是非负整数，它就只能当做常规的对象属性，而非数组的索引。同样如果如果凑巧使用了非负整数的字符串，它就当做数组索引，而非对象属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a[-1.23] = true             // 给数组 a 创建一个名为 &amp;quot;-1.23&amp;quot; 的属性
-a[&amp;quot;1000&amp;quot;] = 0               // 这是数组的第 1001 个元素
-a[1.000]                    // 和 a[1] 相等
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;事实上数组索引仅仅是对象属性名的一种特殊类型，这意味着 JavaScript 数组 &lt;strong&gt;没有越界&lt;/strong&gt; 错误的概念。当试图查询任何对象中不存在的属性时，不会报错，只会得到 undefined 值，这一点类似于对象&lt;/p&gt;
-
-&lt;h2 id=&#34;稀疏数组-sparse-arrays&#34;&gt;稀疏数组（Sparse Arrays）&lt;/h2&gt;
-
-&lt;p&gt;通常，数组的 length 属性代表数组中的元素个数。如果是稀疏数组，length 属性值大于元素个数。当在数组直接量中省略值是不会创建稀疏数组。省略的元素是存在的只是值为 undefined。使用 Array() 构造函数或者手动指定 length 大于当前的数组可以创建稀疏数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = new Array(5);       // 数组没元素，但 a.length 是 5
-a = [];
-a[1000] = 0;            // 赋值添加一个元素，但设置 length 为　1001
-var a1 = [,,,];         // 数组是 [undefined, undefined, undefined]
-var a2 = new Array(3);
-var a3 = [1,,3];
-0 in a1                 // =&amp;gt; true 非稀疏数组
-0 in a2                 // =&amp;gt; false 稀疏数组
-1 in a3                 // =&amp;gt; false 稀疏数组
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在一些旧版的实现中，[1,,3] 和 [1, undefined, 3] 却是一模一样的&lt;/p&gt;
-
-&lt;h2 id=&#34;数组的长度&#34;&gt;数组的长度&lt;/h2&gt;
-
-&lt;p&gt;每个数组都有一个 length 属性，就是这个属性使其区别于常规的 JavaScript 对象。针对稠密数组，length 属性值代表数组中元素的个数，其值比数组中最大的索引大 1&lt;/p&gt;
-
-&lt;p&gt;数组有两个 &lt;strong&gt;特殊行为&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;如果为一个数组元素赋值，它的索引 i 大于或者等于现有数组的长度时，length 属性的值将设置为 i + 1&lt;/li&gt;
-&lt;li&gt;如果设置一个数组的 length 属性小于这个数组长度的非负整数 n 时，当前数组中那些索引值大于或等于 n 的元素将被从中删除&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [1,2,3,4,5];
-a.length = 3;
-a                   // =&amp;gt; [1,2,3]
-a.length = 0;
-a.length = 5;       // 长度为 5，类似 new Array(5)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;数组也继承了对象的一些方法，比如 Object.defineProperty(), 可以使用这个方法让数组的 length 属性变成只读&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [1,2,3]
-Object.defineProperty(a, &amp;quot;length&amp;quot;, {
-    writable: false
-});
-a.length = 0
-a                   // =&amp;gt; [1,2,3] 不会改变
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;数组元素的添加和删除&#34;&gt;数组元素的添加和删除&lt;/h2&gt;
-
-&lt;p&gt;可以给新的索引赋值来添加元素，也可以调用 Array 对象的内置方法 push() 来在数组 &lt;strong&gt;末尾&lt;/strong&gt; 增加一个或者多个元素，或者用 unshift() 给数组头部插入一个元素，并且将其它元素依次移动到更高的索引处&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = []
-a[0] = &amp;quot;zero&amp;quot;
-a[1] = &amp;quot;one&amp;quot;
-a               // =&amp;gt; [&amp;quot;zero&amp;quot;, &amp;quot;one&amp;quot;]
-
-a = []
-a.push(&amp;quot;zero&amp;quot;)
-a.push(&amp;quot;one&amp;quot;, &amp;quot;two&amp;quot;)
-a               // =&amp;gt; [&amp;quot;zero&amp;quot;, &amp;quot;one&amp;quot;, &amp;quot;two&amp;quot;]
-a.unshift(0)
-a               // =&amp;gt; [0, &amp;quot;zero&amp;quot;, &amp;quot;one&amp;quot;, &amp;quot;two&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以使用 delete 运算符来删除数组元素，效果和对数组元素赋值 undefined 类似，使用 delete 删除数组后数组的长度是不变的&lt;/p&gt;
-
-&lt;h2 id=&#34;数组遍历&#34;&gt;数组遍历&lt;/h2&gt;
-
-&lt;p&gt;使用 for 循环是遍历数组元素最常见的方法，for/in 也可以但并不推荐&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var keys = Object.keys(o);
-var values = [];
-for (var i = 0; i &amp;lt; keys.length; i++) {
-    var key = keys[i];
-    values[i] = o[key]
-}
-
-for (var i = 0; i &amp;lt; keys.length; i++) {
-    if (!a[i]) continue;    // 跳过 null, undefined 和不存在的元素
-}
-for (var i = 0; i &amp;lt; keys.length; i++) {
-    if (!(i in a)) continue;    // 只跳过不存在的元素
-}
-for (var i in a) {
-    if (!a.hasOwnProperty(i)) continue; // 跳过继承属性
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ECMAScript 5 定义了一些遍历数组元素的新方法，比如 forEach()&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1,2,3,4,5].forEach(function(x) {
-    console.log(x);
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;多维数组&#34;&gt;多维数组&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 并不支持真正的多维数组，但可以模拟出来&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var table = new Array(10);
-for (var i = 0; i &amp;lt; table.length; i++) {
-    table[i] = new Array(10);
-}
-
-for (var row = 0; row &amp;lt; table.length; row++) {
-    for (var col = 0; col &amp;lt; table[row].length; col++) {
-        table[row][col] = row * col;
-    }
-}
-
-table[5][7];        // =&amp;gt; 35
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;数组方法&#34;&gt;数组方法&lt;/h2&gt;
-
-&lt;p&gt;将所有元素都转化为字符串并通过分隔符链接起来，分隔符默认是逗号「,」&lt;/p&gt;
-
-&lt;p&gt;与之相反的 split 方法则是把字符串按分割符分割开来并返回数组，并且分割符可以是正则表达式&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3];
-a.join();               // =&amp;gt; &amp;quot;1,2,3&amp;quot;
-a.join(&amp;quot; &amp;quot;)             // =&amp;gt; &amp;quot;1 2 3&amp;quot;
-a.join(&amp;quot;&amp;quot;)              // =&amp;gt; &amp;quot;123&amp;quot;
-new Array(10).join(&#39;-&#39;) // =&amp;gt; &amp;quot;----------&amp;quot;
-
-var str = &amp;quot;Hello world&amp;quot;;
-str.split(&#39; &#39;)          // =&amp;gt; [&amp;quot;Hello&amp;quot;, &amp;quot;world&amp;quot;]
-var str = &amp;quot;0a1b2c3d&amp;quot;;
-str.split(/\d/g);       // =&amp;gt; [&amp;quot;&amp;quot;, &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;reverse&#34;&gt;reverse()&lt;/h3&gt;
-
-&lt;p&gt;反转数组元素&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3];
-a.reverse();        // =&amp;gt; [3,2,1]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;sort&#34;&gt;sort()&lt;/h3&gt;
-
-&lt;p&gt;将数组中的元素排序并返回排序后的数组。不带参数调用 sort() 时，数组元素以字母表顺序排序，如果数组包含 undefined 元素，它们会被排到数组的尾部&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [&amp;quot;banana&amp;quot;, &amp;quot;cherry&amp;quot;, &amp;quot;apple&amp;quot;]
-a.sort();               // =&amp;gt; [&amp;quot;apple&amp;quot;, &amp;quot;banana&amp;quot;, &amp;quot;cherry&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;sort 方法可以接收一个函数参数，该函数决定了它的两个参数在排好序的数组中的先后顺序。假设第一个参数应该在前，比较函数应该返回一个小于 0 的数值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [3,4,1,2]
-a.sort()            // [1,2,3,4]
-a.sort(function(a, b) {
-    return b - a
-})                  // [4,3,2,1]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;concat&#34;&gt;concat()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Array.concat(value1, value2, &amp;hellip;, valueN)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;创建并返回一个新数组，它的元素包括调用 concat 的原始数组元素和 concat 的每个参数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3]
-a.concat(4,5)           // =&amp;gt; [1,2,3,4,5]
-a.concat([4,5])         // =&amp;gt; [1,2,3,4,5]
-a.concat([4,5], [6,7])  // =&amp;gt; [1,2,3,4,5,6,7]
-a.concat(4, [5, [6,7]]) // =&amp;gt; [1,2,3,4,5,[6,7]]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;slice&#34;&gt;slice()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Array.slice([begin[, end]])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;返回指定数组的一个片段或子数组，它的两个参数分别指定了片段的开始和结束的 &lt;strong&gt;位置&lt;/strong&gt;，如果只指定一个参数（开始位置），返回的数组将包含从开始位置到数组结尾的所有元素，如果参数中出现了负数，它表示相对于数组中最后一个元素的位置，slice 不会修改原数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3,4,5]
-a.slice(0, 3)       // =&amp;gt; [1,2,3]
-a.slice(3)          // =&amp;gt; [4,5]
-a.slice()           // =&amp;gt; [1,2,3,4,5]
-a.slice(1, -1)      // =&amp;gt; [2,3,4]
-a.slice(-3, -2)     // =&amp;gt; [3]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;splice&#34;&gt;splice()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Array.splice(start, deleteCount[, item1[, item2[, &amp;hellip;]]])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;splice 方法是在数组中插入或删除元素的通用方法，会 &lt;strong&gt;修改&lt;/strong&gt; 调用的数组&lt;/p&gt;
-
-&lt;p&gt;splice 能够从数组中删除元素、插入元素到数组中或者 &lt;strong&gt;同时完成&lt;/strong&gt; 这两种操作。在插入或删除点之后的数组元素会根据需要增加或减小它们的索引值，因此数组的其它部分仍然保持连续。splice 第一个参数指定了插入和（或）删除的起始位置。第二个参数指定了应该从数组中删除的元素个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice 返回一个由删除元素组成的数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3,4,5,6,7,8]
-a.splice(4)             // =&amp;gt; [5,6,7,8]
-a                       // =&amp;gt; [1,2,3,4]
-a.splice(1,2)           // =&amp;gt; [2,3]
-a                       // =&amp;gt; [1,4]
-a.splice(1,1)           // =&amp;gt; [4]
-a                       // =&amp;gt; [1]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;splice 前两个参数指定了需要删除的数组元素。其后任意个数参数指定了需要插入到数组中的元素&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3,4,5]
-a.splice(2, 0, &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;)        // =&amp;gt; 0
-a                               // =&amp;gt; [1,2,&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;,3,4,5]
-a.splice(2, 2, [1,2], 3)        // =&amp;gt; [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;]
-a                               // =&amp;gt; [1,2,[1,2],3,3,4,5]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;push-和-pop&#34;&gt;push() 和 pop()&lt;/h3&gt;
-
-&lt;p&gt;push 和 pop 方法谲诈将数组当做 &lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16374650/f8b0fa6c-3c89-11e6-9e61-bc391f7f3cf4.png&#34;&gt;栈&lt;/a&gt; 来使用，push 方法在数组尾部添加一个或者多个元素，并返回新的数组长度。pop 删除数组的最后一个元素，减小数组长度并返回它删除的值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var stack = [];
-stack.push(1,2)         // =&amp;gt; 2 stack: [1,2]
-stack.pop(1,2)          // =&amp;gt; 1 stack: [2]
-stack.push(3)           // =&amp;gt; 2 stack: [1,3]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;unshift-和-shift&#34;&gt;unshift() 和 shift()&lt;/h3&gt;
-
-&lt;p&gt;unshift 在数组的头部添加一个或者多个元素，shift 删除数组的第一个元素并将其返回&lt;/p&gt;
-
-&lt;p&gt;需要注意的是，当使用多个参数调用 unshift() 的时候，参数是一次性插入的，而非一次一个插入。这会影响插入到数组中元素的位置&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [4,5,6];
-a.unshift(3)
-a               // =&amp;gt; [3,4,5,6]
-a.unshift(1,2)
-a               // =&amp;gt; [1,2,3,4,5,6]如果一次一个插入的话结果应该是 [2,1,3,4,5]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;ecmascript-5-的数组方法&#34;&gt;ECMAScript 5 的数组方法&lt;/h2&gt;
-
-&lt;h3 id=&#34;foreach&#34;&gt;forEach()&lt;/h3&gt;
-
-&lt;p&gt;forEach() 从头至尾遍历数组，为每个元素调用指定的函数。传递函数作为 forEach() 的第一个参数，然后 forEach() 使用三个参数调用该当函数：数组元素、元素的索引和数组本身。forEach() 无法在所有元素都传递给调用的函数之前终止遍历，除非 forEach() 方法放在一个 try 块中，并抛出一个异常&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1,2,3,4,5].forEach(function(value, index, arr) { arr[i] = v + 1 });
-// =&amp;gt; [2,3,4,5,6]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;map&#34;&gt;map()&lt;/h3&gt;
-
-&lt;p&gt;map() 方法将调用数组的每个元素传递给指定的函数，并返回一个数组。如果是稀疏数组，返回的也是相同方式的稀疏数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [1,2,3]
-b = a.map(function(x) { return x*x })
-b               // [1, 4, 9]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;filter&#34;&gt;filter()&lt;/h3&gt;
-
-&lt;p&gt;filter() 方法返回数组元素是调用数组的一个 &lt;strong&gt;子集&lt;/strong&gt;。传递的函数是用来逻辑判定的（true 或 false），如果返回 true 或者能转化为 true 的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的数组中，&lt;strong&gt;filter() 会跳过稀疏数组中缺少的元素&lt;/strong&gt;，总是返回稠密的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [5,4,3,2,1]
-smallvalues = a.filter(function(x) { return x &amp;lt; 3 })    // [2, 1]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;every-和-some&#34;&gt;every() 和 some()&lt;/h3&gt;
-
-&lt;p&gt;数组的逻辑判定，它们对数组元素应用指定的函数进行判定，返回 true 或 false&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [1,2,3,4,5]
-a.every(function(x) { return x &amp;lt; 10 })      // =&amp;gt; true 数组元素都少于 10
-a.some(function(x) { return x%2 === 0 })    // =&amp;gt; true 数组中有一些值是偶数
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意，一旦 every() 和 some() 确认应该返回什么值时它们就会停止遍历数组元素（可以认为是惰性判断）。即：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;some() 在判定函数第一次返回 true 后就返回 true，不再进行遍历操作&lt;/li&gt;
-&lt;li&gt;every() 在判定函数第一次返回 false 后就返回false，不再进行遍历操作&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;reduce-和-reduceright&#34;&gt;reduce() 和 reduceRight()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Array.reduce(callback, [initialValue])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;reduct() 和 reduceRight() 方法使用指定的函数将数组元素进行组合，生成单个值，这在 &lt;strong&gt;函数式编程（functional programming）&lt;/strong&gt; 中是很常见的操作，也可以称为「注入」和「折叠」，他们只是执行化简操作的顺序不一样，一个从左到右，一个从右到左&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [1,2,3,4,5]
-var sum = a.reduce(function(x, y) { return x + y }, 0)          // 数组求和
-/**
-+---------------------------------+
-|                                 |
-|     x      +     y     return   |
-|                                 |
-|   init: 0     a[0]: 1    1      |
-|                                 |
-|     1         a[1]: 2    3      |
-|                                 |
-|     3         a[2]: 3    6      |
-|                                 |
-|     6         a[3]: 4    10     |
-|                                 |
-|     10        a[4]: 5    15     |
-|                                 |
-+---------------------------------+
-*/
-var product = a.reduce(function(x, y) { return x * y }, 1)      // 数组求积
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;reduce 需要两个参数。第一个是执行化简操作的函数，它的任意就是用某种方法把两个值组合或化简为一个值，并返回化简后的值，第二个参数是传递给函数的初始值，如果没有指定初始值，它将使用数组的第一个元素作为其初始值。&lt;strong&gt;这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为 x,y&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;indexof-和-lastindexof&#34;&gt;indexOf() 和 lastIndexOf()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Array.indexOf(searchElement[, fromIndex = 0])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;搜索整个数组中指定值的索引，没找到就返回 -1。indexOf() 从头至尾搜索，而 lastIndexOf() 则反向搜索。它们都接收第二个参数，指定数组中的一个索引，从这个索引处开始搜索&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a = [0,1,2,1,0]
-a.indexOf(1)        // =&amp;gt; 1
-a.lastIndexOf(1)    // =&amp;gt; 3
-a.indexOf(3)        // =&amp;gt; -1
-
-// 在数组中查找所有出现的 x，并返回一个包含匹配索引的数组
-function findall(a, x) {
-    var results = [];
-    var len = a.length;
-    var pos = 0;
-
-    while(pos &amp;lt; len) {
-        pos = a.indexOf(x, pos);
-        if (pos === -1) break;
-
-        results.push(pos)
-        pos = pos + 1;
-    }
-
-    return results;
-}
-findall([1,2,3,1,3,2], 1)       // =&amp;gt; [0, 3]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;数组类型&#34;&gt;数组类型&lt;/h2&gt;
-
-&lt;p&gt;ECMAScript 5 中可以使用 Array.isArray() 函数来判断是否为数组，在 ECMAScript 5 之前判断却没这么简单，因为 typeof 运算符操作数组返回的是「对象」，一般用下面的方法下判断是否是数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var isArray = Array.isArray || function(o) {
-    return typeof o === &amp;quot;object&amp;quot; &amp;amp;&amp;amp;
-            Object.prototype.toString.call(0) === &#39;[object Array]&#39;;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;类数组对象&#34;&gt;类数组对象&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 数组的一些特性是其他对象没有的：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;当有新的元素添加到列表中时，自动更新 length 属性&lt;/li&gt;
-&lt;li&gt;设置 length 为一个较小值将截断数组&lt;/li&gt;
-&lt;li&gt;从 Array.prototype 中继承一些有用的方法&lt;/li&gt;
-&lt;li&gt;其类属性为「Array」&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以下代码为一个常规对象增加了一些属性使其变成类数组对象，然后遍历生成的伪数组的「元素」&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = {}
-
-var i = 0;
-while (i &amp;lt; 10) {
-    a[i] = i * i;
-    i++;
-}
-a.length = i;
-a               // =&amp;gt; { 0: 0, 1: 1, 2: 4, 3: 9 ..., length: 10 }
-
-// 现在就可以当成真正的数组遍历它
-var total = 0;
-for (var j = 0; j &amp;lt; a.length; j++) {
-    total+=a[j]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Arguments 对象就是一个类数组对象，DOM 方法 document.getElementsByTagName() 也返回类数组对象，它们都有数组的一些特性，比如索引访问、length 属性，但它们并不是真正的数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function isArrayLike(o) {
-    if ( o &amp;amp;&amp;amp;
-        typeof o === &amp;quot;object&amp;quot; &amp;amp;&amp;amp;
-        isFinite(o.length) &amp;amp;&amp;amp;
-        o.length &amp;gt;= 0 &amp;amp;&amp;amp;
-        o.length === Math.floor(o.length) &amp;amp;&amp;amp;
-        o.length &amp;lt; 4294967296 ) {       // 数组长度的最大值 2^32
-        return true;
-    } else {
-        return false;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;JavaScript 数组方法是 &lt;strong&gt;特意定义为通用的&lt;/strong&gt;，它们不仅可以应用在数组而且可以应用在类数组对象上，一般使用 Array.prototype.method.call 来使用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = {&amp;quot;0&amp;quot;: &amp;quot;a&amp;quot;, &amp;quot;1&amp;quot;: &amp;quot;b&amp;quot;, &amp;quot;2&amp;quot;: &amp;quot;c&amp;quot;, length: 3};
-Array.prototype.join.call(a, &amp;quot;+&amp;quot;)           // =&amp;gt; &amp;quot;a+b+c&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;作为数组的字符串&#34;&gt;作为数组的字符串&lt;/h2&gt;
-
-&lt;p&gt;在 ECMAScript 5 中，字符串的行为类似于 &lt;strong&gt;只读&lt;/strong&gt; 的数组。除子用 charAt() 方法来访问单个字符以外，还可以使用方括号：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &amp;quot;test&amp;quot;;
-s.charAt(0)         // =&amp;gt; &amp;quot;t&amp;quot;
-s.[1]               // =&amp;gt; &amp;quot;e&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;字符串的行为类似于数组的事实使得通用的数组方法可以应用到字符串上。不过请记住，字符串是 &lt;strong&gt;不可变值&lt;/strong&gt;，当把它们作为数组看待时，它们是只读的。所以诸如：push(), sort(), reverse 等 &lt;strong&gt;会修改数组&lt;/strong&gt; 的方法 如果被使用在字符串上是无效的，而且会导致错误并且没有相关提示&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;s = &amp;quot;JavaScript&amp;quot;
-Array.prototype.join.call(s, &amp;quot; &amp;quot;)       // =&amp;gt; &amp;quot;J a v a S c r i p t&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

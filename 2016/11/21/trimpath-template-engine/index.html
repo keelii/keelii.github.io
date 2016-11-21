@@ -1,0 +1,379 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>TrimPath 模板引擎使用指南</title>
+    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.17" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="canonical" href="https://keelii.github.io/2016/11/21/trimpath-template-engine/">
+    <link href="https://keelii.github.io/favicon.png" rel="icon">
+    <link href="https://keelii.github.io/atom/index.xml" rel="alternate" type="application/rss+xml" title="Something">
+
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.lug.ustc.edu.cn/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+</head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>There&#39;s always __ you do not know yet</h2>
+    </hgroup>
+</header>
+
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">TrimPath 模板引擎使用指南</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2016-11-21 12:39:49">
+                            <span class="date">Nov,21 2016</span>
+                            <span class="time">12:39 PM</span>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content"><p><a href="http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html">TrimPath</a> 是一款轻量级的前端 JavaScript 模板引擎，语法类似 <a href="http://freemarker.org/">FreeMarker</a>, <a href="https://velocity.apache.org/">Velocity</a>，主要服务业方便地渲染 json 数据
+</p>
+
+<h2 id="语法-syntax">语法 Syntax</h2>
+
+<h3 id="表达式-expressions">表达式 Expressions</h3>
+
+<p>表达式和修饰符（其它模板语言中叫做过滤器 filter）中间用 <code>|</code> 分割且 <strong>不能有空格</strong></p>
+
+<pre><code>${expr}
+${expr|modifier}
+${expr|modifier1:arg1,arg2|modifier2:arg1,arg2|...|modifierN:arg1,arg2}
+</code></pre>
+
+<h3 id="语句-statements">语句 Statements</h3>
+
+<h4 id="控制流-control-flow">控制流 Control Flow</h4>
+
+<pre><code>{if testExpr}
+    {elseif testExpr}
+    {else}
+{/if}
+</code></pre>
+
+<h4 id="循环-loops">循环 Loops</h4>
+
+<pre><code>{for varName in listExpr}
+{/for}
+
+{for varName in listExpr}
+    ...循环主体...
+{forelse}
+    ...当 listExpr 是 null 或者 length 为 0 ...
+{/for}
+</code></pre>
+
+<h4 id="变量声明-variable-declarations">变量声明 Variable Declarations</h4>
+
+<p>变量声明语句用花括号 <code>{}</code> 括起来，不需要关闭。类似 JavaScript 中的赋值语句</p>
+
+<pre><code>{var varName}
+{var varName = varInitExpr}
+</code></pre>
+
+<h4 id="宏声明-macro-declarations">宏声明 Macro Declarations</h4>
+
+<pre><code>{macro macroName(arg1, arg2, ...argN)}
+    ...macro 主体...
+{/macro}
+</code></pre>
+
+<h4 id="cdata-部分-cdata-text-sections">CDATA 部分 CDATA Text Sections</h4>
+
+<p>CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出。比如展示一个模板字符串本身</p>
+
+<pre><code>{cdata}
+    ${customer.firstName} ${customer.lastName}
+{/cdata}
+</code></pre>
+
+<h3 id="in-line-javascript">In-line JavaScript</h3>
+
+<p><strong>eval blocks</strong> 用来执行 JavaScript 代码片段</p>
+
+<pre><code>{eval}
+    ...模板渲染的时候执行的 JavaScript 代码...
+{/eval
+</code></pre>
+
+<p><strong>minify blocks</strong> 用来压缩内容中的换行符，比如压缩 HTML 属性</p>
+
+<pre><code>&lt;div id=&quot;commentPanel&quot; style=&quot;{minify}
+      display:none;
+      margin: 1em;
+      border: 1px solid #333;
+      background: #eee;
+      padding: 1em;
+    {/minify}&quot;&gt;
+  ...
+&lt;/div&gt;
+</code></pre>
+
+<h2 id="修饰符-modifier">修饰符 Modifier</h2>
+
+<p>修饰符用来处理上一个表达式的结果，并输出内容。类似于 Linux shell 中的 pipe 命名，可以串联</p>
+
+<pre><code>${name|capitalize}
+${name|default:&quot;noname&quot;|capitalize}
+</code></pre>
+
+<h3 id="内置修饰符">内置修饰符</h3>
+
+<ul>
+<li><strong>capitalize</strong> 返回大写内容</li>
+<li><strong>default:valueWhenNull</strong> 如果内容为 null，返回 valueWhenNull</li>
+<li><strong>eat</strong> 返回空内容，一般用于表达式求值后又不想展示输出的内容</li>
+<li><strong>escape</strong> 转换 HTML 字符实体，比如： &amp; 转换成 &amp;amp;</li>
+<li><strong>h</strong> 和 escape 效果一样</li>
+</ul>
+
+<h3 id="自定义修饰符">自定义修饰符</h3>
+
+<p>算定义修饰符可以持载到 contextObject 上的 <code>_MODIFIERS</code> 属性上</p>
+
+<pre><code>var Modifiers = { toFixed: function(n, num) { return n.toFixed(num) } }
+var out = '{var nu = 12}${nu|toFixed:2}'.process({ _MODIFIERS: Modifiers });
+</code></pre>
+
+<h2 id="宏-macro">宏 Macro</h2>
+
+<p>macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上。比如：在调用 process() 方法之前设置 <code>contextObject['exported'] = {}</code></p>
+
+<pre><code>{macro link(href, name)}
+    &lt;a href=&quot;${href}&quot;&gt;${name}&lt;/a&gt;
+{/macro}
+
+${link('http://google.com', 'google')}      =&gt; &lt;a href=&quot;http://google.com&quot;&gt;google&lt;/a&gt;
+${link('http://facebook.com', 'facebook')}  =&gt; &lt;a href=&quot;http://facebook.com&quot;&gt;facebook&lt;/a&gt;
+</code></pre>
+
+<h2 id="示例">示例</h2>
+
+<pre><code class="language-javascript">var data = {
+    name: 'iPhone 6 Plus',
+    weight: 480,
+    ram: '16gb',
+    networks: [
+        '移动（TD-LTE)',
+        '联通(TD-LTE)',
+        '电信(FDD-LTE)'
+    ]
+}
+
+data._MODIFIERS = {
+    toFixed: function(n, num) {
+        return n.toFixed(num)
+    }
+}
+
+var template = '\
+名称: ${name}&lt;br&gt;\
+重量：${weight|toFixed:2}&lt;br&gt;\
+内存：${ram|capitalize}&lt;br&gt;\
+网络：\
+{for item in networks}\
+  {if item_index!=0}|{/if}\
+  ${item}\
+{/for}';
+
+template.process(data)
+</code></pre>
+
+<p>上面的代码输出：</p>
+
+<pre><code class="language-html">名称: iPhone 6 Plus&lt;br&gt;
+重量：480.00&lt;br&gt;
+内存：16GB&lt;br&gt;
+网络：
+  移动（TD-LTE)
+ | 联通(TD-LTE)
+ | 电信(FDD-LTE)
+</code></pre></div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|2" href="https://keelii.github.io/categories/javascript">javascript</a>,
+                            
+                            <a class="category 1|2" href="https://keelii.github.io/categories/template_engine">template_engine</a>
+                            
+                        </span>
+                        
+                        <span class="span">Last modified</span>
+                        <time class="entry-date" datetime="2016-11-21 12:39:49">
+                            <span class="date">Nov,21 2016</span>
+                            <span class="time">12:39</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/" title="Previous Post: PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践">PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h1>Table  of contents</h1>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#语法-syntax">语法 Syntax</a>
+<ul>
+<li><a href="#表达式-expressions">表达式 Expressions</a></li>
+<li><a href="#语句-statements">语句 Statements</a>
+<ul>
+<li><a href="#控制流-control-flow">控制流 Control Flow</a></li>
+<li><a href="#循环-loops">循环 Loops</a></li>
+<li><a href="#变量声明-variable-declarations">变量声明 Variable Declarations</a></li>
+<li><a href="#宏声明-macro-declarations">宏声明 Macro Declarations</a></li>
+<li><a href="#cdata-部分-cdata-text-sections">CDATA 部分 CDATA Text Sections</a></li>
+</ul></li>
+<li><a href="#in-line-javascript">In-line JavaScript</a></li>
+</ul></li>
+<li><a href="#修饰符-modifier">修饰符 Modifier</a>
+<ul>
+<li><a href="#内置修饰符">内置修饰符</a></li>
+<li><a href="#自定义修饰符">自定义修饰符</a></li>
+</ul></li>
+<li><a href="#宏-macro">宏 Macro</a></li>
+<li><a href="#示例">示例</a></li>
+</ul></li>
+</ul>
+</nav>
+</section>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2016 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
+</footer>
+
+
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="/javascripts/octopress.js"></script>
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+[G] for scroll page bottom
+-->
+
+</body>
+</html>

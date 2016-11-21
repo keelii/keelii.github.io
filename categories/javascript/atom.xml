@@ -9,6 +9,176 @@
     <atom:link href="https://keelii.github.io/categories/javascript/atom/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>TrimPath 模板引擎使用指南</title>
+      <link>https://keelii.github.io/2016/11/21/trimpath-template-engine/</link>
+      <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要服务业方便地渲染 json 数据
+&lt;/p&gt;
+
+&lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;
+
+&lt;h3 id=&#34;表达式-expressions&#34;&gt;表达式 Expressions&lt;/h3&gt;
+
+&lt;p&gt;表达式和修饰符（其它模板语言中叫做过滤器 filter）中间用 &lt;code&gt;|&lt;/code&gt; 分割且 &lt;strong&gt;不能有空格&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${expr}
+${expr|modifier}
+${expr|modifier1:arg1,arg2|modifier2:arg1,arg2|...|modifierN:arg1,arg2}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;语句-statements&#34;&gt;语句 Statements&lt;/h3&gt;
+
+&lt;h4 id=&#34;控制流-control-flow&#34;&gt;控制流 Control Flow&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{if testExpr}
+    {elseif testExpr}
+    {else}
+{/if}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;循环-loops&#34;&gt;循环 Loops&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{for varName in listExpr}
+{/for}
+
+{for varName in listExpr}
+    ...循环主体...
+{forelse}
+    ...当 listExpr 是 null 或者 length 为 0 ...
+{/for}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;变量声明-variable-declarations&#34;&gt;变量声明 Variable Declarations&lt;/h4&gt;
+
+&lt;p&gt;变量声明语句用花括号 &lt;code&gt;{}&lt;/code&gt; 括起来，不需要关闭。类似 JavaScript 中的赋值语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{var varName}
+{var varName = varInitExpr}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;宏声明-macro-declarations&#34;&gt;宏声明 Macro Declarations&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro macroName(arg1, arg2, ...argN)}
+    ...macro 主体...
+{/macro}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;cdata-部分-cdata-text-sections&#34;&gt;CDATA 部分 CDATA Text Sections&lt;/h4&gt;
+
+&lt;p&gt;CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出。比如展示一个模板字符串本身&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{cdata}
+    ${customer.firstName} ${customer.lastName}
+{/cdata}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;in-line-javascript&#34;&gt;In-line JavaScript&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;eval blocks&lt;/strong&gt; 用来执行 JavaScript 代码片段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{eval}
+    ...模板渲染的时候执行的 JavaScript 代码...
+{/eval
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;minify blocks&lt;/strong&gt; 用来压缩内容中的换行符，比如压缩 HTML 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;commentPanel&amp;quot; style=&amp;quot;{minify}
+      display:none;
+      margin: 1em;
+      border: 1px solid #333;
+      background: #eee;
+      padding: 1em;
+    {/minify}&amp;quot;&amp;gt;
+  ...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;修饰符-modifier&#34;&gt;修饰符 Modifier&lt;/h2&gt;
+
+&lt;p&gt;修饰符用来处理上一个表达式的结果，并输出内容。类似于 Linux shell 中的 pipe 命名，可以串联&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${name|capitalize}
+${name|default:&amp;quot;noname&amp;quot;|capitalize}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;内置修饰符&#34;&gt;内置修饰符&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;capitalize&lt;/strong&gt; 返回大写内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;default:valueWhenNull&lt;/strong&gt; 如果内容为 null，返回 valueWhenNull&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;eat&lt;/strong&gt; 返回空内容，一般用于表达式求值后又不想展示输出的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;escape&lt;/strong&gt; 转换 HTML 字符实体，比如： &amp;amp; 转换成 &amp;amp;amp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; 和 escape 效果一样&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;自定义修饰符&#34;&gt;自定义修饰符&lt;/h3&gt;
+
+&lt;p&gt;算定义修饰符可以持载到 contextObject 上的 &lt;code&gt;_MODIFIERS&lt;/code&gt; 属性上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Modifiers = { toFixed: function(n, num) { return n.toFixed(num) } }
+var out = &#39;{var nu = 12}${nu|toFixed:2}&#39;.process({ _MODIFIERS: Modifiers });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;宏-macro&#34;&gt;宏 Macro&lt;/h2&gt;
+
+&lt;p&gt;macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上。比如：在调用 process() 方法之前设置 &lt;code&gt;contextObject[&#39;exported&#39;] = {}&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro link(href, name)}
+    &amp;lt;a href=&amp;quot;${href}&amp;quot;&amp;gt;${name}&amp;lt;/a&amp;gt;
+{/macro}
+
+${link(&#39;http://google.com&#39;, &#39;google&#39;)}      =&amp;gt; &amp;lt;a href=&amp;quot;http://google.com&amp;quot;&amp;gt;google&amp;lt;/a&amp;gt;
+${link(&#39;http://facebook.com&#39;, &#39;facebook&#39;)}  =&amp;gt; &amp;lt;a href=&amp;quot;http://facebook.com&amp;quot;&amp;gt;facebook&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;示例&#34;&gt;示例&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = {
+    name: &#39;iPhone 6 Plus&#39;,
+    weight: 480,
+    ram: &#39;16gb&#39;,
+    networks: [
+        &#39;移动（TD-LTE)&#39;,
+        &#39;联通(TD-LTE)&#39;,
+        &#39;电信(FDD-LTE)&#39;
+    ]
+}
+
+data._MODIFIERS = {
+    toFixed: function(n, num) {
+        return n.toFixed(num)
+    }
+}
+
+var template = &#39;\
+名称: ${name}&amp;lt;br&amp;gt;\
+重量：${weight|toFixed:2}&amp;lt;br&amp;gt;\
+内存：${ram|capitalize}&amp;lt;br&amp;gt;\
+网络：\
+{for item in networks}\
+  {if item_index!=0}|{/if}\
+  ${item}\
+{/for}&#39;;
+
+template.process(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;名称: iPhone 6 Plus&amp;lt;br&amp;gt;
+重量：480.00&amp;lt;br&amp;gt;
+内存：16GB&amp;lt;br&amp;gt;
+网络：
+  移动（TD-LTE)
+ | 联通(TD-LTE)
+ | 电信(FDD-LTE)
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
       <title>JavaScript 浏览器事件</title>
       <link>https://keelii.github.io/2016/09/29/javascript-browser-event/</link>
       <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
@@ -5346,746 +5516,6 @@ console.log(a)
 
 &lt;ul&gt;
 &lt;li&gt;Unicode &lt;a href=&#34;https://zh.wikipedia.org/wiki/Unicode&#34;&gt;https://zh.wikipedia.org/wiki/Unicode&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</guid>
-      <description>&lt;p&gt;JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值&lt;/p&gt;
-
-&lt;p&gt;JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。它们通常代表了各自特殊类型的唯一的成员&lt;/p&gt;
-
-&lt;p&gt;除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样
-&lt;/p&gt;
-
-&lt;p&gt;普通对象是「命名值」的 &lt;strong&gt;无序&lt;/strong&gt; 集合。数组则是一种有序集合对象&lt;/p&gt;
-
-&lt;p&gt;JavaScript 还定义了另一种特殊对象 —— 函数。如果用来初始化（使用 new 运算符）一个新建的对象，我们把这个函数称作 &lt;strong&gt;构造函数&lt;/strong&gt;（constructor）。每个构造函数定义了一类（class）对象 —— 由构造函数初始化的对象组成的集合，常用的 JavaScript 核心类有 Array, Function, Date, RegExp, Error 等&lt;/p&gt;
-
-&lt;p&gt;JavaScript 解释器（interpreter）有自己的内存管理机制，可以自动对内存进行垃圾回收 GC（garbage collection）。当 &lt;strong&gt;不再有任何引用指向一个对象&lt;/strong&gt;，解释器就会自动释放它占用的内存资源&lt;/p&gt;
-
-&lt;p&gt;JavaScript 是一种面向对象的语言，几乎一切皆对象。数据类型本身可以定义方法（method）来使用&lt;/p&gt;
-
-&lt;p&gt;从技术上讲，只有 JavaScript 对象才能拥有方法。然而数字、字符串和布尔值也可以拥有自己的方法。但是 null 和 undefined 是无法拥有方法的值&lt;/p&gt;
-
-&lt;p&gt;JavaScript 数据类型还可以分为：可以拥有方法和不可以拥有方法类型、&lt;strong&gt;可变&lt;/strong&gt;（nutable）类型和 &lt;strong&gt;不可变&lt;/strong&gt;（imutable）类型&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;JavaScript 程序可以更改对象属性值和数组元素的值。数字、布尔值、null 和 undefined 属于不可变类型 —— 比如，修改一个数值的内容本身就说不通。字符串可以看成由字符组成的数组，你可能会认为它是可变的。然而在 JavaScript 中，字符串是不可变的。可以访问字符串任意位置的文本，但不能修改其内容&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;JavaScript 可以自由地进行数据类型转换。比如程序期望使用字符串的地方使用了数字， JavaScript 会自动将数字转换为字符串。期望使用布尔值的地方使用了非布尔值也会自动进行相应转换&lt;/p&gt;
-
-&lt;p&gt;JavaScript 变量是无/弱类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用 &lt;strong&gt;词法作用域&lt;/strong&gt;（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见&lt;/p&gt;
-
-&lt;h2 id=&#34;数字&#34;&gt;数字&lt;/h2&gt;
-
-&lt;p&gt;JavaScript &lt;strong&gt;不区分&lt;/strong&gt; 整数和浮点数。所有的数字均用浮点数值表示。JavaScript 采用 &lt;a href=&#34;https://zh.wikipedia.org/wiki/IEEE_754&#34;&gt;IEEE 754&lt;/a&gt; 标准定义的 64 位浮点格式表示数字&lt;/p&gt;
-
-&lt;p&gt;当一个数字直接出现在 JavaScript 程序中，我们称为数字直接量（numberic literal）。JavaScript 支持多种格式的籽安直接量。注意，在任何数字直接量前添加负号（-）可以得到它们的负值。但负号是 &lt;strong&gt;一元 &lt;a href=&#34;https://zh.wikipedia.org/wiki/位操作&#34;&gt;求反&lt;/a&gt;&lt;/strong&gt; 运算符，并不是数字直接量语法组成部分&lt;/p&gt;
-
-&lt;h3 id=&#34;整型直接量&#34;&gt;整型直接量&lt;/h3&gt;
-
-&lt;p&gt;十进制整数，例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;0
-3
-1000000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;十六进制值，指直接量以「」或为前缀，其后跟随十六进制数串的直接量。十六进制值是 0 ~ 9 之间的数字和 a(A) ~ f(F) 之前的字母构成，a ~ f 的字母对应的表示数字 10 ~ 15&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;0x2Af5         // 8192 + 2560 + 240 + 5 = 10996（十进制）
-/*
-+-------------------------------------------------+
-|                                                 |
-|       2          A          F          5        |
-|                                                 |
-|       3          2          1          0        |
-|                                                 |
-|    2*16^3      A*16^2     F*16^1     5*16^0     |
-|                                                 |
-|    2*4096      10*256     15*16       5*1       |
-|                                                 |
-|     8192   +    2560   +   240    +    5        |
-|                                                 |
-|       十六进制 2AF5 转换成十进制为10996         |
-|                                                 |
-+-------------------------------------------------+
-*/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ECMAScript 标准 &lt;strong&gt;不支持&lt;/strong&gt; 八进制直接量，ECMAScript 6 严格模式下不能使用八进制&lt;/p&gt;
-
-&lt;h3 id=&#34;浮点型直接量&#34;&gt;浮点型直接量&lt;/h3&gt;
-
-&lt;p&gt;浮点型直接量可以含有小数点，采用传统实数的写法。此外，还可以使用指数记数法表示浮点型直接量，即在实数后跟字母 e 或 E，后面再跟正负号，其后再加一个整形指数。这种记数方法表示的数值，是由前面的实数乘以 10 的指数次幂，例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;3.14
-2134.789
-.33          // 0.33
-6.02e23      // 6.02 乘以 10 的 23 次方
-1.47e-32     // 1.47 乘以 10 的负 32 次方
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;javascript-中的算术运算&#34;&gt;JavaScript 中的算术运算&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 中的算术运算在 &lt;strong&gt;溢出&lt;/strong&gt;（overflow）、&lt;strong&gt;下溢&lt;/strong&gt;（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值&lt;/p&gt;
-
-&lt;p&gt;下溢是当运算结果无限接近于零并比 JavaScript 能表示的最小值还小的时候发生的一种情况。这种情况下，JavaScript 将会返回 0。当一个负数发生下溢时，JavaScript 返回一个特殊的值「负零」，这个值几乎和正常的零完全一样&lt;/p&gt;
-
-&lt;p&gt;实零带除在 JavaScript 中并不报错：它会返回正或者负无穷大。但有一个例外，零除以零是没有意义的，这种整除运算结果也是一个非数字（not-a-number）值，用 NaN 表示&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;1/0                      // =&amp;gt; Infinity
--1/0                     // =&amp;gt; -Infinity
-Number.NEGATIVE_INFINITY // =&amp;gt; -Infinity
-Number.MAX_VALUE         // =&amp;gt; 1.7976931348623157e+308
-Number.MAX_VALUE + 1     // =&amp;gt; Infinity （经测试在 Chrome 里面并不是）
-0/0                      // =&amp;gt; NaN
-Number.MIN_VALUE / 2     // =&amp;gt; 0 发生下溢
--Number.MIN_VALUE / 2    // =&amp;gt; -0 负零
--1/Infinity              // =&amp;gt; -0
-NaN == NaN               // =&amp;gt; false
-isNaN(&#39;hello&#39;)           // =&amp;gt; false
-isFinite(123)            // =&amp;gt; true 参数不是 NaN, Infinity 或 -Infinity 时返回 true
-isFinite(-1/0)           // =&amp;gt; false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;JavaScript 中的非数字值（NaN）和任何值都不相等，包括 NaN，&lt;code&gt;NaN == NaN&lt;/code&gt; 返回 &lt;code&gt;false&lt;/code&gt; 但是可以使用 isNaN 判断一个值是不是 NaN&lt;/p&gt;
-
-&lt;h3 id=&#34;二进制浮点数和四舍五入错误&#34;&gt;二进制浮点数和四舍五入错误&lt;/h3&gt;
-
-&lt;p&gt;IEEE-754 浮点表示法是一种二进制表示法，但是并不能精确表示十进制分数，在任何使用二进制浮点数的编程语言中都会有这个问题&lt;/p&gt;
-
-&lt;p&gt;下面的代码中 x 和 y 的值非常 &lt;strong&gt;接近&lt;/strong&gt; 彼此和最终正确值。这种计算结果可以用途大多数的计算任务，&lt;strong&gt;这个问题也只有在比较两个值是否相等的时候才会出现&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;0.3 - 0.2           // =&amp;gt; 0.09999999999999998
-0.2 - 0.1           // =&amp;gt; 0.1
-var x = 0.3 - 0.2;
-var y = 0.2 - 0.1;
-x == y              // =&amp;gt; false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;日期和时间&#34;&gt;日期和时间&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 语言核心包括 Date() 构造函数，用来创建表示日期和时间对象，大致使用方法如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var then = new Date(2011, 0, 1);                // 2011 年 1 月 1 日
-var later = new Date(2011, 0, 1, 17, 10, 30)    // 下午 5 点 10 分 30 秒
-var elapsed = now - then;                       // 日期减法：计算时间间隔的毫秒数
-later.getFullYear();                            // =&amp;gt; 2011
-later.getMonth();                               // =&amp;gt; 0 月份从 0 开始
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;文本&#34;&gt;文本&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;字符串&lt;/strong&gt;（string）是一组 16 位值组成的不可变的有序序列，每个字符通常来自于 Unicode 字符集。字符串的长度（length）是其所含 16 位值的个数。字符串索引从零开始&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;&amp;quot;  // 空字符串
-&#39;testing&#39;
-&amp;quot;3.14&amp;quot;
-&amp;quot;Wouldn&#39;t you prefer O&#39;Reilly&#39;s book?&amp;quot;
-&amp;quot;This string\nhas Two lines&amp;quot;  // 显示为两行
-&amp;quot;one\
-long\
-line&amp;quot;   // 显示为单行，但是可以分行书写
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;转义字符&#34;&gt;转义字符&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 中转文字符用反斜线（\）加一个字符表示，比如 \n 就是一个转义字符，表示一个换行符&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;转义字符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Unicode&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;\o&lt;/td&gt;
-&lt;td&gt;NUL 字符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0000&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\b&lt;/td&gt;
-&lt;td&gt;退格符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0008&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\t&lt;/td&gt;
-&lt;td&gt;水平制表符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\n&lt;/td&gt;
-&lt;td&gt;换行符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\v&lt;/td&gt;
-&lt;td&gt;垂直制表符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\f&lt;/td&gt;
-&lt;td&gt;换页符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\r&lt;/td&gt;
-&lt;td&gt;回车符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;双引号&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\&amp;rsquo;&lt;/td&gt;
-&lt;td&gt;单引号&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\&lt;/td&gt;
-&lt;td&gt;反斜线&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;\u0009&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\xXX&lt;/td&gt;
-&lt;td&gt;2位十六进制数XX指定的 Latin-1 字符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\uXXXX&lt;/td&gt;
-&lt;td&gt;4位十六进制数XX指定的 Unicode 字符&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;字符串的使用&#34;&gt;字符串的使用&lt;/h3&gt;
-
-&lt;p&gt;加号（+）运算符作用于字符串表示链接，字符串通过访问 length 属性得到长度&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &amp;quot;hello world&amp;quot;
-s.charAt(0)                 // =&amp;gt; &amp;quot;h&amp;quot; 下标为 0 的字符
-s.substring(1, 4)           // =&amp;gt; &amp;quot;ell&amp;quot; 下标从 1 ~ 4 的字符
-s.slice(1, 4)               // =&amp;gt; &amp;quot;ell&amp;quot; 同上
-s.slice(-3)                 // =&amp;gt; &amp;quot;rld&amp;quot; 最后三个字符
-s.indexOf(&amp;quot;l&amp;quot;)              // =&amp;gt; 2 字符 l 首次出现的下标
-s.lastIndexOf(&amp;quot;l&amp;quot;)          // =&amp;gt; 10 字符 l 最后一次出现的下标
-s.split(&amp;quot;, &amp;quot;)               // =&amp;gt; [&amp;quot;hello&amp;quot;, &amp;quot;world&amp;quot;] 分割字符串
-s.replace(&amp;quot;h&amp;quot;, &amp;quot;H&amp;quot;)         // =&amp;gt; &amp;quot;Hello, world&amp;quot; 全文字替换
-s.toUpperCase()             // =&amp;gt; &amp;quot;HELLO, WORLD&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一定要记住，在 JavaScript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都 &lt;strong&gt;返回新字符串&lt;/strong&gt;，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符&lt;/p&gt;
-
-&lt;h3 id=&#34;模式匹配&#34;&gt;模式匹配&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 定义了 RegExp() 构造函数，用来创建表示文本匹配模式的对象。这些模式称为「正则表达式」（regular expression）， JavaScript 采用 Perl 中的正则表达式语法。String 和 RegExp 对象均定义了正则模式匹配、查找和替换的函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/^HTML/                       // 匹配以 HTML 开始的字符串
-/[1-9][0-9]*/                 // 匹配一个非零数字，后面是任意个数字
-/\bjavascript/i               // 匹配单词「javascript」，忽略大小写
-
-var text = &amp;quot;testing: 1, 2, 3&amp;quot;
-var pattern = /\d+/g          // 匹配所有包含一个或者多个数字的实例
-pattern.test(text)            // =&amp;gt; true 匹配成功
-text.search(pattern)          // =&amp;gt; 9 首次匹配成功的位置
-text.match(pattern)           // =&amp;gt; [&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;] 所有匹配组成的数组
-text.replace(pattern, &amp;quot;#&amp;quot;)    // =&amp;gt; &amp;quot;testing: #, #, #&amp;quot;
-text.split(/\D+/)             // =&amp;gt; [&amp;quot;&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;] 用非数字字符截取字符串
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;布尔值&#34;&gt;布尔值&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 中比较语句的结果通常都是布尔值，布尔值通常用于控制结构中。任意 JavaScript 的值都可以转换成布尔值。所有对象（数组）都会转换成 true, 面这些则都是 false&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;undefined
-null
-0
--0
-NaN
-&amp;quot;&amp;quot;     // 空字符串
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;null-和-undefined&#34;&gt;null 和 undefined&lt;/h2&gt;
-
-&lt;p&gt;null 是 JavaScript 语言的关键字，执行 typeof 运算返回 「object」，也就是说，可以将 null 认为是一个特殊的对象值，含义是「非对象」。但实际上，通常认为 null 是它自有类型的唯一一个成员，它可以表示数字、字符串或对象是「无值」的&lt;/p&gt;
-
-&lt;p&gt;undefined 是一种取值，表明变量没有初始化，如果要查询对象属性或者数组元素的值时返回 undefined 则说明这个属性或者元素不存在。如果函数没有返回任何值，则返回 undefined引用没有提供实参的函数形参的值也只会得到 undefined。&lt;/p&gt;
-
-&lt;p&gt;undefined 不是关键字，是 JavaScript 预定义的全局变量，它的值就是「未定义」。ECMAScript 3 中，undefined 是 &lt;strong&gt;可读/写的变量&lt;/strong&gt;，可以给它赋任意值。这个错误在 ECMAScript 5 中做了修正，变成了只读的。如果执行 typeof 运算得到 undefined 类型，则返回 &amp;ldquo;undefied&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;null 和 undefined 都 &lt;strong&gt;不包含任何属性和方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;全局对象&#34;&gt;全局对象&lt;/h2&gt;
-
-&lt;p&gt;全局对象的属性是全局定义的符号，JavaScript 程序可以直接使用。当解释器启动时，它将创建一个新的全局对象，并给它一组初始属性：&lt;/p&gt;
-
-&lt;p&gt;全局属性，比如 undefined, Infinity 和 NaN
-全局函数，比如 isNaN(), parseInt(), eval()
-构造函数，比如 Date(), RegExp(), String(), Object() 和 Array()
-全局对象，比如 Math 和 JSON&lt;/p&gt;
-
-&lt;p&gt;全局对象的 &lt;strong&gt;初始属性&lt;/strong&gt; 并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性&lt;/p&gt;
-
-&lt;h2 id=&#34;包装对象&#34;&gt;包装对象&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &amp;quot;test&amp;quot;, n = 1, b = true;
-var S = new String(s);
-var N = new Number(N);
-var B = new Boolean(b);
-
-s == S                  // =&amp;gt; true
-s === S                 // =&amp;gt; false
-typeof s                // =&amp;gt; &amp;quot;string&amp;quot;
-typeof S                // =&amp;gt; &amp;quot;object&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以通过 Number() 或 Boolean() 构造函数来显式创建包装对象，JavaScript 会在必要的时候将包装对象转换成原始值。上段代码中的对象 S, N 和 B 常常但不总是表现的和值 s, n 和 b 一样。「==」运算符将原始值和其包装对象视为相等，但「===」全等运算符将它们视为不等，通过 typeof 运算符可以看到原始值和其包装对象的不同&lt;/p&gt;
-
-&lt;h2 id=&#34;不可变的原始值和可变的对象引用&#34;&gt;不可变的原始值和可变的对象引用&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别，&lt;strong&gt;原始值是不可更改的&lt;/strong&gt;，比如字符串的所有方法都是新返回一个值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var s = &amp;quot;hello&amp;quot;;
-s.toUpperCase();    // =&amp;gt; &amp;quot;HELLO&amp;quot;
-s                   // =&amp;gt; &amp;quot;hello&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对象和原始值不同，首先，它他是 &lt;strong&gt;可变的&lt;/strong&gt; —— 值可以修改&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var o = { x: 1};
-o.x = 2;
-oxy = 3;
-
-var a = [1,2,3]
-a[0] = 0;
-a[3] = 4;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;对象的比较并非值的比较，即使两个对象包含同样的属性及相同的值&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var o = {x:1}, p = {x:1};
-o === p                 // =&amp;gt; false
-var a = [], b = [];
-a === b                 // =&amp;gt; false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;通常将对象𤠕引用类型（reference type）,以此来和 JavaScript 基本类型区分开。按术语的叫法，对象值都是引用（reference）,对象的比较均是引用的比较：&lt;strong&gt;当且仅当它们引用同一个基本对象时，它们才相等&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var a = [];
-var b = a;
-b[0] = 1;
-a[0]        // =&amp;gt; 1 变量 a 也会修改
-a === b     // =&amp;gt; true a 和 b 引用一个相同的数组，所以它们相等
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;类型转换&#34;&gt;类型转换&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 中的取值类型非常灵活，从布尔值可以看到这一点：当 JavaScript 期望使用一个布尔值的时候，你可以提供任意类型值， JavaScript 将根据需要自行转换类型。这在其它类型转换中同样适用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;10 + &amp;quot; objects&amp;quot;         // =&amp;gt; &amp;quot;10 objects&amp;quot; 数字 10 转换成字符串
-&amp;quot;7&amp;quot; * &amp;quot;4&amp;quot;               // =&amp;gt; 28 两个字符串均转换为数字
-var n = 1 - &amp;quot;x&amp;quot;         // =&amp;gt; NaN 字符串 &amp;quot;x&amp;quot; 无法转换为数字
-n + &amp;quot; objects&amp;quot;          // =&amp;gt; &amp;quot;NaN objects&amp;quot; NaN 转换为字符串 &amp;quot;NaN&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;常用值转换成对应的类型结果&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;表3-1&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;值&lt;/th&gt;
-&lt;th&gt;字符串&lt;/th&gt;
-&lt;th&gt;数字&lt;/th&gt;
-&lt;th&gt;布尔值&lt;/th&gt;
-&lt;th&gt;对象&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;undefined&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;undefined&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;NaN&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;throws TypeError&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;null&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;null&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;throws TypeError&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;true&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;new Boolean(true)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;false&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;new Boolean(false)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;rdquo;&amp;rdquo; (空字符串)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;new String(&amp;ldquo;&amp;rdquo;)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;ldquo;1.2&amp;rdquo; (非空数字)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;1.2&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;new String(&amp;ldquo;1.2&amp;rdquo;)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;ldquo;one&amp;rdquo; (非空，非数字)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;NaN&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;new String(&amp;ldquo;one&amp;rdquo;)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;0&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;new Number(0)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;-0&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;0&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;new Number(-0)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;NaN&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;NaN&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;false&lt;/td&gt;
-&lt;td&gt;new Number(NaN)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;Infinity&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;Infinity&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;new Number(Infinity)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;-Infinity&lt;/td&gt;
-&lt;td&gt;&amp;rdquo;-Infinity&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;new Number(-Infinity)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;1 (无穷大，非零)&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;1&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;new Number(1)&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;{} (任意对象)&lt;/td&gt;
-&lt;td&gt;参考 §3.8.3&lt;/td&gt;
-&lt;td&gt;参考 §3.8.3&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;[] (任意数组)&lt;/td&gt;
-&lt;td&gt;&amp;rdquo;&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;1 个数字元素&#34;&gt;9&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;&amp;ldquo;9&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;a href=&#34;其它数组&#34;&gt;&amp;lsquo;a&amp;rsquo;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;use join() method&lt;/td&gt;
-&lt;td&gt;NaN&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;function(){} (任意函数)&lt;/td&gt;
-&lt;td&gt;参考 §3.8.3&lt;/td&gt;
-&lt;td&gt;NaN&lt;/td&gt;
-&lt;td&gt;true&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;转换和相等性&#34;&gt;转换和相等性&lt;/h3&gt;
-
-&lt;p&gt;以下结果均为 true&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;null == undefined
-&amp;quot;0&amp;quot; == 0
-0 == false
-&amp;quot;0&amp;quot; == false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;显式类型转换&#34;&gt;显式类型转换&lt;/h3&gt;
-
-&lt;p&gt;显式类型转换最简单的方法就是使用 Boolean(), Number(), String() 或 Object() 函数。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Number(&amp;quot;3&amp;quot;)     // =&amp;gt; 3
-String(false)   // =&amp;gt; &amp;quot;false&amp;quot;
-Boolean([])     // =&amp;gt; true
-Object(3)       // =&amp;gt; new Number(3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;除了 null 和 undefined 之外 &lt;strong&gt;任何值&lt;/strong&gt; 都具有 toString() 方法&lt;/p&gt;
-
-&lt;p&gt;JavaScript 中的某些运算符会做隐式的类型转换。如果「+」运算符的一个操作数是字符串，它将会把另外一个操作数转换为字符串。一元「!」运算符将其操作数转换为布尔值并取反&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;x + &amp;quot;&amp;quot;      // 等价于 String(x)
-+x          // 等价于 Number(x)
-!!x         // 等价于 Boolean(x)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Number 类型定义的 toString() 方法可以接收表示转换基数的可选参数，默认是基于十进制的，toFixed(), toExponential(), toPrecision() 三个方法都会适当地进行四舍五入或填充 0&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var n = 17
-binary_sting = n.toString(2)        // 转换为 &amp;quot;10001&amp;quot;
-octal_string = &amp;quot;0&amp;quot; + n.toString(8)  // 转换为 &amp;quot;021&amp;quot;
-hex_string = &amp;quot;0x&amp;quot; + n.toString(16)  // 转换为 &amp;quot;0x11&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;通过 Number() 转换函数传入一个字符串，它会试图将其转换为一个整数或浮点数直接量，这个方法只能基于十进制数进行转换，并且不能出现 &lt;strong&gt;非法的尾随字符&lt;/strong&gt;。parseInt() 和 parseFloat() 函数（全局函数，不属于任何类的方法）更加灵活。如果字符前缀是「0x」或「0X」，parseInt() 将其解释为十六进制数，parseInt() 和 parseFloat() 都会跳过任意数量的前导空格，尽可能解析更多数值字符，并忽略 &lt;strong&gt;后面的内容&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;parseInt(&amp;quot;3 blind mice&amp;quot;)        // =&amp;gt; 3
-parseFloat(&amp;quot; 3.14 meters&amp;quot;)      // =&amp;gt; 3.14
-parseInt(0xFF)                  // =&amp;gt; 255
-parseInt(&amp;quot;0.1&amp;quot;)                 // =&amp;gt; 0
-parseInt(&amp;quot;.1&amp;quot;)                  // =&amp;gt; NaN
-parseFloat(&amp;quot;$72.47&amp;quot;)            // =&amp;gt; NaN
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;对象转换为原始值&#34;&gt;对象转换为原始值&lt;/h3&gt;
-
-&lt;p&gt;所有对象继承了两个转换方法 toString(), valueOf()&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;toString()&lt;/strong&gt; 的作用是返回一个反映这个对象的字符串&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;({x:1, y:2}).toString()             // =&amp;gt; &amp;quot;[object Object]&amp;quot;
-[1,2,3].toString()                  // ==&amp;gt; &amp;quot;1,2,3&amp;quot;
-(function(x) { f(x); }).toString()  // =&amp;gt; &amp;quot;function(x) {\n f(x);\n }&amp;quot;
-/\d+/g.toString()                   // =&amp;gt; &amp;quot;/\\d+/g&amp;quot;
-new Date(2010,0,1).toString()       // =&amp;gt; &amp;quot;Fri Jan 01 2010 00:00:00 GMT+0800 (中国标准时间)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;valueOf()&lt;/strong&gt; 这个方法的作答并未详细定义：如果存在任意原始值，它就默认将对象转换为表示它的原始值。复合值默认返回对象本身&lt;/p&gt;
-
-&lt;p&gt;JavaScript 中对象到字符串的转换经过了如下这些步骤：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如果对象具有 toString() 方法，调用后，如果返回一个原始值，JavaScript 将这个值转换为字符串，并返回&lt;/li&gt;
-&lt;li&gt;如果没有 toString() 方法，或者这个方法并不返回一个原始值，那么 JavaScript 会调用 valueOf() 方法，如果存在这个方法，则调用它。如果返回值是原始值，就将这个值值的为字符串并返回&lt;/li&gt;
-&lt;li&gt;否则，无法从 toString() 和 valueOf() 获得一个原始值，这些将抛出一个类型错误异常&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var now = new Date();
-typeof (now +1)             // =&amp;gt; &amp;quot;string&amp;quot; 「+」将日期转换为字符串
-typeof (now -1)             // =&amp;gt; &amp;quot;number&amp;quot; 「-」使用对象到数字的转换
-now == now.toString()       // =&amp;gt; true
-now &amp;gt; (now - 1)             // =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;变量声明&#34;&gt;变量声明&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var i;
-var sum;
-var i, sum;     // 单 var 声明多个变量
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果未在 var 声明语句中给变量指定初始值，那么虽然声明了这个变量，但在给它存入一个值之前，它的初始值就是 undefined&lt;/p&gt;
-
-&lt;p&gt;JavaScript 是弱类型语言，变量可以是任意数据类型，下面的写法是合法的：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var i = 10;
-i = &amp;quot;ten&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;变量作用域&#34;&gt;变量作用域&lt;/h2&gt;
-
-&lt;p&gt;变量作用域（scope）是程序源代码中定义它的区域。在函数体内，局部变量的优先级高于 &lt;strong&gt;同名&lt;/strong&gt; 的全局变量，并且函数内部可以修改外部变量&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var scope = &amp;quot;global&amp;quot;;
-function checkScope() {
-  var scope = &#39;local&#39;;
-  return scope
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在声明全局变量时可以不使用 var 前缀，但在声明局部变量时 &lt;strong&gt;一定&lt;/strong&gt; 要使用 var&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;scope = &amp;quot;global&amp;quot;;       // 定义一个全局变量
-function checkScope2() {
-    scope = &#39;local&#39;;
-    myscope = &#39;local&#39;;
-
-    return [scope, myscope]
-}
-
-checkScope2()           // =&amp;gt; [&#39;local&#39;, &#39;local&#39;]
-scope                   // =&amp;gt; &amp;quot;local&amp;quot;
-myscope                 // =&amp;gt; &amp;quot;local&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;函数作用域和声明提前-hoisting&#34;&gt;函数作用域和声明提前（Hoisting）&lt;/h3&gt;
-
-&lt;p&gt;像一些类 C 的编程语言中，花括号（{}）内的每一段代码都具有各自的作用域，变量在声明它们的代码段之外是不可见的，我们称为 &lt;strong&gt;块级作用域&lt;/strong&gt;（block scope），而 JavaScript 中没有块级作用域。JavaScript 中使用了 &lt;strong&gt;函数作用域&lt;/strong&gt;（function scope）：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是可以被访问到的&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;下面的代码中，在不同位置定义了变量 i,j 和 k，它们都在同一个作用域内。当调用 &lt;code&gt;test()&lt;/code&gt; if 语句并没有执行，但是变量 j 已经定义却没被始化&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function test(o) {
-    var i = 0;
-    if ( typeof o === &#39;object&#39; ) {
-        var j = 0;
-        for (var k = 0; k &amp;lt; 10; k++) {
-            console.log(k);
-        }
-        console.log(k);
-    }
-    console.log(j);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;JavaScript 的函数作用域是指在函数内声明的所有变量在函数体内始终是可见的。这就意味着变量在声明之前甚至已经可用。JavaScript 的这个被非正式地称为声明提前（hoisting），即 JavaScript 函数里声明的所有变量（不包括赋值）都被「提前」到函数体的顶部 &lt;a href=&#34;http://www.slideshare.net/lijing00333/javascript-engine&#34;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var scope = &amp;quot;global&amp;quot;;
-function f() {
-    console.log(scope);     // =&amp;gt; undefined
-    var scope = &amp;quot;local&amp;quot;;
-    console.log(scope);     // =&amp;gt; &amp;quot;local&amp;quot;
-}
-f();
-
-function b() {
-    console.log(scope);     // =&amp;gt; &amp;quot;global&amp;quot;
-}
-b();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面的代码中函数 f 的局部变量 scope 由于 &lt;strong&gt;声明提前&lt;/strong&gt;，代码刚执行进入 f 内部的时候 scope 就被赋值 undefined，这时局部变量优先级高于同名全局变量，所以就返回了 undefined，只有代码执行到 var 的时候 scope 才真正被赋值。所以函数 f 等价于：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f() {
-    var scope;
-    console.log(scope);     // =&amp;gt; undefined
-    scope = &amp;quot;local&amp;quot;;
-    console.log(scope);     // =&amp;gt; &amp;quot;local&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这也是为什么建议函数体内的变量尽量放在上面，避免造成混乱或者误解&lt;/p&gt;
-
-&lt;h3 id=&#34;作为属性的变量&#34;&gt;作为属性的变量&lt;/h3&gt;
-
-&lt;p&gt;当声明一个 JavaScript 全局变量时，实际上是定义了全局对象的一个属性。当使用 var 声明一个变量时，这个变量是无法通过 delete 运算符删除的。不使用 var 声明的全局变量却是可以被 delete 的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var truevar = 1;
-fakevar = 2;                // 不用 var 创建一个全局变量
-this.fakevar2 = 3;
-delete truevar              // =&amp;gt; false 不可删除
-delete fakevar              // =&amp;gt; true
-delete this.fakevar2        // =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;作用域链-scope-chain&#34;&gt;作用域链（scope chain）&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 是基于 &lt;strong&gt;词法作用域&lt;/strong&gt;（lexically scoped）的语言：通过阅读包含变量定义在内的源代码就能知道变量的作用域&lt;/p&gt;
-
-&lt;p&gt;每一段 JavaScript 代码（全局代码或函数）都有一个与之关联的作用域链。这个作用域链是一个对象列表或者链表，这组对象定义了这段代码「作用域中」的变量。当 JavaScript 需要查找变量 x 值的时候（这个过程称做「变量解析」（valable resolution）），它会从链中的第一个对象开始查找，如果有则直接使用，如果没有 JavaScript 就会继续查找链上的下一个对象，以此类推。如果作用域名链上没有任何一个对象含有属性 x，那么就认为这段代码的作用域链接上不存在 x，并最终抛出一个引用错误（ReferenceError）异常&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;a();
-function a() {
-    alert(&#39;1&#39;);
-}
-a();
-function a() {
-    alert(&#39;2&#39;);
-}
-a();
-var a = function() {
-    alert(&#39;3&#39;);
-};
-a();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;引用&#34;&gt;引用&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;IEEE 754 &lt;a href=&#34;https://zh.wikipedia.org/wiki/IEEE_754&#34;&gt;https://zh.wikipedia.org/wiki/IEEE_754&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;位操作 &lt;a href=&#34;https://zh.wikipedia.org/wiki/位操作&#34;&gt;https://zh.wikipedia.org/wiki/位操作&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;JavaScript Engine &lt;a href=&#34;http://www.slideshare.net/lijing00333/javascript-engine&#34;&gt;http://www.slideshare.net/lijing00333/javascript-engine&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     

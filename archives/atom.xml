@@ -15,7 +15,7 @@
       <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
       
       <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要服务业方便地渲染 json 数据
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
 &lt;/p&gt;
 
 &lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;

@@ -201,7 +201,9 @@ var out = '{var nu = 12}${nu|toFixed:2}'.process({ _MODIFIERS: Modifiers });
 
 <h2 id="宏-macro">宏 Macro</h2>
 
-<p>macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上。比如：在调用 process() 方法之前设置 <code>contextObject['exported'] = {}</code></p>
+<p>macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上（下次调用 process() 方法的时候再手动挂载上!? ）。需要在调用 process() 方法之前给 contextObject 设置一个空的 exported 属性：<code>contextObject['exported'] = {}</code></p>
+
+<p>这个公用的 macro 设计的有点奇葩，可以参考这个 <a href="http://codepen.io/keelii/pen/dOvgOJ">示例</a></p>
 
 <pre><code>{macro link(href, name)}
     &lt;a href=&quot;${href}&quot;&gt;${name}&lt;/a&gt;

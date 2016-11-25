@@ -25,7 +25,7 @@
 &lt;ul&gt;
 &lt;li&gt;ThinkPad T450 (公司标配)&lt;/li&gt;
 &lt;li&gt;Windows 7 SP1 64bit 企业版&lt;/li&gt;
-&lt;li&gt;编程语言 Javascript, HTML, CSS, NodeJS, Python&lt;/li&gt;
+&lt;li&gt;编程语言 JavasSript, HTML, CSS, NodeJS, Python&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
@@ -55,8 +55,6 @@
 
 &lt;h3 id=&#34;startup&#34;&gt;Startup&lt;/h3&gt;
 
-&lt;p&gt;{% raw %}&lt;/p&gt;
-
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Startup {{{
 filetype indent plugin on
 
@@ -70,15 +68,11 @@ augroup END
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;{% endraw %}&lt;/p&gt;
-
 &lt;p&gt;设置 vim 相关文件打开后默认折叠方式为 marker，约定俗成的用三个花括号注释包裹起来，这样在你打开配置文件的时候 vim 就会帮你折叠起来，配置文件看起来就简洁多了，如图:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png&#34; alt=&#34;vim-fold-config&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;general&#34;&gt;General&lt;/h3&gt;
-
-&lt;p&gt;{% raw %}&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; General {{{
 set nocompatible
@@ -96,8 +90,6 @@ set winaltkeys=no
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;{% endraw %}&lt;/p&gt;
-
 &lt;p&gt;基本上一眼就能看出来这是些啥玩意，不过后面两项目我个人感觉比较好用：&lt;/p&gt;
 
 &lt;p&gt;clipboard+=unnamed 比如你在其它地方 copy 了一段文字回到 vim 里面可以粘贴进来&lt;/p&gt;
@@ -105,8 +97,6 @@ set winaltkeys=no
 &lt;p&gt;winaltkeys=no 一般 windows 下应用程序的 alt 是用来定位菜单栏目的快捷键，我们需要禁用它，因为我们后面很多设置都需要使用 alt，需要使用 alt 来定位菜单的情况很少&lt;/p&gt;
 
 &lt;h3 id=&#34;lang-encoding&#34;&gt;Lang &amp;amp; Encoding&lt;/h3&gt;
-
-&lt;p&gt;{% raw %}&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Lang &amp;amp; Encoding {{{
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
@@ -117,13 +107,9 @@ let $LANG = &#39;en_US.UTF-8&#39;
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;{% endraw %}&lt;/p&gt;
-
 &lt;p&gt;vim 里面设置编码的地方很多，上面这些配置可以保证不会出现乱码，像文件菜单、vim默认语言建议设置成 en_US&lt;/p&gt;
 
 &lt;h3 id=&#34;gui&#34;&gt;GUI&lt;/h3&gt;
-
-&lt;p&gt;{% raw %}&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; GUI {{{
 colorscheme Tomorrow-Night
@@ -152,8 +138,6 @@ set guifont=Inconsolata:h12:cANSI
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;{% endraw %}&lt;/p&gt;
-
 &lt;p&gt;编辑器配色建议使用 Tomorrow-Night，下载文件 copy 到 colors 目录即可&lt;/p&gt;
 
 &lt;p&gt;从上面的设置可以看出来，为了得到一个简洁漂亮的界面，我们去掉了菜单栏、各种滚动条、使用 vim 内置 tab 而不是 gvim 系统的 tab 样式，注意很多开发者喜欢显示不可见字符，比如：tab 制表符、换行符号、尾空格等。&lt;/p&gt;
@@ -168,8 +152,6 @@ set guifont=Inconsolata:h12:cANSI
 
 &lt;h3 id=&#34;format&#34;&gt;Format&lt;/h3&gt;
 
-&lt;p&gt;{% raw %}&lt;/p&gt;
-
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Format {{{
 set autoindent
 set smartindent
@@ -181,15 +163,11 @@ syntax on
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;{% endraw %}&lt;/p&gt;
-
 &lt;p&gt;这个设置容易引起争议，我自己是这么个设置，大家按个人喜好就行了，反正我是不建议使用 tab 的，对代码格式有强迫症的人一般都会设置 foldmethod=indent&lt;/p&gt;
 
 &lt;h3 id=&#34;keymap&#34;&gt;Keymap&lt;/h3&gt;
 
 &lt;p&gt;可以说快捷键是每个编辑器必备的功能，科学的设置快捷键能很大程度的提高效率。快捷键的设置要遵循一个规则：尽量不要修改系统默认配置的快捷键，非要设置的话选择好相应的模式&lt;/p&gt;
-
-&lt;p&gt;{% raw %}&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Keymap {{{
 let mapleader=&amp;quot;,&amp;quot;
@@ -264,8 +242,6 @@ nnoremap &amp;lt;C-right&amp;gt; :bp&amp;lt;CR&amp;gt;
 
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;{% endraw %}&lt;/p&gt;
 
 &lt;p&gt;首页我们设置了 leaderkey 为逗号「,」，不要问为什么约定的就是它。别设置成空格就行了&lt;/p&gt;
 
@@ -355,8 +331,6 @@ endif
 
 &lt;p&gt;常用方法这里我只有一个，移除尾空格&lt;/p&gt;
 
-&lt;p&gt;{% raw %}&lt;/p&gt;
-
 &lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Function {{{
 &amp;quot; Remove trailing whitespace when writing a buffer, but not for diff files.
 &amp;quot; From: Vigil
@@ -373,8 +347,6 @@ endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 &amp;quot; }}}
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;{% endraw %}&lt;/p&gt;
 
 &lt;p&gt;No picture U say a &amp;hellip; ?&lt;/p&gt;
 

@@ -102,7 +102,7 @@
 <ul>
 <li>ThinkPad T450 (公司标配)</li>
 <li>Windows 7 SP1 64bit 企业版</li>
-<li>编程语言 Javascript, HTML, CSS, NodeJS, Python</li>
+<li>编程语言 JavasSript, HTML, CSS, NodeJS, Python</li>
 </ul>
 
 <h2 id="前言">前言</h2>
@@ -132,8 +132,6 @@
 
 <h3 id="startup">Startup</h3>
 
-<p>{% raw %}</p>
-
 <pre><code class="language-vim">&quot; Startup {{{
 filetype indent plugin on
 
@@ -147,15 +145,11 @@ augroup END
 &quot; }}}
 </code></pre>
 
-<p>{% endraw %}</p>
-
 <p>设置 vim 相关文件打开后默认折叠方式为 marker，约定俗成的用三个花括号注释包裹起来，这样在你打开配置文件的时候 vim 就会帮你折叠起来，配置文件看起来就简洁多了，如图:</p>
 
 <p><a href="https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png"><img src="https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png" alt="vim-fold-config" /></a></p>
 
 <h3 id="general">General</h3>
-
-<p>{% raw %}</p>
 
 <pre><code class="language-vim">&quot; General {{{
 set nocompatible
@@ -173,8 +167,6 @@ set winaltkeys=no
 &quot; }}}
 </code></pre>
 
-<p>{% endraw %}</p>
-
 <p>基本上一眼就能看出来这是些啥玩意，不过后面两项目我个人感觉比较好用：</p>
 
 <p>clipboard+=unnamed 比如你在其它地方 copy 了一段文字回到 vim 里面可以粘贴进来</p>
@@ -182,8 +174,6 @@ set winaltkeys=no
 <p>winaltkeys=no 一般 windows 下应用程序的 alt 是用来定位菜单栏目的快捷键，我们需要禁用它，因为我们后面很多设置都需要使用 alt，需要使用 alt 来定位菜单的情况很少</p>
 
 <h3 id="lang-encoding">Lang &amp; Encoding</h3>
-
-<p>{% raw %}</p>
 
 <pre><code class="language-vim">&quot; Lang &amp; Encoding {{{
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
@@ -194,13 +184,9 @@ let $LANG = 'en_US.UTF-8'
 &quot; }}}
 </code></pre>
 
-<p>{% endraw %}</p>
-
 <p>vim 里面设置编码的地方很多，上面这些配置可以保证不会出现乱码，像文件菜单、vim默认语言建议设置成 en_US</p>
 
 <h3 id="gui">GUI</h3>
-
-<p>{% raw %}</p>
 
 <pre><code class="language-vim">&quot; GUI {{{
 colorscheme Tomorrow-Night
@@ -229,8 +215,6 @@ set guifont=Inconsolata:h12:cANSI
 &quot; }}}
 </code></pre>
 
-<p>{% endraw %}</p>
-
 <p>编辑器配色建议使用 Tomorrow-Night，下载文件 copy 到 colors 目录即可</p>
 
 <p>从上面的设置可以看出来，为了得到一个简洁漂亮的界面，我们去掉了菜单栏、各种滚动条、使用 vim 内置 tab 而不是 gvim 系统的 tab 样式，注意很多开发者喜欢显示不可见字符，比如：tab 制表符、换行符号、尾空格等。</p>
@@ -245,8 +229,6 @@ set guifont=Inconsolata:h12:cANSI
 
 <h3 id="format">Format</h3>
 
-<p>{% raw %}</p>
-
 <pre><code class="language-vim">&quot; Format {{{
 set autoindent
 set smartindent
@@ -258,15 +240,11 @@ syntax on
 &quot; }}}
 </code></pre>
 
-<p>{% endraw %}</p>
-
 <p>这个设置容易引起争议，我自己是这么个设置，大家按个人喜好就行了，反正我是不建议使用 tab 的，对代码格式有强迫症的人一般都会设置 foldmethod=indent</p>
 
 <h3 id="keymap">Keymap</h3>
 
 <p>可以说快捷键是每个编辑器必备的功能，科学的设置快捷键能很大程度的提高效率。快捷键的设置要遵循一个规则：尽量不要修改系统默认配置的快捷键，非要设置的话选择好相应的模式</p>
-
-<p>{% raw %}</p>
 
 <pre><code class="language-vim">&quot; Keymap {{{
 let mapleader=&quot;,&quot;
@@ -341,8 +319,6 @@ nnoremap &lt;C-right&gt; :bp&lt;CR&gt;
 
 &quot; }}}
 </code></pre>
-
-<p>{% endraw %}</p>
 
 <p>首页我们设置了 leaderkey 为逗号「,」，不要问为什么约定的就是它。别设置成空格就行了</p>
 
@@ -432,8 +408,6 @@ endif
 
 <p>常用方法这里我只有一个，移除尾空格</p>
 
-<p>{% raw %}</p>
-
 <pre><code class="language-vim">&quot; Function {{{
 &quot; Remove trailing whitespace when writing a buffer, but not for diff files.
 &quot; From: Vigil
@@ -450,8 +424,6 @@ endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 &quot; }}}
 </code></pre>
-
-<p>{% endraw %}</p>
 
 <p>No picture U say a &hellip; ?</p>
 
@@ -483,9 +455,9 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
                         </span>
                         
                         <span class="span">Last modified</span>
-                        <time class="entry-date" datetime="2016-06-13 21:25:57">
-                            <span class="date">Jun,13 2016</span>
-                            <span class="time">21:25</span>
+                        <time class="entry-date" datetime="2016-11-25 13:25:57">
+                            <span class="date">Nov,25 2016</span>
+                            <span class="time">13:25</span>
                         </time>
                     </p>
                     <p class="meta">
@@ -583,7 +555,7 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 <script src="/javascripts/octopress.js"></script>
 
 
-<script src="//cdn.bootcss.com/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="/javascripts/highlight.pack.js"></script>
 <script src="/javascripts/post.js"></script>
 <script>if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();</script>
 

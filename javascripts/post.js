@@ -1,7 +1,7 @@
 (function(win, doc) {
     function detectFix() {
         var $toc = $('#side-toc')
-        var oTop = $toc.offset().top;
+        var oTop = $toc.length ? $toc.offset().top : 0;
 
         return function() {
             var sWidth = $('.sidebar').width();

@@ -6,8 +6,299 @@
     <description>Recent content on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 22 Dec 2016 15:55:52 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Feb 2017 15:10:38 +0800</lastBuildDate>
     <atom:link href="https://keelii.github.io/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>关系代数的基本运算</title>
+      <link>https://keelii.github.io/2017/02/19/basic-operations-of-relation-algebra/</link>
+      <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2017/02/19/basic-operations-of-relation-algebra/</guid>
+      <description>
+
+&lt;h2 id=&#34;关系代数运算符&#34;&gt;关系代数运算符&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;集合运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;英文&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;∪&lt;/td&gt;
+&lt;td&gt;并&lt;/td&gt;
+&lt;td&gt;Union&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;−&lt;/td&gt;
+&lt;td&gt;差&lt;/td&gt;
+&lt;td&gt;Difference&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;∩&lt;/td&gt;
+&lt;td&gt;交&lt;/td&gt;
+&lt;td&gt;Intersection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;笛卡尔积&lt;/td&gt;
+&lt;td&gt;Cartesian Product&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;比较运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;gt;&lt;/td&gt;
+&lt;td&gt;大于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;≥&lt;/td&gt;
+&lt;td&gt;大于等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;&lt;/td&gt;
+&lt;td&gt;小于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;≤&lt;/td&gt;
+&lt;td&gt;小于等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;=&lt;/td&gt;
+&lt;td&gt;等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;≠&lt;/td&gt;
+&lt;td&gt;不等于&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;专门的关系运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;英文&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;σ&lt;/td&gt;
+&lt;td&gt;选择&lt;/td&gt;
+&lt;td&gt;Selection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;π&lt;/td&gt;
+&lt;td&gt;投影&lt;/td&gt;
+&lt;td&gt;Projection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;⋈&lt;/td&gt;
+&lt;td&gt;链接&lt;/td&gt;
+&lt;td&gt;Join&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;÷&lt;/td&gt;
+&lt;td&gt;除&lt;/td&gt;
+&lt;td&gt;Division&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;逻辑运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;∧&lt;/td&gt;
+&lt;td&gt;与&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;∨&lt;/td&gt;
+&lt;td&gt;或&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;¬&lt;/td&gt;
+&lt;td&gt;非&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;5-种基本的关系代数运算&#34;&gt;5 种基本的关系代数运算&lt;/h2&gt;
+
+&lt;h3 id=&#34;并-union&#34;&gt;并（Union）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 与 S 具有相同的关系模式，即 R 与 S 的元数相同（结构相同），R 与 S 的并是属于 R 或者属于 S 的元组构成的集合，记作 R ∪ S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R∪S=\{t|t∈R∨t∈S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;差-difference&#34;&gt;差（Difference）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 与 S 具有相同的关系模式，关系 R 与 S 的差是属于 R 但不属于 S 的元组构成的集合，记作 R − S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R−S=\{t|t∈R∨t∉S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;广义笛卡尔积-extended-cartesian-product&#34;&gt;广义笛卡尔积（Extended Cartesian Product）&lt;/h3&gt;
+
+&lt;p&gt;两个无数分别为 n 目和 m 目的关系 R 和 S 的 笛卡尔积是一个 (n+m) 列的元组的集合。组的前 n 列是关系 R 的一个元组，后 m 列是关系 S 的一个元组，记作 R × S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R×S=\{t|t=&lt;(t^n,t^m)∧t^n∈R∧t^m∈S\}$$
+&lt;/div&gt;
+
+&lt;p&gt;$(t^n,t^m)$ 表示元素 $t^n$ 和 $t^m$ 拼接成的一个元组&lt;/p&gt;
+
+&lt;h3 id=&#34;投影-projection&#34;&gt;投影（Projection）&lt;/h3&gt;
+
+&lt;p&gt;投影运算是从关系的垂直方向进行运算，在关系 R 中选出若干属性列 A 组成新的关系，记作 $π_A(R)$，其形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$π_A(R)=\{t[A]|t∈R\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;选择-selection&#34;&gt;选择（Selection）&lt;/h3&gt;
+
+&lt;p&gt;选择运算是从关系的水平方向进行运算，是从关系 R 中选择满足给定条件的元组，记作 $σ_F(R)$，其形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$σ_F(R)=\{t|t∈R∧F(t)=True\}$$
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实例&#34;&gt;实例&lt;/h2&gt;
+
+&lt;p&gt;设有关系 R、S 如图所示，求 $R∪S$、 $R−S$、 $R×S$、 $π_{A,C}(R)$、 $σ_{A&amp;gt;B}(R)$ 和 $σ_{3&amp;lt;4}(R×S)$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/269/2409299226/5377/e997b909/58a95fceNddd39fd7.png&#34; alt=&#34;关系表RS&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进行并、差运算后结果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3949/95/2458170516/5487/1c7f1f38/58a967b1N42db123f.png&#34; alt=&#34;并差&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进行笛卡尔、 投影、 选择运算后结果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3943/109/2403665652/38834/c636281b/58a9685dN20af0b9b.png&#34; alt=&#34;笛卡尔_投影_选择&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;扩展的关系代数运算&#34;&gt;扩展的关系代数运算&lt;/h2&gt;
+
+&lt;h3 id=&#34;交-intersection&#34;&gt;交（Intersection）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 和 S 具有相同的关系模式，交是由属于 R 同时双属于 S 的元组构成的集合，记作 R∩S，形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R∩S=\{t|t∈R∧t∈S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;链接-join&#34;&gt;链接（Join）&lt;/h3&gt;
+
+&lt;p&gt;注：下面的 θ 链接应该记作：&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/158/2461240249/2389/530d7d07/58aa580aNe9908740.png&#34; alt=&#34;theta链接&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;θ-链接&#34;&gt;θ 链接&lt;/h4&gt;
+
+&lt;p&gt;从 R 与 S的笛卡尔积中选取属性间满足一定条件的元组，可由基本的关系运算笛卡尔积和选取运算导出，表示为：&lt;/p&gt;
+
+&lt;div&gt;
+$$R \Join_{XθY} S = σ_{XθY}(R×S)$$
+&lt;/div&gt;
+
+&lt;p&gt;XθY 为链接的条件，θ 是比较运算符，X 和 Y 分别为 R 和 S 上度数相等且可比的属性组&lt;/p&gt;
+
+&lt;p&gt;例如：求 $R \Join_{R.A&amp;lt;S.B} S$，如果为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3133/127/6662942086/21071/88c200da/58aa5b1fN3e2316d5.png&#34; alt=&#34;theta链接小于过程&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;等值链接&#34;&gt;等值链接&lt;/h4&gt;
+
+&lt;p&gt;当 θ 为「=」时，称之为等值链接，记为： $R\Join_{X=Y}S$&lt;/p&gt;
+
+&lt;h4 id=&#34;自然链接&#34;&gt;自然链接&lt;/h4&gt;
+
+&lt;p&gt;自然链接是一种特殊的等值链接，它要求两个关系中进行比较的分量必须是 &lt;strong&gt;相同的属性组&lt;/strong&gt;，并且在结果集中将 &lt;strong&gt;重复的属性列&lt;/strong&gt; 去掉&lt;/p&gt;
+
+&lt;p&gt;例如：设有关系 R、S 如图所示，求 $R \Join S$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3982/212/2472511181/5973/54467e2a/58aa5ffaN970f7e5a.png&#34; alt=&#34;关系RS&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;先求出笛卡尔积 $R×S$，找出比较分量（有相同属性组），即: R.A/S.A 与 R.C/S.C&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3841/5/4275908218/12385/79e83d01/58aa6066Nd003e697.png&#34; alt=&#34;求出笛卡尔积&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取等值链接 $R.A = S.A$ 且 $R.C = S.C$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3256/75/6205568741/12327/2b1dc867/58aa60e8N38a84108.png&#34; alt=&#34;找出相同属性的比较分量&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;结果集中去掉重复属性列，注意无论去掉 R.A 或者 S.A 效果都一样，因为他们的值相等，结果集中只会有属性 A、B、C、D&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3217/183/6576493853/4744/ccb96965/58aa612eN043f7425.png&#34; alt=&#34;结果集中找出重复属性列&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最终得出结果&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3247/65/6676502314/2874/657ddb0c/58aa617eN2457f536.png&#34; alt=&#34;RS自然链接结果&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;除-division&#34;&gt;除（Division）&lt;/h3&gt;
+
+&lt;p&gt;设有以下如图关系，求 $R÷S$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3151/348/6716540896/7287/dc01ad2e/58aaaf3bN1cae8b1a.png&#34; alt=&#34;关系RS1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取关系 R 中有的但 S 中没有的属性组，即：A、B&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3202/137/6722879648/7244/3b47a185/58aaaf81N0b2491b5.png&#34; alt=&#34;关系RS1取属性AB&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取唯一 A、B 属性组值的象集&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3871/170/2430481542/5179/be5899c5/58aaafe6N8297b49f.png&#34; alt=&#34;关系RS1取属性AB对应的象集&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可知关系S存在于 a,b/c,k 象集 中。即 $R÷S$ 得&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>sku 多维属性状态判断算法</title>
@@ -3404,668 +3695,6 @@ NonNullSet.prototype.add = function() {
 &lt;p&gt;上节中定义的集合可以根据特定的标准对集合成员做限制，而且使用了子类的技术来实现这种功能&lt;/p&gt;
 
 &lt;p&gt;然后还有一种更好的方法来完成这种需求，既面向对象编程中一条广为人知的设计原则：「组合优于继承」。这样，可以利用组合的原理定义一个新的集合实现，它「包装」了另外一个集合对象，在将受限制的成员过滤掉之后会用到这个集合对象&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 8 - 函数</title>
-      <link>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</link>
-      <pubDate>Wed, 29 Jun 2016 20:22:22 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</guid>
-      <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;函数定义&#34;&gt;函数定义&lt;/h2&gt;
-
-&lt;p&gt;使用 function 关键字来定义一个函数，可以用在函数定义表达式或者函数声明语句里&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 打印对象名称和值
-function printprops(o) {
-    for(var p in o)
-        console.log(p + &amp;quot;: &amp;quot; + o[p] + &amp;quot;\n&amp;quot;);
-}
-// 递归调用计算阶乘
-function factorial(x) {
-    if (x &amp;lt;= 1) return 1;
-    return x * factorial(x - 1);
-}
-// 函数定义表大式，函数名称可以省略
-var square = function(x) { return x * x; }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;return 语句导致函数停止执行，并返回它的表达式给调用都。如果 return 语句没有一个与之相关的表达式，则它返回 undefined 值，没有 return 语句也会默认返回 undefined 值给调用者&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;嵌套函数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function hypotenuse(a, b) {
-    function square(x) { return x*x; }
-    return Math.sqrt(square(a) + square(b));
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;嵌套函数的作用域规则：它们可以访问嵌套它们的函数的参数和变量。上面的代码里，内部函数 square() 可以读写外部函数 hypotenuse() 定义的参数 a 和 b&lt;/p&gt;
-
-&lt;h2 id=&#34;函数调用&#34;&gt;函数调用&lt;/h2&gt;
-
-&lt;p&gt;有 4 种方式来调用 JavaScript 函数：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;作为函数&lt;/li&gt;
-&lt;li&gt;作为（对象）方法&lt;/li&gt;
-&lt;li&gt;作为构造函数&lt;/li&gt;
-&lt;li&gt;通过它们的 call() 和 apply() 方法间接调用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;函数调用-1&#34;&gt;函数调用&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;function_name(param1, param2);&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;方法调用&#34;&gt;方法调用&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;object.method(param1, param2);&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 对象直接量
-var calculator = {
-    operand1: 1,
-    operand2: 1,
-    add: function() {
-        this.result = this.operand1 + this.operand2;
-    },
-    add1: function(a) {
-        this.operand1 + a;
-        return this;
-    },
-    add2: function(b) {
-        this.operand2 + a;
-        return this;
-    }
-};
-calculator.add();
-calculator.result       // =&amp;gt; 2
-// 使用对象属性访问表达式调用方法
-calculator[&#39;result&#39;]    // =&amp;gt; 2
-// 链式调用
-calculator.add1(1).add2(2)
-calculator.operand1         // =&amp;gt; 2
-calculator.operand2         // =&amp;gt; 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;构造函数调用&#34;&gt;构造函数调用&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;new Object(param1, param2);&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;如果没有参数可以省略括号 &lt;code&gt;new Object&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;间接调用&#34;&gt;间接调用&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;function_name.call()&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;JavaScript 中的 &lt;strong&gt;函数也是对象&lt;/strong&gt;，和其它 JavaScript 对象没什么区别，函数对象也可以包含方法。其中两个 &lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call&#34;&gt;call()&lt;/a&gt; 和 &lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply&#34;&gt;apply()&lt;/a&gt; 可以用来间接地调用函数。两个方法都允许显式地指定调用所需的 this 值&lt;/p&gt;
-
-&lt;h2 id=&#34;函数的实参和形参&#34;&gt;函数的实参和形参&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 的函数定义不用指定形参的类型，调用传入的实参也可以是任意类型，JavaScript &lt;strong&gt;甚至&lt;/strong&gt; 不检查传入实参的个数&lt;/p&gt;
-
-&lt;h3 id=&#34;可选形参&#34;&gt;可选形参&lt;/h3&gt;
-
-&lt;p&gt;如果调用函数的时候传入的实参比指定的形参少，剩下的形参都将设置为 undefined 值，通常使用逻辑与运算符给形参指定默认值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getName(name) {
-    // 如果 name 传入值则使用传入值，否则使用默认值 &amp;quot;no name&amp;quot;
-    // 通常建议可选参数放在参数列表最后
-    name = name || &amp;quot;no name&amp;quot;;
-
-    // code
-
-    return name;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;可变长的实参列表-实参对象&#34;&gt;可变长的实参列表：实参对象&lt;/h3&gt;
-
-&lt;p&gt;当调用函数的时候传入实参人个数超过形参个数时（和上面相反），没有办法直接获得未命名值的引用。参数对象解决了这个问题，在函数体内，标识符 arguments 是指向实参对象的引用，参数对象是一个 &lt;a href=&#34;https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/#TOC-23&#34;&gt;类数组对象&lt;/a&gt;，这样可以通过索引来访问实参了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function fn(x, y, z) {
-    console.log(arguments);
-}
-fn(1,2,3)           // =&amp;gt; [1,2,3]
-fn(1,2,3,4,5)       // =&amp;gt; [1,2,3,4,5]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;实参对象的重要用处就是让函数可以操作任意数量的实参，比如我们自己实现一个数组的 push 方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function push(arr /* optional items [, item ... [, item]] */) {
-    var items = Array.prototype.slice.call(arguments, 1)
-    for (var i = 0; i &amp;lt; items.length; i++) {
-        arr[arr.length] = items[i];
-    }
-}
-var arr1 = [1,2,3];
-push(arr1, 4,5,6);
-arr1                // =&amp;gt; [1, 2, 3, 4, 5, 6]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在非严格模式下，修改 arguments 元素的值，实参的值也会变。不过在 ECMAScript 5 中这个特性被移除了。在非严格模式中，函数里的 arguments 仅仅是个标识符。在严格模式中，它变成了一个保留字，严格模式中函数无法使用 arguments 作为 &lt;strong&gt;形参名&lt;/strong&gt; 或者 &lt;strong&gt;局部变量名&lt;/strong&gt;，也不能给它（arguments）赋值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
-function f(x) {
-    console.log(x);         // =&amp;gt; 实参的初始值
-    arguments[0] = null;
-    console.log(x);         // =&amp;gt; 非严格返回 null， 非严格返回 1
-}
-f(1)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;callee-和-caller-属性&#34;&gt;callee 和 caller 属性&lt;/h4&gt;
-
-&lt;p&gt;除了数组元素，实参对象还定义了 callee 和 caller 属性。严格模式中对这两个属性读写操作会产生一个类型错误，非严格模式下，ECMAScript 标准规范规定 callee 属性指代当前正在执行的函数。caller 是非标准的，但大多数浏览器都实现了这个属性，它指代调用当前正在执行的函数的函数。通过 caller 属性可以访问调用栈，callee 属性在某些时候非常有用，比如在匿名函数中通过 callee 来递归调用自身&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var factorial = function(x) {
-    if (x &amp;lt;= 1) return 1;
-    return x * arguments.callee(x-1);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;将对象属性用做实参&#34;&gt;将对象属性用做实参&lt;/h3&gt;
-
-&lt;p&gt;当一个函数包含超过三个形参时，很难记住参数顺序。这时我们可以用名/值对的形式来传入参数，这样参数的顺序就无关紧要了（然后名/值对里面的键名还是得记住）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function arraycopy(from, from_start, to, to_start, length) {
-}
-function easycopycopy(args) {
-    arraycopy(args.from,
-              args.from_start || 0,
-              args.to,
-              args.to_start || 0,
-              args.length);
-}
-var a = [1,2,3,4], b = [];
-easycopy({ from: a, to: b, length:4 })
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;实参类型&#34;&gt;实参类型&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 函数中形参并未声明类型，在形参数传入之前也未做任何类型检查，JavaScript 会在必要的时候进行类型转换，因此如果函数期望接收一个出神入化串实参，而调用函数时传入其它类型的值，所传入的值会在函数体内将其转换为字符串&lt;/p&gt;
-
-&lt;h2 id=&#34;作为值的函数&#34;&gt;作为值的函数&lt;/h2&gt;
-
-&lt;p&gt;函数的定义和调用是 JavaScript 的词法特性，其它语言也一样。然而在 JavaScript 中，函数不仅仅是一种语法，也可以是值，也就是说，可以将函数赋值给变量，存储在对象的属性或数组元素中，作为参数传入另外一个函数等&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function square(x) { return x*x; }
-var s = square;
-square(4) == s(4)       // =&amp;gt; true
-
-var a = [ function square(x) { return x*x; }, 20 ];
-a[0](a[1]);             // =&amp;gt; 400
-
-// 将函数用做值
-function add(x, y) { return x + y; }
-function subtract(x, y) { return x - y; }
-function multiply(x, y) { return x * y; }
-function divide(x, y) { return x / y; }
-
-function operate(operator, operand1, operand2) {
-    return operator(operand1, operand2)
-}
-// =&amp;gt; 25 (2 + 3) + (4 * 5)
-var i = operate(add, operate(add, 2, 3), operate(multiply, 4, 5))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;自定义函数属性&#34;&gt;自定义函数属性&lt;/h4&gt;
-
-&lt;p&gt;JavaScript 中函数并不是原始值，而是一种特殊的对象，也就是说，函数可以拥有 &lt;strong&gt;属性&lt;/strong&gt;。当函数需要一个 &lt;strong&gt;静态变量&lt;/strong&gt; 来在调用时保持某个值不变，最方便的方式就是给函数定义属性，而不是定义全局变量&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 注意静态变量不必在函数后面声明
-uniqueInteger.counter = 0;
-
-function uniqueInteger() {
-    // 注意 ++counter 和 count++ 不一样
-    return ++uniqueInteger.counter;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;下面这个函数 factirial() 使用了自身的属性（将自身当做数组来对待）来缓存上一次的计算结果：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 计算阶乘
-function factorial(n) {
-    if (isFinite(n) &amp;amp;&amp;amp; n &amp;gt; 0 &amp;amp;&amp;amp; n == Math.round(n)) {
-        if (!(n in factorial)) {
-            factorial[n] = n * factorial(n-1)
-        }
-        return factorial[n]
-    } else {
-        return NaN;
-    }
-}
-// 初始化缓存以保存这种基本情况
-factorial[1] = 1;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;作为命名空间的函数&#34;&gt;作为命名空间的函数&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;(function(/*paramater*/) {
-    // 模块代码
-    // 这个模块使用的所有变量（通过 var 声明）都是局部变量
-    // 不会污染全局命名空间
-})(/*arguments*/);
-
-(function(win, doc) {
-    var obj = {
-        privateMethod: function() {},
-        publicMethod: function() {}
-    };
-
-    win.yourPublicAPIMethodName = obj.publicMethod
-})(window, document);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;使用 &lt;strong&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Immediately-invoked_function_expression&#34;&gt;立即执行函数表达式（IIFE）&lt;/a&gt;&lt;/strong&gt; 可以隔离代码块的命名空间，在匿名函数中声明的变量只在内部有效，不会对全局产生影响，同时可以有选择地向全局输出变量用来给外部代码访问&lt;/p&gt;
-
-&lt;h2 id=&#34;闭包&#34;&gt;闭包&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;词法作用域（lexical scoping）的执行依赖于变量作用域，这个作用域是在函数 &lt;strong&gt;定义时&lt;/strong&gt; 决定的，而不是函数调用时，为了实现这种词法作用域，JavaScript 函数对象的内部状态不仅包含函数的代码逻辑，还必须引用当前的作用域链。函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称为「闭包」&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;从技术角度讲，所有的 JavaScript 函数都是闭包：它们都是对象，它们都关联到作用域链。当调用函数时闭包所指向的作用域链和定义函数时的作用域链不是同一个作用域链时，事情就变得非常我刚好和。当一个函数嵌套了另外一个函数，外部函数将嵌套的函数对象 &lt;strong&gt;作为返回值返回&lt;/strong&gt; 的时候，这种事情就发生了&lt;/p&gt;
-
-&lt;p&gt;先看一下嵌套函数的词法作用域规则：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 例 1
-var scope = &amp;quot;global scope&amp;quot;;
-function checkscope() {
-    var scope = &amp;quot;local scope&amp;quot;;
-    function f() { return scope;}
-    return f();
-}
-checkscope();       // =&amp;gt; &amp;quot;local scope&amp;quot;
-// 例 2
-var scope = &amp;quot;global scope&amp;quot;;
-function checkscope() {
-    var scope = &amp;quot;local scope&amp;quot;;
-    function f() { return scope;}
-    return f;
-}
-checkscope()()      // =&amp;gt; &amp;quot;local scope&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在例 2 中我们将 checkscope 返回值 f 调用的括号移动到了 checkscope 调用后面。复习一下作用域的基本规则：JavaScript 函数的执行用到了作用域链，这个作用域链是函数 &lt;strong&gt;定义的时候&lt;/strong&gt; 创建的，嵌套的函数 f() 定义在这个作用域链里，其中的变量 scope 一定是局部变量，不管在何时执行函数当 f()，这种绑定在执行 f() 时依然有效。因此最后一行代码返回「local scope」而不是「global scope」。简而言之，闭包的这个特性强大到让人吃惊：它们可以捕捉到局部变量（和参数），&lt;strong&gt;并一直保存下来&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;很多程序员觉得闭包非常难理解，他们觉得在外部函数中定义的局部变量在函数返回后就不存在了，那么嵌套的函数如何能调用不存在的作用域链呢？如果你想搞清楚这个问题，还得更深入地了解类似 C 语言这种更底层的编程语言，并了解基于栈的 CPU 架构 &lt;strong&gt;如果一个函数的尾部变量定义在 CPU 的栈中，那么当函数返回时它们的确就不存在了&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;#TOC-13&#34;&gt;上节&lt;/a&gt;中的 uniqueInteger() 函数，这个函数有一个问题，函数本身是全局可访问的，这个 counter 很可能被外部修改。如果使用闭包就没有这个问题&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var uniqueInteger = (function() {
-    var counter = 0;
-    return function() {
-        return ++counter;
-    }
-})();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面的代码将匿名立即执行函数赋值给 uniqueInteger 变量，所以函数的返回值赋值给变量 uniqueInteger，内部变量 counter 只在函数体内部可以访问，外部无法操作&lt;/p&gt;
-
-&lt;p&gt;私有变量也可以被多个闭包访问到，比如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function counter() {
-    var n = 0;
-    return {
-        count: function() { return n++ },
-        reset: function() { n = 0 }
-    }
-}
-// 创建两个计数器
-var c = counter(), d = counter();
-c.count()       // =&amp;gt; 0 互
-c.count()       // =&amp;gt; 1 不
-d.count()       // =&amp;gt; 0 干
-d.count()       // =&amp;gt; 1 扰
-c.reset()       // =&amp;gt; 0 重置 c
-d.count()       // =&amp;gt; 2 不影响 d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在同一个作用域链中定义两个闭包，这两个闭包共享同样的私有变量或变量。这是一种非常重要的技术，但是要特别小心那些不希望共享的变量往往不经意间共享给了其它的闭包，了解这一点也很重要&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function constfunc(v) { return function() { return v; } }
-
-var funcs = [];
-for(var i = 0; i &amp;lt; 10; i++) {
-    funcs[i] = constfunc(i);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果这样写就完全不一样了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function constfuncs() {
-    var funcs = [];
-    for (var i = 0; i &amp;lt; 10; i++) {
-        funcs[i] = function() {
-            return i;
-        };
-    }
-    return funcs;
-}
-var funcs = constfuncs();
-funcs[5]()                  // =&amp;gt; 10 !!!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面这段代码循环创建了 10 个闭包，并将它们存储到一个数组中。这些闭包都是在同一个函数调用中定义的，因此它们可以共享变量 i。当 constfuncs() 返回时，变量的 i 值是 10，所有的闭包都共享这一个值，因此，数组中的函数的返回值是同一个值，因此，数组中的函数的返回值都是同一个值，这不是我们想要的结果。关联到闭包的作用域链都是「活动的（live）」，记住这一点非常重要。嵌套的当函数不会将作用域内的私有成员复制一份，也不会对所绑定的变量生成静态快照（static snapshot）&lt;/p&gt;
-
-&lt;p&gt;书写闭包的时候还需注意一件事情，this 是 JavaScript 的关键字，不是变量。正如之前讨论的，每个函数调用都包含一个 this 值，如果闭包在外部函数里是无法访问 this 的，除非外部函数将 this 默契为一个变量&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function outerFn() {
-    var self = this;
-
-    function innerFn() {
-        // self.xxxx
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;函数属性-方法和构造函数&#34;&gt;函数属性、方法和构造函数&lt;/h2&gt;
-
-&lt;p&gt;在 JavaScript 中，函数是值，对函数执行 typeof 运算会返回字符串 &amp;ldquo;function&amp;rdquo;，但是函数是 JavaScript 中特殊的对象。因为函数也是对象，它们也可以拥有属性和方法，像普通对象一样。甚至可以用 Function() 构造函数来创建新的函数对象&lt;/p&gt;
-
-&lt;h3 id=&#34;prototype-属性&#34;&gt;prototype 属性&lt;/h3&gt;
-
-&lt;p&gt;每一个当函数都包含一个 prototype 属性，这个属性是指向一个对象的引用，这个对象称做「原型对象」（prototype object）。每一个函数都包含不同的原型对象。当将函数胜仗构造函数的时候，新创建的对象会从原型对象上继承属性&lt;/p&gt;
-
-&lt;h3 id=&#34;call-和-apply-方法&#34;&gt;call() 和 apply() 方法&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;fun.call(thisArg[, arg1[, arg2[, &amp;hellip;]]])&lt;/p&gt;
-
-&lt;p&gt;fun.apply(thisArg[, argsArray])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;我们可以将 call 和 apply 看做是某个对象的方法，通过调用方法的形式来间接调用函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 将对象 o 中名为 m 的方法替换为另外一个方法
-function trace(o, m) {
-    var original = o[m];
-    o[m] = function() {
-        console.log(new Date, &amp;quot;Entering: &amp;quot;, m);
-        var result = original.apply(this, arguments)
-        console.log(new Date, &amp;quot;Exiting: &amp;quot;, m);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;trace() 函数接收两个参数，一个对象和一个方法名，它将指定的方法替换为一个新方法，这个新方法就是「包裹」原始方法的另一个泛函数。这种动态修改已有方法的做法有时称做「猴子补丁 monkey-patching」&lt;/p&gt;
-
-&lt;h3 id=&#34;bind-方法&#34;&gt;bind() 方法&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;fun.bind(thisArg[, arg1[, arg2[, &amp;hellip;]]])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;bind 方法是 ECMAScript 5 中新增的方法，但在 ECMAScript 3 中可以模拟出来。主要用于将函数绑定到某个对象。当在函数 f 上调用 bind 方法并传入一个对象 o 做参数，这个方法将返回一个新的函数。调用新的函数将会把原始的函数 f &lt;strong&gt;当做 o 的方法来调用&lt;/strong&gt;。传入新函数的任何实参都将传入原始函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(y) { return this.x + y; }
-var o = { x: 1};
-var g = f.bind(o);
-g(2)                // =&amp;gt; 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以通过下面代码实现 bind 方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function bind(f, o) {
-    if (f.bind) {
-        return f.bind(o);
-    } else {
-        return f.apply(ok arguments)
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;bind 方法还有一些其他应用：除了第一个实参之外，传入 bind 的实参也会绑定至 this，这个附带的应用是一种常见的函数式编程技术，有时也被称为「&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E6%9F%AF%E9%87%8C%E5%8C%96&#34;&gt;柯里化&lt;/a&gt;」（currying）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sum = function(x, y) { return x + y }
-
-var succ = sum.bind(null, 1)
-succ(2)     // =&amp;gt; 3
-
-function f(y, z) { return this.x + y + z }
-var g = f.bind({x:1}, 2)
-g(3)        // =&amp;gt; 6
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意 bind 方法有些特性是模拟不出来的&lt;/p&gt;
-
-&lt;h3 id=&#34;tostring-方法&#34;&gt;toString() 方法&lt;/h3&gt;
-
-&lt;p&gt;和所有的 JavaScript 对象一样，函数也有 toString 方法，ECMAScript 规范规定这个方法返回一个字符串，这个字符串和函数声明语句的语法相关。实际上，大多数的 toString 方法的实现都返回函数的完成源码。内置函数往往返回一个类似 &amp;ldquo;[native code]&amp;rdquo; 的字符串作为函数体&lt;/p&gt;
-
-&lt;h3 id=&#34;function-构造函数&#34;&gt;Function() 构造函数&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;new Function ([arg1[, arg2[, &amp;hellip;argN]],] functionBody)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;关于 Function() 构造函数有几点需要特别注意：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Function() 构造函数允许 JavaScript 在运行时动态地创建并编译函数&lt;/li&gt;
-&lt;li&gt;每次调用 Function() 构造函数都会解析函数体，执行效率会受影响。&lt;/li&gt;
-&lt;li&gt;Function() 构造函数创建的函数 &lt;strong&gt;并不是使用词法作用域&lt;/strong&gt;，相反，函数体代码的编译总是会在顶层函数执行，效果类似在全局作用域中执行 eval()&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var scope = &amp;quot;global&amp;quot;;
-function constructFunction() {
-    var scope = &amp;quot;local&amp;quot;;
-    return new Function(&amp;quot;return scope&amp;quot;);
-}
-constructFunction()();  // =&amp;gt; &amp;quot;global&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;可调用的对象&#34;&gt;可调用的对象&lt;/h3&gt;
-
-&lt;p&gt;「类数组对象」类似数组但并不是真正的数组，「可调用对象（callable object）」类似于函数但并不是真正的函数。可调用对象在两个 JavaScript 实现中不能算作函数。首先，IE Web 浏览器（IE 6 及之前的版本）实现了客户端方法（如 Window.alert() 和 Document.getElementById()），使用了可调用的宿主对象，而不是内置函数对象，IE 中的这些方法在其它浏览器中都存在，但它们本质上不是 Function 对象。IE 9 将它们实现为真正的函数，因此这类可调用的对象将越来越罕见&lt;/p&gt;
-
-&lt;p&gt;另外一个常见的可调用对象是 RegExp 对象，对 RegExp 执行 typeof 运算的结果并不统一，有些返回 &amp;ldquo;function&amp;rdquo; 有些返回 &amp;ldquo;object&amp;rdquo;。可以使用下面的方法判断是不是真正的函数对象&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function isFunction(o) {
-    return Object.prototype.toString.call(x) === &amp;quot;[object Function]&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;函数式编程&#34;&gt;函数式编程&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 并不是一种像 List 或 Haskell 的函数式编程语言，但在 JavaScript 中可以像操控对象一样操控函数，也就是说可以在 JavaScript 中应用函数式编程技术&lt;/p&gt;
-
-&lt;h3 id=&#34;使用函数处理数组&#34;&gt;使用函数处理数组&lt;/h3&gt;
-
-&lt;p&gt;假设有一个数组，元素都是数字，我们想要计算这些元素的平均值和标准差。若使用非函数式编程风格的话代码一般会是这样：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = [1,1,3,5,5]
-var total = 0;
-for (var i = 0; i &amp;lt; data.length; i++) {
-    total += data[i];
-}
-var mean = total / data.length;                 // =&amp;gt; 3
-
-total = 0;
-for (var i = 0; i &amp;lt; data.length; i++) {
-    var deviation = data[i] - mean;
-    total += deviation * deviation;
-}
-var stddev = Math.sqrt(total/(data.length-1))   // =&amp;gt; 2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以使用数组方法 map() 和 reduce() 来实现同样的计算，这种实现极其乘法：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sum = function(x, y) { return x + y; }
-var square = function(x) { return x*x; }
-
-var data = [1,1,3,5,5]
-var mean = data.reduce(sum)/data.length;
-var deviations = data.map(function(x) { return x-mean; })
-var stddev = Math.sqrt(deviations.map(square).reduce(sum)/(data.length-1))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;当然 ECMAScript 3 并没有 &lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map&#34;&gt;map&lt;/a&gt;， &lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce&#34;&gt;reduce&lt;/a&gt; 这两个方法，不过我们也可以自己实现一个 Polyfill，可以参考链接里面的内容&lt;/p&gt;
-
-&lt;h3 id=&#34;高阶函数&#34;&gt;高阶函数&lt;/h3&gt;
-
-&lt;p&gt;所谓高阶函数（higher-order function）就是操作函数的函数，它接收一个或多个函数作为参数，并返回一个新函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function not(f) {
-    return function() {
-        var result = f.apply(this, arguments);
-        return !result;
-    }
-}
-var even = function(x) {
-    return x % 2 == 0;
-}
-var odd = not(even);
-[1,1,3,5,5].every(odd)          // =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;mapper() 函数也是一个高阶函数，它接收一个函数作为参数，并返回一个新函数，这个新函数将一个数组映射到另一个使用这个函数的数组上，这个函数使用了之前定义的 map() 函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function mapper(f) {
-    return function(a) { return map(a, f); }
-}
-var increment = function(x) { return x + 1; }
-var incrementer = mapper(increment);
-incrementer([1,2,3])  // =&amp;gt; [2,3,4]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;还有一个更常见的例子，它接收两个函数 f() 和 g()，并返回一个新的函数用以计算 f(g())&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function compose(f, g) {
-    return function() {
-        return f.call(this, g.apply(this, arguments))
-    }
-}
-var square = function(x) { return x * x; }
-var sum = function(x, y) { return x + y; }
-var squareofsum = compose(square, sum)
-squareofsum(2, 3)           // =&amp;gt; 25
-/* - 伪代码执行过程大致如下 -
-    arguments: 2, 3
-    return square.call(this, sum.apply(this, arguments))
-    return square.call(this, sum(2, 3))
-    return square.call(this, 5)
-    arguments: 5
-    return square(5)
-    return 25
-*/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;不完全函数&#34;&gt;不完全函数&lt;/h3&gt;
-
-&lt;p&gt;函数 &lt;a href=&#34;https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/#TOC-19&#34;&gt;f()&lt;/a&gt; 的 bind() 方法返回一个新函数，给新函数传入特定的上下文和一组指定的参数，然后调用函数 f()。我们说它把函数「绑定至」对象并传入一部分参数。bind() 方法只是将实参放在左侧，也就是说传入 bind() 的实参都是放在传入原始函数的实参列表开始的位置，但有时我们期望将传入 bind() 的实参放在右侧&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 将类数组对象转换为真正的数组
-function array(arr, n) { return Array.prototype.slice.call(arr, n || 0); }
-
-// 这个函数的实参传递到左侧
-function partialLeft(f) {
-    var args = arguments;
-
-    return function() {
-        var a = array(args, 1);
-        a = a.concat(array(arguments))
-        return f.apply(this, a)
-    }
-}
-function partialRight(f) {
-    var args = arguments;
-
-    return function() {
-        var a = array(arguments)
-        a = a.concat(array(args, 1))
-        return f.apply(this, a)
-    }
-}
-
-function partial(f) {
-    var args = arguments;
-
-    return function() {
-        var a = array(args, 1)
-        var i = 0, j = 0;
-        for (; i &amp;lt; a.length; i++) {
-            if ( a[i] === undefined ) a[i] = arguments[j++];
-        }
-        a = a.concat(array(arguments, j))
-        return f.apply(this, a);
-    }
-}
-
-var f = function(x, y, z) { return x * (y - z) }
-partialLeft(f, 2)(3, 4)             // =&amp;gt; -2 2 * (3-4)
-partialRight(f, 2)(3, 4)            // =&amp;gt; 6 3 * (4-2)
-partial(f, undefined, 2)(3, 4)      // =&amp;gt; -6 3 * (2-4)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;记忆&#34;&gt;记忆&lt;/h3&gt;
-
-&lt;p&gt;上面的 &lt;a href=&#34;https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/#TOC-13&#34;&gt;章节&lt;/a&gt; 中定义了一个阶乘函数，它可以将上次的计算结果缓存起来。在函数式程序当中，这种缓存技巧叫做「记忆」（memorization）。下面的代码展示了一个高阶函数，memorize() 接收一个函数作为实参，并返回带有记忆能力的函数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function memorize(f) {
-    var cache = {};
-
-    return function() {
-        // 将实参转换为字符串形式，并胜仗缓存的键名
-        var key = arguments.length + Array.prototype.join.call(arguments, &amp;quot;,&amp;quot;)
-        if ( key in cache ) {
-            return cache[key];
-        } else {
-            return cache[key] = f.apply(this, arguments)
-        }
-    }
-}
-function factorial (num) {
-    console.log(&#39;Actually invoked.&#39;);
-    if (num &amp;lt; 0) {
-        return -1;
-    } else if (num === 0 || num === 1) {
-        return 1;
-    } else {
-        return (num * factorial(num - 1));
-    }
-}
-
-var cached_factorial = memorize(factorial);
-
-cached_factorial(3)
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; 6
-cached_factorial(3)
-// =&amp;gt; 6
-
-/**
- * 注意下面的调用方式将不会缓存
- * 因为新建了多个闭包，闭包在每
- * 调用一次 memorize 就返回一
- * 份新的 cache 变量
- */
-memorize(factorial)(3)
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; 6
-memorize(factorial)(3)
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; &#39;Actually invoked.&#39;
-// =&amp;gt; 6
-
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

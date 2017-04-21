@@ -32,25 +32,25 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;∪&lt;/td&gt;
+&lt;td&gt;$∪$&lt;/td&gt;
 &lt;td&gt;并&lt;/td&gt;
 &lt;td&gt;Union&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;−&lt;/td&gt;
+&lt;td&gt;$−$&lt;/td&gt;
 &lt;td&gt;差&lt;/td&gt;
 &lt;td&gt;Difference&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;∩&lt;/td&gt;
+&lt;td&gt;$∩$&lt;/td&gt;
 &lt;td&gt;交&lt;/td&gt;
 &lt;td&gt;Intersection&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;×&lt;/td&gt;
+&lt;td&gt;$×$&lt;/td&gt;
 &lt;td&gt;笛卡尔积&lt;/td&gt;
 &lt;td&gt;Cartesian Product&lt;/td&gt;
 &lt;/tr&gt;
@@ -69,32 +69,32 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&amp;gt;&lt;/td&gt;
+&lt;td&gt;$&amp;gt;$&lt;/td&gt;
 &lt;td&gt;大于&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;≥&lt;/td&gt;
+&lt;td&gt;$≥$&lt;/td&gt;
 &lt;td&gt;大于等于&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&amp;lt;&lt;/td&gt;
+&lt;td&gt;$&amp;lt;$&lt;/td&gt;
 &lt;td&gt;小于&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;≤&lt;/td&gt;
+&lt;td&gt;$≤$&lt;/td&gt;
 &lt;td&gt;小于等于&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;=&lt;/td&gt;
+&lt;td&gt;$=$&lt;/td&gt;
 &lt;td&gt;等于&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;≠&lt;/td&gt;
+&lt;td&gt;$≠$&lt;/td&gt;
 &lt;td&gt;不等于&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -113,25 +113,25 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;σ&lt;/td&gt;
+&lt;td&gt;$σ$&lt;/td&gt;
 &lt;td&gt;选择&lt;/td&gt;
 &lt;td&gt;Selection&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;π&lt;/td&gt;
+&lt;td&gt;$π$&lt;/td&gt;
 &lt;td&gt;投影&lt;/td&gt;
 &lt;td&gt;Projection&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;⋈&lt;/td&gt;
+&lt;td&gt;$⋈$&lt;/td&gt;
 &lt;td&gt;链接&lt;/td&gt;
 &lt;td&gt;Join&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;÷&lt;/td&gt;
+&lt;td&gt;$÷$&lt;/td&gt;
 &lt;td&gt;除&lt;/td&gt;
 &lt;td&gt;Division&lt;/td&gt;
 &lt;/tr&gt;
@@ -150,17 +150,17 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;∧&lt;/td&gt;
+&lt;td&gt;$∧$&lt;/td&gt;
 &lt;td&gt;与&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;∨&lt;/td&gt;
+&lt;td&gt;$∨$&lt;/td&gt;
 &lt;td&gt;或&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;¬&lt;/td&gt;
+&lt;td&gt;$¬$&lt;/td&gt;
 &lt;td&gt;非&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;

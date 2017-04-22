@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>免费 Https 证书（Let&#39;S Encrypt）申请与配置</title>
-    <meta name="description" content="There&#39;s always __ you do not know yet">
+    <meta name="description" content="__ you do not know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
     <meta name="generator" content="Hugo 0.17" />
@@ -47,7 +47,7 @@
 <header role="banner">
     <hgroup>
         <h1><a href="https://keelii.github.io/">Something</a></h1>
-        <h2>There&#39;s always __ you do not know yet</h2>
+        <h2>__ you do not know yet</h2>
     </hgroup>
 </header>
 
@@ -110,9 +110,11 @@ cd certbot
 ./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
 </code></pre>
 
-<p><strong>注意</strong> 这里 默认会自动生成 /<strong>网站根目录</strong>/.well-known/acme-challenge，然后 shell 脚本会对应的访问 <strong>网站域名</strong>/.well-known/acme-challenge</p>
+<p><strong>注意</strong> 这里 默认会自动生成到 /<strong>网站根目录</strong>/.well-known/acme-challenge 文件夹，然后 shell 脚本会对应的访问 <strong>网站域名</strong>/.well-known/acme-challenge 是否存在来确定你对网站的所属权</p>
 
-<p>如果返回正常就确认了你对这个网站的所有权，就能顺利生成</p>
+<p>比如：我的域名是 <strong>note.crazy4code.com</strong> 那我就得保证域名下面的 <strong>.well-known/acme-challenge/</strong> 目录是可访问的</p>
+
+<p>如果返回正常就确认了你对这个网站的所有权，就能顺利生成，完成后这个目录会被清空</p>
 
 <h2 id="3-获取证书">3. 获取证书</h2>
 
@@ -258,7 +260,7 @@ ssl_ciphers HIGH:!aNULL:!MD5;
 
 <script src="/javascripts/highlight.pack.js"></script>
 <script src="/javascripts/post.js"></script>
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
 if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();
 if (typeof MathJax !=="undefined") {

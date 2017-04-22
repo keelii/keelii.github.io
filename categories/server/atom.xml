@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Something</title>
+    <link>https://keelii.github.io/categories/server/atom/index.xml</link>
+    <description>Recent content on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://keelii.github.io/categories/server/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Nginx 配置 Google fonts 反向代理开启 HTTP2/SSL 支持</title>
+      <link>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</link>
+      <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
+      <description>
+
+&lt;p&gt;由于博客主题使用了 Google fonts PT Serif 字体，国内只能通过中科大的代理来使用 Google fonts 字体。然而最近发现其速度不稳定，响应时间有时候甚至超过 600ms。刚好因为自己有 &lt;a href=&#34;http://www.vultr.com/?ref=6805146&#34;&gt;vultr 的 VPS(带小尾巴)&lt;/a&gt; 就自己动手搭了个来用&lt;/p&gt;
+
+&lt;p&gt;VPS 环境如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 14.04&lt;/li&gt;
+&lt;li&gt;Nginx 1.12.0 (最新版各别配置与之前不一样)&lt;/li&gt;
+&lt;li&gt;Openssl 1.0.2j (新版 Nginx 开启 http2 需要的最低 openssl 版本)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;重新编译安装-nginx&#34;&gt;重新编译安装 Nginx&lt;/h2&gt;
+
+&lt;p&gt;如果之前编译安装没开启相关模块的话需要重新编译，大概参数如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/local/ssl --with-http_v2_module --with-http_sub_module
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译完没有出错的话就 &lt;code&gt;make &amp;amp;&amp;amp; make install&lt;/code&gt; 就 OK 了&lt;/p&gt;
+
+&lt;h2 id=&#34;配置-nginx-反代&#34;&gt;配置 Nginx 反代&lt;/h2&gt;
+
+&lt;h3 id=&#34;基本配置&#34;&gt;基本配置&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;upstream google {
+    server fonts.googleapis.com:80;
+}
+
+upstream gstatic {
+    server fonts.gstatic.com:80;
+}
+proxy_temp_path   /your/path/tmp 1 2;
+proxy_cache_path  /your/path/cache levels=1:2 keys_zone=cache1:100m inactive=30d max_size=1g;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;80-端口配置&#34;&gt;80 端口配置&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen 80;
+    server_name your.proxy.domain;
+    root /your/path/;
+    location /css {
+        sub_filter &#39;fonts.gstatic.com&#39; &#39;your.proxy.domain&#39;;
+        sub_filter_once off;
+        sub_filter_types text/css;
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.googleapis.com;
+        proxy_set_header Accept-Encoding &#39;&#39;;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://google;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.gstatic.com;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://gstatic;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;443-端口配置&#34;&gt;443 端口配置&lt;/h3&gt;
+
+&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;注意设置 &lt;code&gt;sub_filter&lt;/code&gt; 字段的时候 &lt;strong&gt;你的域名要加上 https://&lt;/strong&gt;，要不然会出现代理的 CSS 文件中的字体文件引用是 HTTP 而请求报 &lt;code&gt;blocked/mixed-content&lt;/code&gt; 错&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen 443 ssl http2;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/your.proxy.domain/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your.proxy.domain/privkey.pem;
+    ssl_dhparam /etc/ssl/certs/dhparams.pem;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    server_name  your.proxy.domain;
+    root /var/sites/fonts/;
+
+    location /css {
+        sub_filter &#39;http://fonts.gstatic.com&#39; &#39;https://your.proxy.domain&#39;;
+        sub_filter_once off;
+        sub_filter_types text/css;
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.googleapis.com;
+        proxy_set_header Accept-Encoding &#39;&#39;;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://google;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.gstatic.com;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://gstatic;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安全防盗链&#34;&gt;安全防盗链&lt;/h3&gt;
+
+&lt;p&gt;如果不共享给其它人用的话还需要在配置中加入 referer 白名单判断，不符合条件的将返回 403&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;valid_referers server_name *.your.domain.com *.other.domain.com;
+if ($invalid_referer) {
+    return 403;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

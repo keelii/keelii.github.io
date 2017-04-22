@@ -32,9 +32,11 @@ cd certbot
 ./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 这里 默认会自动生成 /&lt;strong&gt;网站根目录&lt;/strong&gt;/.well-known/acme-challenge，然后 shell 脚本会对应的访问 &lt;strong&gt;网站域名&lt;/strong&gt;/.well-known/acme-challenge&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 这里 默认会自动生成到 /&lt;strong&gt;网站根目录&lt;/strong&gt;/.well-known/acme-challenge 文件夹，然后 shell 脚本会对应的访问 &lt;strong&gt;网站域名&lt;/strong&gt;/.well-known/acme-challenge 是否存在来确定你对网站的所属权&lt;/p&gt;
 
-&lt;p&gt;如果返回正常就确认了你对这个网站的所有权，就能顺利生成&lt;/p&gt;
+&lt;p&gt;比如：我的域名是 &lt;strong&gt;note.crazy4code.com&lt;/strong&gt; 那我就得保证域名下面的 &lt;strong&gt;.well-known/acme-challenge/&lt;/strong&gt; 目录是可访问的&lt;/p&gt;
+
+&lt;p&gt;如果返回正常就确认了你对这个网站的所有权，就能顺利生成，完成后这个目录会被清空&lt;/p&gt;
 
 &lt;h2 id=&#34;3-获取证书&#34;&gt;3. 获取证书&lt;/h2&gt;
 

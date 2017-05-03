@@ -9,6 +9,93 @@
     <atom:link href="https://keelii.github.io/categories/javascript/atom/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>jQuery data 方法的一个小特技</title>
+      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
+
+&lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo&amp;quot; data-key=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo&#39;).attr(&#39;data-key&#39;)
+    $(&#39;#demo&#39;).data(&#39;key&#39;)  // 第一次访问 DOM，以后从缓存取
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
+
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;
+&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo2&amp;quot; data-key=&amp;quot;123e456&amp;quot;&amp;gt;科学计数法&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo3&amp;quot; data-key=&amp;quot;0000123&amp;quot;&amp;gt;八进制数字&amp;lt;/div&amp;gt;
+&amp;lt;script src=&amp;quot;jquery-16.4&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo0&#39;).data(&#39;key&#39;)  // &amp;quot;abc&amp;quot;
+    $(&#39;#demo1&#39;).data(&#39;key&#39;)  // 123
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // Infinity
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // 83
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;后面两种显然出错了，就是因为 jQuery 对属性值进行了强制 parseFloat 操作。这种转换是方便了使用者，如果是数字的话我们取到这个值进行计算什么的就不用再转数据类型了，但是一不小心就会出 bug&lt;/p&gt;
+
+&lt;p&gt;发现这个 bug 的时候第一感觉是 jQuery 不应该没考虑到这一点呀。后来果断去查了下最新版的 jQuery 源代码，发现已经修复了。核心代码在 &lt;a href=&#34;https://github.com/jquery/jquery/blob/master/src/data.js#L36&#34;&gt;data.js 35 行&lt;/a&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData( data ) {
+    if ( data === &amp;quot;true&amp;quot; ) {
+        return true;
+    }
+
+    if ( data === &amp;quot;false&amp;quot; ) {
+        return false;
+    }
+
+    if ( data === &amp;quot;null&amp;quot; ) {
+        return null;
+    }
+
+    // Only convert to a number if it doesn&#39;t change the string
+    // 重点就在这里 →_→
+    if ( data === +data + &amp;quot;&amp;quot; ) {
+        return +data;
+    }
+
+    if ( rbrace.test( data ) ) {
+        return JSON.parse( data );
+    }
+
+    return data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getData 方法就返回了节点属性的值，只不过加了一些特殊处理使得我们取到了没有 bug 的值，关键地方就在这里： &lt;code&gt;data === +data + &amp;quot;&amp;quot;&lt;/code&gt; 。这行代码做了些什么神奇的事情&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将节点的属性值强制转换成数字「+data」后再转成字符串「+ &amp;ldquo;&amp;ldquo;」，如果转换后的值与原来相等就取转换后的值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;可以简单的这么理解：jQuery 会尝试转换数据类型，如果转换后和转换前的 &lt;strong&gt;长得一样&lt;/strong&gt; 那么 jQuery 就认为它是需要被转换成数字的。这样就可以完美规避上面例子中的两种问题，我们来测试一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = &#39;abc&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // true 转换，使用转换后的数字类型值
+
+var data = &#39;123e456&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;0000123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>TrimPath 模板引擎使用指南</title>
       <link>https://keelii.github.io/2016/11/21/trimpath-template-engine/</link>
       <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
@@ -5249,327 +5336,6 @@ i = 0; j = 1; k = 2;
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;for (var i = 0, j = 10; i &amp;lt; j; i++,j--)
     console.log(i+j);
 &lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 1 - 简介</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《&lt;a href=&#34;https://book.douban.com/subject/10549733/&#34;&gt;JavaScript 权威指南&lt;/a&gt;》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 &lt;a href=&#34;http://shop.oreilly.com/product/9780596805531.do&#34;&gt;JavaScript The Definitive Guide&lt;/a&gt;，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误&lt;/p&gt;
-
-&lt;p&gt;中文排版指南遵守 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines&#34;&gt;中文文案排版指北&lt;/a&gt;，欢迎批评批正&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;JavaScript 是面向 web 的编程语言，是一门 &lt;strong&gt;高阶的&lt;/strong&gt;（high-level）、&lt;strong&gt;动态的&lt;/strong&gt;（dynamic）、&lt;strong&gt;弱类型的&lt;/strong&gt;（untyped）&lt;strong&gt;解释型&lt;/strong&gt;（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self&lt;/p&gt;
-
-&lt;h2 id=&#34;javascript-的版本&#34;&gt;JavaScript 的版本&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 语言规范由 ECMA 国际发布，版本号一般叫做 ECMAScript x，如：ECMAScript 3, ECMAScript 5, ECMAScript 6，简称 ES x&lt;/p&gt;
-
-&lt;p&gt;Mozilla 发布的 JavaScript 版本一般叫做 JavaScript x.x，如：JavaScript 1.3, JavaScript 1.5&lt;/p&gt;
-
-&lt;p&gt;Micorsoft 发布的 JavaScript 版本一般叫做 &lt;a href=&#34;https://zh.wikipedia.org/wiki/JScript&#34;&gt;JScript&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;可以这么说 &lt;strong&gt;「Mozilla 和 Micorsoft 开发的浏览器中 JavaScript内核一般都实现了某个 ECMAScript 版本的规范」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;JavaScript 语言核心有很多 API，比如：针对字符串、数组、正则、日期。但这些通常不包括输入输出 API（类似网络、存储、图形相关的特性），输入输出 API 一般是由 JavaScript 的宿主环境（host environment）提供的，通常是浏览器&lt;/p&gt;
-
-&lt;h2 id=&#34;javascript-语言核心&#34;&gt;JavaScript 语言核心&lt;/h2&gt;
-
-&lt;h3 id=&#34;变量-赋值&#34;&gt;变量/赋值&lt;/h3&gt;
-
-&lt;p&gt;快速预览下 JavaScript 变量的用法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 双斜线之后内容是单行注释
-/* 这是多行注释 */
-
-// 变更是表示值的一个符号名字，通过 var 关键字声明
-var x;              // 声明一个变量 x
-
-// 值可以通过等号赋值给变量
-x = 0               // 现在变量 x 的值为 0
-x                   // =&amp;gt; 0 通过变量获取其值
-
-// JavaScript 支持多种数据类型
-x = 1;              // 数字
-x = 0.01;           // 整数和实数都是数字（number）类型
-x = &amp;quot;hello world&amp;quot;   // 字符串
-x = &#39;JavaScript&#39;;   // ...
-x = true;           // 布尔值
-x = false;          // ...
-x = null;           // 是一个特殊的值，意思是「空」
-x = undefined;      // 和 null 非常累似
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;对象-数组&#34;&gt;对象/数组&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 中两个非常重要的数据类型是对象和数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 对象是名/值对的集合，或字符串到值映射的集合
-var book = {                // 对象由花括号括起来
-    topic: &#39;JavaScript&#39;,    // book 对象的属性 topic 的值是 &amp;quot;JavaScript&amp;quot;
-    fat: true
-};
-
-// 通过「.」或「[]」来访问对象属性
-book.topic                  // =&amp;gt; &amp;quot;JavaScript&amp;quot;
-book.[&#39;fat&#39;]                // =&amp;gt; true
-book.author = &#39;Flanagan&#39;    // 通过赋值给 book 对象创建一个新属性 author
-
-// JavaScript 数组
-var primes = [2, 3, 5, 7];
-primes[0]                   // =&amp;gt; 2 通过数组下标访问第一个元素
-primes.length               // =&amp;gt; 4 数组中元素的个数
-primes[4] = 9               // =&amp;gt; 9 添加新元素
-primes[6] = 11              // =&amp;gt; 11 此时数组变成 [2, 3, 5, 7, 9, undefined, 11], 长度也变为 7
-
-// 对象数组
-var points = [
-    { x: 0, y: 0 },
-    { x: 1, y: 1 }
-];
-
-// 数组对象
-var data = {
-    listA: [1, 3, 5],
-    listB: [2, 4, 6]
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;表达式-运算符&#34;&gt;表达式/运算符&lt;/h3&gt;
-
-&lt;p&gt;通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为 &lt;strong&gt;初始化表达式&lt;/strong&gt;（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=&amp;gt;）后的值就是表达式的运算结果&lt;/p&gt;
-
-&lt;p&gt;JavaScript 中最常见的表达式写法就是像下面代码一样使用运算符（operator）,运算符作用于操作数，生成一个新的值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 最常见的是算术运算符
-3 + 2                     // =&amp;gt; 5 加法
-3 - 2                     // =&amp;gt; 1 减法
-3 * 2                     // =&amp;gt; 6 乘法
-3 / 2                     // =&amp;gt; 1.5 除法
-points[1].x - points[0].x // =&amp;gt; 1 复杂的操作数运算
-&#39;3&#39; + &#39;2&#39;                 // =&amp;gt; &#39;32&#39; 字符串连接
-
-                          // 运算符简写形式
-var count = 0;
-count++;                  // 自增1
-count--;                  // 自减1
-count += 2;               // 自加2, 相当于 count = count + 2
-count *= 3;               // ...
-count                     // =&amp;gt; 6 变量名本身也是表达式
-
-var x = 2, y = 3
-x == y                    // =&amp;gt; false
-x != y                    // =&amp;gt; true
-x &amp;lt; y                     // =&amp;gt; true
-x &amp;lt;= y                    // =&amp;gt; true
-x == y                    // =&amp;gt; false
-&#39;two&#39; == &#39;three&#39;          // =&amp;gt; false
-&#39;two&#39; &amp;gt; &#39;three&#39;           // =&amp;gt; true &#39;tw&#39; 在字母表中的索引大于 &#39;th&#39;
-false == (x &amp;gt; y)          // =&amp;gt; true
-
-                          // 逻辑运算符
-(x == 2) &amp;amp;&amp;amp; (y == 3)      // true
-(x &amp;gt; 2) &amp;amp;&amp;amp; (y &amp;lt; 3)        // false
-!(x == y)                 // true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果 JavaScript 中的「短语」是表达式，那么整个句子就称做 &lt;strong&gt;语句&lt;/strong&gt;（statement），以分号结束的行都是一条语句。语句和表达式有很多共同之处&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;粗略了讲，表达式仅仅计算出一个值并不进行其它操作，不会改变程序的运行状态，而语句并不包含一个值（或者说它包含的值我们并不关心），但它们改变了程序运行状态&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;函数&#34;&gt;函数&lt;/h3&gt;
-
-&lt;p&gt;函数是带有名称（named）和参数的 JavaScript 代码片段，可以一次定义多次调用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
-function plus1(x) {        // 定义了一个名为 plus1 的函数，带有参数 x
-    return x + 1;          // 返回一个比传入参数大 1 的数值
-}                          // 函数代码块是由花括号包裹起来的部分
-plus1(3)                   // =&amp;gt; 4 函数调用结果为 3+1
-
-var square = function(x) { // 函数是一种值，可以赋值给变量
-    return x * x;
-};
-
-square(plus1(3))           // =&amp;gt; 16 在一个表达式中调用两个函数
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;当函数和对象合写在一起时，当函数就变成了「方法」（method）:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 当函数赋值给对象的属性，我们称为「方法」，所有 JavaScript 对象都含有方法
-var a = [];             // 创建一个空数组
-a.push(1, 2, 3);        // 调用数组的添加元素方法
-a.reverse();            // 调用数组的次序反转方法
-
-// 自定义方法
-points.dist = function() {
-    var p1 = this[0];
-    var p2 = this[1];
-    var a = p2.x - p1.x;
-    var b = p2.y - p1.y;
-    return Math.sqrt(a*a + b*b) // 勾股定理，用 Math.sqrt 来计算平方根
-}
-points.dist();                  // =&amp;gt; 求得两个点之间的距离
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;面向对象&#34;&gt;面向对象&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 中的面向对象特性和传统语言的很大的区别，下面展示一个类用来表示 2D 平面中的几何点，这个类实例化后的对象有一个名为 r() 的方法，可以计算该点到原点的距离：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Point(x, y) {
-    this.x = x;
-    this.y = y;
-}
-
-// 通过给构造函数的 prototype 对象赋值，来给 Point 对象定义方法
-Point.prototype.r = function() {
-    return Math.sqrt(this.x * this.x + this.y * this.y)
-};
-
-// 使用 new 关键字和构造函数来创建一个实例 p
-var p = new Point(1, 1);
-
-// Point 的实例对象 p（以及所有 Point 的实例对象）继承了方法 r()
-p.r()               // =&amp;gt; 1.414...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
-
-&lt;h3 id=&#34;嵌入到-html-中的-javascript&#34;&gt;嵌入到 HTML 中的 JavaScript&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 代码可以通过 &amp;lt;script&amp;gt; 标签来嵌入到 HTML 文件中&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
-&amp;lt;head&amp;gt;
-    &amp;lt;script src=&amp;quot;外链脚本文件.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;/head&amp;gt;
-&amp;lt;body&amp;gt;
-    &amp;lt;p&amp;gt;正常 HTML 段落&amp;lt;/p&amp;gt;
-    &amp;lt;script&amp;gt;
-        // 这里可以写 JavaScript 代码
-        // 通过弹出一个圣诞框来询问用户一个问题
-        function moveon() {
-            var answer = confirm(&#39;准备好了吗？&#39;);
-            // 单击「确认」按钮，浏览器会跳转到 jd.com
-            if (answer) window.location = &#39;jd.com&#39;;
-        }
-
-       setTimeout(moveon, 6000);
-    &amp;lt;/script&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;使用-javascript-操作-dom&#34;&gt;使用 JavaScript 操作 DOM&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 调用 debug 传入字符串，JavaScript 会动态创建一个 HTML 节点并字符串内容显示其中
-function debug(msg) {
-    var log = document.getElementById(&#39;debuglog&#39;);
-
-    if (!log) {
-        log = document.createElement(&#39;div&#39;);
-        log.id = &#39;debuglog&#39;;
-        log.innerHTML = &#39;&amp;lt;h1&amp;gt; Debug Log &amp;lt;/h1&amp;gt;&#39;;
-        document.body.appendChild(log);
-    }
-
-    var pre = document.createElement(&#39;pre&#39;);
-    var text = document.createTextNode(msg);
-    pre.appendChild(text);
-    log.appendChild(pre);
-}
-
-debug(&#39;this is debug message&#39;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;使用-javascript-操作-css-样式&#34;&gt;使用 JavaScript 操作 CSS 样式&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 可以通过浏览器提供的 DOM API 来操作 HTML 元素，从而影响 CSS 样式&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 设置元素的 CSS 属性 display/visiblity
-function hide(el, reflow) {
-    if (reflow) {
-        el.style.display = &#39;none&#39;;    // 隐藏元素
-    } else {
-        el.style.visibility = &#39;hide&#39;; // 隐藏元素，但元素仍然占空间
-    }
-}
-// 设置 HTML 元素的 class 属性，class 属性可以是多个（空格分割），如：&amp;lt;div class=&amp;quot;c1 c2 c3&amp;quot;&amp;gt;
-function highlight(e) {
-    if (!e.className) {
-        e.className = &#39;hilite&#39;;
-    } else {
-        e.className += &#39; hilite&#39;;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;使用-javascript-处理事件&#34;&gt;使用 JavaScript 处理事件&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 通过注册事件函数来定义文档/用户的行为，比如：点击，鼠标 hover 等&lt;/p&gt;
-
-&lt;p&gt;给 HTML 元素添加事件处理程序的一种方法是直接给 HTML 元素添加行内的 on[event name]，比如给按钮绑定点击事件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script src=&amp;quot;debug.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;script src=&amp;quot;hide.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-Hello
-&amp;lt;button onclick=&amp;quot;hide(this, true);debug(&#39;hide button1&#39;)&amp;quot;&amp;gt;Hide1&amp;lt;/button&amp;gt;
-&amp;lt;button onclick=&amp;quot;hide(this);debug(&#39;hide button2&#39;)&amp;quot;&amp;gt;Hide2&amp;lt;/button&amp;gt;
-World
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;另外一种方法是调用元素的 &lt;strong&gt;添加事件处理函数&lt;/strong&gt;，通常是 addEventListener 或 attachEvent（IE专用）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 注册 onload 事件，效果和在 HTML 上写 onload 是一样的
-// 不过只有部分 HTML 元素支持，比如： img 标签的 onload
-window.onload = function() {
-    var images = document.getElementsByTagName(&#39;img&#39;);
-
-    for (var i = 0, l = images.length; i &amp;lt; l; i++) {
-        var image = images[i];
-        if ( image.addEventListener )
-            image.addEventListener(&#39;click&#39;, hide, false);
-        else
-            image.attachEvent(&#39;onclick&#39;, hide);
-    }
-
-    function hide(event) { event.target.style.visibility = &#39;hidden&#39;; }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;使用-jquery-库&#34;&gt;使用 jQuery 库&lt;/h3&gt;
-
-&lt;p&gt;使用 jQuery 类库会使 DOM 操作、事件绑定等操作非常方便，而且不用担心浏览器兼容问题（JavaScript api 层面的兼容）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function debug(msg) {
-    var $log = $(&#39;#debuglog&#39;);
-    if (!$log.length) {
-        log = $(&#39;&amp;lt;div id=&amp;quot;debuglog&amp;quot;&amp;gt;&amp;lt;h1&amp;gt;Debug Log&amp;lt;/h1&amp;gt;&amp;lt;/div&amp;gt;&#39;);
-        log.appendTo(document.body)
-    }
-
-    log.append($(&#39;&amp;lt;pre /&amp;gt;&#39;).text(msg))
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ECMAScript &lt;a href=&#34;https://zh.wikipedia.org/wiki/ECMAScript&#34;&gt;https://zh.wikipedia.org/wiki/ECMAScript&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;JScript &lt;a href=&#34;https://zh.wikipedia.org/wiki/JScript&#34;&gt;https://zh.wikipedia.org/wiki/JScript&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
     
   </channel>

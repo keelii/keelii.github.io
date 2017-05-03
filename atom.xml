@@ -6,8 +6,95 @@
     <description>Recent content on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 29 Apr 2017 17:17:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 May 2017 17:59:45 +0800</lastBuildDate>
     <atom:link href="https://keelii.github.io/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>jQuery data 方法的一个小特技</title>
+      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
+
+&lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo&amp;quot; data-key=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo&#39;).attr(&#39;data-key&#39;)
+    $(&#39;#demo&#39;).data(&#39;key&#39;)  // 第一次访问 DOM，以后从缓存取
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
+
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;
+&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo2&amp;quot; data-key=&amp;quot;123e456&amp;quot;&amp;gt;科学计数法&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo3&amp;quot; data-key=&amp;quot;0000123&amp;quot;&amp;gt;八进制数字&amp;lt;/div&amp;gt;
+&amp;lt;script src=&amp;quot;jquery-16.4&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo0&#39;).data(&#39;key&#39;)  // &amp;quot;abc&amp;quot;
+    $(&#39;#demo1&#39;).data(&#39;key&#39;)  // 123
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // Infinity
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // 83
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;后面两种显然出错了，就是因为 jQuery 对属性值进行了强制 parseFloat 操作。这种转换是方便了使用者，如果是数字的话我们取到这个值进行计算什么的就不用再转数据类型了，但是一不小心就会出 bug&lt;/p&gt;
+
+&lt;p&gt;发现这个 bug 的时候第一感觉是 jQuery 不应该没考虑到这一点呀。后来果断去查了下最新版的 jQuery 源代码，发现已经修复了。核心代码在 &lt;a href=&#34;https://github.com/jquery/jquery/blob/master/src/data.js#L36&#34;&gt;data.js 35 行&lt;/a&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData( data ) {
+    if ( data === &amp;quot;true&amp;quot; ) {
+        return true;
+    }
+
+    if ( data === &amp;quot;false&amp;quot; ) {
+        return false;
+    }
+
+    if ( data === &amp;quot;null&amp;quot; ) {
+        return null;
+    }
+
+    // Only convert to a number if it doesn&#39;t change the string
+    // 重点就在这里 →_→
+    if ( data === +data + &amp;quot;&amp;quot; ) {
+        return +data;
+    }
+
+    if ( rbrace.test( data ) ) {
+        return JSON.parse( data );
+    }
+
+    return data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getData 方法就返回了节点属性的值，只不过加了一些特殊处理使得我们取到了没有 bug 的值，关键地方就在这里： &lt;code&gt;data === +data + &amp;quot;&amp;quot;&lt;/code&gt; 。这行代码做了些什么神奇的事情&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将节点的属性值强制转换成数字「+data」后再转成字符串「+ &amp;ldquo;&amp;ldquo;」，如果转换后的值与原来相等就取转换后的值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;可以简单的这么理解：jQuery 会尝试转换数据类型，如果转换后和转换前的 &lt;strong&gt;长得一样&lt;/strong&gt; 那么 jQuery 就认为它是需要被转换成数字的。这样就可以完美规避上面例子中的两种问题，我们来测试一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = &#39;abc&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // true 转换，使用转换后的数字类型值
+
+var data = &#39;123e456&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;0000123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Sublime text 3 配置 ESLint 代码检查</title>
@@ -3178,399 +3265,6 @@ var server = http.createServer(function(req, res) {
 server.listen(port, hostname, function() {
     console.log(&#39;Server running at http://$s:%s/&#39;, hostname, port);
 });
-&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</title>
-      <link>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</link>
-      <pubDate>Wed, 06 Jul 2016 12:43:30 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</guid>
-      <description>&lt;p&gt;正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;正则表达式的定义&#34;&gt;正则表达式的定义&lt;/h2&gt;
-
-&lt;p&gt;JavaScript 中的正则表达式用 RegExp 对象表示，可以使用 RegExp() 构造函数来创建 RegExp 对象，不过也可以通过两个双斜杠「/reg/」以正则直接量的形式创建&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /s$/;             // 通过直接量创建
-var pattern = new RegExp(&#39;s$&#39;); // 通过构造函数创建
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;直接量字符&#34;&gt;直接量字符&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 正则表达式语法也支持非字母的字符匹配，这些字符需要通过反斜线（\）作为前缀进行转义&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;表10-1&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字符&lt;/th&gt;
-&lt;th&gt;匹配&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;字母和数字&lt;/td&gt;
-&lt;td&gt;自身&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\0&lt;/td&gt;
-&lt;td&gt;NUL 字符（\u0000）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\t&lt;/td&gt;
-&lt;td&gt;制表符（\u0009）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\n&lt;/td&gt;
-&lt;td&gt;换行符（\u000A）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\v&lt;/td&gt;
-&lt;td&gt;垂直制表符（\u000B）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\f&lt;/td&gt;
-&lt;td&gt;换页符（\u000C）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\r&lt;/td&gt;
-&lt;td&gt;回车符（\u000D）&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\xnn&lt;/td&gt;
-&lt;td&gt;由十六进制数 nn 指定的拉丁字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\uxxxx&lt;/td&gt;
-&lt;td&gt;由十六进制数 xxxx 指定的 unicode 字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\cX&lt;/td&gt;
-&lt;td&gt;控制字符 ^x&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;正则表达式中，许多标点符号也具有特殊含义，它们是：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;^ $ . * + ? = ! : | \ / ( ) { }&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;字符类&#34;&gt;字符类&lt;/h3&gt;
-
-&lt;p&gt;将直接量字符单独放进方括号内组成了字符类（charactor class）&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;表10-2&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字符&lt;/th&gt;
-&lt;th&gt;匹配&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;[&amp;hellip;]&lt;/td&gt;
-&lt;td&gt;方括号内的任意字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;[^&amp;hellip;]&lt;/td&gt;
-&lt;td&gt;不在方括号内的任意字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;.&lt;/td&gt;
-&lt;td&gt;除换行符和其它 Unicode 行终止符之外的任意字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\w&lt;/td&gt;
-&lt;td&gt;任何 ASCII 字符组成的单词，等价于 [a-zA-Z0-9]&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\W&lt;/td&gt;
-&lt;td&gt;任何不是 ASCII 字符组成的单词，等价于 [^a-zA-Z0-9]&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\s&lt;/td&gt;
-&lt;td&gt;任何 Unicode 空白符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\S&lt;/td&gt;
-&lt;td&gt;任何非 Unicode 空白符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\d&lt;/td&gt;
-&lt;td&gt;任何 ASCII 数字，等价于 [0-9]&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\D&lt;/td&gt;
-&lt;td&gt;任何非 ASCII 数字，等价于 [^0-9]&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;[\b]&lt;/td&gt;
-&lt;td&gt;退格直接量&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;重复&#34;&gt;重复&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;表10-3&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;{n, m}&lt;/td&gt;
-&lt;td&gt;匹配前一项至少 n 次，但不能超过 m 次&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;{n,}&lt;/td&gt;
-&lt;td&gt;匹配前一项 n 次或者更多次&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;{n}&lt;/td&gt;
-&lt;td&gt;匹配前一项 n 次&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;?&lt;/td&gt;
-&lt;td&gt;匹配前一项 0 次或者 1 次，也就是说前一项是可选的，等价于 {0,1}&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;匹配前一项 1 次或者多次，等价于 {1,}&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;*&lt;/td&gt;
-&lt;td&gt;匹配前一项 0 次或者多次，等价于{0,}&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;举例说明：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/\d{2,4}/           // 匹配 2 ~ 4 个数字
-/\w{3}\d?/          // 匹配三个单词和一个可选的数字
-/\s+java\s+/        // 匹配前后带有一个或者多个空白字符串 &amp;quot;java&amp;quot;
-/[^(]*/             // 匹配一个或多个非左括号字符
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;非贪婪的重复&#34;&gt;非贪婪的重复&lt;/h4&gt;
-
-&lt;p&gt;表10-3 中列出一匹配重复字符是尽可能多地匹配，而且允许后续的正则表达式继续匹配。因此，我们称之为「&lt;strong&gt;贪婪的&lt;/strong&gt;」匹配。我们同样可以使用正则表达式进行非贪婪匹配。只需在特匹配的字符后跟随一个问题即可：「??」、「+?」、「*?」或「{1,5}?」&lt;/p&gt;
-
-&lt;h3 id=&#34;选择-分级和引用&#34;&gt;选择、分级和引用&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;表10-4&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;|&lt;/td&gt;
-&lt;td&gt;选择，匹配的是该符号左边的子表达式或者右边的子表达式&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;(&amp;hellip;)&lt;/td&gt;
-&lt;td&gt;组合，将几个项组合为一个单元，这个单元可通过「*」、「+」、「?」和「|」等符号&lt;br&gt;加以修饰，而且可以记住和这个组合相匹配的字符串&lt;br&gt;以供此后的引用使用&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;(?:&amp;hellip;)&lt;/td&gt;
-&lt;td&gt;只组合，把项组合到一个单元，但不记忆与该组想匹配的字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\n&lt;/td&gt;
-&lt;td&gt;和第 n 个分级第一次匹配的字符相匹配，组是圆括号中的子表达式&lt;br&gt;（也有可能是嵌套的），组索引是从左到右的左括号数，&lt;br&gt;「(?:」形式的分组不编码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;指定匹配位置&#34;&gt;指定匹配位置&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;表10-5&lt;/em&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;^&lt;/td&gt;
-&lt;td&gt;匹配字符串的开头&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$&lt;/td&gt;
-&lt;td&gt;匹配字符串的结尾&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\b&lt;/td&gt;
-&lt;td&gt;匹配一个单词的边界&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;\B&lt;/td&gt;
-&lt;td&gt;匹配非单词边界的位置&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;(?=p)&lt;/td&gt;
-&lt;td&gt;零宽正向先行断言，要求接下来的字符都与 p 匹配，但不能包括匹配 p 的那些字符&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;(?!p)&lt;/td&gt;
-&lt;td&gt;零宽负向先行断言，要求接下来的字符都不与 p 匹配&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;标识&#34;&gt;标识&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;/reg/flag&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;标识是放在斜扛右边的，通常有 i, g, m 三种&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;i 执行不区分大小写的匹配&lt;/li&gt;
-&lt;li&gt;g 执行一个全局匹配，即 找到所有的匹配，而不是找到第一个就停止&lt;/li&gt;
-&lt;li&gt;m 多行匹配模式&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;用于模式匹配的-string-方法&#34;&gt;用于模式匹配的 string 方法&lt;/h2&gt;
-
-&lt;p&gt;String 支持 4 种使用正则表达式的方法&lt;/p&gt;
-
-&lt;h3 id=&#34;string-prototype-search&#34;&gt;String.prototype.search()&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search&#34;&gt;search()&lt;/a&gt; 方法返回第一个与之匹配的子串起始位置，如果找不到匹配的子串，它将返回 -1&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;JavaScript&amp;quot;.search(/script/i);         // =&amp;gt; 4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果 search() 参数不是正则表达式，则首先会 &lt;strong&gt;通过 RegExp 构造函数将它转换成正则表达式&lt;/strong&gt;，search() 方法不支持全局检索，因为它 &lt;strong&gt;忽略&lt;/strong&gt; 正则表达式参数中的标识 g&lt;/p&gt;
-
-&lt;h3 id=&#34;string-prototype-replace&#34;&gt;String.prototype.replace()&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;str.replace(regexp|substr, newSubStr|function)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace&#34;&gt;replace()&lt;/a&gt; 方法用以执行检索与替换操作，正则表达式如果带标识 g，则会替换所有匹配子串&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 将所有不区分大小写的 javascript 都替换成 JavaScript
-text.replace(/javascript/gi);
-
-// 用中文引号替换英文应该引号，同时要保持引号之间的内容（存储在 $1 中）没有被修改
-var quote = /&amp;quot;([^&amp;quot;]*)&amp;quot;/g;
-text.replace(quote, &#39;“$1”&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;string-prototype-match&#34;&gt;String.prototype.match()&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match&#34;&gt;match()&lt;/a&gt; 方法返回一个由匹配结果组成的数组，如果没有标识全局搜索，match() 只检索第一个匹配&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;1 plus 2 equals 3&amp;quot;.match(/\d+/g);  // =&amp;gt; [&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;regexp-对象&#34;&gt;RegExp 对象&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;RegExp(pattern [, flags])&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;RegExp 构造函数一般用在动态创建正则表达式的时候，这种情况往往没办法通过写死在代码中的正则直接量来实现，比如检索字符串是用户输出的&lt;/p&gt;
-
-&lt;h3 id=&#34;regexp-的属性&#34;&gt;RegExp 的属性&lt;/h3&gt;
-
-&lt;p&gt;每个 RegExp 对象都包含 5 个属性：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;source 只读字符串，包含正则表达式的文本&lt;/li&gt;
-&lt;li&gt;global 只读布尔值，说明正则表达式是否带全局标识 g&lt;/li&gt;
-&lt;li&gt;ignoreCase 也是一个只读布尔值，说明正则表达式是否带标识 i&lt;/li&gt;
-&lt;li&gt;multiline 也是一个只读布尔值，说明正则表达式是否带标识 m&lt;/li&gt;
-&lt;li&gt;lastIndex 它是一个可读/写的整数。如果匹配模式带有 g 标识，这个属性存储在整个字符串中下一次检索的开始位置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;regexp-的方法&#34;&gt;RegExp 的方法&lt;/h3&gt;
-
-&lt;h4 id=&#34;exec&#34;&gt;exec()&lt;/h4&gt;
-
-&lt;p&gt;exec() 对一个指定的字符串执行一个正则表达式，如果没有找到任何匹配，它就返回 null，但如果它找到一个匹配，将返回一个数组&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /Java/g;
-var text = &amp;quot;JavaScript is more fun than Java!&amp;quot;;
-var result;
-while((result = pattern.exec(text)) != null) {
-    console.log(&amp;quot;Matched &#39;%s&#39; at position &#39;%s&#39;; next search begins at %s&amp;quot;,
-        result[0],
-        result.index,
-        pattern.lastIndex);
-}
-// Matched &#39;Java&#39; at position &#39;0&#39;; next search begins at 4
-// Matched &#39;Java&#39; at position &#39;28&#39;; next search begins at 32
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;test&#34;&gt;test()&lt;/h4&gt;
-
-&lt;p&gt;test() 对方法转入字符串进行检测，匹配到结果返回 true，否则返回 false&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /java/i;
-pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
 &lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     

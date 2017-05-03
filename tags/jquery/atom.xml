@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Something</title>
+    <link>https://keelii.github.io/tags/jquery/atom/index.xml</link>
+    <description>Recent content on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://keelii.github.io/tags/jquery/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>jQuery data 方法的一个小特技</title>
+      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
+
+&lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo&amp;quot; data-key=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo&#39;).attr(&#39;data-key&#39;)
+    $(&#39;#demo&#39;).data(&#39;key&#39;)  // 第一次访问 DOM，以后从缓存取
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
+
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;
+&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo2&amp;quot; data-key=&amp;quot;123e456&amp;quot;&amp;gt;科学计数法&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo3&amp;quot; data-key=&amp;quot;0000123&amp;quot;&amp;gt;八进制数字&amp;lt;/div&amp;gt;
+&amp;lt;script src=&amp;quot;jquery-16.4&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo0&#39;).data(&#39;key&#39;)  // &amp;quot;abc&amp;quot;
+    $(&#39;#demo1&#39;).data(&#39;key&#39;)  // 123
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // Infinity
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // 83
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;后面两种显然出错了，就是因为 jQuery 对属性值进行了强制 parseFloat 操作。这种转换是方便了使用者，如果是数字的话我们取到这个值进行计算什么的就不用再转数据类型了，但是一不小心就会出 bug&lt;/p&gt;
+
+&lt;p&gt;发现这个 bug 的时候第一感觉是 jQuery 不应该没考虑到这一点呀。后来果断去查了下最新版的 jQuery 源代码，发现已经修复了。核心代码在 &lt;a href=&#34;https://github.com/jquery/jquery/blob/master/src/data.js#L36&#34;&gt;data.js 35 行&lt;/a&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData( data ) {
+    if ( data === &amp;quot;true&amp;quot; ) {
+        return true;
+    }
+
+    if ( data === &amp;quot;false&amp;quot; ) {
+        return false;
+    }
+
+    if ( data === &amp;quot;null&amp;quot; ) {
+        return null;
+    }
+
+    // Only convert to a number if it doesn&#39;t change the string
+    // 重点就在这里 →_→
+    if ( data === +data + &amp;quot;&amp;quot; ) {
+        return +data;
+    }
+
+    if ( rbrace.test( data ) ) {
+        return JSON.parse( data );
+    }
+
+    return data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getData 方法就返回了节点属性的值，只不过加了一些特殊处理使得我们取到了没有 bug 的值，关键地方就在这里： &lt;code&gt;data === +data + &amp;quot;&amp;quot;&lt;/code&gt; 。这行代码做了些什么神奇的事情&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将节点的属性值强制转换成数字「+data」后再转成字符串「+ &amp;ldquo;&amp;ldquo;」，如果转换后的值与原来相等就取转换后的值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;可以简单的这么理解：jQuery 会尝试转换数据类型，如果转换后和转换前的 &lt;strong&gt;长得一样&lt;/strong&gt; 那么 jQuery 就认为它是需要被转换成数字的。这样就可以完美规避上面例子中的两种问题，我们来测试一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = &#39;abc&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // true 转换，使用转换后的数字类型值
+
+var data = &#39;123e456&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;0000123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

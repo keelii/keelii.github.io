@@ -4,7 +4,7 @@
         var oTop = $toc.length ? $toc.offset().top : 0;
 
         return function() {
-            var sWidth = $('.sidebar').width();
+            var sWidth = $toc.width();
             var sTop = $('html').scrollTop() || $('body').scrollTop();
             var enabled = !$('body').hasClass('collapse-sidebar');
 

@@ -107,17 +107,16 @@
 
 <p>很明显建议使用后者，但是在 <strong>低版本 jQuery</strong> 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码</p>
 
-<pre><code class="language-html">
-&lt;div id=&quot;demo0&quot; data-key=&quot;abc&quot;&gt;字符串&lt;/div&gt;
+<pre><code class="language-html">&lt;div id=&quot;demo0&quot; data-key=&quot;abc&quot;&gt;字符串&lt;/div&gt;
 &lt;div id=&quot;demo1&quot; data-key=&quot;123&quot;&gt;数字&lt;/div&gt;
 &lt;div id=&quot;demo2&quot; data-key=&quot;123e456&quot;&gt;科学计数法&lt;/div&gt;
 &lt;div id=&quot;demo3&quot; data-key=&quot;0000123&quot;&gt;八进制数字&lt;/div&gt;
-&lt;script src=&quot;jquery-16.4&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jquery-1.6.4&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
     $('#demo0').data('key')  // &quot;abc&quot;
     $('#demo1').data('key')  // 123
     $('#demo2').data('key')  // Infinity
-    $('#demo2').data('key')  // 83
+    $('#demo3').data('key')  // 83
 &lt;/script&gt;
 </code></pre>
 

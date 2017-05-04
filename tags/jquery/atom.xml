@@ -27,7 +27,7 @@
 
 &lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
 
-&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本的 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
 &amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;

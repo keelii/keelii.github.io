@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JQuery Data 方法的一个小特技</title>
-    <meta name="description" content="__ you do not know yet">
+    <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
     <meta name="generator" content="Hugo 0.17" />
@@ -47,7 +47,7 @@
 <header role="banner">
     <hgroup>
         <h1><a href="https://keelii.github.io/">Something</a></h1>
-        <h2>__ you do not know yet</h2>
+        <h2>__ you don&#39;t know yet</h2>
     </hgroup>
 </header>
 
@@ -105,7 +105,7 @@
 
 <p>这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM</p>
 
-<p>很明显建议使用后者，但是在 <strong>低版本 jQuery</strong> 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码</p>
+<p>很明显建议使用后者，但是在 <strong>低版本的 jQuery</strong> 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码</p>
 
 <pre><code class="language-html">&lt;div id=&quot;demo0&quot; data-key=&quot;abc&quot;&gt;字符串&lt;/div&gt;
 &lt;div id=&quot;demo1&quot; data-key=&quot;123&quot;&gt;数字&lt;/div&gt;
@@ -352,18 +352,11 @@ console.log(data === +data + &quot;&quot;)        // false 不转换，直接返
 
 <script src="/javascripts/highlight.pack.js"></script>
 <script src="/javascripts/post.js"></script>
-<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
 <script>
-if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad();
-if (typeof MathJax !=="undefined") {
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: false
-        }
-    });
-}
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
 </script>
 
 

@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Something</title>
-    <link>https://keelii.github.io/tags/gvim/atom/index.xml</link>
+    <link>https://keelii.github.io/tags/gVim/atom/index.xml</link>
     <description>Recent content on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://keelii.github.io/tags/gvim/atom/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://keelii.github.io/tags/gVim/atom/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>可能是 Windows 下最漂亮的 Gvim 配置了</title>

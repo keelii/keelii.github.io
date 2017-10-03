@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Something</title>
+    <link>https://keelii.github.io/categories/</link>
+    <description>Recent content in Categories on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 22 Dec 2016 15:55:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://keelii.github.io/categories/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Algorithm</title>
+      <link>https://keelii.github.io/categories/algorithm/</link>
+      <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>https://keelii.github.io/categories/blog/</link>
+      <pubDate>Tue, 25 Oct 2016 13:27:20 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Database</title>
+      <link>https://keelii.github.io/categories/database/</link>
+      <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Editor</title>
+      <link>https://keelii.github.io/categories/editor/</link>
+      <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/editor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Event</title>
+      <link>https://keelii.github.io/categories/Event/</link>
+      <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/Event/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript_The_Definitive_Guide</title>
+      <link>https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/</link>
+      <pubDate>Fri, 12 Aug 2016 15:36:59 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://keelii.github.io/categories/javascript/</link>
+      <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jd</title>
+      <link>https://keelii.github.io/categories/jd/</link>
+      <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/jd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://keelii.github.io/categories/Linux/</link>
+      <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/Linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lisp</title>
+      <link>https://keelii.github.io/categories/lisp/</link>
+      <pubDate>Mon, 04 Jul 2016 09:32:45 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/lisp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mac</title>
+      <link>https://keelii.github.io/categories/Mac/</link>
+      <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
+      
+      <guid>https://keelii.github.io/categories/Mac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Math</title>
+      <link>https://keelii.github.io/categories/math/</link>
+      <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mbp</title>
+      <link>https://keelii.github.io/categories/mbp/</link>
+      <pubDate>Tue, 04 Oct 2016 17:22:29 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/mbp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Server</title>
+      <link>https://keelii.github.io/categories/Server/</link>
+      <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/Server/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sublime text</title>
+      <link>https://keelii.github.io/categories/sublime-text/</link>
+      <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/sublime-text/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Template_engine</title>
+      <link>https://keelii.github.io/categories/template_engine/</link>
+      <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/template_engine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VIM</title>
+      <link>https://keelii.github.io/categories/VIM/</link>
+      <pubDate>Tue, 14 Jun 2016 10:39:40 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/VIM/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebDev</title>
+      <link>https://keelii.github.io/categories/WebDev/</link>
+      <pubDate>Sun, 12 Jun 2016 18:04:47 +0800</pubDate>
+      
+      <guid>https://keelii.github.io/categories/WebDev/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

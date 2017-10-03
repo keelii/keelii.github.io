@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Keymap on Something</title>
+    <link>https://keelii.github.io/tags/keymap/</link>
+    <description>Recent content in Keymap on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 03 Oct 2017 17:10:27 +0000</lastBuildDate>
+    
+	<atom:link href="https://keelii.github.io/tags/keymap/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac 下单独设置 command(⌘) 键点击功能</title>
+      <link>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</link>
+      <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
+      
+      <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
+      <description>由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题 传统意义上像 Ctrl, Alt, Shift, Win, Option, Command 都属于 修饰键，只能和其它键配合使用才可以（Ctrl+</description>
+    </item>
+    
+  </channel>
+</rss>

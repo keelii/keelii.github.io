@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>About-rsses on Something</title>
-    <link>https://keelii.github.io/about/atom/index.xml</link>
-    <description>Recent content in About-rsses on Something</description>
+    <title>Abouts on Something</title>
+    <link>https://keelii.github.io/about/</link>
+    <description>Recent content in Abouts on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 13 Jun 2016 18:04:47 +0800</lastBuildDate>
-    <atom:link href="https://keelii.github.io/about/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://keelii.github.io/about/atom.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>about</title>
@@ -15,27 +17,9 @@
       <pubDate>Mon, 13 Jun 2016 18:04:47 +0800</pubDate>
       
       <guid>https://keelii.github.io/about/</guid>
-      <description>
-
-&lt;h3 id=&#34;contact&#34;&gt;Contact&lt;/h3&gt;
-
-&lt;p&gt;Weibo/Zhihu/Github/Wechat/Twitter: @keelii&lt;/p&gt;
-
-&lt;h3 id=&#34;portfolio&#34;&gt;Portfolio&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://note.crazy4code.com/notes&#34;&gt;Simple Note&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/fe-player&#34;&gt;FE Player@zhihu&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;somthing&#34;&gt;Somthing&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;It&amp;rsquo;s not who you are underneath, it&amp;rsquo;s what you do that defines you&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16028581/3ab00498-3213-11e6-9b50-158fb84ed156.jpg&#34; alt=&#34;its-not-who-you-are-underneath&#34; /&gt;&lt;/p&gt;
-</description>
+      <description> Contact Weibo/Zhihu/Github/Wechat/Twitter: @keelii
+Portfolio  Simple Note FE Player@zhihu  Somthing  It&amp;rsquo;s not who you are underneath, it&amp;rsquo;s what you do that defines you
+ </description>
     </item>
     
   </channel>

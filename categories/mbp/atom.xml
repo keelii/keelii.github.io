@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Something</title>
-    <link>https://keelii.github.io/categories/mbp/atom/index.xml</link>
-    <description>Recent content on Something</description>
+    <title>Mbp on Something</title>
+    <link>https://keelii.github.io/categories/mbp/</link>
+    <description>Recent content in Mbp on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://keelii.github.io/categories/mbp/atom/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Oct 2016 17:22:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://keelii.github.io/categories/mbp/atom.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>简单方法解决 Macbook 电源接口接触不良的问题</title>
@@ -22,10 +25,7 @@
 
 &lt;p&gt;来两张图片看看&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-57___SRC_6094.jpg&#34; alt=&#34;mbp-power-cord1&#34; /&gt;
-&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-53___1719964175.jpg&#34; alt=&#34;mbp-power-cord2&#34; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

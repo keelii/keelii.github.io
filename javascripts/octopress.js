@@ -80,23 +80,24 @@ $('document').ready(function() {
 // hotkeys
 (function() {
   $(document).bind('keypress.hotkey', function(event) {
-      var sTop = $('body').scrollTop();
+      var sTop = $('body,html').scrollTop();
 
       switch (event.which) {
-          // [s]
-          case 115:
+          // [/]
+          case 47:
+              $('body,html').scrollTop(0);
               setTimeout(function() {
                 $('.search').focus();
               }, 10);
               break;
           // [t]
           case 116:
-              $('body').animate({ scrollTop: 0 }, 300);
+              $('body,html').scrollTop(0);
               break;
           // vim like key
           // [G]
           case 71:
-              $('body').animate({ scrollTop: 1000000 }, 100);
+              $('body,html').scrollTop(1000000);
               break;
           // [h]
           case 104:
@@ -114,11 +115,11 @@ $('document').ready(function() {
               break;
           // [j]
           case 106:
-              $('body').animate({ scrollTop: sTop + 300 }, 100);
+              $('body,html').scrollTop(sTop + 300);
               break;
           // [k]
           case 107:
-              $('body').animate({ scrollTop: sTop - 300 }, 100);
+              $('body,html').scrollTop(sTop - 300);
               break;
           default:
       }

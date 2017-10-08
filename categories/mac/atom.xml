@@ -29,7 +29,7 @@
 
 &lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
 
@@ -38,8 +38,8 @@
 &lt;li&gt;设置三指拖动&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
-&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
+&lt;a href=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
 
@@ -49,7 +49,7 @@
 &lt;li&gt;显示所有文件扩展名&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;桌面图标排序&#34;&gt;桌面图标排序&lt;/h3&gt;
 
@@ -61,7 +61,7 @@
 
 &lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
 &lt;/code&gt;&lt;/pre&gt;
@@ -105,7 +105,7 @@ sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/maste
 
 &lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
 
@@ -113,7 +113,7 @@ sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/maste
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
 
@@ -135,7 +135,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
 
@@ -162,7 +162,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
 
@@ -180,7 +180,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
 
@@ -268,13 +268,13 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 
 &lt;p&gt;然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 &lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner&lt;/a&gt; 😎&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;我的配置方法是使用 &lt;code&gt;Complex Modifications&lt;/code&gt; 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了&lt;/p&gt;
 
 &lt;p&gt;然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 &lt;a href=&#34;https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys&#34;&gt;Tapping modifier-keys produces a f-key.&lt;/a&gt;。然后我们 &lt;code&gt;enable&lt;/code&gt; 这条：&lt;strong&gt;Press left_command alone produces F14&lt;/strong&gt;，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：&lt;/p&gt;
 

@@ -29,7 +29,7 @@
 
 &lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
 
@@ -38,8 +38,8 @@
 &lt;li&gt;设置三指拖动&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
-&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
+&lt;a href=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
 
@@ -49,7 +49,7 @@
 &lt;li&gt;显示所有文件扩展名&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;桌面图标排序&#34;&gt;桌面图标排序&lt;/h3&gt;
 
@@ -61,7 +61,7 @@
 
 &lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
 &lt;/code&gt;&lt;/pre&gt;
@@ -105,7 +105,7 @@ sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/maste
 
 &lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
 
@@ -113,7 +113,7 @@ sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/maste
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
 
@@ -135,7 +135,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
 
@@ -162,7 +162,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
 
@@ -180,7 +180,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
 
@@ -268,13 +268,13 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 
 &lt;p&gt;然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 &lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner&lt;/a&gt; 😎&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;我的配置方法是使用 &lt;code&gt;Complex Modifications&lt;/code&gt; 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了&lt;/p&gt;
 
 &lt;p&gt;然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 &lt;a href=&#34;https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys&#34;&gt;Tapping modifier-keys produces a f-key.&lt;/a&gt;。然后我们 &lt;code&gt;enable&lt;/code&gt; 这条：&lt;strong&gt;Press left_command alone produces F14&lt;/strong&gt;，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：&lt;/p&gt;
 
@@ -493,7 +493,7 @@ What format do you want your config file to be in? JavaScript
 
 &lt;p&gt;上个图吧&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34; alt=&#34;sublimetext-eslint&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34; alt=&#34;sublimetext-eslint&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -844,15 +844,15 @@ $$σ_F(R)=\{t|t∈R∧F(t)=True\}$$
 
 &lt;p&gt;设有关系 R、S 如图所示，求 $R∪S$、 $R−S$、 $R×S$、 $π_{A,C}(R)$、 $σ_{A&amp;gt;B}(R)$ 和 $σ_{3&amp;lt;4}(R×S)$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/269/2409299226/5377/e997b909/58a95fceNddd39fd7.png&#34; alt=&#34;关系表RS&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3967/269/2409299226/5377/e997b909/58a95fceNddd39fd7.png&#34; alt=&#34;关系表RS&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;进行并、差运算后结果如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3949/95/2458170516/5487/1c7f1f38/58a967b1N42db123f.png&#34; alt=&#34;并差&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3949/95/2458170516/5487/1c7f1f38/58a967b1N42db123f.png&#34; alt=&#34;并差&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;进行笛卡尔、 投影、 选择运算后结果如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3943/109/2403665652/38834/c636281b/58a9685dN20af0b9b.png&#34; alt=&#34;笛卡尔_投影_选择&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3943/109/2403665652/38834/c636281b/58a9685dN20af0b9b.png&#34; alt=&#34;笛卡尔_投影_选择&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;扩展的关系代数运算&#34;&gt;扩展的关系代数运算&lt;/h2&gt;
 
@@ -866,7 +866,7 @@ $$R∩S=\{t|t∈R∧t∈S\}$$
 
 &lt;h3 id=&#34;链接-join&#34;&gt;链接（Join）&lt;/h3&gt;
 
-&lt;p&gt;注：下面的 θ 链接应该记作：&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/158/2461240249/2389/530d7d07/58aa580aNe9908740.png&#34; alt=&#34;theta链接&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;注：下面的 θ 链接应该记作：&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3967/158/2461240249/2389/530d7d07/58aa580aNe9908740.png&#34; alt=&#34;theta链接&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;θ-链接&#34;&gt;θ 链接&lt;/h4&gt;
 
@@ -880,7 +880,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;例如：求 $R \Join_{R.A&amp;lt;S.B} S$，如果为：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3133/127/6662942086/21071/88c200da/58aa5b1fN3e2316d5.png&#34; alt=&#34;theta链接小于过程&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3133/127/6662942086/21071/88c200da/58aa5b1fN3e2316d5.png&#34; alt=&#34;theta链接小于过程&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;等值链接&#34;&gt;等值链接&lt;/h4&gt;
 
@@ -892,41 +892,41 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;例如：设有关系 R、S 如图所示，求 $R \Join S$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3982/212/2472511181/5973/54467e2a/58aa5ffaN970f7e5a.png&#34; alt=&#34;关系RS&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3982/212/2472511181/5973/54467e2a/58aa5ffaN970f7e5a.png&#34; alt=&#34;关系RS&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;先求出笛卡尔积 $R×S$，找出比较分量（有相同属性组），即: R.A/S.A 与 R.C/S.C&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3841/5/4275908218/12385/79e83d01/58aa6066Nd003e697.png&#34; alt=&#34;求出笛卡尔积&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3841/5/4275908218/12385/79e83d01/58aa6066Nd003e697.png&#34; alt=&#34;求出笛卡尔积&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;取等值链接 $R.A = S.A$ 且 $R.C = S.C$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3256/75/6205568741/12327/2b1dc867/58aa60e8N38a84108.png&#34; alt=&#34;找出相同属性的比较分量&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3256/75/6205568741/12327/2b1dc867/58aa60e8N38a84108.png&#34; alt=&#34;找出相同属性的比较分量&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;结果集中去掉重复属性列，注意无论去掉 R.A 或者 S.A 效果都一样，因为他们的值相等，结果集中只会有属性 A、B、C、D&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3217/183/6576493853/4744/ccb96965/58aa612eN043f7425.png&#34; alt=&#34;结果集中找出重复属性列&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3217/183/6576493853/4744/ccb96965/58aa612eN043f7425.png&#34; alt=&#34;结果集中找出重复属性列&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最终得出结果&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3247/65/6676502314/2874/657ddb0c/58aa617eN2457f536.png&#34; alt=&#34;RS自然链接结果&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3247/65/6676502314/2874/657ddb0c/58aa617eN2457f536.png&#34; alt=&#34;RS自然链接结果&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;除-division&#34;&gt;除（Division）&lt;/h3&gt;
 
 &lt;p&gt;设有以下如图关系，求 $R÷S$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3151/348/6716540896/7287/dc01ad2e/58aaaf3bN1cae8b1a.png&#34; alt=&#34;关系RS1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3151/348/6716540896/7287/dc01ad2e/58aaaf3bN1cae8b1a.png&#34; alt=&#34;关系RS1&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;取关系 R 中有的但 S 中没有的属性组，即：A、B&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3202/137/6722879648/7244/3b47a185/58aaaf81N0b2491b5.png&#34; alt=&#34;关系RS1取属性AB&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3202/137/6722879648/7244/3b47a185/58aaaf81N0b2491b5.png&#34; alt=&#34;关系RS1取属性AB&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;取唯一 A、B 属性组值的象集&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3871/170/2430481542/5179/be5899c5/58aaafe6N8297b49f.png&#34; alt=&#34;关系RS1取属性AB对应的象集&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3871/170/2430481542/5179/be5899c5/58aaafe6N8297b49f.png&#34; alt=&#34;关系RS1取属性AB对应的象集&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;可知关系S存在于 a,b/c,k 象集 中。即 $R÷S$ 得&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -942,7 +942,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;这个问题来源于选择商品属性的场景。比如我们买衣服、鞋子这类物件，一般都需要我们选择合适的颜色、尺码等属性&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;先了解一下 sku 的学术概念吧&lt;/p&gt;
 
@@ -972,7 +972,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;对应的在网页上大概是这样的 UI&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这个时候，就会有一个问题，这些元子属性能组成的集合（用户的选择路径） &lt;strong&gt;远远大于&lt;/strong&gt; 真正可以组成的集合，比如上面的属性集合可以组合成一个 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF&#34;&gt;笛卡尔积&lt;/a&gt;，即。可以组合成以下序列：&lt;/p&gt;
 
@@ -1015,11 +1015,11 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;看下图，如果我们定义红色为当前选中的商品的属性，即当前选中商品为 &lt;code&gt;红-大-A&lt;/code&gt;，这个时候如何确认其它非已选属性是否可以组成可选路径？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;规则是这样的：&lt;/strong&gt; 假设当前用户想选 &lt;code&gt;白-大-A&lt;/code&gt;，刚好这个选择路径是不存在的，那么我们就把 &lt;code&gt;白&lt;/code&gt; 置灰&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;以此类推，如果要确认 &lt;code&gt;蓝&lt;/code&gt; 属性是否可用，需要查找 &lt;code&gt;蓝-大-A&lt;/code&gt; 路径是否存在&lt;/p&gt;
 
@@ -1048,7 +1048,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;如果用户点击了 &lt;code&gt;白&lt;/code&gt; 情况就变得复杂了很多，我们假设用户 &lt;strong&gt;只选择了一个&lt;/strong&gt;元素 &lt;code&gt;白&lt;/code&gt;，此时如何判断其它未选元素是否可选？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;即：如何确定 &lt;code&gt;&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt; 需要置灰？ 注意我们并不需要确认 &lt;code&gt;&amp;quot;红&amp;quot;，&amp;quot;蓝&amp;quot;&lt;/code&gt; 是否可选，因为属性里面的元素都是 &lt;strong&gt;单选&lt;/strong&gt;，当前的属性里任何元素都可选的&lt;/p&gt;
 
@@ -1066,7 +1066,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;同时还有一个问题，如果已选的个数不确定而且维度可以增加到不确定呢？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这种情况下如果还按之前的算法，即使实现也非常复杂。这时候就要考虑换一种思维方式&lt;/p&gt;
 
@@ -1074,7 +1074,7 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 
 &lt;p&gt;之前我们都是反向思考，找出不可选应该置灰的元素。我们现在正向的考虑，如何确定属性是否可选。而且多维的情况下用户可以跳着选。比如：用户选了两个元素 &lt;code&gt;白，B&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;我们再回过头来看下 &lt;strong&gt;原始存在的数据&lt;/strong&gt;&lt;/p&gt;
 
@@ -1155,7 +1155,7 @@ function powerset(arr) {
 
 &lt;p&gt;有了这个存在的子集集合，再回头看 &lt;em&gt;图1&lt;/em&gt; 举例：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;如何确定 &lt;code&gt;红&lt;/code&gt; 可选？ 只需要确定 &lt;code&gt;红-B&lt;/code&gt; 可选&lt;/li&gt;
@@ -1253,11 +1253,11 @@ function powerset(arr) {
 
 &lt;p&gt;为了更清楚的说明这个算法，再上一张图来解释下吧：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;所以根据上面的逻辑得出，计算状态后的界面应该是这样的：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;现在这种情况下如果用户点击 尺码 &lt;code&gt;中&lt;/code&gt; 应该怎么交互呢？&lt;/p&gt;
 
@@ -1279,7 +1279,7 @@ function powerset(arr) {
 
 &lt;p&gt;这个过程的流程图大概是这样的，点进不存在的属性就会进入「单选流程」&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;假设后端数据是这样的：&lt;/p&gt;
 
@@ -1293,11 +1293,11 @@ function powerset(arr) {
 
 &lt;p&gt;当前选中状态是：&lt;code&gt;白-大-A&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;如果用户点击 &lt;code&gt;中&lt;/code&gt;。这个时候 &lt;code&gt;白-中&lt;/code&gt; 是存在的，但是 &lt;code&gt;中-A&lt;/code&gt; 并不存在，所以保留颜色 &lt;code&gt;白&lt;/code&gt;，高亮型号属性行：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;由此可见和 &lt;code&gt;白-中&lt;/code&gt; 能搭配存在型号只有 &lt;code&gt;B&lt;/code&gt;，而缓存的作用就是为了少让用户选一次颜色 &lt;code&gt;白&lt;/code&gt;&lt;/p&gt;
 
@@ -1316,7 +1316,7 @@ function powerset(arr) {
 ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在 chrome 里面简单跑了几个用例，可见这个算法非常低效，如果要使用这个算法，必须控制维度在合理范围内，而且不仅仅算法时间复杂度很高，生成最后的路径表也会非常大，相应的占用内存也很高。&lt;/p&gt;
 

@@ -23,7 +23,7 @@
 
 &lt;p&gt;这个问题来源于选择商品属性的场景。比如我们买衣服、鞋子这类物件，一般都需要我们选择合适的颜色、尺码等属性&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;先了解一下 sku 的学术概念吧&lt;/p&gt;
 
@@ -53,7 +53,7 @@
 
 &lt;p&gt;对应的在网页上大概是这样的 UI&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这个时候，就会有一个问题，这些元子属性能组成的集合（用户的选择路径） &lt;strong&gt;远远大于&lt;/strong&gt; 真正可以组成的集合，比如上面的属性集合可以组合成一个 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF&#34;&gt;笛卡尔积&lt;/a&gt;，即。可以组合成以下序列：&lt;/p&gt;
 
@@ -96,11 +96,11 @@
 
 &lt;p&gt;看下图，如果我们定义红色为当前选中的商品的属性，即当前选中商品为 &lt;code&gt;红-大-A&lt;/code&gt;，这个时候如何确认其它非已选属性是否可以组成可选路径？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;规则是这样的：&lt;/strong&gt; 假设当前用户想选 &lt;code&gt;白-大-A&lt;/code&gt;，刚好这个选择路径是不存在的，那么我们就把 &lt;code&gt;白&lt;/code&gt; 置灰&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;以此类推，如果要确认 &lt;code&gt;蓝&lt;/code&gt; 属性是否可用，需要查找 &lt;code&gt;蓝-大-A&lt;/code&gt; 路径是否存在&lt;/p&gt;
 
@@ -129,7 +129,7 @@
 
 &lt;p&gt;如果用户点击了 &lt;code&gt;白&lt;/code&gt; 情况就变得复杂了很多，我们假设用户 &lt;strong&gt;只选择了一个&lt;/strong&gt;元素 &lt;code&gt;白&lt;/code&gt;，此时如何判断其它未选元素是否可选？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;即：如何确定 &lt;code&gt;&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt; 需要置灰？ 注意我们并不需要确认 &lt;code&gt;&amp;quot;红&amp;quot;，&amp;quot;蓝&amp;quot;&lt;/code&gt; 是否可选，因为属性里面的元素都是 &lt;strong&gt;单选&lt;/strong&gt;，当前的属性里任何元素都可选的&lt;/p&gt;
 
@@ -147,7 +147,7 @@
 
 &lt;p&gt;同时还有一个问题，如果已选的个数不确定而且维度可以增加到不确定呢？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这种情况下如果还按之前的算法，即使实现也非常复杂。这时候就要考虑换一种思维方式&lt;/p&gt;
 
@@ -155,7 +155,7 @@
 
 &lt;p&gt;之前我们都是反向思考，找出不可选应该置灰的元素。我们现在正向的考虑，如何确定属性是否可选。而且多维的情况下用户可以跳着选。比如：用户选了两个元素 &lt;code&gt;白，B&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;我们再回过头来看下 &lt;strong&gt;原始存在的数据&lt;/strong&gt;&lt;/p&gt;
 
@@ -236,7 +236,7 @@ function powerset(arr) {
 
 &lt;p&gt;有了这个存在的子集集合，再回头看 &lt;em&gt;图1&lt;/em&gt; 举例：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;如何确定 &lt;code&gt;红&lt;/code&gt; 可选？ 只需要确定 &lt;code&gt;红-B&lt;/code&gt; 可选&lt;/li&gt;
@@ -334,11 +334,11 @@ function powerset(arr) {
 
 &lt;p&gt;为了更清楚的说明这个算法，再上一张图来解释下吧：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;所以根据上面的逻辑得出，计算状态后的界面应该是这样的：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;现在这种情况下如果用户点击 尺码 &lt;code&gt;中&lt;/code&gt; 应该怎么交互呢？&lt;/p&gt;
 
@@ -360,7 +360,7 @@ function powerset(arr) {
 
 &lt;p&gt;这个过程的流程图大概是这样的，点进不存在的属性就会进入「单选流程」&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;假设后端数据是这样的：&lt;/p&gt;
 
@@ -374,11 +374,11 @@ function powerset(arr) {
 
 &lt;p&gt;当前选中状态是：&lt;code&gt;白-大-A&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;如果用户点击 &lt;code&gt;中&lt;/code&gt;。这个时候 &lt;code&gt;白-中&lt;/code&gt; 是存在的，但是 &lt;code&gt;中-A&lt;/code&gt; 并不存在，所以保留颜色 &lt;code&gt;白&lt;/code&gt;，高亮型号属性行：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;由此可见和 &lt;code&gt;白-中&lt;/code&gt; 能搭配存在型号只有 &lt;code&gt;B&lt;/code&gt;，而缓存的作用就是为了少让用户选一次颜色 &lt;code&gt;白&lt;/code&gt;&lt;/p&gt;
 
@@ -397,7 +397,7 @@ function powerset(arr) {
 ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在 chrome 里面简单跑了几个用例，可见这个算法非常低效，如果要使用这个算法，必须控制维度在合理范围内，而且不仅仅算法时间复杂度很高，生成最后的路径表也会非常大，相应的占用内存也很高。&lt;/p&gt;
 

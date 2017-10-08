@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <lastBuildDate>Sat, 29 Apr 2017 17:17:24 +0800</lastBuildDate>
     
-	<atom:link href="https://keelii.github.io/tags/eslint/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.github.io/tags/eslint/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +17,94 @@
       <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</guid>
-      <description>安装环境 Windows 7 SP1 企业版 Sublime text 3 Build 3162 Node.js v6.9.5 Yarn 0.23.2 (可用 npm 代替) 安装 ESLint 到你的项目根目录生成一个 package.json 文件，如果没有使用 yarn init -y 来自动生成 ESLint 默认的 parser 是 espri</description>
+      <description>
+
+&lt;h2 id=&#34;安装环境&#34;&gt;安装环境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Windows 7 SP1 企业版&lt;/li&gt;
+&lt;li&gt;Sublime text 3 Build 3162&lt;/li&gt;
+&lt;li&gt;Node.js v6.9.5&lt;/li&gt;
+&lt;li&gt;Yarn 0.23.2 (可用 npm 代替)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装-eslint&#34;&gt;安装 ESLint&lt;/h2&gt;
+
+&lt;p&gt;到你的项目根目录生成一个 package.json 文件，如果没有使用 &lt;code&gt;yarn init -y&lt;/code&gt; 来自动生成&lt;/p&gt;
+
+&lt;p&gt;ESLint 默认的 parser 是 esprima，如果你需要检查 Babel 转义的 JSX 等文件那可以选择安装 &lt;a href=&#34;https://github.com/babel/babel-eslint&#34;&gt;babel-eslint&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn init -y
+yarn global add eslint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 sublime text 3 配置 eslint 来做代码检查&lt;/p&gt;
+
+&lt;h2 id=&#34;安装-sublime-text-3-插件&#34;&gt;安装 Sublime text 3 插件&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装-sublime-linter-和-sublimelinter-contrib-eslint&#34;&gt;安装 Sublime​Linter 和 SublimeLinter-contrib-eslint&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SublimeLinter&#34;&gt;Sublime​Linter&lt;/a&gt; 是一个代码检查框架插件，功能非常强大，支持各种语言的检查。但是它本身并没有代码检查的功能，需要借助 ESLint 这样的特定语言检查支持。我们只需要使用对应的 &lt;a href=&#34;https://packagecontrol.io/packages/SublimeLinter-contrib-eslint&#34;&gt;Sublime​Linter-contrib-eslint&lt;/a&gt; 插件即可&lt;/p&gt;
+
+&lt;p&gt;在 Sublime text 中 &lt;code&gt;Ctrl + Shift + p &amp;gt; Package Control:Install Package&lt;/code&gt; 里面搜索关键词 &lt;code&gt;linter&lt;/code&gt;，&lt;strong&gt;注意&lt;/strong&gt;别选成了 SummitLinter。然后再搜索 &lt;code&gt;eslint&lt;/code&gt; 找到 SublimeLinter-contrib-eslint 安装（不得不吐槽下 Sublime package 搜索匹配让人无法理解）&lt;/p&gt;
+
+&lt;h2 id=&#34;配置-eslint&#34;&gt;配置 ESLint&lt;/h2&gt;
+
+&lt;p&gt;到项目根目录下面使用 eslint 命令交互式的生成配置文件。这里 ESLint 会让你确认项目的配置项目，包括代码风格、目标文件等。我一般选择 &lt;code&gt;Answer questions about your style&lt;/code&gt;，即通过选择性的回答命令行中的问题让 ESLint 生成适合我项目的配置文件&lt;/p&gt;
+
+&lt;p&gt;生成的配置文件我一般选择 JavaScript 因为这样比较方便写注释。我的配置项大概如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;How would you like to configure ESLint?
+Answer questions about your style
+Are you using ECMAScript 6 features? No
+Where will your code run? Browser
+Do you use CommonJS? No
+Do you use JSX? No
+What style of indentation do you use? Spaces
+What quotes do you use for strings? Single
+What line endings do you use? Unix
+Do you require semicolons? No
+What format do you want your config file to be in? JavaScript
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成的配置文件竟然是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.exports = {
+    &amp;quot;env&amp;quot;: {
+        &amp;quot;browser&amp;quot;: true
+    },
+    &amp;quot;extends&amp;quot;: &amp;quot;eslint:recommended&amp;quot;,
+    &amp;quot;rules&amp;quot;: {
+        &amp;quot;indent&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            4
+        ],
+        &amp;quot;linebreak-style&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;unix&amp;quot;
+        ],
+        &amp;quot;quotes&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;single&amp;quot;
+        ],
+        &amp;quot;semi&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;never&amp;quot;
+        ]
+    }
+}; // Do you require semicolons? No !!!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的 &lt;code&gt;extends&lt;/code&gt; 设置成 &lt;code&gt;eslint:recommended&lt;/code&gt; 表示在 &lt;a href=&#34;http://eslint.org/docs/rules/&#34;&gt;ESLint 规则页面&lt;/a&gt; 中标记成 「✔」 的项都开启检测&lt;/p&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;打开项目中任意一个 JavaScript 文件，右键 &lt;code&gt;SublimeLint &amp;gt; Lint this view&lt;/code&gt; 来试试检查当前文件，如果有错误，编辑器会展示对应 Gutter 错误行和信息。可以使用 &lt;code&gt;SublimeLint &amp;gt; Show all errors&lt;/code&gt; 来查看所有的错误&lt;/p&gt;
+
+&lt;p&gt;上个图吧&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34; alt=&#34;sublimetext-eslint&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

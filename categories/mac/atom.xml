@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
     
-	<atom:link href="https://keelii.github.io/categories/mac/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.github.io/categories/mac/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +17,226 @@
       <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
       <guid>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</guid>
-      <description>本文来自于我自己配置两台 macOS 开发环境的过程 系统设置 更改计算机名称 macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来</description>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;系统设置&#34;&gt;系统设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;更改计算机名称&#34;&gt;更改计算机名称&lt;/h3&gt;
+
+&lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置轻点触控板为鼠标点击&lt;/li&gt;
+&lt;li&gt;设置三指拖动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
+&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;开启新 Fidder 窗口时打开 &lt;code&gt;桌面&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;执行搜索时 &lt;code&gt;搜索当前文件夹&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;显示所有文件扩展名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;桌面图标排序&#34;&gt;桌面图标排序&lt;/h3&gt;
+
+&lt;p&gt;桌面空白处右键 &lt;code&gt;排序方式-贴紧风格&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;开发环境设置&#34;&gt;开发环境设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装-command-line-tools&#34;&gt;安装 Command line tools&lt;/h3&gt;
+
+&lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装-brew&#34;&gt;安装 brew&lt;/h3&gt;
+
+&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可&lt;/p&gt;
+
+&lt;p&gt;打开命令行执行下面的命令来安装 brew&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用下面的命令替换 brew 源为&lt;a href=&#34;https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git&#34;&gt;中科大镜像&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 替换brew.git:
+cd &amp;quot;$(brew --repo)&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+# 替换homebrew-core.git:
+cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走番习习墙代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;socks5 = &amp;quot;127.0.0.1:1080&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装-zsh-oh-my-zsh&#34;&gt;安装 Zsh &amp;amp; oh-my-zsh&lt;/h3&gt;
+
+&lt;p&gt;Zsh 是一种 &lt;a href=&#34;https://zh.wikipedia.org/wiki/Unix_shell&#34;&gt;shell&lt;/a&gt;，功能和 bash, csh 一样，用来和操作系统交互&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 安装 zsh
+brew install zsh
+# 安装 oh-my-zsh 插件
+# 更换默认 shell 为 zsh
+chsh -s /bin/zsh
+sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.iterm2.com/&#34;&gt;下载&lt;/a&gt; 并安装，打开 Preferences 偏好设置&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;General关闭 &lt;code&gt;Native full screen windows&lt;/code&gt;。我不使用系统的全屏（因为有过渡动画），是为了方便全局快捷调出命令行&lt;/li&gt;
+&lt;li&gt;设置透明度 &lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;设置全局显示隐藏快捷键 &lt;code&gt;Keys-Hotkey&lt;/code&gt; 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最佳实践，启动 iTerm2 后按 &lt;code&gt;⌘+enter&lt;/code&gt; 全屏，然后 &lt;code&gt;⌘+\&lt;/code&gt; 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 &lt;code&gt;⌘+\&lt;/code&gt; 即可&lt;/p&gt;
+
+&lt;h3 id=&#34;brew-常用工具&#34;&gt;brew 常用工具&lt;/h3&gt;
+
+&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xx&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;htop&#34;&gt;htop&lt;/h4&gt;
+
+&lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
+
+&lt;p&gt;显示文件为树形菜单&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜  keelii.github.io tree . -L 2
+.
+├── config.toml
+├── content
+│   ├── about
+│   └── archives
+├── deploy.sh
+├── public
+│   ├── 2016
+...
+│   └── tags
+└── themes
+    └── octo-enhance
+
+17 directories, 8 files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;httpie&#34;&gt;httpie&lt;/h4&gt;
+
+&lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
+
+&lt;p&gt;安装 vim 添加一些默认的模块和编程语言支持 cscope, lua, python 并且覆盖系统默认的 vim&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install vim --HEAD --with-cscope --with-lua --with-override-system-vim --with-luajit --with-python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装 vim-plug&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;autojump&#34;&gt;autojump&lt;/h4&gt;
+
+&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
+
+&lt;p&gt;npm 的替代品，Production Ready。如果系统中安装过 node，就使用 &lt;code&gt;yarn --without-node&lt;/code&gt; 命令只安装 yarn 工具&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-python-pip&#34;&gt;安装 python pip&lt;/h3&gt;
+
+&lt;p&gt;下载 &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt; 在命令行中使用 python 运行这个文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;更改各种程序语言包源&#34;&gt;更改各种程序语言包源&lt;/h3&gt;
+
+&lt;h4 id=&#34;ruby-gemrc&#34;&gt;ruby - .gemrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
+gem sources -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.gemrc
+---
+:backtrace: false
+:bulk_threshold: 1000
+:sources:
+- https://mirrors.tuna.tsinghua.edu.cn/rubygems/
+:update_sources: true
+:verbose: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;node-yarnrc-npmrc&#34;&gt;node - .yarnrc/.npmrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.yarnrc
+registry &amp;quot;https://registry.npm.taobao.org&amp;quot;
+disturl &amp;quot;https://npm.taobao.org/dist&amp;quot;
+electron_mirror &amp;quot;http://cdn.npm.taobao.org/dist/electron/&amp;quot;
+node_inspector_cdnurl &amp;quot;https://npm.taobao.org/mirrors/node-inspector&amp;quot;
+sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;dotfiles-配置文件&#34;&gt;dotfiles 配置文件&lt;/h3&gt;
+
+&lt;p&gt;可以参照我的 &lt;a href=&#34;https://github.com/keelii/dotfiles&#34;&gt;dotfiles&lt;/a&gt; 配置文件&lt;/p&gt;
+
+&lt;h3 id=&#34;其它-gui-应用&#34;&gt;其它 GUI 应用&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
     <item>
@@ -26,7 +245,74 @@
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
       <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
-      <description>由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题 传统意义上像 Ctrl, Alt, Shift, Win, Option, Command 都属于 修饰键，只能和其它键配合使用才可以（Ctrl+</description>
+      <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
+
+&lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;
+
+&lt;p&gt;但是 Win 键在 Windows 中被赋予了更多的功能，下面这几个系统级别的快捷键用起来是非常方便的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Win + E&lt;/code&gt; ⇒ 打开资源管理器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + D&lt;/code&gt; ⇒ 显示桌面&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + L&lt;/code&gt; ⇒ 锁定计算机&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之前使用过 Windows 和 Ubuntu gnome，特别方便的一点就是 super(Win) 键 &lt;strong&gt;不仅&lt;/strong&gt; 可以做为修饰键和其它键组合使用，而且还可以响应 &lt;strong&gt;单独的&lt;/strong&gt; 点击事件，Windows 中点击 Win 键会全局呼出 &lt;em&gt;开始菜单&lt;/em&gt; 方便我们 &lt;em&gt;查找/打开&lt;/em&gt; 应用。这样的话单独点击相当于可以少按一个按键，切找应用什么的非常快&lt;/p&gt;
+
+&lt;p&gt;Mac 中我通常使用 Spotlight 来快速切换程序。用惯了 Mac 的人会觉得 command 键位非常舒服好按（键位原因），这时候我希望尽可能把常用的键组织到 command 上又 &lt;strong&gt;不影响&lt;/strong&gt; 原来的组合键，比如我有下面两个最常使用的快捷键：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;⌘&lt;/code&gt; ⇒ 呼出 Spotlight&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;⌘ + Space&lt;/code&gt; ⇒ 切换输入法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 &lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner&lt;/a&gt; 😎&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我的配置方法是使用 &lt;code&gt;Complex Modifications&lt;/code&gt; 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了&lt;/p&gt;
+
+&lt;p&gt;然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 &lt;a href=&#34;https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys&#34;&gt;Tapping modifier-keys produces a f-key.&lt;/a&gt;。然后我们 &lt;code&gt;enable&lt;/code&gt; 这条：&lt;strong&gt;Press left_command alone produces F14&lt;/strong&gt;，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim ~/.config/karabiner/karabiner.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将里面的 F14 改成 F13 即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;// ...
+&amp;quot;complex_modifications&amp;quot;: {
+    &amp;quot;parameters&amp;quot;: {
+        &amp;quot;basic.to_if_alone_timeout_milliseconds&amp;quot;: 600
+    },
+    &amp;quot;rules&amp;quot;: [
+        {
+            &amp;quot;description&amp;quot;: &amp;quot;Press left_command alone produces F14&amp;quot;,
+            &amp;quot;manipulators&amp;quot;: [
+                {
+                    &amp;quot;from&amp;quot;: {
+                        &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot;,
+                        &amp;quot;modifiers&amp;quot;: { &amp;quot;optional&amp;quot;: [ &amp;quot;any&amp;quot; ] }
+                    },
+                    &amp;quot;to&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot; } ],
+                    &amp;quot;to_if_alone&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;f14&amp;quot; } ],
+                    &amp;quot;type&amp;quot;: &amp;quot;basic&amp;quot;
+                }
+            ]
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样基本上的完成我的需求了，打开应用只需要按一次 ⌘ 即可呼出 Spotlight，像打开 Google Chrome 只需要两个键即可 &lt;code&gt;⌘ g&lt;/code&gt;、Webstorm &lt;code&gt;⌘ w&lt;/code&gt;、Firefox &lt;code&gt;⌘ f&lt;/code&gt; &amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;备注：我用的机器是 Mac mini 主机 + filco 87 键盘&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
     </item>
     
     <item>
@@ -43,7 +329,10 @@
 
 &lt;p&gt;来两张图片看看&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-57___SRC_6094.jpg&#34; alt=&#34;mbp-power-cord1&#34; /&gt;
+&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-53___1719964175.jpg&#34; alt=&#34;mbp-power-cord2&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

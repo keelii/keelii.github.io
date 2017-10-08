@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <lastBuildDate>Wed, 03 May 2017 17:59:45 +0800</lastBuildDate>
     
-	<atom:link href="https://keelii.github.io/categories/javascript/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.github.io/categories/javascript/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +17,84 @@
       <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
-      <description>通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等 一般通过在 HTML 标签上添加自定义属性来实现，但是这</description>
+      <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
+
+&lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo&amp;quot; data-key=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo&#39;).attr(&#39;data-key&#39;)
+    $(&#39;#demo&#39;).data(&#39;key&#39;)  // 第一次访问 DOM，以后从缓存取
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
+
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本的 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo2&amp;quot; data-key=&amp;quot;123e456&amp;quot;&amp;gt;科学计数法&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo3&amp;quot; data-key=&amp;quot;0000123&amp;quot;&amp;gt;八进制数字&amp;lt;/div&amp;gt;
+&amp;lt;script src=&amp;quot;jquery-1.6.4&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo0&#39;).data(&#39;key&#39;)  // &amp;quot;abc&amp;quot;
+    $(&#39;#demo1&#39;).data(&#39;key&#39;)  // 123
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // Infinity
+    $(&#39;#demo3&#39;).data(&#39;key&#39;)  // 83
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;后面两种显然出错了，就是因为 jQuery 对属性值进行了强制 parseFloat 操作。这种转换是方便了使用者，如果是数字的话我们取到这个值进行计算什么的就不用再转数据类型了，但是一不小心就会出 bug&lt;/p&gt;
+
+&lt;p&gt;发现这个 bug 的时候第一感觉是 jQuery 不应该没考虑到这一点呀。后来果断去查了下最新版的 jQuery 源代码，发现已经修复了。核心代码在 &lt;a href=&#34;https://github.com/jquery/jquery/blob/master/src/data.js#L36&#34;&gt;data.js 35 行&lt;/a&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData( data ) {
+    if ( data === &amp;quot;true&amp;quot; ) {
+        return true;
+    }
+
+    if ( data === &amp;quot;false&amp;quot; ) {
+        return false;
+    }
+
+    if ( data === &amp;quot;null&amp;quot; ) {
+        return null;
+    }
+
+    // Only convert to a number if it doesn&#39;t change the string
+    // 重点就在这里 →_→
+    if ( data === +data + &amp;quot;&amp;quot; ) {
+        return +data;
+    }
+
+    if ( rbrace.test( data ) ) {
+        return JSON.parse( data );
+    }
+
+    return data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getData 方法就返回了节点属性的值，只不过加了一些特殊处理使得我们取到了没有 bug 的值，关键地方就在这里： &lt;code&gt;data === +data + &amp;quot;&amp;quot;&lt;/code&gt; 。这行代码做了些什么神奇的事情&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将节点的属性值强制转换成数字「+data」后再转成字符串「+ &amp;ldquo;&amp;ldquo;」，如果转换后的值与原来相等就取转换后的值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;可以简单的这么理解：jQuery 会尝试转换数据类型，如果转换后和转换前的 &lt;strong&gt;长得一样&lt;/strong&gt; 那么 jQuery 就认为它是需要被转换成数字的。这样就可以完美规避上面例子中的两种问题，我们来测试一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = &#39;abc&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // true 转换，使用转换后的数字类型值
+
+var data = &#39;123e456&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;0000123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+&lt;/code&gt;&lt;/pre&gt;
+</description>
     </item>
     
     <item>
@@ -27,7 +104,177 @@
       
       <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
-&lt;/p&gt;</description>
+&lt;/p&gt;
+
+&lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;
+
+&lt;h3 id=&#34;表达式-expressions&#34;&gt;表达式 Expressions&lt;/h3&gt;
+
+&lt;p&gt;表达式和修饰符（其它模板语言中叫做过滤器 filter）中间用 &lt;code&gt;|&lt;/code&gt; 分割且 &lt;strong&gt;不能有空格&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${expr}
+${expr|modifier}
+${expr|modifier1:arg1,arg2|modifier2:arg1,arg2|...|modifierN:arg1,arg2}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;语句-statements&#34;&gt;语句 Statements&lt;/h3&gt;
+
+&lt;h4 id=&#34;控制流-control-flow&#34;&gt;控制流 Control Flow&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{if testExpr}
+    {elseif testExpr}
+    {else}
+{/if}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;循环-loops&#34;&gt;循环 Loops&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{for varName in listExpr}
+{/for}
+
+{for varName in listExpr}
+    ...循环主体...
+{forelse}
+    ...当 listExpr 是 null 或者 length 为 0 ...
+{/for}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;变量声明-variable-declarations&#34;&gt;变量声明 Variable Declarations&lt;/h4&gt;
+
+&lt;p&gt;变量声明语句用花括号 &lt;code&gt;{}&lt;/code&gt; 括起来，不需要关闭。类似 JavaScript 中的赋值语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{var varName}
+{var varName = varInitExpr}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;宏声明-macro-declarations&#34;&gt;宏声明 Macro Declarations&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro macroName(arg1, arg2, ...argN)}
+    ...macro 主体...
+{/macro}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;cdata-部分-cdata-text-sections&#34;&gt;CDATA 部分 CDATA Text Sections&lt;/h4&gt;
+
+&lt;p&gt;CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出。比如展示一个模板字符串本身&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{cdata}
+    ${customer.firstName} ${customer.lastName}
+{/cdata}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;in-line-javascript&#34;&gt;In-line JavaScript&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;eval blocks&lt;/strong&gt; 用来执行 JavaScript 代码片段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{eval}
+    ...模板渲染的时候执行的 JavaScript 代码...
+{/eval
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;minify blocks&lt;/strong&gt; 用来压缩内容中的换行符，比如压缩 HTML 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;commentPanel&amp;quot; style=&amp;quot;{minify}
+      display:none;
+      margin: 1em;
+      border: 1px solid #333;
+      background: #eee;
+      padding: 1em;
+    {/minify}&amp;quot;&amp;gt;
+  ...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;修饰符-modifier&#34;&gt;修饰符 Modifier&lt;/h2&gt;
+
+&lt;p&gt;修饰符用来处理上一个表达式的结果，并输出内容。类似于 Linux shell 中的管道操作符，使用「|」分割不同修饰符，可以串联使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${name|capitalize}
+${name|default:&amp;quot;noname&amp;quot;|capitalize}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;内置修饰符&#34;&gt;内置修饰符&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;capitalize&lt;/strong&gt; 返回大写内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;default:valueWhenNull&lt;/strong&gt; 如果内容为 null，返回 valueWhenNull&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;eat&lt;/strong&gt; 返回空内容，一般用于表达式求值后又不想展示输出的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;escape&lt;/strong&gt; 转换 HTML 字符实体，比如： &amp;amp; 转换成 &amp;amp;amp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; 和 escape 效果一样&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;自定义修饰符&#34;&gt;自定义修饰符&lt;/h3&gt;
+
+&lt;p&gt;自定义修饰符可以挂载到 contextObject 上的 &lt;code&gt;_MODIFIERS&lt;/code&gt; 属性上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Modifiers = {
+  toFixed: function(value, num) {
+    return value.toFixed(num)
+  }
+}
+var out = &#39;${num|toFixed:2}&#39;.process({
+  _MODIFIERS: Modifiers,
+  num: 1024
+})
+// =&amp;gt; &amp;quot;1024.00&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;宏-macro&#34;&gt;宏 Macro&lt;/h2&gt;
+
+&lt;p&gt;macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上（下次调用 process() 方法的时候再手动挂载上!? ）。需要在调用 process() 方法之前给 contextObject 设置一个空的 exported 属性：&lt;code&gt;contextObject[&#39;exported&#39;] = {}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这个公用的 macro 设计的有点奇葩，可以参考这个 &lt;a href=&#34;http://codepen.io/keelii/pen/dOvgOJ&#34;&gt;示例&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro link(href, name)}
+    &amp;lt;a href=&amp;quot;${href}&amp;quot;&amp;gt;${name}&amp;lt;/a&amp;gt;
+{/macro}
+
+${link(&#39;http://google.com&#39;, &#39;google&#39;)}      =&amp;gt; &amp;lt;a href=&amp;quot;http://google.com&amp;quot;&amp;gt;google&amp;lt;/a&amp;gt;
+${link(&#39;http://facebook.com&#39;, &#39;facebook&#39;)}  =&amp;gt; &amp;lt;a href=&amp;quot;http://facebook.com&amp;quot;&amp;gt;facebook&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;示例&#34;&gt;示例&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = {
+    name: &#39;iPhone 6 Plus&#39;,
+    weight: 480,
+    ram: &#39;16gb&#39;,
+    networks: [
+        &#39;移动（TD-LTE)&#39;,
+        &#39;联通(TD-LTE)&#39;,
+        &#39;电信(FDD-LTE)&#39;
+    ]
+}
+
+data._MODIFIERS = {
+    toFixed: function(n, num) {
+        return n.toFixed(num)
+    }
+}
+
+var template = &#39;\
+名称: ${name}&amp;lt;br&amp;gt;\
+重量：${weight|toFixed:2}&amp;lt;br&amp;gt;\
+内存：${ram|capitalize}&amp;lt;br&amp;gt;\
+网络：\
+{for item in networks}\
+  {if item_index!=0}|{/if}\
+  ${item}\
+{/for}&#39;;
+
+template.process(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;名称: iPhone 6 Plus&amp;lt;br&amp;gt;
+重量：480.00&amp;lt;br&amp;gt;
+内存：16GB&amp;lt;br&amp;gt;
+网络：
+  移动（TD-LTE)
+ | 联通(TD-LTE)
+ | 电信(FDD-LTE)
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -38,7 +285,205 @@
       <guid>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;为什么需要一个前端监控系统&#34;&gt;为什么需要一个前端监控系统&lt;/h2&gt;
+
+&lt;p&gt;通常在一个大型的 Web 项目中有很多监控，比如后端的服务 API 监控，接口存活、调用、延迟等监控，这些一般都用来监控后台接口数据层面的信息。而且对于大型网站系统来说，从后端服务到前台展示会有很多层：内网 VIP、CDN 等。但是这些监控并不能准确地反应用户看到的前端页面状态，比如：页面第三方系统数据调用失败，模块加载异常，数据不正确，空白开天窗等。这时候就需要从前端 DOM 展示的角度去分析和收集用户真正看到的东西，从而检测出页面是否出现异常问题&lt;/p&gt;
+
+&lt;h2 id=&#34;需要监控系统解决的问题&#34;&gt;需要监控系统解决的问题&lt;/h2&gt;
+
+&lt;p&gt;页面通常出现以下问题时需要使用邮件、短信通知相关人员修复问题&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;状态码返回错误（50x, 40x）无法打开&lt;/li&gt;
+&lt;li&gt;模块加载失败&lt;/li&gt;
+&lt;li&gt;页面乱码&lt;/li&gt;
+&lt;li&gt;数据正确性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;触发报警时要有现场快照，以便复现问题&lt;/p&gt;
+
+&lt;h2 id=&#34;技术选型&#34;&gt;技术选型&lt;/h2&gt;
+
+&lt;p&gt;监控的意义和回归测试的在本质上是一致的，都是对已上线功能进行回归测试，但不同的是监控需要做长期的可持续可循环的回归测试，而测试仅仅需要在上线之后做一次回归&lt;/p&gt;
+
+&lt;p&gt;既然监控和测试的本质一致，那我们完全可以采用测试的方式来做监控系统。在自动化测试技术遍地开花的时代，不乏很多好用的自动化工具，我们只需要把这些自动化工具进行整合为我们所用即可&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NodeJS - 特别适用于网络密集型任务&lt;/li&gt;
+&lt;li&gt;PhantomJS - 模拟无界面的浏览器，提供丰富的内核交互 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;nodejs&#34;&gt;NodeJS&lt;/h3&gt;
+
+&lt;p&gt;NodeJS 是一个 JavaScript 运行环境，非阻塞 I/O 和异步、事件驱动，这几点对于我们构建基于 DOM 元素的监控是非常重要的&lt;/p&gt;
+
+&lt;h3 id=&#34;phantomjs&#34;&gt;PhantomJS&lt;/h3&gt;
+
+&lt;p&gt;PhantomJS 是一个基于 webkit 的浏览器引擎，可以使用 JavaScript API 来模拟浏览器的操作。它使用 QtWebKit 作为它的浏览器核心，使用 webkit 来编译解释执行 JavaScript 代码。也就是说任何你可以在 webkit 浏览器里做的事情，它都能做到&lt;/p&gt;
+
+&lt;p&gt;它不仅是个隐形的浏览器，提供了诸如 CSS 选择器、支持 Web 标准、DOM 操作、JSON、HTML5、Canvas、SVG 等，同时也提供了处理文件 I/O 的操作等。PhantomJS 的用处可谓非常广泛，诸如网络监测、网页截屏、无浏览器的 Web 测试、页面访问自动化等&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么不是 Selenium&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;做自动化测试的同学肯定都知道 Selenium。可以使用 Selenium 将测试用例在浏览器中执行，而且 Selenium 对各种平台和常见浏览器支持比较好，但是 Selenium 上手难度系数略高，而且使用Selenium 需要在服务器端安装浏览器&lt;/p&gt;
+
+&lt;p&gt;考虑到监控主要任务在监控不在测试。系统并不需要太多考虑兼容性，而且监控功能相对单一，主要对页面进行功能上的回归测试，所以选择了 PhantomJS&lt;/p&gt;
+
+&lt;h2 id=&#34;架构设计&#34;&gt;架构设计&lt;/h2&gt;
+
+&lt;h3 id=&#34;架构概览&#34;&gt;架构概览&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17013271/ec2bc29e-4f4f-11e6-9591-0838a0243206.png&#34; alt=&#34;4&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;架构简述&#34;&gt;架构简述&lt;/h3&gt;
+
+&lt;p&gt;对于 DOM 监控服务，在应用层面上进行了垂直划分：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;规则管理系统&lt;/li&gt;
+&lt;li&gt;规则队列生成器&lt;/li&gt;
+&lt;li&gt;长时持续处理器&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务&lt;/li&gt;
+&lt;li&gt;服务化 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在应用层面上进行的垂直划分可以对应用做分布式部署，提高处理能力。后期也方便做性能优化、系统改造扩展等&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+
+&lt;h3 id=&#34;前台规则录入&#34;&gt;前台规则录入&lt;/h3&gt;
+
+&lt;p&gt;这是一个独立的 Web 系统，系统主要用来收集用户录入的页面信息、页面对应的规则、展示错误信息。通过调用后端页面抓取服务来完成页面检测的任务，系统可以创建三种类型的检测页面：常规监控、高级监控、可用性监控&lt;/p&gt;
+
+&lt;h4 id=&#34;常规监控&#34;&gt;常规监控&lt;/h4&gt;
+
+&lt;p&gt;录入一个页面地址，和若干检测规则。注意这里的检测规则，我们把常用的一些检测点抽象成了一条类似测试用例的语句。每条规则用来匹配页面上的一个 DOM 元素，用 DOM 元素的属性来和预期做匹配，如果匹配失败系统就会产生一条错误信息，后续交由报警系统处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;匹配类型&lt;/strong&gt; 一般有这么几种：&lt;code&gt;长度、文本、HTML、属性&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;处理器&lt;/strong&gt; 类似编程语言中的操作符：&lt;code&gt;大于、大于等于、小于、小于等于、等于、正则&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样做的处就是，录入规则的人只要了解一点 DOM 选择器的知识就可以上手操作了，在我们内部通常是交由测试工程师统一完成规则的录入&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012424/2963f11e-4f4a-11e6-96f1-a962c767e651.png&#34; alt=&#34;1&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;高级监控&#34;&gt;高级监控&lt;/h4&gt;
+
+&lt;p&gt;主要用来提供高级页面测试的功能，一般由有经验的工程师来撰写测试用例。这个测试用例写起来会有一些学习成本，但是可以模拟 Web 页面操作，如：点击、鼠标移动等事件从而做到精确捕捉页面信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012590/324509de-4f4b-11e6-9ddc-63e5a140b208.png&#34; alt=&#34;2&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;可用性监控&#34;&gt;可用性监控&lt;/h4&gt;
+
+&lt;p&gt;可用性监控侧重于对页面的可访问性、内容正确性等比较 &lt;strong&gt;严重的问题&lt;/strong&gt; 做即时监控。通常这类页面我们只需要在程序里面启一个 Worker 不断的去获取页面 HTML 就可以对结果进行检测匹配了，所以我们选择了 NodeJS 来做异步的页面抓取队列，高效快速的完成这种网络密集型任务&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012775/7ccfad00-4f4c-11e6-80b6-60186069bdac.png&#34; alt=&#34;3&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;主动错误上报&#34;&gt;主动错误上报&lt;/h3&gt;
+
+&lt;h4 id=&#34;页面脚本执行错误监控&#34;&gt;页面脚本执行错误监控&lt;/h4&gt;
+
+&lt;p&gt;页面引入一段监控脚本来收集页面产成 error 事件返回的错误信息，自动上报给后端服务，在系统里面可以汇总所有报错信息，以及对应的客户端浏览器版本、操作系统、IP 地址等&lt;/p&gt;
+
+&lt;h4 id=&#34;页面主动上报&#34;&gt;页面主动上报&lt;/h4&gt;
+
+&lt;p&gt;这个功能需要对应的前端工程师在代码中调用错误上报 API，来主动提交错误信息。主要使用的场景有，页面异步服务延时无响应、模块降级兜底主动通知等。监控脚本提供几个简单的 API 来完成这项任务&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-JavaScript&#34;&gt;// error 方法调用后立即上报错误信息并发出邮件、短信通知
+errorTracker.error(&#39;错误描述&#39;)
+// info 方法调用后立即上报信息，并在单位时间内仅产生一条邮件、短信通知
+errorTracker.info(&#39;信息描述&#39;)
+// log 方法调用后由报错检测是否达到设置阀值，最终确认是否报错
+errorTracker.log(&#39;日志信息&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;后端页面抓取服务&#34;&gt;后端页面抓取服务&lt;/h3&gt;
+
+&lt;p&gt;由于京东很多页面内容是异步加载的，像首页、单品等系统有许多第三方异步接口调用，使用后端程序抓取到的页面数据是同步的，并不能取到动态的 JavaScript 渲染的内容，所以就必须使用像 PhantomJS 这种能模拟浏览器的工具&lt;/p&gt;
+
+&lt;p&gt;常规监控我们使用 PhantomJS 模拟浏览器打开页面进行抓取，然后将监控规则解析成 JavaScript 代码片段执行并收集结果&lt;/p&gt;
+
+&lt;p&gt;高级监控我们使用 PhantomJS 打开页面后向页面注入像 jasmine, mocha 等类似的前端 JavaScript 测试框架，然后在页面执行对应的录入测试用例并返回结果&lt;/p&gt;
+
+&lt;h4 id=&#34;规则队列生成器&#34;&gt;规则队列生成器&lt;/h4&gt;
+
+&lt;p&gt;规则队列生成器会将采集的规则转化类成消息队列，然后交由长时持续处理器一次处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么采用类消息队列的处理方式？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这和 PhantomJS 的性能是密不可分的，由多次实践发现，PhantomJS 并不能很好地进行并发处理，当并发过多，会导致 CPU 过载，从而导致机器宕机&lt;/p&gt;
+
+&lt;p&gt;在本机环境下的虚拟机中进行并发测试，数据并不理想，极限基本在 ab -n 100 -c 50 左右。 所以为了防止并发导致的问题，就选择了使用类消息队列来避免因为并发过高导致的服务不可用&lt;/p&gt;
+
+&lt;h4 id=&#34;类消息队列的实现&#34;&gt;类消息队列的实现&lt;/h4&gt;
+
+&lt;p&gt;我们这里通过调用内部的分布式缓存系统生成类消息队列，队列的生成其实可以参考数据结构&amp;ndash;队列。最基本的模型就是在缓存中创建一个 KEY ，然后根据队列数据结构的模式进行数据的插入和读取&lt;/p&gt;
+
+&lt;p&gt;当然，类消息队列的中间介质可根据你实际的条件来选择，你也可以使用本机内存实现。这可能会导致应用和类消息队列竞争内存&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理器&#34;&gt;长时持续处理器&lt;/h4&gt;
+
+&lt;p&gt;长时持续处理器是要功能就是消费规则队列生成器生成的类消息队列&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理实现&#34;&gt;长时持续处理实现&lt;/h4&gt;
+
+&lt;p&gt;在长时持续处理器的具体实现中，我们利用了 JavaScript 的 setInterval 方法来持续获取累消息队列的内容下发给规则转化器，然后转发给负载均衡调度器。之后再对返回的结果进行统一处理，比如邮件或者短信报警&lt;/p&gt;
+
+&lt;h4 id=&#34;api&#34;&gt;API&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务可以做为公共 API 提供给客户端进行测试需求的处理， API 通过 HTTP 方式调用。在 API 的处理上需要提供 HTTP 数据到规则和 PhantomJS 的转换。从而又演化出了 HTTP 数据到规则转换器&lt;/p&gt;
+
+&lt;h4 id=&#34;phantomjs-服务&#34;&gt;PhantomJS 服务&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务是指将 PhantomJS 结合 HTTP 服务和子进程进行服务化的处理&lt;/p&gt;
+
+&lt;p&gt;首先、启动 HTTP 服务，然后将长时处理器下发的规则进行进一步转化，转化后启动子进程，HTTP 服务会监听子进程的处理结果，并在处理完毕之后返回&lt;/p&gt;
+
+&lt;h3 id=&#34;报警系统&#34;&gt;报警系统&lt;/h3&gt;
+
+&lt;p&gt;报警系统我们目前使用的是京东内部自己的统一监控平台 UMP，通过调用平台提供的一些 API 来实现报警邮件与短信通知&lt;/p&gt;
+
+&lt;h4 id=&#34;如何根据报警定位到具体页面&#34;&gt;如何根据报警定位到具体页面？&lt;/h4&gt;
+
+&lt;p&gt;用户通过监控管理系统录入规则后，监控系统会根据 UMP 规则针对用户录入的页面生成 UMP 使用的 key。当长时持续处理器发现 PhantomJS 服务返回的结果标示为异常后，就会使用 key 来进行日志记录&lt;/p&gt;
+
+&lt;h4 id=&#34;何时出发报警&#34;&gt;何时出发报警？&lt;/h4&gt;
+
+&lt;p&gt;报警主要分为了短信和邮件报警。邮件报警是在每条异常之后就会发给指定系统用户。短信则是根据异常次数来进行处理的，当异常次数过大，就会下发短信通知&lt;/p&gt;
+
+&lt;h3 id=&#34;部署&#34;&gt;部署&lt;/h3&gt;
+
+&lt;p&gt;对于系统部署可以分为两大块进行。因为机器资源数量有限，没有将所有部分都单独部署&lt;/p&gt;
+
+&lt;p&gt;规则管理系统以及规则队列生成器和持续处理器整合部署在一台机器上，PhantomJS 服务部署在了其他的机器上。进程管理使用了著名的 NPM 模块 —— PM2&lt;/p&gt;
+
+&lt;p&gt;PM2 是一个带有负载均衡功能的 NodeJS 应用的进程管理器。可充分利用 CPU，并保证进程稳定存活&lt;/p&gt;
+
+&lt;p&gt;PM2 特性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;内建负载均衡（使用 Node cluster 集群模块）&lt;/li&gt;
+&lt;li&gt;无缝重启类似 nginx reload&lt;/li&gt;
+&lt;li&gt;具有 Ubuntu 和 CentOS 的开机启动脚本&lt;/li&gt;
+&lt;li&gt;控制台检测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不过在目前部署任务中，并没有使用内建负载均衡的特性，没用通过集群的方式部署代理。仅使用了后台运行和无缝重启的特性&lt;/p&gt;
+
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+
+&lt;p&gt;其实我们现在开发的这套监控系统并不复杂，只是合理的运用了一些现有的技术框架。抽象出来我们自己需要的一些功能。但却有效的达到了我们的预期功能，并且节省了很多之前需要人肉测试的时间成本。系统本身还有很多问题在待解决状态，比如报警系统的规则处理与阀值设定，JavaScript 报错的准确过滤机制等，这些问题我们都会逐个解决，并且未来的前端监控系统会成为一个平台，核心服务在后端爬取页面服务，应用端可以有多种形式，比如监控、测试工具等&lt;/p&gt;
+
+&lt;p&gt;一些可以持续优化点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;监控系统虽然在应用层面进行了垂直划分，但是由于机器资源等限制，并没有进行单独功能的部署。这点可能会在后期的使用中进行优化&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务还需要进一步优化，以承载大并发，大处理量。提供稳定的服务&lt;/li&gt;
+&lt;li&gt;报警由于依赖于公司内部的 UMP 系统，所以并不是特别灵活，后期可以考虑自己实现一套报警机制&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -53,7 +498,265 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+简页言之，在 web 前端编程里面 JavaScript 通过浏览器提供的事件模型 API 和用户交互，接收用户的输入&lt;/p&gt;
+
+&lt;p&gt;由于用户的行为是不确定的，也就是说不知道用户什么时候发生点击、滚动这些动作。这种场景是传统的同步编程模型没法解决的，因为你不可能等用户操作完了才执行后面的代码&lt;/p&gt;
+
+&lt;p&gt;比如我们在 Python 里面调用接收用户输入的方法 &lt;code&gt;raw_input()&lt;/code&gt; 后终端就会一直等待用户的输入，直到输入完成才会执行后面的代码逻辑。但是在下面这段 NodeJS 代码中，接收用户输入的方法 &lt;code&gt;process.stdin.read&lt;/code&gt; 是在一个事件中调用的。后面的代码不会被阻塞（blocked）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&#39;use strict&#39;;
+
+process.stdin.on(&#39;readable&#39;, () =&amp;gt; {
+    var chunk = process.stdin.read();
+    if (chunk !== null) {
+        process.stdout.write(`Async output data: ${chunk}`);
+    }
+});
+
+process.stdin.on(&#39;end&#39;, () =&amp;gt; {
+    process.stdout.write(&#39;end&#39;);
+});
+
+console.log(&#39;Will not be blocked&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;事件驱动程序模型基本的实现原理基本上都是使用 &lt;a href=&#34;https://www.youtube.com/watch?v=8aGhZQkoFbQ&#34;&gt;事件循环（Event Loop）&lt;/a&gt;，这部分内容涉及浏览器事件模型、回调原理，有兴趣的去看链接里面的视频学习下&lt;/p&gt;
+
+&lt;p&gt;需要说明的是在客户端 JavaScript 中像 setTimeout, XMLHTTPRequest 这类 API &lt;strong&gt;并不是&lt;/strong&gt; JavaScript 语言本身就有的。而是 JavaScript 的宿主环境（在客户端 JavaScript 中就是浏览器），同样像 DOM、BOM、Event API 都是浏览器提供的&lt;/p&gt;
+
+&lt;h2 id=&#34;事件绑定的方法&#34;&gt;事件绑定的方法&lt;/h2&gt;
+
+&lt;h3 id=&#34;dom-元素行内绑定&#34;&gt;DOM 元素行内绑定&lt;/h3&gt;
+
+&lt;p&gt;直接在 DOM 元素上通过设置 &lt;code&gt;on + eventType&lt;/code&gt; 来绑定事件处理程序&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;a href=&amp;quot;#none&amp;quot; onclick=&amp;quot;alert(&#39;clicked.&#39;)&amp;quot;&amp;gt;点击我&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这种绑定方法是最原始的，有两个缺点：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1 事件处理程序和 HTML 结构混杂在一起&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;早期在结构、样式、表现分离的时代很忌讳这一点。现在看来在很多 MVX 框架中将事件绑定和 DOM 结构放在一起处理，这样似乎更方便维护（不用来回切换 HTML,JavaScript 文件），而且也符合可预见（predictable）性的规则&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2 命名空间冲突&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;因为 &lt;code&gt;onclick&lt;/code&gt; 中的 JavaScript 代码片段执行环境是全局作用域。然而在 JavaScript 语言中并没有相关的命名空间特性。所以就很容易造成命名空间的冲突，非要用这种方法绑定事件的话只能用对象来做一些封装&lt;/p&gt;
+
+&lt;h3 id=&#34;古老的绑定方法&#34;&gt;古老的绑定方法&lt;/h3&gt;
+
+&lt;p&gt;使用 DOM Element 上面的 &lt;code&gt;on + eventType&lt;/code&gt; 属性 API&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;a href=&amp;quot;#none&amp;quot; id=&amp;quot;button&amp;quot;&amp;gt;click me&amp;lt;/a&amp;gt;
+&amp;lt;script&amp;gt;
+    var el = getElementById(&#39;button&#39;);
+    el.onclick = function() { alert(&#39;button clicked.&#39;) };
+    el.onclick = function() { alert(&#39;button clicked (Rewrite event handler before).&#39;) };
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这种方法也有一个缺点，因为属性赋值会覆盖原值的。所以无法绑定 &lt;strong&gt;多个&lt;/strong&gt; 事件处理函数，如果我们要注册多个 onload 事件处理程序的话就得自己封装一个方法来防止这种事情发生，下面这个例子可以解决这个问题&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function addLoadEvent(fn) {
+    var oldonLoad = window.onload;
+    if (typeof oldonLoad !== &#39;function&#39;) {
+        window.onload = fn;
+    } else {
+        window.onload = function() {
+            oldonLoad();
+            fn();
+        }
+    }
+}
+
+addLoadEvent(function() { alert(&#39;onload 1&#39;) });
+addLoadEvent(function() { alert(&#39;onload 2&#39;) });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意这只是个示例，生产环境很少会用到。一般用 DOM Ready 就可以了，因为 JavaScript 的执行通常不用等到页面资源全部加载完，DOM 加载完就可以了&lt;/p&gt;
+
+&lt;h3 id=&#34;现代-标准的绑定方法&#34;&gt;现代/标准的绑定方法&lt;/h3&gt;
+
+&lt;p&gt;标准的绑定方法有两种，&lt;code&gt;addEventListener&lt;/code&gt; 和 &lt;code&gt;attachEvent&lt;/code&gt; 前者是标准浏览器支持的 API，后者是 IE 8 以下浏览器支持的 API。通常需要我们做个兼容封装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function addEvent(target, type, handler) {
+    if (target.addEventListener) {
+        target.addEventListener(type, handler, false);
+    } else {
+        target.attachEvent(&#39;on&#39; + type, handler)
+    }
+}
+
+addEvent(document, &#39;click&#39;, function() { alert(this === document) });
+addEvent(document, &#39;click&#39;, function() { alert(this === document) });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的例子在 IE 8 以下和标准浏览器的效果是不一样的，问题就在于 &lt;code&gt;addEventListener&lt;/code&gt; 中的事件回调函数中的 this 指向元素（target）本身，而 &lt;code&gt;attachEvent&lt;/code&gt; 则指向 &lt;code&gt;window&lt;/code&gt; 为了修复这个问题上面的 attachEvent 可以做一点小调整让其保持和 &lt;code&gt;addEventListener&lt;/code&gt; 的效果一样，不过这样的话注册的 handler 就是个匿名函数，&lt;strong&gt;无法移除&lt;/strong&gt;！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function addEvent(target, type, handler) {
+    if (target.addEventListener) {
+        target.addEventListener(type, handler, false);
+    } else {
+        target.attachEvent(&#39;on&#39; + type, function() {
+            return handler.call(target)
+        });
+    }
+}
+
+addEvent(document, &#39;click&#39;, function() { alert(this === document) });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当上面这几种情况同时出现的时候就比较有意思了，可以试试下面这段代码的你输出&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;a href=&amp;quot;javascript:alert(1)&amp;quot; onclick=&amp;quot;alert(2)&amp;quot; id=&amp;quot;link&amp;quot;&amp;gt;click me&amp;lt;/a&amp;gt;
+&amp;lt;script&amp;gt;
+    var link = document.getElementById(&#39;link&#39;);
+    link.onclick = function() { alert(3); }
+
+    $(&#39;#link&#39;).bind(&#39;click&#39;, function() { alert(4); });
+    $(&#39;#link&#39;).bind(&#39;click&#39;, function() { alert(5); });
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;正确的结果应该是 &lt;code&gt;3,4,5,1&lt;/code&gt;，根据结果我们可以得出以下结论：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;链接上的 href 伪 javascript 协议相当于在浏览器地址栏执行了一段 JavaScript 代码，链接如果是这种格式，点击的时候相当于执行了这段 JavaScript 脚本&lt;/li&gt;
+&lt;li&gt;行内的事件绑定和元素调用 onclick 绑定事件会覆盖&lt;/li&gt;
+&lt;li&gt;使用 jQuery（内部使用标准事件注册 API）可以绑定多个事件处理程序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;事件冒泡&#34;&gt;事件冒泡&lt;/h2&gt;
+
+&lt;p&gt;大部分事件会沿着事件触发的目标元素往上传播。比如：&lt;code&gt;body&amp;gt;div&amp;gt;p&amp;gt;span&lt;/code&gt; 如果他们都注册了点击事件，那么在 span 元素上触发点击事件后 p,div,body 各自的点击事件也会按顺序触发&lt;/p&gt;
+
+&lt;p&gt;事件冒泡是可以被停止的，下面这个函数封闭了停止事件冒泡的方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function stopPropagation(event) {
+    event = event || window.event;
+    if (event.stopPropagation) {
+        event.stopPropagation()
+    } else {// IE
+        event.cancelBubble = true
+    }
+}
+
+addEvent(&#39;ele&#39;, &#39;click&#39;, function(e) {
+    // click handler
+    stopPropagation(e);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;事件对象&#34;&gt;事件对象&lt;/h2&gt;
+
+&lt;p&gt;标准浏览器中在事件处理程序被调用时 &lt;strong&gt;事件对象&lt;/strong&gt; 会通过参数传递给处理程序，IE 8 及以下浏览器中事件对象可以通过全局的 &lt;code&gt;window.event&lt;/code&gt; 来访问。比如我们要获取当前点击的 DOM Element&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;addEvent(document, &#39;click&#39;, function(event) {
+    // IE 8 以下 =&amp;gt; undefined
+    console.log(event);
+});
+addEvent(document, &#39;click&#39;, function(event) {
+    event = event || window.event;
+    // 标准浏览器 =&amp;gt; [object HTMLHtmlElement]
+    // IE 8 以下 =&amp;gt; undefined
+    console.log(event.target);
+    var target = event.target || event.srcElement;
+
+    console.log(target.tagName);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;事件代理&#34;&gt;事件代理&lt;/h2&gt;
+
+&lt;p&gt;有时候我们需要给 &lt;strong&gt;不存在的&lt;/strong&gt;（可能将来会有）的一段 DOM 元素绑定事件，比如给一段 Ajax 请求完成后渲染的 DOM 节点绑定事件。一般绑定的逻辑会在渲染前执行，绑定的时候找不到元素所以并不能成功，当然你也可以把绑定事件的代码放在 Ajax 请求之后。这样做在一些事件逻辑简单的应用里面没问题，但是会加重数据渲染逻辑和事件处理的逻辑耦合。一但事件处理程序特别多的时候，我们通常建议把事件的逻辑和其它代码逻辑分离，这样方便维护。&lt;/p&gt;
+
+&lt;p&gt;为了解决这个问题，我们通常使用事件代理/委托（Event Delegation ）。而且通常来说使用 &lt;strong&gt;事件代理的性能会比单独绑定事件高&lt;/strong&gt; 很多，我们来看个例子&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul id=&amp;quot;list&amp;quot;&amp;gt;
+    &amp;lt;li id=&amp;quot;item-1&amp;quot;&amp;gt;item1&amp;lt;/li&amp;gt;
+    &amp;lt;li id=&amp;quot;item-2&amp;quot;&amp;gt;item2&amp;lt;/li&amp;gt;
+    &amp;lt;li id=&amp;quot;item-3&amp;quot;&amp;gt;item3&amp;lt;/li&amp;gt;
+    &amp;lt;li id=&amp;quot;item-4&amp;quot;&amp;gt;item4&amp;lt;/li&amp;gt;
+    &amp;lt;li id=&amp;quot;item-5&amp;quot;&amp;gt;item5&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;假如 &lt;code&gt;ul&lt;/code&gt; 中的 HTML 是 Ajax 异步插入的，通常我们的做法是 插入完成后遍历每个 li 绑定事件处理程序&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul id=&amp;quot;list&amp;quot;&amp;gt;&amp;lt;/ul&amp;gt;
+&amp;lt;script&amp;gt;
+    function bindEvent(el, n) {
+        addEvent(lis[i], &#39;click&#39;, function() { console.log(i); });
+    }
+    // 用 setTimeout 模拟 Ajax 伪代码
+    setTimeout(function() {
+        var ajaxData = &#39;&amp;lt;li id=&amp;quot;item-1&amp;quot;&amp;gt;item1&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-2&amp;quot;&amp;gt;item2&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-3&amp;quot;&amp;gt;item3&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-4&amp;quot;&amp;gt;item4&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-5&amp;quot;&amp;gt;item5&amp;lt;/li&amp;gt;&#39;;
+        var ul = document.getElementById(&#39;list&#39;)
+        ul.innerHTML(ajaxData);
+        var lis = ul.getElementsByTagName(&#39;li&#39;);
+
+        for (var i = 0; i &amp;lt; lis.length; i++) {
+            bindEvent(lis[i], i);
+        }
+    }, 1000);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们再使用事件代理把事件绑定到 &lt;code&gt;ul&lt;/code&gt; 元素上，我们知道很多事件可以冒并沿着 DOM 树传播到所有的父元素上，我们只需要判断目标元素是不是我们想绑定的真正元素即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul id=&amp;quot;list&amp;quot;&amp;gt;&amp;lt;/ul&amp;gt;
+&amp;lt;script&amp;gt;
+function delegateEvent(el, eventType, fn) {
+    addEvent(el, eventType, function(event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement;
+        fn(target);
+    });
+}
+
+var el = document.getElementById(&#39;list&#39;);
+// 用 setTimeout 模拟 Ajax 伪代码
+setTimeout(function() {
+    var ajaxData = &#39;&amp;lt;li id=&amp;quot;item-1&amp;quot;&amp;gt;item1&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-2&amp;quot;&amp;gt;item2&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-3&amp;quot;&amp;gt;item3&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-4&amp;quot;&amp;gt;item4&amp;lt;/li&amp;gt; &amp;lt;li id=&amp;quot;item-5&amp;quot;&amp;gt;item5&amp;lt;/li&amp;gt;&#39;;
+    el.innerHTML(ajaxData)
+}, 1000);
+
+delegateEvent(el, &#39;click&#39;, function(target) {
+    console.log(target.id);
+});
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显然使用了事件代理之后，代码变少了。逻辑也很清晰，关键是以前需要 N 次的绑定操作现在只需要一次&lt;/p&gt;
+
+&lt;h2 id=&#34;jquery-中的事件绑定&#34;&gt;jQuery 中的事件绑定&lt;/h2&gt;
+
+&lt;p&gt;以 jQuery1.6.4 为例，jQuery 提供了很多事件绑定的 API。例如： &lt;code&gt;delegate()&lt;/code&gt;, &lt;code&gt;bind()&lt;/code&gt;, &lt;code&gt;click()&lt;/code&gt;, &lt;code&gt;hover()&lt;/code&gt;, &lt;code&gt;one()&lt;/code&gt;, &lt;code&gt;live()&lt;/code&gt;，这些方法其实都是一些别名，核心是调用了 jQuery 底层事件的 &lt;code&gt;jQuery.event.add&lt;/code&gt; 方法。其实现也是上文提到的 &lt;code&gt;addEventListener&lt;/code&gt; 和 &lt;code&gt;attachEvent&lt;/code&gt; 两个 API&lt;/p&gt;
+
+&lt;p&gt;这些 API 主要是为了方便绑定事件的各种场景，并且内部处理好了兼容性问题。还有一个比较好用的地方就是 &lt;code&gt;事件命名空间&lt;/code&gt;。比如：两个弹出层都向 document 绑定了点击关闭事件，但是如果只想解绑其中一个。这时候使用命名空间再合适不过了。可以试试这个小例子 &lt;a href=&#34;http://jsbin.com/sacinereju/edit?html,output&#34;&gt;Event Binding&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$(document).bind(&#39;click.handler1&#39;, function() { console.log(1);})
+$(document).bind(&#39;click.handler2&#39;, function() { console.log(2);})
+
+$(document).unbind(&#39;click.handler2&#39;);   // 解除指定的
+$(document).unbind(&#39;click&#39;);            // 解除所有点击事件
+$(document).unbind()                    // 解除所有事件
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;自定义事件与发布-订阅者设计模式&#34;&gt;自定义事件与发布/订阅者设计模式&lt;/h2&gt;
+
+&lt;p&gt;自定义事件是设计模式中的 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85&#34;&gt;发布/订阅者&lt;/a&gt; 的一种实现。发布者与订阅者松散地耦合，而且不需要关心对方的存在。&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;这里&lt;/a&gt;有 NC 大师的一种实现。实际使用过程中，主要被运用在异步操作比较多的场景和不同系统之间消息通信，之前的&lt;a href=&#34;https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/#TOC-25&#34;&gt;文章&lt;/a&gt;中有过一些实例&lt;/p&gt;
+
+&lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E4%BA%8B%E4%BB%B6%E9%A9%85%E5%8B%95%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88&#34;&gt;事件驱动程序设计&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.quirksmode.org/js/introevents.html&#34;&gt;Introduction to Events&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;Custom events in JavaScript&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -64,7 +767,465 @@
       <guid>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</guid>
       <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;dom-概览&#34;&gt;DOM 概览&lt;/h2&gt;
+
+&lt;p&gt;HTML 或 XML 文档的嵌套元素在 DOM 中以「树」的形式展示。HTML 文档的树装结构包含表示 HTML 标签或元素（如 body, p）和表示文本字符串的节点，也可能包含表示 HTML 注释的节点&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;Simple Document&amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;h1&amp;gt;Heading&amp;lt;/h1&amp;gt;
+    &amp;lt;p&amp;gt;This is a &amp;lt;i&amp;gt;paragraph&amp;lt;/i&amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;置换成 DOM 树表示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;
+                    +------------+
+                    |  Document  |
+                    +-----+------+
+                          |
+                    +-----+------+
+                    |   &amp;lt;html&amp;gt;   |
+                    +-----+------+
+                          |
+     +--------------------+--------------------+
+     |                                         |
++----+------+                             +----+-----+
+|  &amp;lt;head&amp;gt;   |                             |  &amp;lt;body&amp;gt;  |
++----+------+                             +----+-----+
+     |                                         |
++----+------+                     +------------+------------+
+|  &amp;lt;title&amp;gt;  |                     |                         |
++-----------+                 +----+---+               +---------+
+                              |  &amp;lt;h1&amp;gt;  |               |   &amp;lt;p&amp;gt;   |
++------------------+          +--------+               +---------+
+| &amp;quot;Simple Document&amp;quot;|                                        |
++------------------+                            +-----------+-----------+
+                                                |                       |
+                                         +------+--------+         +----+-----+
+                                         | &amp;quot;This is a&amp;quot;   |         |   &amp;lt;i&amp;gt;    |
+                                         +---------------+         +----+-----+
+                                                                        |
+                                                                   +----+------+
+                                                                   |&amp;quot;paragraph&amp;quot;|
+                                                                   +-----------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上图中每个方框是文档的一个节点（node），它表示一个 Node 对象。注意树形的根部是 Document 节点，它代表整个文档。代表 HTML 元素的节点是 Element 节点。代表文本的节点是 Text 节点。Document、Element 和 Text 是 Node 的子类&lt;/p&gt;
+
+&lt;h2 id=&#34;选取文档元素&#34;&gt;选取文档元素&lt;/h2&gt;
+
+&lt;h3 id=&#34;通过-id-选择元素&#34;&gt;通过 ID 选择元素&lt;/h3&gt;
+
+&lt;p&gt;HTML 元素可以有一个 id 属性，在文档中该值必须 &lt;strong&gt;唯一&lt;/strong&gt;，可以使用 getElementById() 方法选取一个基于唯一 ID 的元素&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var section1 = document.getElementById(&#39;selection1&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在低于 IE 8 版本的浏览器中，&lt;strong&gt;getElementById() 对匹配元素的 ID 不区分大小写，而且也返回匹配 name 属性的元素&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;通过名字选取元素&#34;&gt;通过名字选取元素&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var radiobuttons = document.getElementsByName(&#39;favorite_color&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getElementsByName() 定义在 HTMLDocument 类中，而不在 Document 类中，所以它 &lt;strong&gt;只针对 HTML 文档可用&lt;/strong&gt;，XML 中不可用。它返回一个 NodeList 对象，后者的行为类似一个包含若干 Element 对象的只读数组。在 IE 中，也会返回 id 属性匹配指定的元素&lt;/p&gt;
+
+&lt;h3 id=&#34;通过标签名选取元素&#34;&gt;通过标签名选取元素&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 返回所有的 span 标签元素
+var spans = document.getElementsByTagName(&#39;span&#39;);
+// 返回所有元素
+var allTags = document.getElementsByTagName(&#39;*&#39;);
+// 选取第一个 span 里面的所有 a 标签
+// Element 类也定义 getElementsByTagName() 方法，
+// 它只取调用该方法的元素（spans）的后代元素
+var links = spans[0].getElementsByTagName(&#39;a&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTMLDocument 对象还定义了两个属性，它们指代特殊的单个元素而不是集合：&lt;code&gt;document.body&lt;/code&gt; 是一个 HTML 文档的 &lt;body&gt; 元素；&lt;code&gt;document.head&lt;/code&gt; 是 &lt;head&gt; 元素。这些属性总是会定义的。&lt;strong&gt;即使文档中没有 head 或 body 元素，浏览器也将隐式地创建他们&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;getElementsByName() 和 getElementsByTagName() 都返回 NodeList 对象，而类似 document.images 和 document.forms 的属性为 HTMLCollection 对象。
+这些对象都是只读类数组对象。有 length 属性，也可以被索引到，也可以进行循环迭代&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;通过-css-类选取元素&#34;&gt;通过 CSS 类选取元素&lt;/h3&gt;
+
+&lt;p&gt;HTML 元素的 class 属性值是一个以空格隔开的列表，可以为空或者包含多个标识符&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 查找 class 属性追念 warning 的所有元素
+var warnings = document.getElementsByClassName(&#39;warning&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意除了 IE8 及以下低版本浏览器，getElementsByClassName() 在所有的浏览器中都实现了&lt;/p&gt;
+
+&lt;h3 id=&#34;通过-css-选择器选取元素&#34;&gt;通过 CSS 选择器选取元素&lt;/h3&gt;
+
+&lt;p&gt;CSS 样式表有一种非常强大的语法，那就是选择器，用来描述文档中的若干元素&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;#nav          // id=&amp;quot;nav&amp;quot; 的元素
+div           // 所有 &amp;lt;div&amp;gt; 元素
+.warning      // 所有 class 属性值包含 &amp;quot;warning&amp;quot; 的元素
+p[lang=&amp;quot;fr&amp;quot;]  // 所有属性 lang 为 fr 的 &amp;lt;p&amp;gt; 元素
+*[lang=&amp;quot;fr&amp;quot;]  // 所有属性 lang 为 fr 的元素
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;文档结构和遍历&#34;&gt;文档结构和遍历&lt;/h2&gt;
+
+&lt;h3 id=&#34;作为节点树的文档&#34;&gt;作为节点树的文档&lt;/h3&gt;
+
+&lt;p&gt;Document 对象、它的 Element 对象和文档中表示文本的 Text 对象都是 Node 对象。Node 对象有以下属性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;parentNode&lt;/strong&gt; 该节点的父节点，Document 对象没有父节点，它的 parentNode 返回 null&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;childNodes&lt;/strong&gt; 只读的类数组对象（NodeList 对象），表示该节点的所有子节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;firstChild、lastChild&lt;/strong&gt; 该节点的子节点中的第一个或最后一个&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nextSibling、previoursSibling&lt;/strong&gt; 该节点的兄弟节点中的前一个或下一个&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nodeType&lt;/strong&gt; 该节点的类型
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;11&lt;/strong&gt; - DocumentFragment 节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;9&lt;/strong&gt; - Document 节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;8&lt;/strong&gt; - Comment 节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3&lt;/strong&gt; - Text 节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;1&lt;/strong&gt; - Element 节点&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nodeVlaue&lt;/strong&gt; Text 节点或 Comment 节点的文本内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nodeName&lt;/strong&gt; 元素标签名，以大写形式表示&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 注意删除了空格和换行
+// &amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;Test&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;Hello World!&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;
+document.childNodes[0].childNodes[1]      // =&amp;gt; body 节点
+document.firstChild.firstChild.nextSibling // =&amp;gt; null title 节点的下个兄弟节点为 null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;属性&#34;&gt;属性&lt;/h2&gt;
+
+&lt;p&gt;HTML 元素由一个标签和一组称为属性（attribute）的名/值对组成&lt;/p&gt;
+
+&lt;h3 id=&#34;html-属性作为-element-的属性&#34;&gt;HTML 属性作为 Element 的属性&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var image = document.getElementById(&#39;myimage&#39;);
+var imgurl = image.src;
+
+var f = document.forms[0];
+f.action = &#39;http://www.example.com/submit.php&#39;;
+f.method = &#39;POST&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTML 属性名不区分大小写，但是 JavaScript 则区分。用 JavaScript 取元素属性名的时候一般用小写，如果属性名是多个单词用驼峰式的规则，例如：defaultChecked、tabIndex。如果属性是 JavaScript 中的保留字，一般用 html 前缀，比如 for 属性，使用 htmlFor 来访问。class 则不同，使用 className 来访问&lt;/p&gt;
+
+&lt;h3 id=&#34;获取和设置非标准-html-属性&#34;&gt;获取和设置非标准 HTML 属性&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var image = document.images[0];
+// getAttribute 始终返回字符串
+var width = parseInt(image.getAttribute(&#39;width&#39;))
+image.setAttribute(&#39;class&#39;, &#39;thumbnail)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;数据集属性&#34;&gt;数据集属性&lt;/h3&gt;
+
+&lt;p&gt;有时候在 HTML 元素上绑定一些额外的信息会很有帮助（通常给 JavaScript 来读取），一般可以把信息存储在 HTML 属性上&lt;/p&gt;
+
+&lt;p&gt;HTML 5 提供了一个解决文案。在 HTML 5 文档中，任意以「data-」为前缀的小写的属性名称都是合法的。这些「数据集属性」将不会对元素表示产生影响&lt;/p&gt;
+
+&lt;p&gt;HTML 5 还在 Element 对象上定义了 dataset 属性。该属性指代一个对象，它的各个属性对应于去掉前缀的 data- 属性。因此 dataset.x 应该保存 data-x 属性的值。带连字符的属性对应于驼峰命名法属性名：data-jquery-test 属性就变成 dataset.jqueryTest 属性&lt;/p&gt;
+
+&lt;h3 id=&#34;作为-html-的元素内容&#34;&gt;作为 HTML 的元素内容&lt;/h3&gt;
+
+&lt;p&gt;读取 Element 的 innerHTML 属性作为字符串标记返回那个元素的内容。设置元素的 innerHTML 属性则调用 Web 浏览器的解析器，用新的字符串内容解析替换当前内容&lt;/p&gt;
+
+&lt;p&gt;通常来说设置 innerHTML 效率很高，但是对 innerHTML 属性使用「+=」操作符时效率比较低下，因为它既要序列化又要解析&lt;/p&gt;
+
+&lt;p&gt;HTML 5 还标准化了 outerHTML 属性，表示返回包含标签本身的 HTML 内容&lt;/p&gt;
+
+&lt;p&gt;另外 IE 引入了一个 insertAdjacentHTML() 方法，它将任意的 HTML 标记字符串插入到指定的元素「相邻」的位置。标记是该方法的第二个参数。并且「相邻」的精确含义依赖于第一个参数的值。第一个参数为具有以下值之一的字符串：「beforebegin」、「afterbegin」、「beforeend」、「afterend」&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;    |&amp;lt;div id=&amp;quot;target&amp;quot;&amp;gt;|This is the element content|&amp;lt;/div&amp;gt;|
+    |                 |                           |      |
+ beforebegin     afterbegin                  beforeend afterend
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;作为纯文本的元素内容&#34;&gt;作为纯文本的元素内容&lt;/h3&gt;
+
+&lt;p&gt;查询线文本形式的元素内容，
+标准的方法是 Node 的 textContent 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var para = document.getElementsByTagName(&#39;p&#39;)[0]
+var text = para.textContent;
+para.textContent = &#39;Hello World!&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;textContent 属性除 IE 其它浏览器都支持，不支持的可以用 innerText 属性来代替。textContent 属性就是将指定元素所有的后代 Text 节点简单地串联在一起。但是和 textContent 不同。innerText 不返回 script 元素的内容，它会忽略多余空白，并试图保留表格格式。同时 innerText 针对某些表格元素（如 table、tbody、tr）是只读的属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function textContente(e) {
+    var child, type, s = &#39;&#39;;
+    for (child = e.firstChild; child != null; child = child.nextSibling ) {
+        type = child.nodeType;
+        if ( type === 3 || type === 4 )
+            s += child.nodeValue;
+        else if ( type === 1 )
+            s += textContent(child);
+    }
+    return s;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;创建-插入和删除节点&#34;&gt;创建、插入和删除节点&lt;/h2&gt;
+
+&lt;p&gt;一个简单的动态插入脚本的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function loadasyn(url) {
+    var head = document.getElementsByTagName(&#39;head&#39;)[0];
+    var s = document.createElement(&#39;script&#39;);
+    s.src = url;
+    head.appendChild(s);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;创建节点&#34;&gt;创建节点&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;document.createElement(&#39;script&#39;)
+document.createTextNode(&#39;text node content&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;还有一种创建新文档节点的方法是复制已存在的节点。第个节点有一个 cloneNode() 方法来返回该节点的一个全新副本。给方法传递参数 true 也能够递归地复制所有后代节点，或传递参数 false 只执行一个浅复制&lt;/p&gt;
+
+&lt;h3 id=&#34;插入节点&#34;&gt;插入节点&lt;/h3&gt;
+
+&lt;p&gt;下面代码展示了 insertBefore() 和 appendChild() 方法使用场景&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function insertAt(parent, child, n) {
+    if ( n &amp;lt; 0 || n &amp;gt; parent.childNodes.length ) throw new Error(&#39;invalid index&#39;);
+    else if ( n == parent.childNodes.length ) parent.appendChild(child);
+    else parent.insertBefore(child, parent.childNodes[n]);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;删除和替换节点&#34;&gt;删除和替换节点&lt;/h3&gt;
+
+&lt;p&gt;removeChild() 方法删除一个子节点并用一个新的节点取而代之&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;n.parentNode.removeChild(n);
+n.parentNode.replaceChild(document.createTextNode(&#39;[ REDACTED ]&#39;), n)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-documentfragment&#34;&gt;使用 DocumentFragment&lt;/h3&gt;
+
+&lt;p&gt;DocumentFragment 是一种特殊的 Node，它作为其他节点的一个临时窗口。像这样创建一个 DocumentFragment：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var frag = document.createDocumentFragment();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;像 Document 节点一样，DocumentFragment 是独立的，而不是任何其他文档的一部分。它的 parentNode 总是 null。但类似 Element，它可以有任意多的子节点，可以用 appendChild()、insertBefore() 等方法来操作它们&lt;/p&gt;
+
+&lt;h2 id=&#34;文档和元素的几何开头和滚动&#34;&gt;文档和元素的几何开头和滚动&lt;/h2&gt;
+
+&lt;h3 id=&#34;文档坐标和视口坐标&#34;&gt;文档坐标和视口坐标&lt;/h3&gt;
+
+&lt;p&gt;元素的位置是以像素来表示的，向右代表 X 坐标增加，向下代表 Y 坐标增加。但是，有两个不同的点作为坐标系原点：元素的 X 和 Y 坐标可以相对于文档的左上角或者相对于在其中显示文档的视口左上角。在顶级窗口和标签页中，「视口」只是实际显示文档内容的浏览器的一部分：它 &lt;strong&gt;不包括&lt;/strong&gt; 浏览器「外壳」（如菜单、工具条和标签页）。针对框架页中显示的文档，视口是定义了框架页的 iframe 元素。无论在何种情况下，当讨论元素的位置时，必须弄清楚所使用的坐标是文档坐标还是视口（窗口）坐标&lt;/p&gt;
+
+&lt;p&gt;如果文档比视口要小，或者说它还未出现滚动，则文档的左上角就是视口的左上角，文档和视口坐标系统是同一个。但是，一般来说，要在两种坐标系之间互相转换，必须加上或者减去滚动的偏移量（scroll offset）&lt;/p&gt;
+
+&lt;p&gt;为了在坐标系之间互相转换，我们需要判定浏览器窗口的流动条的位置。Window 对象的 pageXOffset 和 pageYOffset 属性在所有浏览器中提供这些值。除了 IE 8 以及更早的版本以外。也可以使用 scrollLeft 和 scrollTop 属性来获得滚动条的位置。令人迷惑的是，正常情况下通过查询文档的根节点（document.documentElement）来获取这些属性值，但在怪异模式下，必须在文档的 body 元素上查询它们，下面这个是一种兼容方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getScrollOffsets(w) {
+    w = w || window;
+    if ( w.pageXOffset != null ) return { x: w.pageXOffset, y: pageYOffset };
+
+    var d = w.document;
+    if ( document.compatMode == &#39;CSS1Compat&#39; )
+        return { x: d.documentElement.scrollLeft, y: d.documentElement.scrollTop };
+
+    return { x: d.body.scrollLeft, y: d.body.scrollTop };
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;查询元素的尺寸&#34;&gt;查询元素的尺寸&lt;/h3&gt;
+
+&lt;p&gt;判定一个元素的尺寸和位置最简单的方法是调用它的 getBoundingClientRect() 方法。该方法是在 IE 5 中引入的，而珔当前的所有浏览器都实现了（然而并非如此）。它不需要参数，返回一个有 left, right, top 和 bottom 属性的对象&lt;/p&gt;
+
+&lt;h3 id=&#34;滚动&#34;&gt;滚动&lt;/h3&gt;
+
+&lt;p&gt;window 对象的 scrollTop() 方法接受一个点的 X 和 Y 坐标，并作为滚动条的偏移量设置它们。也就是窗口滚动到指定的点出现在视口的左上角&lt;/p&gt;
+
+&lt;h3 id=&#34;关于元素尺寸-位置和溢出更多的信息&#34;&gt;关于元素尺寸、位置和溢出更多的信息&lt;/h3&gt;
+
+&lt;p&gt;getBoundingClientRect() 方法在所有当前的浏览器上都有定义，但如果需要支持老式浏览器就不行了。元素的尺寸比较简单：任何 HTML 元素的只读属性 offsetWidth 和 offsetHeight 以 CSS 像素返回它的屏幕尺寸。返回尺寸 &lt;strong&gt;包含&lt;/strong&gt; 元素的边框和内边距，除去了外边距&lt;/p&gt;
+
+&lt;p&gt;所有 HTML 元素拥有 offsetLeft 和 offsetTop 属性来返回元素的 X 和 Y 坐标。对于很多元素，这些值是文档坐标，并直接指定元素的位置。&lt;strong&gt;但对于已定位的元素的后代元素和一些其他元素（如表格），这些属性返回的坐标是相对于祖先元素的而非文档。&lt;/strong&gt; offsetParent 属性指定这些属性所相对的父元素。如果 offsetParent 为 null，这些属性都是文档坐标，因此，一般来说用 offsetLeft 和 offsetTop 来计算元素 e 的位置需要一个循环：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getElementPosition(e) {
+    var x = 0, y = 0;
+    while (e != null) {
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        e = e.offsetParent;
+    }
+    return { x: x, y: y };
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除了这些名字以 offset 开头的属性外，所有的文档元素定义了其它的两组属性，基名称一组以 client 开头，另一组以 scroll 开头。即，每个 HTML 元素都有以下这些属性：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;offsetWidth         clientWidth          scrollWidth
+offsetHeight        clientHeight         scrollHeight
+offsetLeft          clientLeft           scrollLeft
+offsetTop           clientTop            scrollTop
+offsetParent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;clientWidth 和 clientHeight 类似 offsetWidth 和 offsetHeight，不同的是它们 &lt;strong&gt;不包含边框大小&lt;/strong&gt;，只包含内容和它的内边距。同时，如果浏览器在内边距和边框之间添加了滚动条，clientWidth 和 clientHeight 在其返回值中也不包含滚动条。内联元素，clientWidth 和 clientHeight 总是返回 0&lt;/p&gt;
+
+&lt;h2 id=&#34;html-表单&#34;&gt;HTML 表单&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;表 15-1 HTML 表单元素&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;HTML 元素&lt;/th&gt;
+&lt;th&gt;类型属性&lt;/th&gt;
+&lt;th&gt;事件处理程序&lt;/th&gt;
+&lt;th&gt;描述和事件&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;button&amp;rdquo;&amp;gt; or&lt;br&gt; &amp;lt;button type=&amp;ldquo;button&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“button”&lt;/td&gt;
+&lt;td&gt;onclick&lt;/td&gt;
+&lt;td&gt;按钮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;checkbox&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“checkbox”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;复选按钮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;file&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“file”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;文件域，value 属性只读&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;hidden&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“hidden”&lt;/td&gt;
+&lt;td&gt;none&lt;/td&gt;
+&lt;td&gt;数据由表单提交，但对用户不可见&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;option&amp;gt;&lt;/td&gt;
+&lt;td&gt;none&lt;/td&gt;
+&lt;td&gt;none&lt;/td&gt;
+&lt;td&gt;Select 对象的单个选项，事件对象 &lt;br&gt; 在 Select 对象上，而不是 option&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;password&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“password”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;密码输出框，输入的字符不可见&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;radio&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“radio”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;单选按钮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;reset&amp;rdquo;&amp;gt; or&lt;br&gt; &amp;lt;button type=&amp;ldquo;reset&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“reset”&lt;/td&gt;
+&lt;td&gt;onclick&lt;/td&gt;
+&lt;td&gt;重置表单按钮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;select&amp;gt;&lt;/td&gt;
+&lt;td&gt;“select-one”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;单选下拉框&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;select multiple&amp;gt;&lt;/td&gt;
+&lt;td&gt;“select-multiple”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;多选列表&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;submit&amp;rdquo;&amp;gt; or&lt;br&gt; &amp;lt;button type=&amp;ldquo;submit&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“submit”&lt;/td&gt;
+&lt;td&gt;onclick&lt;/td&gt;
+&lt;td&gt;表单提交按钮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;input type=&amp;ldquo;text&amp;rdquo;&amp;gt;&lt;/td&gt;
+&lt;td&gt;“text”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;单行文本输出域；type 默认 text&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;textarea&amp;gt;&lt;/td&gt;
+&lt;td&gt;“textarea”&lt;/td&gt;
+&lt;td&gt;onchange&lt;/td&gt;
+&lt;td&gt;多行文本输入域&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;选择框和选项元素&#34;&gt;选择框和选项元素&lt;/h3&gt;
+
+&lt;p&gt;Select 元素表示用户可以做出选择的一组选项（用 Option 元素表示）。浏览器通常将其渲染为下拉菜单的形式，但当指定其 size 属性值大于 1 时，它将显示为列表中的选项（可能有滚动条）。Select 元素的 multiple 属性决定了 Select 是不是可以多选&lt;/p&gt;
+
+&lt;p&gt;当用户选取或取消一个选项时， Select 元素触发 onchange 事件。针对「select-one」属性的 Select 元素，它的可读/写属性 selectedIndex 指定了哪个选项当前被选中。针对「select-multiple」元素，单个 selectedIndex 属性不足以表示被选中的一组选项。这种情况下需要遍历 options[] 数组的元素，检测每个 Option 对象的 selected 属性。注意 Option 并没有相关事件处理程序，一般只能给 Select 元素绑定事件&lt;/p&gt;
+
+&lt;h2 id=&#34;其他文档特性&#34;&gt;其他文档特性&lt;/h2&gt;
+
+&lt;h3 id=&#34;document-的属性&#34;&gt;Document 的属性&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;cookie&lt;/strong&gt; 允许 JavaScript 读、写 HTTP cookie 的属性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;domain&lt;/strong&gt; 允许当 Web 页面交互时，相同域名下互相信任的 Web 服务器之间协作放宽同源策略安全限制&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;lastModified&lt;/strong&gt; 包含文档修改时间的字符串&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;location&lt;/strong&gt; 与 Window 对象的 location 属性引用同一个 Location 对象&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;referrer&lt;/strong&gt; 如果有，它表示浏览器来到当前页面的上一个页面。与 HTTP 的 Referer 头信息内容相同&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;title&lt;/strong&gt; 文档中 title 标签的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;URL&lt;/strong&gt; 文档的 URL，只读字符串而不是 Location 对象。该属性值与 location.href 的 &lt;strong&gt;初始值&lt;/strong&gt;相同，不会发生变化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;document-write-方法&#34;&gt;document.write() 方法&lt;/h3&gt;
+
+&lt;p&gt;document.write() 会将其字符串参数连接起来，然后将结果字符串插入到文档中调用它的脚本元素的位置。当脚本执行结束，浏览器解析生成输出并显示它。例如，下面代码把信息输出到一个静态的 HTML 文档中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script&amp;gt;
+    document.write(&#39;Document title: &#39; + document.title);
+    document.write(&#39;URL: &#39; + document.URL);
+    document.write(&#39;Referred by: &#39; + document.referrer);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;只有在解析文档时才能使用 write() 方法输出 HTML 到当前文档中&lt;/strong&gt;。也就是说能够在 script 元素的顶层代码中调用 document.write()，就是因为这些脚本的执行是文档解析流程的一部分。如果将 docuemnt.write() 放在一个函数的定义中，而该函数的调用是从一个事件处理程序中发起的，产生的结果未必是你想要的——事实上，它会擦除当前文档和它包含的脚本。同理，在设置了 defer 或 async 属性的脚本中不要使用 document.write()&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -79,7 +1240,191 @@
 
 &lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
 
-由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;</description>
+由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 4 秒后显示 log
+var t1 = setTimeout(function () {
+    console.log(&#39;show after 4s&#39;);
+}, 4000);
+
+function fn() { console.log(&#39;show every 1s&#39;); }
+setTimeout(&#39;fn()&#39;, 1000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;浏览器定位和导航&#34;&gt;浏览器定位和导航&lt;/h2&gt;
+
+&lt;p&gt;Window 对象的 location 属性引用的是 Location 对象，它表示窗口中当前显示的文档 URL。并且定义了方法来使窗口载入新的文档&lt;/p&gt;
+
+&lt;p&gt;Document 对象上的 location 属性也引用到 Location 对象：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;window.location = document.location
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Document 对象也有一个 URL 属性，是文档首次载入后保存的该文档的 URL 静态字符串。如果定位到文档中的片段标识符（如#table-of-content，其实就是锚点），Location 对象会做相应的更新，&lt;strong&gt;而 document.URL 属性不会&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;解析-url&#34;&gt;解析 URL&lt;/h2&gt;
+
+&lt;p&gt;Location 对象的 href 属性是一个字符串，后者包含 URL 的完整文本。Location 对象的 toString() 方法返回 href 属性的值，因此会隐式调用 toString() 的情况下，可以使用 location 代替 location.href&lt;/p&gt;
+
+&lt;p&gt;这个对象的其它属性——protocol, host, hostname, port, pathname 和 search 分别表示 URL 的各个部分。它们称为「URL 分解」属性，同时被 link 对象（通过 HTML 文档中的 a 和 area 元素创建）支持&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17127989/2285a748-533c-11e6-946d-a1d129e845c7.gif&#34; alt=&#34;url&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;载入新的文档&#34;&gt;载入新的文档&lt;/h3&gt;
+
+&lt;p&gt;Location 对象的 assign() 方法可以使用窗口载入并显示你指定的 URL 中的文档。replace() 方法也类似，但它在 &lt;strong&gt;载入新文档之前会从浏览器历史中把当前文档删除&lt;/strong&gt;，assign 会产生一个新的历史记录，也就是说可以使用浏览器的返回按钮到上一页，replace 则不行&lt;/p&gt;
+
+&lt;h2 id=&#34;浏览历史&#34;&gt;浏览历史&lt;/h2&gt;
+
+&lt;p&gt;Window 对象的 history 属性用来把窗口的浏览历史用文档和文档状态列表的形式表示。history 对象的 length 属性表示浏览历史列表中的元素数量，但是脚本并不能访问已保存的 URL&lt;/p&gt;
+
+&lt;p&gt;history 对象的 bace() 和 forward() 方法与浏览器的「后退」和「前端」按钮一样。go() 方法接收一个整数参数，可以在历史列表中向前（正数）或向后（负数）跳过任意多个页&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;history.go(-2);     // 后退两个历史记录
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果窗口包含多个子窗口（比如 iframe 元素），子窗口的浏览历史也会被记录，这音中着在主窗口调用 history.back() 可能会使子窗口跳转而主窗口不变&lt;/p&gt;
+
+&lt;h2 id=&#34;浏览器和屏幕信息&#34;&gt;浏览器和屏幕信息&lt;/h2&gt;
+
+&lt;h3 id=&#34;navigator-对象&#34;&gt;navigator 对象&lt;/h3&gt;
+
+&lt;p&gt;Window 对象的 navigator 属性引用的是包含浏览器厂商和版本信息的 navigator 对象。navigator 有四个属性用于提供关于运行中的浏览器版本信息，并且可以用来做浏览器嗅探&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;appName&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Web 浏览器的全称。在 IE 中，就是「Microsoft Internet Explorer」，在 Firefox 中就是「Netscape」&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;appVersion&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;此属性通常以数字开始，并跟着包含浏览器厂商和版本信息的详细字符串。字符串前面的数字通常是 4.5 或 5.0，表示它是第 4 或 5 代兼容的浏览器&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;userAgent&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;浏览器在它的 USER-AGENT HTTP 头部中发送的字符串。这个属性通常包含 appVersion 中的所有信息，以及其它细节&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;platform&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在其上运行浏览器的操作系统字符串&lt;/p&gt;
+
+&lt;h3 id=&#34;screen-对象&#34;&gt;screen 对象&lt;/h3&gt;
+
+&lt;p&gt;screen 对象提供有关窗口显示的大小和可用的颜色数量信息，属性 width 和 height 指定的是以像素为单位的窗口大小。属性 avilWidth 和 avilHeight 指定的是实际可用的显示大小，它们排除了像浏览器任务栏这样的特性所占用的屏幕空间&lt;/p&gt;
+
+&lt;h2 id=&#34;对话框&#34;&gt;对话框&lt;/h2&gt;
+
+&lt;p&gt;Window 对象提供了 3 个方法来向用户显示简单的对话框。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;alert()&lt;/strong&gt; 向用户显示一条消息并等待用户关闭
+&lt;strong&gt;confirm()&lt;/strong&gt; 也显示一条消息并要求用户单击「确定」或「取消」，并返回一个布尔值
+&lt;strong&gt;prompt()&lt;/strong&gt; 也显示一条消息并等待用户输入字符串，并返回那个字符串&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;do {
+    var name = prompt(&#39;What is your name?&#39;);
+    var correct = confirm(&#39;You entered: &#39; + name + &#39;\n\
+                            Click OK to processed or Cancel to re-enter&#39;)
+} while(!correct)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这三个方法都会产生阻塞，也就是说，在用户关掉它们所显示的对话框之前，它们不会返回，这就意味着在弹出一个对话框前，代码就会停止运行。如果当前正在载入文档，也会停止载入。直到用户用要求的输入进行响应为止&lt;/p&gt;
+
+&lt;h2 id=&#34;错误处理&#34;&gt;错误处理&lt;/h2&gt;
+
+&lt;p&gt;Window 对象的 onerror 属性是一个事件处理程序，当未捕获的异常传播到调用栈上的时候就会触发它，并把错误消息输出到浏览器的 JavaScript 控制台上，onerror 事件处理函数调用通过三个字符串参数，而不是事件对象。分别是&lt;code&gt;错误信息&lt;/code&gt;、&lt;code&gt;产生错误的页面地址&lt;/code&gt;、&lt;code&gt;错误源代码的行号&lt;/code&gt;，onerror 的返回值也很重要，如果 onerror 处理程序返回 false，表示它通知浏览器事件处理程序已经处理错误了，不需要其它操作。Firefox 则刚好相反&lt;/p&gt;
+
+&lt;h2 id=&#34;作为-window-对象属性的文档元素&#34;&gt;作为 Window 对象属性的文档元素&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;如果 HTML 文档中用 id 属性来为元素命名，并且如果 Window 对象没有此名字的属性（并且这个id是个合法的标识符），Window 对象会赋予一个属性，它的名字就是 id 属性的值&lt;/strong&gt;，而它的值指向表示文档元素的 HTMLElement 对象&lt;/p&gt;
+
+&lt;p&gt;元素 ID 作为全局变量的隐式应用是 Web 浏览器进化过程中遗留的问题，主要是出于兼容性的考虑。&lt;strong&gt;但并不推荐使用这种做法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;多窗口和窗体&#34;&gt;多窗口和窗体&lt;/h2&gt;
+
+&lt;p&gt;Web 浏览器的窗口中每一个标签页都是独立的「浏览上下文」（browsing context），每一个上下文都有独立的 Window 对象，而且相互之间不干扰，也不知道其他标签页的存在&lt;/p&gt;
+
+&lt;p&gt;但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 &lt;a href=&#34;https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/#TOC-16&#34;&gt;同源策略&lt;/a&gt;）&lt;/p&gt;
+
+&lt;h3 id=&#34;打开和关闭窗口&#34;&gt;打开和关闭窗口&lt;/h3&gt;
+
+&lt;p&gt;使用 Window 对象的 open() 方法可以打开一个新的浏览器窗口&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;var windowObjectReference = window.open(url, name, [features]);&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一个参数 &lt;code&gt;url&lt;/code&gt; 是要在新窗口中显示文档的 URL，如果参数省略，默认会使用空页面的 URL about:blank&lt;/p&gt;
+
+&lt;p&gt;第二个参数 &lt;code&gt;name&lt;/code&gt; 表示打开窗口的名字，如果指定的是一个已经存在的窗口名字（并且脚本允许跳转到那个窗口），会直接用已存在的窗口。否则，会打开新的窗口，并将这个指定的名字赋值给它。如果省略此参数，会使用指定的名字「_blank」打开一个新的未命名窗口&lt;/p&gt;
+
+&lt;p&gt;第三个参数 &lt;code&gt;features&lt;/code&gt;（非标准）是一个以逗号分隔的列表，包含表示打开窗口的大小和各种属性&lt;/p&gt;
+
+&lt;p&gt;open() 也可以有第四个参数，且只在第二个参数命名的是一个存在的窗口时才有用。它是一个布尔值，𡔬了由第一个参数指定的 URL 是应用替换掉窗口浏览器历史的当前条目（true），还是应该在窗口浏览历史中创建一个新的条目（false），后者是默认设置&lt;/p&gt;
+
+&lt;p&gt;open() 的返回值是代表命名或新创建的窗口的 Window 对象。可以在自己的 JavaScript 代码中使用这个 windows 对象来引用新创建的窗口，就像用隐式的 Window 对象 window 来引用运行代码的窗口一样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var w = window.open();
+w.alert(&#39;About to visit http://jd.com&#39;);
+w.location = &#39;http://jd.com&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由 window.open() 方法创建的窗口中，opener 属性引用的是打开它的脚本的 Window 对象，在其它窗口中，opener 为 null&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;w.opener !== null;      // =&amp;gt; true
+w.open().opener === w   // =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;关闭窗口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;像 open() 方法一样，close() 用来关闭一个（脚本打开的）窗口，注意，&lt;strong&gt;大多数浏览器只允许自己关闭自己的 JavaScript 代码创建的窗口&lt;/strong&gt;，要关闭其它窗口，可以用一个对话框提示用户，要求他关闭窗口的请求进行确认。在表示窗体而不是顶级窗口或者标签页上的 Window 对象上执行 close() 方法不会有任何效果，它不能关闭一个窗体&lt;/p&gt;
+
+&lt;p&gt;即使一个窗口关闭了，代表它的 Window 对象 &lt;strong&gt;仍然存在&lt;/strong&gt;。已关闭的窗口会有一个值为 true 的 closed 属性，它的 document 会是 null， 它的方法通常也不会再工作&lt;/p&gt;
+
+&lt;h3 id=&#34;窗体之间的关系&#34;&gt;窗体之间的关系&lt;/h3&gt;
+
+&lt;p&gt;任何窗口中的 JavaScript 代码都可以将自己的窗口引用为 window 或 self。窗体可以用 parent 属性引用包含它的窗口的 Window 对象。如果一个窗口是顶级窗口或标签，那么其 parent 属性引用的就是这个窗口本身：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;parent.history.back();
+parent == self;            // 只有顶级窗口才会返回 true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果一个窗体包含在另一个窗体中，而后者又包含在顶级窗口中，那么该窗体就可以使用 parent.parent 来引用顶级窗口。top 属性是一个通用的快捷方式，无论一个窗体被嵌套几层，它的 top 属性引用的都是指向包含它的顶级窗口。如果一个 Window 对象代表的是一个顶级窗口，那么它的 top 属性就是窗口本身。对于那些顶级窗口的直接子窗体，top 属性就等价于 parent 属性&lt;/p&gt;
+
+&lt;p&gt;parent 和 top 属性允许脚本引用它的窗体的祖先。有不止一种方法可以引用窗口的子孙窗体。窗口是通过 iframe 元素创建的，可以获取其他元素的方法来获取一个表示 iframe 的元素对象，iframe 元素有 contentWindow 属性，引用该窗体的 Window 对象。也可以反向操作，使用 Window 对象的 frameElement 属性来引用被包含的 iframe 元素，对于顶级窗口来说 Window 对象的 frameElement 属性为 null&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 假设页面有一个 id=&amp;quot;f1&amp;quot; 的 iframe 元素
+var iframeElement = document.getElementById(&#39;f1&#39;);
+var iframeWindowObject = iframeElement.contentWindow;
+// 对于 iframe 来说永远是 true
+iframeWindowObject.frameElement === iframeElement
+// 对于顶级窗口来说 frameElement 永远是 null
+window.frameElement === null;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每个 window 上都会有一个 frames 属性，表示当前窗口里面引用的窗口。frames 是个类数组对象，并可以通过数字或者窗体名称（如 iframe name 属性）进行索引。注意 frames 元素引用的是窗口的 Window 对象，而不是 iframe 元素&lt;/p&gt;
+
+&lt;h3 id=&#34;交互窗口中的-javascript&#34;&gt;交互窗口中的 JavaScript&lt;/h3&gt;
+
+&lt;p&gt;每个窗口都是它自身的 JavaScript 执行上下文，以 window 做为全局对象&lt;/p&gt;
+
+&lt;p&gt;设想一个 Web 页面里面有两个 iframe 元素，分别叫「A」和「B」，并假设这些窗体所包含的文档来自于相同的一个服务器，并且包含交互脚本。我们在窗体 A 里的脚本定义了一个变量 i：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var i = 3;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个变量只是全局对象的一个属性，也是 Window 对象的一个属性。窗体 A 中的代码可以用标识符 i 来引用变量，或者用 Window 对象显示地引用这个变量：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;i           // =&amp;gt; 3
+window.i    // =&amp;gt; 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于窗体 B 中的脚本可以引用窗体 A 的 Window 对象，因此它也可以引用那个 Window 对象的属性：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;parent.A.i = 4;             // 修改窗体 A 中的变量
+parent.A.fun();             // 调用 A 窗体中的全局函数
+var s = new parent.Set();   // 甚至可以构造父窗口中的对象
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和用户定义的类不同，内置类（比如 String, Date 和 RegExp）都会在所有的窗口中自动预定义。但是要注意，&lt;strong&gt;每个窗口都有构造函数的一个独立副本和构造函数对应的原型对象的一个独立副本&lt;/strong&gt;。例如，每个窗口都有自己的 String() 构造函数和 String.prototype 对象副本。因此，如果编写一个操作 JavaScript 字符串的新方法，并且通过把它赋值给当前窗口中的 String.prototype 对象而使它成为 String 类的一个方法，那么该窗口中的所有字符串就可以使用这个新方法。但是，&lt;strong&gt;别的窗口中定义的字符串不能使用这个新方法&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -91,7 +1436,278 @@
       <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
 
 &lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
-&lt;/p&gt;</description>
+&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 页面跳转
+window.location = &#39;http://www.oreilly.com/&#39;;
+// 页面圣诞框
+alert(&#39;Hello World&#39;)
+setTimeout(function () { alert(&#39;Hello later World&#39;) }, 1000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;window 对象也是全局对象。可以省略「window.」来调用上面的方法。这意味着 windows 对象牌作用域链的顶部，它的属性和方法实际上是全局变量和全局函数。window 对象有一个引用自己的属性，叫做 window。如果需要引用窗口对象本身可以用这个属性，但是如果只想要引用全局窗口对象的属性，通常并不需要用 window&lt;/p&gt;
+
+&lt;p&gt;windows 对象还定义了很多其他重要的属性、方法和构造函数。其中最重要的一个属性是 document，它引用 Document 对象，后者表示显示在窗口中的文档。document 对象有一些重要方法，比如 getElementById() 获取一个 DOM 元素，它返回一个 Element 对象也有其他重要属性和方法，比如，给元素绑定点击事件 onclick&lt;/p&gt;
+
+&lt;h2 id=&#34;在-html-里嵌入-javascript&#34;&gt;在 HTML 里嵌入 JavaScript&lt;/h2&gt;
+
+&lt;p&gt;在 HTML 里嵌入 客户端 JavaScript 有 4 种方法：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;内联，放置在 &amp;lt;script&amp;gt; 和 &amp;lt;/script&amp;gt; 标签之间&lt;/li&gt;
+&lt;li&gt;外链，放置在由 script 标签的 src 属性指定的外部文件中&lt;/li&gt;
+&lt;li&gt;放置在 HTML 事件处理程序中，该事件处理程序由 onclick 或 on[eventType] 这样的 HTML 属性指定&lt;/li&gt;
+&lt;li&gt;放在一个 URL 里，这个 URL 使用特殊的「javascript:」协议&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!--html 中的事件处理程序--&amp;gt;
+&amp;lt;input type=&amp;quot;checkbox&amp;quot; onchange=&amp;quot;any_javascript_statement&amp;quot; /&amp;gt;
+&amp;lt;!--url 中的javascript--&amp;gt;
+&amp;lt;a href=&amp;quot;javascript: new Date().toLocaleTimeString();&amp;quot;&amp;gt;What time is it?&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用外链 src 文件方式有一些优点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;可以把 JavaScript 代码从 HTML 文件中删除，这有助于保持内容和行为的分离，从而简化 HTML 文件&lt;/li&gt;
+&lt;li&gt;如果多个 Web 页面共用相同的 JavaScript 代码，用 src 属性可以让你只管理一份代码，而不用在代码变更时每个页面都更新&lt;/li&gt;
+&lt;li&gt;如果一个 JavaScript 文件由多个页面共享，就只需要下载一次，以后的页面只要引用过就可以使用缓存检索它&lt;/li&gt;
+&lt;li&gt;src 属性值可以是任意的 URL，因此来自一个 Web 服务器的 JavaScript 程序或 Web 页面可以使用由 &lt;strong&gt;另外一个&lt;/strong&gt; Web 服务器输出的代码，很多广告依赖与些&lt;/li&gt;
+&lt;li&gt;从其它网站载入脚本的能力，可以让我们更好地利用缓存，使用 CDN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;脚本的类型&#34;&gt;脚本的类型&lt;/h3&gt;
+
+&lt;p&gt;script 标签默认的类型「type」是「text/javascript」，如果要使用不标准的脚本语言，如 Microsoft 的 VBScript（只有 IE 支持），就必须用 type 属性指定脚本的 MIME 类型：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script type=&amp;quot;text/vbscript&amp;quot;&amp;gt;
+// 这里是 VBScript 代码
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外很多老的浏览器还支持 language 属性，作用和 type 一样，不过已经废弃了，不应该再使用了&lt;/p&gt;
+
+&lt;p&gt;当 Web 浏览器遇到 &amp;lt;script&amp;gt; 元素，并且这个元素包含其值不之前能点浏览器识别的 type 属性时，它会解析这个元素但不会尝试显示或执行它的内容。这意味着可以使用 &amp;lt;script&amp;gt; 来嵌入任意的文件数据到文档里，比如 &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;handlebars&lt;/a&gt; 模板引擎，通常把模板放在自定义 type 的 script 标签中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script id=&amp;quot;entry-template&amp;quot; type=&amp;quot;text/x-handlebars-template&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;entry&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;{{title}}&amp;lt;/h1&amp;gt;
+        &amp;lt;div class=&amp;quot;body&amp;quot;&amp;gt;
+            {{body}}
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;同步-异步和延迟的脚本&#34;&gt;同步、异步和延迟的脚本&lt;/h3&gt;
+
+&lt;p&gt;JavaScript 第一次添加到 Web 浏览器时，还没有 API 可以用来遍历和操作文档的结构和内容。当文档还在载入时，JavaScript 影响文档内容的唯一方法是使用 document.write() 方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;h1&amp;gt;Table of Factorials&amp;lt;/h1&amp;gt;
+&amp;lt;script&amp;gt;
+function factorial(n) {
+    if ( n &amp;lt;= 1 ) return n;
+    else return n * factorial(n - 1);
+}
+document.write(&#39;&amp;lt;table&amp;gt;&#39;);
+document.write(&#39;&amp;lt;tr&amp;gt;&amp;lt;th&amp;gt;n&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;n!&amp;lt;/th&amp;gt;&amp;lt;/tr&amp;gt;&#39;);
+for (var i = 1; i &amp;lt;= 10; i++) {
+    document.write(&#39;&amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;&#39;+ i +&#39;&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt;&#39;+ factorial(i) +&#39;&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&#39;)
+}
+document.write(&#39;&amp;lt;/table&amp;gt;&#39;);
+document.write(&#39;Generated ad &#39; + new Date());
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当脚本把文本传递给 document.write() 时，这个文本被添加到文档输入流中，HTML 解析器会在当前位置创建一个文本节点，将文本插入这个文本节点后面。我们并不推荐使用 document.write()，但在某些场景下它有很重要的用途。当 HTML 解析器遇到 script 元素时，它默认 &lt;strong&gt;必须先执行脚本&lt;/strong&gt;，然后恢复文档的解析和渲染。这对于内联脚本没什么问题，但如果脚本源代码是一个由 src 属性指定的外部文件，这意味着脚本后面的文档部分在下载和执行脚本之间，都不会出现在浏览器中&lt;/p&gt;
+
+&lt;p&gt;脚本的执行只在默认情况下是同步和阻塞的。script 标签可以有 defer 和 async 属性，这可以改变脚本的执行方式。HTML 5 说这些属性只在和 src 属性联合使用时才有效，但有些浏览器还支持延迟的内联脚本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script src=&amp;quot;a.js&amp;quot; defer&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;b.js&amp;quot; async&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;defer 和 async 属性都在告诉浏览器链接进来的脚本不会使用 document.write()，也不会生成文档内容，因此不蜂鸣器可以在下载脚本时继续解析和渲染文档，defer 属性使得浏览器延迟脚本的执行，直到文档的载入和解析完成，并可以操作。async 属性使得浏览器可以尽快地挂靠脚本，而不用在下载脚本时阻塞文档解析。如果 script 标签同时有两个属性，同时支持两者的浏览器会 &lt;strong&gt;遵从 async 属性并忽略 defer 属性&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;注意，延迟的脚本会按它们在文档里的 &lt;strong&gt;出现顺序执行&lt;/strong&gt;。而异步脚本在它们载入后执行，这意味着它们可能会 &lt;strong&gt;无序执行&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;事件驱动的-javascript&#34;&gt;事件驱动的 JavaScript&lt;/h3&gt;
+
+&lt;p&gt;上面的打印斐波那契数列程序在页面载入时开始挂靠，生成一些输出，这种程序今天已经不沉凶了。通常我们使用注册事件处理程序函数来写程序。之后在注册的事件发生时 &lt;strong&gt;异步&lt;/strong&gt; 调用这些函数。&lt;/p&gt;
+
+&lt;p&gt;事件都有名字，比如 click, change, load, mouseover, keypress, readystatechange 等，如果想要程序响应一个事件，就需要注册一个事件处理函数&lt;/p&gt;
+
+&lt;p&gt;事件处理程序的属性名字一般都以「on」开始，后面跟着事件的名字。大部分浏览器中的事件会把一个对象传递给事件处理程序作为参数，那个对象的属性提供了事件的详细信息。比如，传递给点击事件的对象，会有一个属性说明鼠标的哪个按钮被点击了。（在 IE 里，这些事件信息被存储在全局 event 对象里，而不是传给处理程序的函数）&lt;/p&gt;
+
+&lt;p&gt;有些事件的目标是文档元素，它们会经常往上传递事件给文档树。这个过程叫做「&lt;strong&gt;冒泡&lt;/strong&gt;」&lt;/p&gt;
+
+&lt;p&gt;关于事件传播顺序可以参考 ppk 的 &lt;a href=&#34;http://www.quirksmode.org/js/events_order.html&#34;&gt;这篇文章&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;客户端-javascript-线程模型&#34;&gt;客户端 JavaScript 线程模型&lt;/h3&gt;
+
+&lt;p&gt;JavaScript 语言核心并不包含任何线程机制，并且客户端 JavaScript 传统上也没有定义任何线程机制。HTML 5 定义了一种作为后台线程的「WebWorker」，但是客户端 JavaScript 还像严格的单线程一样工作。甚至当可能并发执行的时候，客户端 JavaScript 也不会知道是否真的的有并行逻辑执行&lt;/p&gt;
+
+&lt;p&gt;单线程执行是𧫂让编程更加简单。编写代码时可以确保两个事件处理程序不会同一时刻运行，操作文档的内容时也不必操心会有其它线程试图同时修改应该没配，并且永远不需要在写 JavaScript 代码的时候操心锁、死锁和竟态条件（race condition）&lt;/p&gt;
+
+&lt;p&gt;单线程执行意味着浏览器 &lt;strong&gt;必须在脚本和事件处理程序运行的时候停止响应用户输入&lt;/strong&gt;。这为 JavaScript 程序员带来了负担，它意味着 JavaScript 脚本和事件处理程序不能运行太长时间。如果一个脚本执行 &lt;strong&gt;计算密集&lt;/strong&gt; 的任务，它将会使文档载入带来延迟，用户无法在脚本执行完成前看到内容。浏览器可能变得无法响应甚至崩溃&lt;/p&gt;
+
+&lt;h3 id=&#34;客户端-javascript-时间线&#34;&gt;客户端 JavaScript 时间线&lt;/h3&gt;
+
+&lt;p&gt;JavaScript 程序执行的时间线&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Web 浏览器创建 Document 对象，并且开始解析 Web 页面，解析 HTML 元素和它们的文本内容后添加 Element 对象和 Text 节点到文档中。在这个阶段 document.readystate 属性的值是「loading」&lt;/li&gt;
+&lt;li&gt;当 HTML 解析器遇到没有 async 和 defer 属性的 script 元素时，它把这些元素添加到文档中，然后执行内或外部脚本。这些脚本会同步执行，并且在脚本下载和执行时解析器会暂停。这样脚本就可以用 document.write() 来把文本插入到输入流中。解析器恢复时这些文本会成为文档的一部分。同步脚本经常简单定义函数和注册后面使用的注册事件处理程序，但它们可以遍历和操作文档树，因为在它们执行时已经存在了。这样，同步脚本可以看到它自己的 script 元素和它们之前的文档内容&lt;/li&gt;
+&lt;li&gt;当解析器遇到设置了 async 属性的 script 元素时，它开始下载脚本文本，并继续解析文档。脚本会在它下载完成后尽快执行，但是解析器没有停下来等它下载。异步脚本禁止使用 document.write() 方法。它们可以看到自己的 script 元素和它之前的所有文档元素，并且可能或干脆不可能访问其它的文档内容&lt;/li&gt;
+&lt;li&gt;当文档完成解析，document.readyState 属性变成「interactive」&lt;/li&gt;
+&lt;li&gt;所有有 defer 属性的脚本，会按它们在文档里出现的顺序执行。异步脚本可能也会在这个时间执行。延迟脚本能访问完整的文档树，禁止使用 document.write() 方法&lt;/li&gt;
+&lt;li&gt;浏览器在 Document 对象上触发 DOMContentLoaded 事件。这标志着程序执行 &lt;strong&gt;从同步脚本执行阶段转换到了异步事件驱动阶段&lt;/strong&gt;。但要注意，这时可能还胡异步脚本没有执行完成&lt;/li&gt;
+&lt;li&gt;这时，文档已经完全解析完成，但是浏览器可能还在等待其它内容载入，如图片。当所有这些内容完成时，并且所有异步脚本完成载入和执行，document.readyState 属性改变为「complete」，Web 浏览器触发 window 对象上的 load 事件&lt;/li&gt;
+&lt;li&gt;从此刻起，会调用异步事件，以异步响应用户输入事件、网络事件、计时器过期等&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;这是一条理想的时间线，但是所有浏览器都没支持它的全部细节，所有浏览器普遍都支持 load 事件，都会触发它，它是决定文档完全载入并可以操作最通用的技术，除了 IE 之外，document.readyState 属性已被大部分浏览器实现，但是属性的值在浏览器之间有细微的差别&lt;/p&gt;
+
+&lt;h2 id=&#34;兼容性和互用性&#34;&gt;兼容性和互用性&lt;/h2&gt;
+
+&lt;p&gt;客户端 JavaScript 兼容性和互用性的问题可以归纳为以下三类：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;演化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Web 平台一直在演变和发展当中。一个标准规范会倡导一个新的特性或 API。如果特性看起来有用，浏览器开发商实现它。如果足够多的开发商实现，开发者开始试用这个特性。有时新浏览器支持一些特性老的却不支持&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;未实现&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;比如，IE 8 不支持 convas 元素，虽然其它浏览器已经实现了它。IE 也没有对 DOM Level 2 Event 规范实现，即使这个规范在十年前就是标准化了&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;bug&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;每个浏览器都有 bug，并且没有按照规范准确地实现所有客户端 JavaScript API。有时候编写能兼容各个浏览器的 JavaScript 程序是个很麻烦的工作，必须要研究各种浏览器的兼容性问题&lt;/p&gt;
+
+&lt;h3 id=&#34;处理兼容性问题的类库&#34;&gt;处理兼容性问题的类库&lt;/h3&gt;
+
+&lt;p&gt;比如有的浏览器客户端不支持 canvas 元素，可以使用开源的「explorer canvas」项目，引用 excanvas.js 即可模拟 canvas 元素的功能&lt;/p&gt;
+
+&lt;h3 id=&#34;分级浏览器支持&#34;&gt;分级浏览器支持&lt;/h3&gt;
+
+&lt;p&gt;分级浏览器支持（graded browser support）是由 Yahoo! 率先提出的一种测试技术。从某种维度对浏览器厂商/版本/操作系统进行分级。根据分级来确定哪些特性在哪些浏览器需要支持的程度&lt;/p&gt;
+
+&lt;h3 id=&#34;功能测试&#34;&gt;功能测试&lt;/h3&gt;
+
+&lt;p&gt;功能测试（capability testing）是解决不兼容性问题的一种技术。比如添加事件 API，在标准浏览器里面是 addEventListener 而低版浏览器里面是 attachEvent，我们就可以通过特性检测来给一个添加事件的公共方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script&amp;gt;
+if (element.addEventListener) {
+    element.addEventListener(&amp;quot;keydown&amp;quot;, handler, false);
+} else if (element.attachEvent) {
+    element.attachEvent(&amp;quot;keydown&amp;quot;, handler);
+} else {
+    element.onkeydown = handler
+}
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;怪异模式和标准模式&#34;&gt;怪异模式和标准模式&lt;/h3&gt;
+
+&lt;p&gt;doctype 可以触发浏览器的渲染模式，IE 浏览器有怪异模式，可以通过 document.compatMode 属性判断是否是标准模式。如果返回值为「CSS1Compat」则说明浏览器工作在标准模式；如果值是「BackCompat」或者 「undefined」则说明工作在怪异模式&lt;/p&gt;
+
+&lt;h3 id=&#34;浏览器测试&#34;&gt;浏览器测试&lt;/h3&gt;
+
+&lt;p&gt;通常我们用功能测试来处理兼容性问题，但有时候可能需要在某种浏览器中解决个别的 bug，同时又没有可用的特性 API，这里只能通过判断浏览器来做兼容性处理，通常可以使用浏览器 UA（user agent）来解析浏览器版本、类型等&lt;/p&gt;
+
+&lt;h3 id=&#34;ie-里的条件注释&#34;&gt;IE 里的条件注释&lt;/h3&gt;
+
+&lt;p&gt;IE 浏览器中可以通过在 HTML 中添加特殊的注释来告诉浏览器代码在哪个浏览器中作用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!--[if IE 6]&amp;gt;
+这里面的内容只会显示在 IE 6 浏览器中
+&amp;lt;![endif]--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;IE 的 JavaScript 解释器也支持条件注释，以文本 &lt;code&gt;/*@cc_on&lt;/code&gt; 开头，以文本 &lt;code&gt;@*/&lt;/code&gt;结束。下面的条件注释包含了只在 IE 中执行的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;lt;script&amp;gt;&amp;lt;!--忽略 script 标签系统解析有问题--&amp;gt;
+/*@cc_on
+ @if (@_jscript)
+    alert(&amp;quot;in IE&amp;quot;)
+ @end
+ @*/
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;安全性&#34;&gt;安全性&lt;/h2&gt;
+
+&lt;h3 id=&#34;javascript-不能做什么&#34;&gt;JavaScript 不能做什么&lt;/h3&gt;
+
+&lt;p&gt;Web 浏览器针对恶意代码的第一条防线就是它们不支持某些功能。例如，客户端的 JavaScript 没有权限来写入或删除计算机上的文件/目录，这意味着 JavaScript 不能删除数据或者植入病毒&lt;/p&gt;
+
+&lt;p&gt;类似地，客户端 JavaScript 没有任何通用的网络能力。HTML 5 有一个附属标准叫 WebSockets 定义了一个类套接字的 API，用于和指定的服务器通信。但是这些 API 都不允许对于范围更广的网络进行直接访问&lt;/p&gt;
+
+&lt;p&gt;浏览器针对恶意代码的第二条防线是在自己支持的某些功能上施加限制。比如：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;JavaScript 程序可以打开一个新的浏览器窗口，但是为了防止广告商滥用弹出窗口，很多浏览器限制了这一功能，使得只有为了响应鼠标单击这样的用户触发事件的时候，才能用它&lt;/li&gt;
+&lt;li&gt;JavaScript 程序可以关闭 &lt;strong&gt;自己打开的&lt;/strong&gt; 浏览器窗口，但是不允许不经过用户确认就关闭其它窗口&lt;/li&gt;
+&lt;li&gt;HTML FileUpload 元素的 value 属性是只读的。如果可以设置这个属性，脚本就能设置它为任意期望的文件名，从而导致表单上传指定的文件（比如密码文件）内容到服务器&lt;/li&gt;
+&lt;li&gt;脚本不能读取从不同服务器载入的文档内容，除非这个就是包含该脚本的文档。类似地，一个脚本不能在来自不同服务器的文档上注册事件监听器。这就防止脚本窃取其他页面的用户输入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;同源策略&#34;&gt;同源策略&lt;/h3&gt;
+
+&lt;p&gt;同源策略是对 JavaScript 代码能够操作哪些 Web 内容的一条完整的安全限制。当 Web 页面使用多个 iframe 元素或者打开其它浏览器窗口的时候，这一策略通常就会发挥作用。在这情况下，同源策略负责管理窗口或窗体中的 JavaScript 代码以及和其它窗口或帧的交互&lt;/p&gt;
+
+&lt;p&gt;文档的来源包含协议、主机、以及载入文档的 URL 商品。从不同 Web 服务器载入的文档具有不同的来源。通过同一主机不同商品载入的文档具有不同来源。使用 &lt;code&gt;http:&lt;/code&gt; 协议载入的文档和使用 &lt;code&gt;https:&lt;/code&gt; 协议载入的文档具有不同的来源，&lt;strong&gt;即使它们来自同一个服务器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;脚本本身的来源和同源策略并不相关&lt;/strong&gt;，相关的是脚本所嵌入文档的来源。例如，来自主机 A 的脚本被包含到宿主 B 的一个 Web 页面中。这个脚本的 &lt;strong&gt;来源（origin）&lt;/strong&gt; 是主机 B，并且可以完整地访问包含它的文档的内容。如果脚本打开一个新的窗口并载入来自主机 B 的另一个文档，脚本对这个文档的内容也具有完全的访问权限。但是如果脚本打开第三个窗口并载入一个来自主机 C 的文档（或者来自主机 A），同源策略就会发挥作用，阻止脚本访问这个文档&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A 页面包含一个 B 脚本，B 脚本对 A 页面有完全的访问权限，如果 B 脚本控制打开一个 A 服务器上另外一个页面 C，那么脚本也可以访问这个 C 页面，如果 B 脚本控制打开了一个 D 页面，这时就会触发同源策略，即 B 脚本不可以访问 D 页面，&lt;strong&gt;因为 A 和 C 同源，A 和 D 不同源&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;不严格的同源策略&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在某些情况下，同源策略就显得太过严格了，常常表现在多个子域名站点的场景中。比如：来自 A.yourdomain.com 的文档里脚本无法直接读取 B.yourdomain.com 页面的文档，不过可以通过设置 document.domain 为同一个主域来获取访问权限，即给两个域名下的页面都设置 &lt;code&gt;document.domain=&amp;quot;yourdomain.com&amp;quot;&lt;/code&gt;，这样以来两个文档就有了同源性可以相互访问&lt;/p&gt;
+
+&lt;p&gt;还有一项已经标准化的技术：&lt;strong&gt;跨域资源共享&lt;/strong&gt;（Cross-Origin Resource Sharing）这个标准草案用新的「Origin:」请求头和新的 Access-Control-Allow-Origin 响应头来扩展 HTTP，它允许服务器用头信息显式地列出源，或使用能本符来匹配所有的源并允许由任何地址请求文件，这样就可以实现跨域的 HTTP 请求， XMLHttpRequest 也不会被同源策略所限制了&lt;/p&gt;
+
+&lt;p&gt;还有一种新技术，叫做跨文档消息（cross-document messaging），允许来自一个文档的脚本可以传递文本消息到另一个文档的脚本，而不管脚本的来源是否不同。调用 window 对象上的 postMessage() 方法，可以异步传递消息事件&lt;/p&gt;
+
+&lt;h3 id=&#34;跨站脚本&#34;&gt;跨站脚本&lt;/h3&gt;
+
+&lt;p&gt;跨站脚本（Cross-site scripting），或者叫 XXS，这个术语表示一类安全问题。攻击者向目标 Web 站点注入 HTML 标签或者脚本&lt;/p&gt;
+
+&lt;p&gt;如果 Web 页面动态地产生文档内容，并且这些文档内容是用户提交的，如果没有过滤用户提交内容的话，这个页面很容易遭到跨站脚本攻击，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script&amp;gt;
+var name = decodeURIComponent(window.location.search.substring(1) || &amp;quot;&amp;quot;);
+document.write(&amp;quot;hello &amp;quot; + name)
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当页面的 url 被手动拼成恶意参数提交时就会产生 XXS 攻击，比如：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://example.com/greet.html?%3Cscript%3Ealert(%22XXS%20attack%22)%3C%2Fscript%3E&#34;&gt;http://example.com/greet.html?%3Cscript%3Ealert(%22XXS%20attack%22)%3C%2Fscript%3E&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;打开这个 url 就会弹出「XXS attack」，解决办法通过是对接收参数进行标签屏蔽&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script&amp;gt;
+name = name.replace(/&amp;lt;/g, &amp;quot;&amp;amp;lt;&amp;quot;).replace(/&amp;gt;/g, &amp;quot;&amp;amp;gt;&amp;quot;);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;客户端框架&#34;&gt;客户端框架&lt;/h2&gt;
+
+&lt;p&gt;从某种意义上讲类库也是框架，它们对 Web 浏览器提供的标准和专用 API 进行封闭，向上提供更高级别的 API，用以更高效地进行客户端编程开发。一但使用就要用框架定义的 API 来写代码，后面有专门的章节讲 jQuery，除了这个常用的类库还有一些其它广泛使用的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://prototypejs.org/&#34;&gt;Prototype&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dojotoolkit.org/&#34;&gt;Dojo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://yuilibrary.com/&#34;&gt;YUI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/closure/&#34;&gt;Closure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.gwtproject.org/&#34;&gt;GWT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -102,7 +1718,86 @@
       <guid>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</guid>
       <description>&lt;h2 id=&#34;用-node-实现异步-i-o&#34;&gt;用 Node 实现异步 I/O&lt;/h2&gt;
 
-&lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;</description>
+&lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;
+
+&lt;p&gt;
+Node 在其全局对象中实现了所有标准的 ECMAScript 5 构造函数、属性和函数。除此之外，它也支持客户端講器函数集 setTimeout(), setInterval()&lt;/p&gt;
+
+&lt;p&gt;Node 在 process 名字空间中定义了其它重要的 &lt;strong&gt;全局&lt;/strong&gt; 属性：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;process.version         // Node 的版本字符串信息
+process.argv            // &#39;node&#39; 命令行数组参数，argv[0] 是 &amp;quot;node&amp;quot;
+process.pid             // 进程 id
+process.getuid()        // 返回用户 id
+process.cwd()           // 返回当前的工作目录
+process.chdir()         // 改变当目录
+process.exit()          // 退出
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在有的情况下，可以使用 Node 的事件机制。Node 对象产生事件（称为事件触发器(event emitter)），定义 on() 方法来注册处理程序。当传入参数时，将事件类型（一个字符串）作为第一参数，处理程序函数作为第二参数。不同的事件类型传递给处理程序函数的参数不同：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;emitter.on(name, f)
+emitter.addListener(name, f)
+emitter.once(name, f)
+emitter.removeListener(name, f)
+emitter.removeListeners(name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的 process 全局对象也是一个事件触发器，它继承了 EventEmitter 类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;process.on(&#39;exit&#39;, function () { console.log(&#39;Goodbye&#39;); });
+process.on(&#39;uncaughException&#39;, function (e) { console.log(Exception, e); });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Node 的文件和文件系统 API 位于「fs」模块中，这个模块提供了大部分方法的「同步版本」。任何名字以「Sync」结尾的方法都是一个 &lt;strong&gt;阻塞方法&lt;/strong&gt;，它返回一个值或抛出一个异常，不以「Sync」结尾的文件系统方法都是非阻塞的，它们会把结果或者错误传给指定的回调函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 同步读取文件，指定编码获取文本而不是字节
+var text = fs.readFileSync(&#39;config.json&#39;, &#39;utf8&#39;);
+// 异步读取二进制文件，通过传递函数获得数据
+fs.readFile(&#39;image.png&#39;, function (err, buffer) {
+    if (err) throw err;
+    process(buffer);
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;类似地，存在用来写文件的 writeFile() 和 writeFileSync() 函数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;fs.writeFile(&#39;config.json&#39;, JSON.stringify(json))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;「net」模块是用于基于 TCP 网络的 API，下面是 Node 中一个非常简单的 TCP 服务器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var net = require(&#39;net&#39;);
+var server = net.createServer();
+server.listen(2000, function() { console.log(&#39;Listening on port 2000&#39;); });
+server.on(&#39;connection&#39;, function (stream) {
+    console.log(&#39;Accepting connection from&#39;, stream.remoteAddress);
+    stream.on(&#39;data&#39;, function (data) {
+        stream.write(data)
+    });
+    stream.on(&#39;end&#39;, function(data) {
+        console.log(&#39;Connection closed&#39;);
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;node-示例-http-服务器&#34;&gt;Node 示例：HTTP 服务器&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var http = require(&#39;http&#39;);
+
+var hostname = &#39;127.0.0.1&#39;;
+var port = 3000;
+
+var server = http.createServer(function(req, res) {
+    res.statusCode = 200;
+    res.setHeader(&#39;Content-Type&#39;, &#39;text/plain&#39;);
+    res.end(&#39;Hello World\n&#39;);
+});
+
+server.listen(port, hostname, function() {
+    console.log(&#39;Server running at http://$s:%s/&#39;, hostname, port);
+});
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -113,7 +1808,389 @@
       <guid>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</guid>
       <description>&lt;p&gt;正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;正则表达式的定义&#34;&gt;正则表达式的定义&lt;/h2&gt;
+
+&lt;p&gt;JavaScript 中的正则表达式用 RegExp 对象表示，可以使用 RegExp() 构造函数来创建 RegExp 对象，不过也可以通过两个双斜杠「/reg/」以正则直接量的形式创建&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /s$/;             // 通过直接量创建
+var pattern = new RegExp(&#39;s$&#39;); // 通过构造函数创建
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;直接量字符&#34;&gt;直接量字符&lt;/h3&gt;
+
+&lt;p&gt;JavaScript 正则表达式语法也支持非字母的字符匹配，这些字符需要通过反斜线（\）作为前缀进行转义&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;表10-1&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字符&lt;/th&gt;
+&lt;th&gt;匹配&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;字母和数字&lt;/td&gt;
+&lt;td&gt;自身&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\0&lt;/td&gt;
+&lt;td&gt;NUL 字符（\u0000）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\t&lt;/td&gt;
+&lt;td&gt;制表符（\u0009）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\n&lt;/td&gt;
+&lt;td&gt;换行符（\u000A）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\v&lt;/td&gt;
+&lt;td&gt;垂直制表符（\u000B）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\f&lt;/td&gt;
+&lt;td&gt;换页符（\u000C）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\r&lt;/td&gt;
+&lt;td&gt;回车符（\u000D）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\xnn&lt;/td&gt;
+&lt;td&gt;由十六进制数 nn 指定的拉丁字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\uxxxx&lt;/td&gt;
+&lt;td&gt;由十六进制数 xxxx 指定的 unicode 字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\cX&lt;/td&gt;
+&lt;td&gt;控制字符 ^x&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;正则表达式中，许多标点符号也具有特殊含义，它们是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;^ $ . * + ? = ! : | \ / ( ) { }&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;字符类&#34;&gt;字符类&lt;/h3&gt;
+
+&lt;p&gt;将直接量字符单独放进方括号内组成了字符类（charactor class）&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;表10-2&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字符&lt;/th&gt;
+&lt;th&gt;匹配&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;[&amp;hellip;]&lt;/td&gt;
+&lt;td&gt;方括号内的任意字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;[^&amp;hellip;]&lt;/td&gt;
+&lt;td&gt;不在方括号内的任意字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;.&lt;/td&gt;
+&lt;td&gt;除换行符和其它 Unicode 行终止符之外的任意字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\w&lt;/td&gt;
+&lt;td&gt;任何 ASCII 字符组成的单词，等价于 [a-zA-Z0-9]&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\W&lt;/td&gt;
+&lt;td&gt;任何不是 ASCII 字符组成的单词，等价于 [^a-zA-Z0-9]&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\s&lt;/td&gt;
+&lt;td&gt;任何 Unicode 空白符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\S&lt;/td&gt;
+&lt;td&gt;任何非 Unicode 空白符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\d&lt;/td&gt;
+&lt;td&gt;任何 ASCII 数字，等价于 [0-9]&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\D&lt;/td&gt;
+&lt;td&gt;任何非 ASCII 数字，等价于 [^0-9]&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;[\b]&lt;/td&gt;
+&lt;td&gt;退格直接量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;重复&#34;&gt;重复&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;表10-3&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;{n, m}&lt;/td&gt;
+&lt;td&gt;匹配前一项至少 n 次，但不能超过 m 次&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;{n,}&lt;/td&gt;
+&lt;td&gt;匹配前一项 n 次或者更多次&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;{n}&lt;/td&gt;
+&lt;td&gt;匹配前一项 n 次&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;?&lt;/td&gt;
+&lt;td&gt;匹配前一项 0 次或者 1 次，也就是说前一项是可选的，等价于 {0,1}&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;匹配前一项 1 次或者多次，等价于 {1,}&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;td&gt;匹配前一项 0 次或者多次，等价于{0,}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;举例说明：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/\d{2,4}/           // 匹配 2 ~ 4 个数字
+/\w{3}\d?/          // 匹配三个单词和一个可选的数字
+/\s+java\s+/        // 匹配前后带有一个或者多个空白字符串 &amp;quot;java&amp;quot;
+/[^(]*/             // 匹配一个或多个非左括号字符
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;非贪婪的重复&#34;&gt;非贪婪的重复&lt;/h4&gt;
+
+&lt;p&gt;表10-3 中列出一匹配重复字符是尽可能多地匹配，而且允许后续的正则表达式继续匹配。因此，我们称之为「&lt;strong&gt;贪婪的&lt;/strong&gt;」匹配。我们同样可以使用正则表达式进行非贪婪匹配。只需在特匹配的字符后跟随一个问题即可：「??」、「+?」、「*?」或「{1,5}?」&lt;/p&gt;
+
+&lt;h3 id=&#34;选择-分级和引用&#34;&gt;选择、分级和引用&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;表10-4&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;|&lt;/td&gt;
+&lt;td&gt;选择，匹配的是该符号左边的子表达式或者右边的子表达式&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;(&amp;hellip;)&lt;/td&gt;
+&lt;td&gt;组合，将几个项组合为一个单元，这个单元可通过「*」、「+」、「?」和「|」等符号&lt;br&gt;加以修饰，而且可以记住和这个组合相匹配的字符串&lt;br&gt;以供此后的引用使用&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;(?:&amp;hellip;)&lt;/td&gt;
+&lt;td&gt;只组合，把项组合到一个单元，但不记忆与该组想匹配的字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\n&lt;/td&gt;
+&lt;td&gt;和第 n 个分级第一次匹配的字符相匹配，组是圆括号中的子表达式&lt;br&gt;（也有可能是嵌套的），组索引是从左到右的左括号数，&lt;br&gt;「(?:」形式的分组不编码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;指定匹配位置&#34;&gt;指定匹配位置&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;表10-5&lt;/em&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;^&lt;/td&gt;
+&lt;td&gt;匹配字符串的开头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$&lt;/td&gt;
+&lt;td&gt;匹配字符串的结尾&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\b&lt;/td&gt;
+&lt;td&gt;匹配一个单词的边界&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;\B&lt;/td&gt;
+&lt;td&gt;匹配非单词边界的位置&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;(?=p)&lt;/td&gt;
+&lt;td&gt;零宽正向先行断言，要求接下来的字符都与 p 匹配，但不能包括匹配 p 的那些字符&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;(?!p)&lt;/td&gt;
+&lt;td&gt;零宽负向先行断言，要求接下来的字符都不与 p 匹配&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;标识&#34;&gt;标识&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;/reg/flag&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;标识是放在斜扛右边的，通常有 i, g, m 三种&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;i 执行不区分大小写的匹配&lt;/li&gt;
+&lt;li&gt;g 执行一个全局匹配，即 找到所有的匹配，而不是找到第一个就停止&lt;/li&gt;
+&lt;li&gt;m 多行匹配模式&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;用于模式匹配的-string-方法&#34;&gt;用于模式匹配的 string 方法&lt;/h2&gt;
+
+&lt;p&gt;String 支持 4 种使用正则表达式的方法&lt;/p&gt;
+
+&lt;h3 id=&#34;string-prototype-search&#34;&gt;String.prototype.search()&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search&#34;&gt;search()&lt;/a&gt; 方法返回第一个与之匹配的子串起始位置，如果找不到匹配的子串，它将返回 -1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;JavaScript&amp;quot;.search(/script/i);         // =&amp;gt; 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 search() 参数不是正则表达式，则首先会 &lt;strong&gt;通过 RegExp 构造函数将它转换成正则表达式&lt;/strong&gt;，search() 方法不支持全局检索，因为它 &lt;strong&gt;忽略&lt;/strong&gt; 正则表达式参数中的标识 g&lt;/p&gt;
+
+&lt;h3 id=&#34;string-prototype-replace&#34;&gt;String.prototype.replace()&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;str.replace(regexp|substr, newSubStr|function)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace&#34;&gt;replace()&lt;/a&gt; 方法用以执行检索与替换操作，正则表达式如果带标识 g，则会替换所有匹配子串&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 将所有不区分大小写的 javascript 都替换成 JavaScript
+text.replace(/javascript/gi);
+
+// 用中文引号替换英文应该引号，同时要保持引号之间的内容（存储在 $1 中）没有被修改
+var quote = /&amp;quot;([^&amp;quot;]*)&amp;quot;/g;
+text.replace(quote, &#39;“$1”&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;string-prototype-match&#34;&gt;String.prototype.match()&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match&#34;&gt;match()&lt;/a&gt; 方法返回一个由匹配结果组成的数组，如果没有标识全局搜索，match() 只检索第一个匹配&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;quot;1 plus 2 equals 3&amp;quot;.match(/\d+/g);  // =&amp;gt; [&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;regexp-对象&#34;&gt;RegExp 对象&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;RegExp(pattern [, flags])&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;RegExp 构造函数一般用在动态创建正则表达式的时候，这种情况往往没办法通过写死在代码中的正则直接量来实现，比如检索字符串是用户输出的&lt;/p&gt;
+
+&lt;h3 id=&#34;regexp-的属性&#34;&gt;RegExp 的属性&lt;/h3&gt;
+
+&lt;p&gt;每个 RegExp 对象都包含 5 个属性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;source 只读字符串，包含正则表达式的文本&lt;/li&gt;
+&lt;li&gt;global 只读布尔值，说明正则表达式是否带全局标识 g&lt;/li&gt;
+&lt;li&gt;ignoreCase 也是一个只读布尔值，说明正则表达式是否带标识 i&lt;/li&gt;
+&lt;li&gt;multiline 也是一个只读布尔值，说明正则表达式是否带标识 m&lt;/li&gt;
+&lt;li&gt;lastIndex 它是一个可读/写的整数。如果匹配模式带有 g 标识，这个属性存储在整个字符串中下一次检索的开始位置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;regexp-的方法&#34;&gt;RegExp 的方法&lt;/h3&gt;
+
+&lt;h4 id=&#34;exec&#34;&gt;exec()&lt;/h4&gt;
+
+&lt;p&gt;exec() 对一个指定的字符串执行一个正则表达式，如果没有找到任何匹配，它就返回 null，但如果它找到一个匹配，将返回一个数组&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /Java/g;
+var text = &amp;quot;JavaScript is more fun than Java!&amp;quot;;
+var result;
+while((result = pattern.exec(text)) != null) {
+    console.log(&amp;quot;Matched &#39;%s&#39; at position &#39;%s&#39;; next search begins at %s&amp;quot;,
+        result[0],
+        result.index,
+        pattern.lastIndex);
+}
+// Matched &#39;Java&#39; at position &#39;0&#39;; next search begins at 4
+// Matched &#39;Java&#39; at position &#39;28&#39;; next search begins at 32
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;test&#34;&gt;test()&lt;/h4&gt;
+
+&lt;p&gt;test() 对方法转入字符串进行检测，匹配到结果返回 true，否则返回 false&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /java/i;
+pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -124,121 +2201,331 @@
       <guid>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</guid>
       <description>&lt;p&gt;每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 8 - 函数</title>
-      <link>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</link>
-      <pubDate>Wed, 29 Jun 2016 20:22:22 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</guid>
-      <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 5 - 语句</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</guid>
-      <description>&lt;p&gt;表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生&lt;/p&gt;
+&lt;p&gt;JavaScript 中类的一个重要特性是「&lt;strong&gt;动态可继承&lt;/strong&gt;」（dynamically extendable），我们可以将类看做是类型，本章会介绍一种编程哲学 —— 「&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B&#34;&gt;&lt;strong&gt;鸭子类型&lt;/strong&gt;&lt;/a&gt;」（duck-typing），它弱化了对象的类型，强化了对象的功能&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 6 - 对象</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</guid>
-      <description>&lt;p&gt;对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 &lt;strong&gt;原型&lt;/strong&gt; 的对象继承属性&lt;/p&gt;
+&lt;h2 id=&#34;类和原型&#34;&gt;类和原型&lt;/h2&gt;
 
-&lt;p&gt;JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象&lt;/p&gt;
+&lt;p&gt;在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在之前的 &lt;a href=&#34;https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/#TOC-4&#34;&gt;章节&lt;/a&gt; 里定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象&lt;/p&gt;
 
-&lt;p&gt;对象是可变的，通过引用操作对象原对象也会受到影响
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 7 - 数组</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</guid>
-      <description>&lt;p&gt;数组是值的 &lt;strong&gt;有序集合&lt;/strong&gt;。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 一个简单的实现表示值的范围的类
+function range(from, to) {
+    var r = inherit(range.methods);
 
-&lt;p&gt;JavaScript 数组是 &lt;strong&gt;动态的&lt;/strong&gt;，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小&lt;/p&gt;
+    r.from = from;
+    r.to = to;
+    return r;
+}
+range.methods = {
+    includes: function(x) {
+        return this.from &amp;lt;= x &amp;amp;&amp;amp; x &amp;lt;= this.to;
+    },
+    foreach: function (f) {
+        for (var x = Math.ceil(this.from); x &amp;lt;= this.to; x++) f(x);
+    }
+    toString: function() {
+        return &amp;quot;(&amp;quot; + this.from + &amp;quot;...&amp;quot; + this.to + &amp;quot;)&amp;quot;;
+    }
+}
+var r = range(1, 3);
+r.includes(2)           // =&amp;gt; true
+r.foreach(console.log)
+// =&amp;gt; 1
+// =&amp;gt; 2
+// =&amp;gt; 3
+console.log(r);         // =&amp;gt; (1...3)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;JavaScript 数组可能是 &lt;strong&gt;稀疏的&lt;/strong&gt;，数组元素索引不一定要连续&lt;/p&gt;
+&lt;p&gt;这段代码定义了一个工厂方法 range()，用来创建新的范围对象。range.methods 属性用来快捷地存放定义类的原型对象。range() 函数给每个范围对象都定义了 from 和 to 属性，用以定义范围的起始和结束位置，这两个属性是 &lt;strong&gt;非共享&lt;/strong&gt; 的，当然也是不可继承的。&lt;/p&gt;
 
-&lt;p&gt;JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 &lt;strong&gt;快很多&lt;/strong&gt;
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</title>
-      <link>https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</link>
-      <pubDate>Mon, 20 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</guid>
-      <description>&lt;p&gt;表达式（expression）是 JavaScript 中的一个短语（phrases），JavaScript 解释器会将其计算（evaluate）出一个结果。程序中的常量、变量名、数组访问等都是表达式&lt;/p&gt;
+&lt;h2 id=&#34;类和构造函数&#34;&gt;类和构造函数&lt;/h2&gt;
 
-&lt;p&gt;简单表达式组合成复杂表达式最常用的方法就是使用运算符（operator）&lt;/p&gt;
+&lt;p&gt;上节中展示了定义类的一种方法，但是这种方法并不常用，它没定义构造函数。构造函数是用来初始化新创建的对象的。调用构造函数的一个重要特征是，构造函数的 prototype 属性被用做新对象的原型。这意味着 &lt;strong&gt;通过同一个构造函数创建的所有对象都继承自一个相同的对象&lt;/strong&gt;，因此它们都是同一个类的成员&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 1 - 简介</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《&lt;a href=&#34;https://book.douban.com/subject/10549733/&#34;&gt;JavaScript 权威指南&lt;/a&gt;》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 &lt;a href=&#34;http://shop.oreilly.com/product/9780596805531.do&#34;&gt;JavaScript The Definitive Guide&lt;/a&gt;，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;例9-2&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;中文排版指南遵守 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines&#34;&gt;中文文案排版指北&lt;/a&gt;，欢迎批评批正&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Range(from, to) {
+    this.from = from;
+    this.to = to;
+}
+Range.prototype = {
+    includes: function(x) {
+        return this.from &amp;lt;= x &amp;amp;&amp;amp; x &amp;lt;= this.to;
+    },
+    foreach: function (f) {
+        for (var x = Math.ceil(this.from); x &amp;lt;= this.to; x++) f(x);
+    }
+    toString: function() {
+        return &amp;quot;(&amp;quot; + this.from + &amp;quot;...&amp;quot; + this.to + &amp;quot;)&amp;quot;;
+    }
+};
+var r = new Range(1, 3)
+r.includes(2)       // =&amp;gt; true
+r.foreach(console.log)
+// =&amp;gt; 1
+// =&amp;gt; 2
+// =&amp;gt; 3
+console.log(r);    // =&amp;gt; &amp;quot;(1...3)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从某种意义上讲，定义构造函数既是定义类，并且 &lt;strong&gt;类名首字母要大写&lt;/strong&gt;，而普通普通的函数和方法都是首字母小写，Range() 构造函数是通过 new 关键字调用的，而在上一节的工厂函数则不必使用 new。通过 new 调用不必再用  inherit 来创建对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个对象&lt;/p&gt;
+
+&lt;h3 id=&#34;构造函数的类的标识&#34;&gt;构造函数的类的标识&lt;/h3&gt;
+
+&lt;p&gt;上文提到，原型对象是类的唯一标识：当且仅当两个对象继承自同一个原型对象时，它们才是属于同一个类的实例。而初始化对象的状态的构造函数则不能作为类的标识，两个构造函数的 prototype 属性可能指责同一个原型对象。那么这两个构造函数创建的实例是属于同一个类的&lt;/p&gt;
+
+&lt;p&gt;构造函数的名字通常用做类名，比如我们说 Range() 构造函数创建 Range 对象。然而，更根本地讲，当使用 instancdof 运算符来检测对象是否属于某个类时会用到构造函数。假设有一个对象 r，我们想知道它是否是 Range 对象，可以这样判断&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;r instanceof Range  // 如果 r 继承自 Range.prototype，则返回 true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;实际上 instanceof 运算符并不会检查 r 是否是由 Range() 构造函数初始化而来，而是 &lt;strong&gt;检查 r 是否继承自 Range.prototype&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;constructor-属性&#34;&gt;constructor 属性&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;每个 JavaScript 函数（bind除外）都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 2 - 词法结构</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</guid>
-      <description>&lt;p&gt;词法结构（Lexical Structure）是程序语言的一套基础性规则，用来描述如何使用这门语言来编写程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var F = function() {};
+var p = F.prototype;
+var c = p.constructor;
+c === F                 // =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</guid>
-      <description>&lt;p&gt;JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值&lt;/p&gt;
+&lt;p&gt;图 9-1 展示了构造函数和原型对象之间的关系，包括原型到构造函数的反向引用以及构造函数创建的实例&lt;/p&gt;
 
-&lt;p&gt;JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。它们通常代表了各自特殊类型的唯一的成员&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;图9-1&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>JavaScript 节流函数 throttle 详解</title>
-      <link>https://keelii.github.io/2016/06/11/javascript-throttle/</link>
-      <pubDate>Sat, 11 Jun 2016 06:52:57 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/11/javascript-throttle/</guid>
-      <description>&lt;p&gt;在浏览器 DOM 事件里面，有一些事件会随着用户的操作不间断触发。比如：重新调整浏览器窗口大小（resize），浏览器页面滚动（scroll），鼠标移动（mousemove）。也就是说用户在触发这些浏览器操作的时候，如果脚本里面绑定了对应的事件处理方法，这个方法就不停的触发。&lt;/p&gt;</description>
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;   构 造 函 数                      原 型                        实 例
++------------------+       +------------------+          +---------------+
+|                  |       |                  | inherits |               |
+|  Range()         &amp;lt;---------- contructor     &amp;lt;----------+ new Range(2)  |
+|                  |       |                  |          |               |
+|                  |       |                  |          +---------------+
+|                  |       |   includes       |
+|   prototype  ------------&amp;gt;                  |
+|                  |       |   foreach        |          +---------------+
+|                  |       |                  | inherits |               |
+|                  |       |   toString       &amp;lt;----------+ new Range(3,4)|
+|                  |       |                  |          |               |
+|                  |       |                  |          +---------------+
++------------------+       +------------------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例9-2中定义的 Range 类使用它自身的一个新对象重写预定义的 Range.prototype 对象。这个新定义的原型对象不含有 constructor 属性。因此 Range 类的实例也不含有 constructor 属性。我匀可以通过补救措施来修正这个问题，显式给原型添加一个构造函数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Range.prototype = {
+    constructor: Range,
+    incluces: function() {/*code*/}
+};
+// 当然也可以使用给 prototype 指定方法赋值的方式，避免重写整个 prototype
+Range.prototype.includes = function() {/*code*/}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;javascript-中-java-式的类继承&#34;&gt;JavaScript 中 Java 式的类继承&lt;/h2&gt;
+
+&lt;p&gt;在 Java 或者其它类似强类型面向对象语言中，类成员可能是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实例字段&lt;/strong&gt; 它们是基于实例的属性或变量，用以保存独立对象的状态&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实例方法&lt;/strong&gt; 它们是类的所有实例共享方法，由每个独立的实例调用&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;类字段&lt;/strong&gt; 这些属性或变量是属于类的，而不属于类的某个实例&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;类方法&lt;/strong&gt; 这些方法是属于类的，而不属于类的某个实例&lt;/p&gt;
+
+&lt;p&gt;JavaScript 和 Java 的一个不同之处在于，JavaScript 中的函数都是以值的形式出现的，方法和字段之间并没有太大的区别。如果属性是函数，那么这个属性就定义一个方法，否则，它只是一个普通的属性或「字段」&lt;/p&gt;
+
+&lt;h2 id=&#34;类和类型&#34;&gt;类和类型&lt;/h2&gt;
+
+&lt;h3 id=&#34;instanceof-运算符&#34;&gt;instanceof 运算符&lt;/h3&gt;
+
+&lt;p&gt;之前我们已经了解过 instanceof 运算符。左操作数是待检测其类的对象，右操作数是定义类的构造函数。如果 o 继承自 c.prototype，则表达式 o instanceof c 值返回 true。这里的继承可以不是直接继承，如果 o 所继承的对象继承自另一个对象，后一个对象继承自 c.prototype，这个表达式的运算结果也是 true&lt;/p&gt;
+
+&lt;p&gt;构造函数是类的公共标识，但原型是唯一的标识。尽管 instanceof 运算符的右操作数是构造函数，但计算过程实际上是检测了对象的继承关系，而不是检测创建对象的构造函数&lt;/p&gt;
+
+&lt;h3 id=&#34;constructor-属性-1&#34;&gt;constructor 属性&lt;/h3&gt;
+
+&lt;p&gt;另一种识别对象是否属于某个类的方法是使用 constructor 属性，因为构造函数是类的公共标识，所以最直接的方法就是使用 constructor 属性，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function typeAndValue(x) {
+    if (x == null) return &amp;quot;&amp;quot;;
+    switch(x.constructor) {
+        case: Number:
+            return &amp;quot;Number: &amp;quot; + x;
+        case: String:
+            return &amp;quot;String: &amp;quot; + x;
+        case: Date:
+            return &amp;quot;Date: &amp;quot; + x;
+        case: RegExp:
+            return &amp;quot;RegExp: &amp;quot; + x;
+        case: Complex:
+            return &amp;quot;Complex: &amp;quot; + x;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 constructor 属性检测对象属于某个类的技术不足之处和 instanceof 一样。在 &lt;strong&gt;多个执行上下文&lt;/strong&gt; 场景中它是无法正常工作的（比如在浏览器窗口的多个框架子页面中）。在这种情况下每个框架页面各自拥有独立的构造函数集合。比如一个框架页面中的 Array 构造函数和另一个构架页面的 Array 构造函数不是同一个&lt;/p&gt;
+
+&lt;h3 id=&#34;鸭子类型&#34;&gt;鸭子类型&lt;/h3&gt;
+
+&lt;p&gt;上面描述的检测对象的类的各种技术多少都会有些问题，至少在客户端 JavaScript 中是如此。解决办法就是规避掉这些问题：&lt;strong&gt;不要关注「对象是什么」，而是关注「对象能做什么」&lt;/strong&gt;。这种思考问题的方式在 Python 和 Ruby 中右学普遍，称为「鸭子类型」&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;像鸭子一样走路、游泳并且嘎嘎叫的鸟就是鸭子&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这又让我想起了《蝙蝠侠》里面的那句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It’s not who you are underneath, it’s what you do that defines you&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;javascript-中的面向对象技术&#34;&gt;JavaScript 中的面向对象技术&lt;/h2&gt;
+
+&lt;h3 id=&#34;一个例子-集合类&#34;&gt;一个例子：集合类&lt;/h3&gt;
+
+&lt;p&gt;集合（set）是一种数据结构，用来表示非重复值的无序集合。集合有添加值、检测值是否存在等方法，下面的例子实现了一个更加通用的 Set 类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Set() {
+    this.values = {};
+    this.n = 0;
+    this.add.apply(this, arguments)
+}
+Set.prototype.add = function () {
+    for (var i = 0; i &amp;lt; arguments.length; i++) {
+        var val = arguments[i];
+        var str = Set._v2s(val);
+        if (!this.values.hasOwnProperty(str)) {
+            this.values[str] = val;
+            this.n++;
+        }
+    }
+
+    return this;
+}
+Set.prototype.remove = function () {
+    for (var i = 0; i &amp;lt; arguments.length; i++) {
+        var str = Set._v2s(arguments[i]);
+        if (this.values.hasOwnProperty(str)) {
+            delete this.values[str];
+            this.n--;
+        }
+    }
+}
+Set.prototype.contains = function (value) {
+    return this.values.hasOwnProperty(Set._v2s(value))
+}
+Set.prototype.size = function () {
+    return this.n;
+}
+Set.prototype.foreach = function(f, context) {
+    for (var s in this.values) {
+        if (this.values.hasOwnProperty(s)) {
+            f.call(context, this.values[s]);
+        }
+    }
+}
+Set._v2s = function (val) {
+    switch (val) {
+        case undefined:     return &#39;u&#39;;
+        case null:          return &#39;n&#39;;
+        case true:          return &#39;t&#39;;
+        case false:         return &#39;f&#39;;
+        default:
+            switch (typeof val) {
+                case &#39;number&#39;: return &#39;#&#39; + val;
+                case &#39;string&#39;: return &#39;&amp;quot;&#39; + val;
+                default: return &#39;@&#39; + objectId(val)
+            }
+    }
+    function objectId(o) {
+        var prop = &amp;quot;|**objectid**|&amp;quot;;
+        if (!o.hasOwnProperty(prop)) {
+            o[prop] = Set._v2s.nex++;
+        }
+        return o[prop];
+    }
+}
+Set._v2s.next = 100;
+
+var s = new Set(1,2,3);
+s.values;       // =&amp;gt; Object {#1: 1, #2: 2, #3: 3}
+var s1 = new Set(1,2,3,3,2,1, null, undefined)
+s1.values;      // =&amp;gt; Object {#1: 1, #2: 2, #3: 3, n: null, u: undefined}
+s1.remove(null, undefined);
+s1.values;      // =&amp;gt; Object {#1: 1, #2: 2, #3: 3}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;构造函数的重载和工厂方法&#34;&gt;构造函数的重载和工厂方法&lt;/h3&gt;
+
+&lt;p&gt;有时候，我们希望对象的初始化有多种方式，比如 Set 对象，我们想专入一个数组或者类数组，而不是多个参数来初始化它，我们可以加一些判断来实现重载（overload）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 重载
+function Set() {
+    this.values = {};
+    this.n = 0;
+
+    if (arguments.length == 1 &amp;amp;&amp;amp; isArrayLike(arguments[0])) {
+        this.add.apply(this, arguments[0])
+    } else {
+        this.add.apply(this, arguments)
+    }
+}
+
+// 工厂方法: 可以从数组创建一个集合对象
+Set.fromArray = function(a) {
+    var s = new Set();
+    s.add.apply(s, a)
+    return s;
+}
+// Set 类的一个辅助构造函数
+function SetFromArray(a) {
+    Set.apply(this, a);
+}
+SetFromArray.prototype = Set.prototype;
+var s = new SetFromArray([1,2,3]);
+s instanceof Set        // =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;子类&#34;&gt;子类&lt;/h2&gt;
+
+&lt;p&gt;在面向对象编程中，类 B 可以继承自另外一个类 A。我们将 A 称为父类（superclass），将 B 称为子类（subclass）。B 的实例从 A继承了所有的实例方法。类 B 可以定义自己的实例类方法，有些方法可以重载类 A 中的同名方法，如果 B 的方法重载了 A 中的方法，B 中的重载方法可能会调用 A 中的重载类 A 方法，这种做法称为「方法链」（method chaining）。同样子类的构造函数 B() 有时需要调用父类的构造函数 A()，这种做法称为「构造函数链」（constructor chaining）。子类还可以有子类，当涉及类的层次结构时，往往需要定义抽象类（abstract class）。抽象类中定义的方法没有实现。抽象类中的抽象方法是在抽象类的具体子类中实现的&lt;/p&gt;
+
+&lt;h3 id=&#34;定义子类&#34;&gt;定义子类&lt;/h3&gt;
+
+&lt;p&gt;JavaScript 的对象可以从类的原型对象中继承属性。如果 O 是类 B 的实例，B 是 A 的子类，那么 O 也一定从 A 中继承了属性。为此，首先要确保 B 的原型对象继承自 A 的原型对象，通过 inherit() 函数可以实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;B.prototype = inherit(A.prototype);
+B.prototype.constructor = B;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;构造函数和方法链&#34;&gt;构造函数和方法链&lt;/h3&gt;
+
+&lt;p&gt;我们定义一个 Set 的子类 NonNullSet，它不允许 null 和 undefined 作为集合成员，这就需要在子类的 add() 方法中对 null 和 undefined 值做检测。它需要完全重新实现一个 add() 方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function NonNullSet() {
+    Set.apply(this, arguments);
+}
+NonNullSet.prototype = inherit(Set.prototype);
+NonNullSet.prototype.constructor = NonNullSet;
+NonNullSet.prototype.add = function() {
+    for (var i = 0; i &amp;lt; arguments.length; i++) {
+        if (arguments[i] == null) {
+            throw new Error(&amp;quot;Cant&#39;t add null or undefined to a NonNullSet&amp;quot;);
+        }
+    }
+    return Set.prototype.add.apply(this, arguments);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;组合-vs-子类&#34;&gt;组合 vs 子类&lt;/h3&gt;
+
+&lt;p&gt;上节中定义的集合可以根据特定的标准对集合成员做限制，而且使用了子类的技术来实现这种功能&lt;/p&gt;
+
+&lt;p&gt;然后还有一种更好的方法来完成这种需求，既面向对象编程中一条广为人知的设计原则：「组合优于继承」。这样，可以利用组合的原理定义一个新的集合实现，它「包装」了另外一个集合对象，在将受限制的成员过滤掉之后会用到这个集合对象&lt;/p&gt;</description>
     </item>
     
   </channel>

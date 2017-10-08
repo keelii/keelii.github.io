@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <lastBuildDate>Tue, 03 Oct 2017 17:10:27 +0000</lastBuildDate>
     
-	<atom:link href="https://keelii.github.io/tags/keymap/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.github.io/tags/keymap/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +17,74 @@
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
       <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
-      <description>由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题 传统意义上像 Ctrl, Alt, Shift, Win, Option, Command 都属于 修饰键，只能和其它键配合使用才可以（Ctrl+</description>
+      <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
+
+&lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;
+
+&lt;p&gt;但是 Win 键在 Windows 中被赋予了更多的功能，下面这几个系统级别的快捷键用起来是非常方便的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Win + E&lt;/code&gt; ⇒ 打开资源管理器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + D&lt;/code&gt; ⇒ 显示桌面&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + L&lt;/code&gt; ⇒ 锁定计算机&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之前使用过 Windows 和 Ubuntu gnome，特别方便的一点就是 super(Win) 键 &lt;strong&gt;不仅&lt;/strong&gt; 可以做为修饰键和其它键组合使用，而且还可以响应 &lt;strong&gt;单独的&lt;/strong&gt; 点击事件，Windows 中点击 Win 键会全局呼出 &lt;em&gt;开始菜单&lt;/em&gt; 方便我们 &lt;em&gt;查找/打开&lt;/em&gt; 应用。这样的话单独点击相当于可以少按一个按键，切找应用什么的非常快&lt;/p&gt;
+
+&lt;p&gt;Mac 中我通常使用 Spotlight 来快速切换程序。用惯了 Mac 的人会觉得 command 键位非常舒服好按（键位原因），这时候我希望尽可能把常用的键组织到 command 上又 &lt;strong&gt;不影响&lt;/strong&gt; 原来的组合键，比如我有下面两个最常使用的快捷键：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;⌘&lt;/code&gt; ⇒ 呼出 Spotlight&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;⌘ + Space&lt;/code&gt; ⇒ 切换输入法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 &lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner&lt;/a&gt; 😎&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我的配置方法是使用 &lt;code&gt;Complex Modifications&lt;/code&gt; 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了&lt;/p&gt;
+
+&lt;p&gt;然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 &lt;a href=&#34;https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys&#34;&gt;Tapping modifier-keys produces a f-key.&lt;/a&gt;。然后我们 &lt;code&gt;enable&lt;/code&gt; 这条：&lt;strong&gt;Press left_command alone produces F14&lt;/strong&gt;，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim ~/.config/karabiner/karabiner.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将里面的 F14 改成 F13 即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;// ...
+&amp;quot;complex_modifications&amp;quot;: {
+    &amp;quot;parameters&amp;quot;: {
+        &amp;quot;basic.to_if_alone_timeout_milliseconds&amp;quot;: 600
+    },
+    &amp;quot;rules&amp;quot;: [
+        {
+            &amp;quot;description&amp;quot;: &amp;quot;Press left_command alone produces F14&amp;quot;,
+            &amp;quot;manipulators&amp;quot;: [
+                {
+                    &amp;quot;from&amp;quot;: {
+                        &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot;,
+                        &amp;quot;modifiers&amp;quot;: { &amp;quot;optional&amp;quot;: [ &amp;quot;any&amp;quot; ] }
+                    },
+                    &amp;quot;to&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot; } ],
+                    &amp;quot;to_if_alone&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;f14&amp;quot; } ],
+                    &amp;quot;type&amp;quot;: &amp;quot;basic&amp;quot;
+                }
+            ]
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样基本上的完成我的需求了，打开应用只需要按一次 ⌘ 即可呼出 Spotlight，像打开 Google Chrome 只需要两个键即可 &lt;code&gt;⌘ g&lt;/code&gt;、Webstorm &lt;code&gt;⌘ w&lt;/code&gt;、Firefox &lt;code&gt;⌘ f&lt;/code&gt; &amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;备注：我用的机器是 Mac mini 主机 + filco 87 键盘&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
     </item>
     
   </channel>

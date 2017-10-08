@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
     
-	<atom:link href="https://keelii.github.io/archives/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.github.io/archives/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +17,226 @@
       <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
       <guid>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</guid>
-      <description>本文来自于我自己配置两台 macOS 开发环境的过程 系统设置 更改计算机名称 macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来</description>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;系统设置&#34;&gt;系统设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;更改计算机名称&#34;&gt;更改计算机名称&lt;/h3&gt;
+
+&lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;设置轻点触控板为鼠标点击&lt;/li&gt;
+&lt;li&gt;设置三指拖动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
+&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;开启新 Fidder 窗口时打开 &lt;code&gt;桌面&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;执行搜索时 &lt;code&gt;搜索当前文件夹&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;显示所有文件扩展名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;桌面图标排序&#34;&gt;桌面图标排序&lt;/h3&gt;
+
+&lt;p&gt;桌面空白处右键 &lt;code&gt;排序方式-贴紧风格&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;开发环境设置&#34;&gt;开发环境设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装-command-line-tools&#34;&gt;安装 Command line tools&lt;/h3&gt;
+
+&lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装-brew&#34;&gt;安装 brew&lt;/h3&gt;
+
+&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可&lt;/p&gt;
+
+&lt;p&gt;打开命令行执行下面的命令来安装 brew&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用下面的命令替换 brew 源为&lt;a href=&#34;https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git&#34;&gt;中科大镜像&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 替换brew.git:
+cd &amp;quot;$(brew --repo)&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+# 替换homebrew-core.git:
+cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走番习习墙代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;socks5 = &amp;quot;127.0.0.1:1080&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装-zsh-oh-my-zsh&#34;&gt;安装 Zsh &amp;amp; oh-my-zsh&lt;/h3&gt;
+
+&lt;p&gt;Zsh 是一种 &lt;a href=&#34;https://zh.wikipedia.org/wiki/Unix_shell&#34;&gt;shell&lt;/a&gt;，功能和 bash, csh 一样，用来和操作系统交互&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 安装 zsh
+brew install zsh
+# 安装 oh-my-zsh 插件
+# 更换默认 shell 为 zsh
+chsh -s /bin/zsh
+sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.iterm2.com/&#34;&gt;下载&lt;/a&gt; 并安装，打开 Preferences 偏好设置&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;General关闭 &lt;code&gt;Native full screen windows&lt;/code&gt;。我不使用系统的全屏（因为有过渡动画），是为了方便全局快捷调出命令行&lt;/li&gt;
+&lt;li&gt;设置透明度 &lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;设置全局显示隐藏快捷键 &lt;code&gt;Keys-Hotkey&lt;/code&gt; 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最佳实践，启动 iTerm2 后按 &lt;code&gt;⌘+enter&lt;/code&gt; 全屏，然后 &lt;code&gt;⌘+\&lt;/code&gt; 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 &lt;code&gt;⌘+\&lt;/code&gt; 即可&lt;/p&gt;
+
+&lt;h3 id=&#34;brew-常用工具&#34;&gt;brew 常用工具&lt;/h3&gt;
+
+&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xx&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;htop&#34;&gt;htop&lt;/h4&gt;
+
+&lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
+
+&lt;p&gt;显示文件为树形菜单&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜  keelii.github.io tree . -L 2
+.
+├── config.toml
+├── content
+│   ├── about
+│   └── archives
+├── deploy.sh
+├── public
+│   ├── 2016
+...
+│   └── tags
+└── themes
+    └── octo-enhance
+
+17 directories, 8 files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;httpie&#34;&gt;httpie&lt;/h4&gt;
+
+&lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
+
+&lt;p&gt;安装 vim 添加一些默认的模块和编程语言支持 cscope, lua, python 并且覆盖系统默认的 vim&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install vim --HEAD --with-cscope --with-lua --with-override-system-vim --with-luajit --with-python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装 vim-plug&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;autojump&#34;&gt;autojump&lt;/h4&gt;
+
+&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
+
+&lt;p&gt;npm 的替代品，Production Ready。如果系统中安装过 node，就使用 &lt;code&gt;yarn --without-node&lt;/code&gt; 命令只安装 yarn 工具&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-python-pip&#34;&gt;安装 python pip&lt;/h3&gt;
+
+&lt;p&gt;下载 &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt; 在命令行中使用 python 运行这个文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;更改各种程序语言包源&#34;&gt;更改各种程序语言包源&lt;/h3&gt;
+
+&lt;h4 id=&#34;ruby-gemrc&#34;&gt;ruby - .gemrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
+gem sources -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.gemrc
+---
+:backtrace: false
+:bulk_threshold: 1000
+:sources:
+- https://mirrors.tuna.tsinghua.edu.cn/rubygems/
+:update_sources: true
+:verbose: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;node-yarnrc-npmrc&#34;&gt;node - .yarnrc/.npmrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.yarnrc
+registry &amp;quot;https://registry.npm.taobao.org&amp;quot;
+disturl &amp;quot;https://npm.taobao.org/dist&amp;quot;
+electron_mirror &amp;quot;http://cdn.npm.taobao.org/dist/electron/&amp;quot;
+node_inspector_cdnurl &amp;quot;https://npm.taobao.org/mirrors/node-inspector&amp;quot;
+sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;dotfiles-配置文件&#34;&gt;dotfiles 配置文件&lt;/h3&gt;
+
+&lt;p&gt;可以参照我的 &lt;a href=&#34;https://github.com/keelii/dotfiles&#34;&gt;dotfiles&lt;/a&gt; 配置文件&lt;/p&gt;
+
+&lt;h3 id=&#34;其它-gui-应用&#34;&gt;其它 GUI 应用&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
     <item>
@@ -26,7 +245,74 @@
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
       <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
-      <description>由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题 传统意义上像 Ctrl, Alt, Shift, Win, Option, Command 都属于 修饰键，只能和其它键配合使用才可以（Ctrl+</description>
+      <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
+
+&lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;
+
+&lt;p&gt;但是 Win 键在 Windows 中被赋予了更多的功能，下面这几个系统级别的快捷键用起来是非常方便的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Win + E&lt;/code&gt; ⇒ 打开资源管理器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + D&lt;/code&gt; ⇒ 显示桌面&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Win + L&lt;/code&gt; ⇒ 锁定计算机&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之前使用过 Windows 和 Ubuntu gnome，特别方便的一点就是 super(Win) 键 &lt;strong&gt;不仅&lt;/strong&gt; 可以做为修饰键和其它键组合使用，而且还可以响应 &lt;strong&gt;单独的&lt;/strong&gt; 点击事件，Windows 中点击 Win 键会全局呼出 &lt;em&gt;开始菜单&lt;/em&gt; 方便我们 &lt;em&gt;查找/打开&lt;/em&gt; 应用。这样的话单独点击相当于可以少按一个按键，切找应用什么的非常快&lt;/p&gt;
+
+&lt;p&gt;Mac 中我通常使用 Spotlight 来快速切换程序。用惯了 Mac 的人会觉得 command 键位非常舒服好按（键位原因），这时候我希望尽可能把常用的键组织到 command 上又 &lt;strong&gt;不影响&lt;/strong&gt; 原来的组合键，比如我有下面两个最常使用的快捷键：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;⌘&lt;/code&gt; ⇒ 呼出 Spotlight&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;⌘ + Space&lt;/code&gt; ⇒ 切换输入法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 &lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner&lt;/a&gt; 😎&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34;&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png&#34; alt=&#34;mac-karabiner&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我的配置方法是使用 &lt;code&gt;Complex Modifications&lt;/code&gt; 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了&lt;/p&gt;
+
+&lt;p&gt;然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34;&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png&#34; alt=&#34;mac-spotlight&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 &lt;a href=&#34;https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys&#34;&gt;Tapping modifier-keys produces a f-key.&lt;/a&gt;。然后我们 &lt;code&gt;enable&lt;/code&gt; 这条：&lt;strong&gt;Press left_command alone produces F14&lt;/strong&gt;，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim ~/.config/karabiner/karabiner.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将里面的 F14 改成 F13 即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;// ...
+&amp;quot;complex_modifications&amp;quot;: {
+    &amp;quot;parameters&amp;quot;: {
+        &amp;quot;basic.to_if_alone_timeout_milliseconds&amp;quot;: 600
+    },
+    &amp;quot;rules&amp;quot;: [
+        {
+            &amp;quot;description&amp;quot;: &amp;quot;Press left_command alone produces F14&amp;quot;,
+            &amp;quot;manipulators&amp;quot;: [
+                {
+                    &amp;quot;from&amp;quot;: {
+                        &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot;,
+                        &amp;quot;modifiers&amp;quot;: { &amp;quot;optional&amp;quot;: [ &amp;quot;any&amp;quot; ] }
+                    },
+                    &amp;quot;to&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;left_command&amp;quot; } ],
+                    &amp;quot;to_if_alone&amp;quot;: [ { &amp;quot;key_code&amp;quot;: &amp;quot;f14&amp;quot; } ],
+                    &amp;quot;type&amp;quot;: &amp;quot;basic&amp;quot;
+                }
+            ]
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样基本上的完成我的需求了，打开应用只需要按一次 ⌘ 即可呼出 Spotlight，像打开 Google Chrome 只需要两个键即可 &lt;code&gt;⌘ g&lt;/code&gt;、Webstorm &lt;code&gt;⌘ w&lt;/code&gt;、Firefox &lt;code&gt;⌘ f&lt;/code&gt; &amp;hellip;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;备注：我用的机器是 Mac mini 主机 + filco 87 键盘&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
     </item>
     
     <item>
@@ -35,7 +321,84 @@
       <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
-      <description>通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等 一般通过在 HTML 标签上添加自定义属性来实现，但是这</description>
+      <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
+
+&lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo&amp;quot; data-key=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo&#39;).attr(&#39;data-key&#39;)
+    $(&#39;#demo&#39;).data(&#39;key&#39;)  // 第一次访问 DOM，以后从缓存取
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这两个方法的区别在于 attr 每次都会直接访问 DOM 元素，而 data 方法会缓存第一次的查找，后续调用不需要访问 DOM&lt;/p&gt;
+
+&lt;p&gt;很明显建议使用后者，但是在 &lt;strong&gt;低版本的 jQuery&lt;/strong&gt; 中默认会对 data 方法取到的值进行粗暴的强制数据类型转换「parseFloat」。看下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;demo0&amp;quot; data-key=&amp;quot;abc&amp;quot;&amp;gt;字符串&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; data-key=&amp;quot;123&amp;quot;&amp;gt;数字&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo2&amp;quot; data-key=&amp;quot;123e456&amp;quot;&amp;gt;科学计数法&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;demo3&amp;quot; data-key=&amp;quot;0000123&amp;quot;&amp;gt;八进制数字&amp;lt;/div&amp;gt;
+&amp;lt;script src=&amp;quot;jquery-1.6.4&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    $(&#39;#demo0&#39;).data(&#39;key&#39;)  // &amp;quot;abc&amp;quot;
+    $(&#39;#demo1&#39;).data(&#39;key&#39;)  // 123
+    $(&#39;#demo2&#39;).data(&#39;key&#39;)  // Infinity
+    $(&#39;#demo3&#39;).data(&#39;key&#39;)  // 83
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;后面两种显然出错了，就是因为 jQuery 对属性值进行了强制 parseFloat 操作。这种转换是方便了使用者，如果是数字的话我们取到这个值进行计算什么的就不用再转数据类型了，但是一不小心就会出 bug&lt;/p&gt;
+
+&lt;p&gt;发现这个 bug 的时候第一感觉是 jQuery 不应该没考虑到这一点呀。后来果断去查了下最新版的 jQuery 源代码，发现已经修复了。核心代码在 &lt;a href=&#34;https://github.com/jquery/jquery/blob/master/src/data.js#L36&#34;&gt;data.js 35 行&lt;/a&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData( data ) {
+    if ( data === &amp;quot;true&amp;quot; ) {
+        return true;
+    }
+
+    if ( data === &amp;quot;false&amp;quot; ) {
+        return false;
+    }
+
+    if ( data === &amp;quot;null&amp;quot; ) {
+        return null;
+    }
+
+    // Only convert to a number if it doesn&#39;t change the string
+    // 重点就在这里 →_→
+    if ( data === +data + &amp;quot;&amp;quot; ) {
+        return +data;
+    }
+
+    if ( rbrace.test( data ) ) {
+        return JSON.parse( data );
+    }
+
+    return data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getData 方法就返回了节点属性的值，只不过加了一些特殊处理使得我们取到了没有 bug 的值，关键地方就在这里： &lt;code&gt;data === +data + &amp;quot;&amp;quot;&lt;/code&gt; 。这行代码做了些什么神奇的事情&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;将节点的属性值强制转换成数字「+data」后再转成字符串「+ &amp;ldquo;&amp;ldquo;」，如果转换后的值与原来相等就取转换后的值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;可以简单的这么理解：jQuery 会尝试转换数据类型，如果转换后和转换前的 &lt;strong&gt;长得一样&lt;/strong&gt; 那么 jQuery 就认为它是需要被转换成数字的。这样就可以完美规避上面例子中的两种问题，我们来测试一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = &#39;abc&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // true 转换，使用转换后的数字类型值
+
+var data = &#39;123e456&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+
+var data = &#39;0000123&#39;
+console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，直接返回字符串原值
+&lt;/code&gt;&lt;/pre&gt;
+</description>
     </item>
     
     <item>
@@ -44,7 +407,94 @@
       <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</guid>
-      <description>安装环境 Windows 7 SP1 企业版 Sublime text 3 Build 3162 Node.js v6.9.5 Yarn 0.23.2 (可用 npm 代替) 安装 ESLint 到你的项目根目录生成一个 package.json 文件，如果没有使用 yarn init -y 来自动生成 ESLint 默认的 parser 是 espri</description>
+      <description>
+
+&lt;h2 id=&#34;安装环境&#34;&gt;安装环境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Windows 7 SP1 企业版&lt;/li&gt;
+&lt;li&gt;Sublime text 3 Build 3162&lt;/li&gt;
+&lt;li&gt;Node.js v6.9.5&lt;/li&gt;
+&lt;li&gt;Yarn 0.23.2 (可用 npm 代替)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装-eslint&#34;&gt;安装 ESLint&lt;/h2&gt;
+
+&lt;p&gt;到你的项目根目录生成一个 package.json 文件，如果没有使用 &lt;code&gt;yarn init -y&lt;/code&gt; 来自动生成&lt;/p&gt;
+
+&lt;p&gt;ESLint 默认的 parser 是 esprima，如果你需要检查 Babel 转义的 JSX 等文件那可以选择安装 &lt;a href=&#34;https://github.com/babel/babel-eslint&#34;&gt;babel-eslint&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn init -y
+yarn global add eslint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 sublime text 3 配置 eslint 来做代码检查&lt;/p&gt;
+
+&lt;h2 id=&#34;安装-sublime-text-3-插件&#34;&gt;安装 Sublime text 3 插件&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装-sublime-linter-和-sublimelinter-contrib-eslint&#34;&gt;安装 Sublime​Linter 和 SublimeLinter-contrib-eslint&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SublimeLinter&#34;&gt;Sublime​Linter&lt;/a&gt; 是一个代码检查框架插件，功能非常强大，支持各种语言的检查。但是它本身并没有代码检查的功能，需要借助 ESLint 这样的特定语言检查支持。我们只需要使用对应的 &lt;a href=&#34;https://packagecontrol.io/packages/SublimeLinter-contrib-eslint&#34;&gt;Sublime​Linter-contrib-eslint&lt;/a&gt; 插件即可&lt;/p&gt;
+
+&lt;p&gt;在 Sublime text 中 &lt;code&gt;Ctrl + Shift + p &amp;gt; Package Control:Install Package&lt;/code&gt; 里面搜索关键词 &lt;code&gt;linter&lt;/code&gt;，&lt;strong&gt;注意&lt;/strong&gt;别选成了 SummitLinter。然后再搜索 &lt;code&gt;eslint&lt;/code&gt; 找到 SublimeLinter-contrib-eslint 安装（不得不吐槽下 Sublime package 搜索匹配让人无法理解）&lt;/p&gt;
+
+&lt;h2 id=&#34;配置-eslint&#34;&gt;配置 ESLint&lt;/h2&gt;
+
+&lt;p&gt;到项目根目录下面使用 eslint 命令交互式的生成配置文件。这里 ESLint 会让你确认项目的配置项目，包括代码风格、目标文件等。我一般选择 &lt;code&gt;Answer questions about your style&lt;/code&gt;，即通过选择性的回答命令行中的问题让 ESLint 生成适合我项目的配置文件&lt;/p&gt;
+
+&lt;p&gt;生成的配置文件我一般选择 JavaScript 因为这样比较方便写注释。我的配置项大概如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;How would you like to configure ESLint?
+Answer questions about your style
+Are you using ECMAScript 6 features? No
+Where will your code run? Browser
+Do you use CommonJS? No
+Do you use JSX? No
+What style of indentation do you use? Spaces
+What quotes do you use for strings? Single
+What line endings do you use? Unix
+Do you require semicolons? No
+What format do you want your config file to be in? JavaScript
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成的配置文件竟然是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.exports = {
+    &amp;quot;env&amp;quot;: {
+        &amp;quot;browser&amp;quot;: true
+    },
+    &amp;quot;extends&amp;quot;: &amp;quot;eslint:recommended&amp;quot;,
+    &amp;quot;rules&amp;quot;: {
+        &amp;quot;indent&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            4
+        ],
+        &amp;quot;linebreak-style&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;unix&amp;quot;
+        ],
+        &amp;quot;quotes&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;single&amp;quot;
+        ],
+        &amp;quot;semi&amp;quot;: [
+            &amp;quot;error&amp;quot;,
+            &amp;quot;never&amp;quot;
+        ]
+    }
+}; // Do you require semicolons? No !!!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的 &lt;code&gt;extends&lt;/code&gt; 设置成 &lt;code&gt;eslint:recommended&lt;/code&gt; 表示在 &lt;a href=&#34;http://eslint.org/docs/rules/&#34;&gt;ESLint 规则页面&lt;/a&gt; 中标记成 「✔」 的项都开启检测&lt;/p&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;打开项目中任意一个 JavaScript 文件，右键 &lt;code&gt;SublimeLint &amp;gt; Lint this view&lt;/code&gt; 来试试检查当前文件，如果有错误，编辑器会展示对应 Gutter 错误行和信息。可以使用 &lt;code&gt;SublimeLint &amp;gt; Show all errors&lt;/code&gt; 来查看所有的错误&lt;/p&gt;
+
+&lt;p&gt;上个图吧&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t4531/175/3699692200/112024/b747eb91/590466dcN6f0ad2ac.png&#34; alt=&#34;sublimetext-eslint&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -53,7 +503,140 @@
       <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
-      <description>由于博客主题使用了 Google fonts PT Serif 字体，国内只能通过中科大的代理来使用 Google fonts 字体。然而最近发现其速度不稳定，响应时间有时候甚至超过 600ms。刚好因为</description>
+      <description>
+
+&lt;p&gt;由于博客主题使用了 Google fonts PT Serif 字体，国内只能通过中科大的代理来使用 Google fonts 字体。然而最近发现其速度不稳定，响应时间有时候甚至超过 600ms。刚好因为自己有 &lt;a href=&#34;http://www.vultr.com/?ref=6805146&#34;&gt;vultr 的 VPS(带小尾巴)&lt;/a&gt; 就自己动手搭了个来用&lt;/p&gt;
+
+&lt;p&gt;VPS 环境如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 14.04&lt;/li&gt;
+&lt;li&gt;Nginx 1.12.0 (最新版各别配置与之前不一样)&lt;/li&gt;
+&lt;li&gt;Openssl 1.0.2j (新版 Nginx 开启 http2 需要的最低 openssl 版本)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;重新编译安装-nginx&#34;&gt;重新编译安装 Nginx&lt;/h2&gt;
+
+&lt;p&gt;如果之前编译安装没开启相关模块的话需要重新编译，大概参数如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/local/ssl --with-http_v2_module --with-http_sub_module
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译完没有出错的话就 &lt;code&gt;make &amp;amp;&amp;amp; make install&lt;/code&gt; 就 OK 了&lt;/p&gt;
+
+&lt;h2 id=&#34;配置-nginx-反代&#34;&gt;配置 Nginx 反代&lt;/h2&gt;
+
+&lt;h3 id=&#34;基本配置&#34;&gt;基本配置&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;upstream google {
+    server fonts.googleapis.com:80;
+}
+
+upstream gstatic {
+    server fonts.gstatic.com:80;
+}
+proxy_temp_path   /your/path/tmp 1 2;
+proxy_cache_path  /your/path/cache levels=1:2 keys_zone=cache1:100m inactive=30d max_size=1g;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;80-端口配置&#34;&gt;80 端口配置&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen 80;
+    server_name your.proxy.domain;
+    root /your/path/;
+    location /css {
+        sub_filter &#39;fonts.gstatic.com&#39; &#39;your.proxy.domain&#39;;
+        sub_filter_once off;
+        sub_filter_types text/css;
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.googleapis.com;
+        proxy_set_header Accept-Encoding &#39;&#39;;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://google;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.gstatic.com;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://gstatic;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;443-端口配置&#34;&gt;443 端口配置&lt;/h3&gt;
+
+&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;注意设置 &lt;code&gt;sub_filter&lt;/code&gt; 字段的时候 &lt;strong&gt;你的域名要加上 https://&lt;/strong&gt;，要不然会出现代理的 CSS 文件中的字体文件引用是 HTTP 而请求报 &lt;code&gt;blocked/mixed-content&lt;/code&gt; 错&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen 443 ssl http2;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/your.proxy.domain/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your.proxy.domain/privkey.pem;
+    ssl_dhparam /etc/ssl/certs/dhparams.pem;
+    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    server_name  your.proxy.domain;
+    root /var/sites/fonts/;
+
+    location /css {
+        sub_filter &#39;http://fonts.gstatic.com&#39; &#39;https://your.proxy.domain&#39;;
+        sub_filter_once off;
+        sub_filter_types text/css;
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.googleapis.com;
+        proxy_set_header Accept-Encoding &#39;&#39;;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://google;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host fonts.gstatic.com;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_pass http://gstatic;
+        proxy_cache cache1;
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 304 10m;
+        expires 365d;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安全防盗链&#34;&gt;安全防盗链&lt;/h3&gt;
+
+&lt;p&gt;如果不共享给其它人用的话还需要在配置中加入 referer 白名单判断，不符合条件的将返回 403&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;valid_referers server_name *.your.domain.com *.other.domain.com;
+if ($invalid_referer) {
+    return 403;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
     </item>
     
     <item>
@@ -62,7 +645,289 @@
       <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
       
       <guid>https://keelii.github.io/2017/02/19/basic-operations-of-relation-algebra/</guid>
-      <description>关系代数运算符 集合运算符 运算符 含义 英文 $∪$ 并 Union $−$ 差 Difference $∩$ 交 Intersection $×$ 笛卡尔积 Cartesian Product 比较运算符 运算符 含义 $&amp;gt;$ 大于 $≥$ 大于等于 $&amp;lt;$ 小于 $≤$ 小</description>
+      <description>
+
+&lt;h2 id=&#34;关系代数运算符&#34;&gt;关系代数运算符&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;集合运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;英文&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;$∪$&lt;/td&gt;
+&lt;td&gt;并&lt;/td&gt;
+&lt;td&gt;Union&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$−$&lt;/td&gt;
+&lt;td&gt;差&lt;/td&gt;
+&lt;td&gt;Difference&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$∩$&lt;/td&gt;
+&lt;td&gt;交&lt;/td&gt;
+&lt;td&gt;Intersection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$×$&lt;/td&gt;
+&lt;td&gt;笛卡尔积&lt;/td&gt;
+&lt;td&gt;Cartesian Product&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;比较运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;$&amp;gt;$&lt;/td&gt;
+&lt;td&gt;大于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$≥$&lt;/td&gt;
+&lt;td&gt;大于等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$&amp;lt;$&lt;/td&gt;
+&lt;td&gt;小于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$≤$&lt;/td&gt;
+&lt;td&gt;小于等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$=$&lt;/td&gt;
+&lt;td&gt;等于&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$≠$&lt;/td&gt;
+&lt;td&gt;不等于&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;专门的关系运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;英文&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;$σ$&lt;/td&gt;
+&lt;td&gt;选择&lt;/td&gt;
+&lt;td&gt;Selection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$π$&lt;/td&gt;
+&lt;td&gt;投影&lt;/td&gt;
+&lt;td&gt;Projection&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$⋈$&lt;/td&gt;
+&lt;td&gt;链接&lt;/td&gt;
+&lt;td&gt;Join&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$÷$&lt;/td&gt;
+&lt;td&gt;除&lt;/td&gt;
+&lt;td&gt;Division&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;逻辑运算符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;运算符&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;$∧$&lt;/td&gt;
+&lt;td&gt;与&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$∨$&lt;/td&gt;
+&lt;td&gt;或&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;$¬$&lt;/td&gt;
+&lt;td&gt;非&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;5-种基本的关系代数运算&#34;&gt;5 种基本的关系代数运算&lt;/h2&gt;
+
+&lt;h3 id=&#34;并-union&#34;&gt;并（Union）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 与 S 具有相同的关系模式，即 R 与 S 的元数相同（结构相同），R 与 S 的并是属于 R 或者属于 S 的元组构成的集合，记作 R ∪ S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R∪S=\{t|t∈R∨t∈S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;差-difference&#34;&gt;差（Difference）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 与 S 具有相同的关系模式，关系 R 与 S 的差是属于 R 但不属于 S 的元组构成的集合，记作 R − S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R−S=\{t|t∈R∨t∉S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;广义笛卡尔积-extended-cartesian-product&#34;&gt;广义笛卡尔积（Extended Cartesian Product）&lt;/h3&gt;
+
+&lt;p&gt;两个无数分别为 n 目和 m 目的关系 R 和 S 的 笛卡尔积是一个 (n+m) 列的元组的集合。组的前 n 列是关系 R 的一个元组，后 m 列是关系 S 的一个元组，记作 R × S，定义如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R×S=\{t|t=&lt;(t^n,t^m)∧t^n∈R∧t^m∈S\}$$
+&lt;/div&gt;
+
+&lt;p&gt;$(t^n,t^m)$ 表示元素 $t^n$ 和 $t^m$ 拼接成的一个元组&lt;/p&gt;
+
+&lt;h3 id=&#34;投影-projection&#34;&gt;投影（Projection）&lt;/h3&gt;
+
+&lt;p&gt;投影运算是从关系的垂直方向进行运算，在关系 R 中选出若干属性列 A 组成新的关系，记作 $π_A(R)$，其形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$π_A(R)=\{t[A]|t∈R\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;选择-selection&#34;&gt;选择（Selection）&lt;/h3&gt;
+
+&lt;p&gt;选择运算是从关系的水平方向进行运算，是从关系 R 中选择满足给定条件的元组，记作 $σ_F(R)$，其形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$σ_F(R)=\{t|t∈R∧F(t)=True\}$$
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实例&#34;&gt;实例&lt;/h2&gt;
+
+&lt;p&gt;设有关系 R、S 如图所示，求 $R∪S$、 $R−S$、 $R×S$、 $π_{A,C}(R)$、 $σ_{A&amp;gt;B}(R)$ 和 $σ_{3&amp;lt;4}(R×S)$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/269/2409299226/5377/e997b909/58a95fceNddd39fd7.png&#34; alt=&#34;关系表RS&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进行并、差运算后结果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3949/95/2458170516/5487/1c7f1f38/58a967b1N42db123f.png&#34; alt=&#34;并差&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进行笛卡尔、 投影、 选择运算后结果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3943/109/2403665652/38834/c636281b/58a9685dN20af0b9b.png&#34; alt=&#34;笛卡尔_投影_选择&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;扩展的关系代数运算&#34;&gt;扩展的关系代数运算&lt;/h2&gt;
+
+&lt;h3 id=&#34;交-intersection&#34;&gt;交（Intersection）&lt;/h3&gt;
+
+&lt;p&gt;关系 R 和 S 具有相同的关系模式，交是由属于 R 同时双属于 S 的元组构成的集合，记作 R∩S，形式如下：&lt;/p&gt;
+
+&lt;div&gt;
+$$R∩S=\{t|t∈R∧t∈S\}$$
+&lt;/div&gt;
+
+&lt;h3 id=&#34;链接-join&#34;&gt;链接（Join）&lt;/h3&gt;
+
+&lt;p&gt;注：下面的 θ 链接应该记作：&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3967/158/2461240249/2389/530d7d07/58aa580aNe9908740.png&#34; alt=&#34;theta链接&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;θ-链接&#34;&gt;θ 链接&lt;/h4&gt;
+
+&lt;p&gt;从 R 与 S的笛卡尔积中选取属性间满足一定条件的元组，可由基本的关系运算笛卡尔积和选取运算导出，表示为：&lt;/p&gt;
+
+&lt;div&gt;
+$$R \Join_{XθY} S = σ_{XθY}(R×S)$$
+&lt;/div&gt;
+
+&lt;p&gt;XθY 为链接的条件，θ 是比较运算符，X 和 Y 分别为 R 和 S 上度数相等且可比的属性组&lt;/p&gt;
+
+&lt;p&gt;例如：求 $R \Join_{R.A&amp;lt;S.B} S$，如果为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3133/127/6662942086/21071/88c200da/58aa5b1fN3e2316d5.png&#34; alt=&#34;theta链接小于过程&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;等值链接&#34;&gt;等值链接&lt;/h4&gt;
+
+&lt;p&gt;当 θ 为「=」时，称之为等值链接，记为： $R\Join_{X=Y}S$&lt;/p&gt;
+
+&lt;h4 id=&#34;自然链接&#34;&gt;自然链接&lt;/h4&gt;
+
+&lt;p&gt;自然链接是一种特殊的等值链接，它要求两个关系中进行比较的分量必须是 &lt;strong&gt;相同的属性组&lt;/strong&gt;，并且在结果集中将 &lt;strong&gt;重复的属性列&lt;/strong&gt; 去掉&lt;/p&gt;
+
+&lt;p&gt;例如：设有关系 R、S 如图所示，求 $R \Join S$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3982/212/2472511181/5973/54467e2a/58aa5ffaN970f7e5a.png&#34; alt=&#34;关系RS&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;先求出笛卡尔积 $R×S$，找出比较分量（有相同属性组），即: R.A/S.A 与 R.C/S.C&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3841/5/4275908218/12385/79e83d01/58aa6066Nd003e697.png&#34; alt=&#34;求出笛卡尔积&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取等值链接 $R.A = S.A$ 且 $R.C = S.C$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3256/75/6205568741/12327/2b1dc867/58aa60e8N38a84108.png&#34; alt=&#34;找出相同属性的比较分量&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;结果集中去掉重复属性列，注意无论去掉 R.A 或者 S.A 效果都一样，因为他们的值相等，结果集中只会有属性 A、B、C、D&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3217/183/6576493853/4744/ccb96965/58aa612eN043f7425.png&#34; alt=&#34;结果集中找出重复属性列&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最终得出结果&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3247/65/6676502314/2874/657ddb0c/58aa617eN2457f536.png&#34; alt=&#34;RS自然链接结果&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;除-division&#34;&gt;除（Division）&lt;/h3&gt;
+
+&lt;p&gt;设有以下如图关系，求 $R÷S$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3151/348/6716540896/7287/dc01ad2e/58aaaf3bN1cae8b1a.png&#34; alt=&#34;关系RS1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取关系 R 中有的但 S 中没有的属性组，即：A、B&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3202/137/6722879648/7244/3b47a185/58aaaf81N0b2491b5.png&#34; alt=&#34;关系RS1取属性AB&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取唯一 A、B 属性组值的象集&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t3871/170/2430481542/5179/be5899c5/58aaafe6N8297b49f.png&#34; alt=&#34;关系RS1取属性AB对应的象集&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可知关系S存在于 a,b/c,k 象集 中。即 $R÷S$ 得&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -71,7 +936,398 @@
       <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
       
       <guid>https://keelii.github.io/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
-      <description>问题描述 这个问题来源于选择商品属性的场景。比如我们买衣服、鞋子这类物件，一般都需要我们选择合适的颜色、尺码等属性 先了解一下 sku 的学术概念吧 最小</description>
+      <description>
+
+&lt;h2 id=&#34;问题描述&#34;&gt;问题描述&lt;/h2&gt;
+
+&lt;p&gt;这个问题来源于选择商品属性的场景。比如我们买衣服、鞋子这类物件，一般都需要我们选择合适的颜色、尺码等属性&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;先了解一下 sku 的学术概念吧&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;最小库存管理单元（Stock Keeping Unit, SKU）是一个会计学名词，定义为库存管理中的最小可用单元，例如纺织品中一个SKU通常表示规格、颜色、款式，而在连锁零售门店中有时称单品为一个SKU。最小库存管理单元可以区分不同商品销售的最小单元，是科学管理商品的采购、销售、物流和财务管理以及POS和MIS系统的数据统计的需求，通常对应一个管理信息系统的编码。 —— form wikipedia &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E5%AD%98%E8%B4%A7%E5%8D%95%E4%BD%8D&#34;&gt;最小存货单位&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;简单的结合上面的实例来说： sku 就是你上购物网站买到的最终商品，对应的上图中已选择的属性是：颜色 &lt;strong&gt;黑色&lt;/strong&gt; - 尺码 &lt;strong&gt;37&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我先看看后端数据结构一般是这样的，一个线性数组，每个元素是一个描述当前 sku 的 map，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;[
+   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;前端展示的时候显然需要 group 一下，按不同的属性分组，目的就是让用户按属性的维度去选择，group 后的数据大概是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;颜色&amp;quot;: [&amp;quot;红&amp;quot;, &amp;quot;白&amp;quot;, &amp;quot;蓝&amp;quot;],
+    &amp;quot;尺码&amp;quot;: [&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;],
+    &amp;quot;型号&amp;quot;: [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;对应的在网页上大概是这样的 UI&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个时候，就会有一个问题，这些元子属性能组成的集合（用户的选择路径） &lt;strong&gt;远远大于&lt;/strong&gt; 真正可以组成的集合，比如上面的属性集合可以组合成一个 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF&#34;&gt;笛卡尔积&lt;/a&gt;，即。可以组合成以下序列：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
+    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],    // ✔
+    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],    // ✔
+    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
+    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;]     // ✔
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;根据公式可以知道，&lt;strong&gt;一个由 3 个元素，每个元素是有 3 个元素的子集构成的集合，能组成的笛卡尔积一共有 3 的 3 次幂，也就是 27 种&lt;/strong&gt;，然而源数据只可以形成 3 种组合&lt;/p&gt;
+
+&lt;p&gt;这种情况下最好能提前判断出来不可选的路径并置灰，告诉用户，否则会造成误解&lt;/p&gt;
+
+&lt;h2 id=&#34;确定规则&#34;&gt;确定规则&lt;/h2&gt;
+
+&lt;p&gt;看下图，如果我们定义红色为当前选中的商品的属性，即当前选中商品为 &lt;code&gt;红-大-A&lt;/code&gt;，这个时候如何确认其它非已选属性是否可以组成可选路径？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;规则是这样的：&lt;/strong&gt; 假设当前用户想选 &lt;code&gt;白-大-A&lt;/code&gt;，刚好这个选择路径是不存在的，那么我们就把 &lt;code&gt;白&lt;/code&gt; 置灰&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;以此类推，如果要确认 &lt;code&gt;蓝&lt;/code&gt; 属性是否可用，需要查找 &lt;code&gt;蓝-大-A&lt;/code&gt; 路径是否存在&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
+
+&lt;p&gt;根据上面的逻辑代码实现思路就有了：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;遍历所有非已选元素：&lt;code&gt;&amp;quot;白&amp;quot;, &amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt;
+
+&lt;ol&gt;
+&lt;li&gt;遍历所有属性行： &lt;code&gt;&amp;quot;颜色&amp;quot;, &amp;quot;尺码&amp;quot;, &amp;quot;型号&amp;quot;&lt;/code&gt;
+
+&lt;ol&gt;
+&lt;li&gt;取： a) 当前元素 b) 非当前元素所在的其它属性已选元素，形成一个路径&lt;/li&gt;
+&lt;li&gt;判断此路径是否存在，如果不存在将当前元素置灰&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;看来问题似乎已经解决了，然而 &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;我们忽略了一个非常重要的问题：上例中虽然 &lt;code&gt;白&lt;/code&gt; 元素置灰，但是实际上 &lt;code&gt;白&lt;/code&gt; 是可以被点击的！因为用户可以选择 &lt;code&gt;白-中-B&lt;/code&gt; 路径&lt;/p&gt;
+
+&lt;p&gt;如果用户点击了 &lt;code&gt;白&lt;/code&gt; 情况就变得复杂了很多，我们假设用户 &lt;strong&gt;只选择了一个&lt;/strong&gt;元素 &lt;code&gt;白&lt;/code&gt;，此时如何判断其它未选元素是否可选？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;即：如何确定 &lt;code&gt;&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt; 需要置灰？ 注意我们并不需要确认 &lt;code&gt;&amp;quot;红&amp;quot;，&amp;quot;蓝&amp;quot;&lt;/code&gt; 是否可选，因为属性里面的元素都是 &lt;strong&gt;单选&lt;/strong&gt;，当前的属性里任何元素都可选的&lt;/p&gt;
+
+&lt;h3 id=&#34;缩小问题规模&#34;&gt;缩小问题规模&lt;/h3&gt;
+
+&lt;p&gt;我们先 &lt;strong&gt;缩小问题范围&lt;/strong&gt;：当前情况下（只有一个 &lt;code&gt;白&lt;/code&gt; 已选）如何确定尺码 &lt;code&gt;&amp;quot;大&amp;quot;&lt;/code&gt; 需要置灰？ 你可能会想到根据我们之间的逻辑，需要分别查找：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;白 - 大 - A&lt;/li&gt;
+&lt;li&gt;白 - 大 - B&lt;/li&gt;
+&lt;li&gt;白 - 大 - C&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;他们都不存在的时候把尺码 &lt;code&gt;大&lt;/code&gt; 置灰，问题似乎也可以解决。其实这样是不对的，因为 &lt;strong&gt;型号没有被选择过&lt;/strong&gt;，所以只需要知道 &lt;code&gt;白-大&lt;/code&gt;是否可选即可&lt;/p&gt;
+
+&lt;p&gt;同时还有一个问题，如果已选的个数不确定而且维度可以增加到不确定呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这种情况下如果还按之前的算法，即使实现也非常复杂。这时候就要考虑换一种思维方式&lt;/p&gt;
+
+&lt;h3 id=&#34;调整思路&#34;&gt;调整思路&lt;/h3&gt;
+
+&lt;p&gt;之前我们都是反向思考，找出不可选应该置灰的元素。我们现在正向的考虑，如何确定属性是否可选。而且多维的情况下用户可以跳着选。比如：用户选了两个元素 &lt;code&gt;白，B&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;我们再回过头来看下 &lt;strong&gt;原始存在的数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
+   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
+]
+// 即
+[
+   [ &amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot; ],   // 存在
+   [ &amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot; ],   // 存在
+   [ &amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot; ]    // 存在
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显然：如果第一条数据 &lt;code&gt;&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;&lt;/code&gt; 存在，那么下面这些子组合 &lt;strong&gt;肯定都存在&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;红&lt;/li&gt;
+&lt;li&gt;大&lt;/li&gt;
+&lt;li&gt;A&lt;/li&gt;
+&lt;li&gt;红 - 大&lt;/li&gt;
+&lt;li&gt;红 - A&lt;/li&gt;
+&lt;li&gt;大 - A&lt;/li&gt;
+&lt;li&gt;红 - 大 - A&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;同理：如果第二条数据 &lt;code&gt;&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;&lt;/code&gt; 存在，那么下面这些子组合 &lt;strong&gt;肯定都存在&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;白&lt;/li&gt;
+&lt;li&gt;中&lt;/li&gt;
+&lt;li&gt;B&lt;/li&gt;
+&lt;li&gt;白 - 中&lt;/li&gt;
+&lt;li&gt;白 - B&lt;/li&gt;
+&lt;li&gt;中 - B&lt;/li&gt;
+&lt;li&gt;白 - 中 - B&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;我们提前把 &lt;strong&gt;所有存在的路径中的子组合&lt;/strong&gt; 算出来，算法上叫取集合所有子集，数学上叫 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%86%AA%E9%9B%86&#34;&gt;幂集&lt;/a&gt;， 形成一个所有存在的路径表，算法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/**
+ * 取得集合的所有子集「幂集」
+ arr = [1,2,3]
+
+     i = 0, ps = [[]]:
+         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 1:
+             i=0, j=0 ps.push(ps[0].concat(arr[0])) =&amp;gt; ps.push([].concat(1)) =&amp;gt; [1]
+                      ps = [[], [1]]
+
+     i = 1, ps = [[], [1]] :
+         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 2
+             i=1, j=0 ps.push(ps[0].concat(arr[1])) =&amp;gt; ps.push([].concat(2))  =&amp;gt; [2]
+             i=1, j=1 ps.push(ps[1].concat(arr[1])) =&amp;gt; ps.push([1].concat(2)) =&amp;gt; [1,2]
+                      ps = [[], [1], [2], [1,2]]
+
+     i = 2, ps = [[], [1], [2], [1,2]]
+         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 4
+             i=2, j=0 ps.push(ps[0].concat(arr[2])) =&amp;gt; ps.push([3])    =&amp;gt; [3]
+             i=2, j=1 ps.push(ps[1].concat(arr[2])) =&amp;gt; ps.push([1, 3]) =&amp;gt; [1, 3]
+             i=2, j=2 ps.push(ps[2].concat(arr[2])) =&amp;gt; ps.push([2, 3]) =&amp;gt; [2, 3]
+             i=2, j=3 ps.push(ps[3].concat(arr[2])) =&amp;gt; ps.push([2, 3]) =&amp;gt; [1, 2, 3]
+                      ps = [[], [1], [2], [1,2], [3], [1, 3], [2, 3], [1, 2, 3]]
+ */
+function powerset(arr) {
+    var ps = [[]];
+    for (var i=0; i &amp;lt; arr.length; i++) {
+        for (var j = 0, len = ps.length; j &amp;lt; len; j++) {
+            ps.push(ps[j].concat(arr[i]));
+        }
+    }
+    return ps;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有了这个存在的子集集合，再回头看 &lt;em&gt;图1&lt;/em&gt; 举例：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何确定 &lt;code&gt;红&lt;/code&gt; 可选？ 只需要确定 &lt;code&gt;红-B&lt;/code&gt; 可选&lt;/li&gt;
+&lt;li&gt;如何确定 &lt;code&gt;中&lt;/code&gt; 可选？ 需要确定 &lt;code&gt;白-中-B&lt;/code&gt; 可选&lt;/li&gt;
+&lt;li&gt;如何确定 &lt;code&gt;2G&lt;/code&gt; 可选？ 需要确定 &lt;code&gt;白-B-2G&lt;/code&gt; 可选&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;算法描述如下：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;遍历所有非已选元素
+
+&lt;ol&gt;
+&lt;li&gt;遍历所有属性行
+
+&lt;ol&gt;
+&lt;li&gt;取： a) 当前元素 b) 非当前元素所在的其它属性已选元素（如果当前属性中没已选元素，则跳过），形成一个路径&lt;/li&gt;
+&lt;li&gt;判断此路径是否存在（在所有存在的路径表中查询），如果不存在将当前元素置灰&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以最开始的后端数据为例，生成的所有可选路径表如下：
+注意路径用分割符号「-」分开是为了查找路径时方便，不用遍历&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;, &amp;quot;3133859&amp;quot;, &amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;红&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;大&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;红-大&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;A&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;红-A&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;大-A&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;红-大-A&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
+    },
+    &amp;quot;白&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;中&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;白-中&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;B&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;白-B&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;中-B&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;白-中-B&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
+    },
+    &amp;quot;蓝&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;小&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;蓝-小&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;C&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;蓝-C&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;小-C&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    },
+    &amp;quot;蓝-小-C&amp;quot;: {
+        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为了更清楚的说明这个算法，再上一张图来解释下吧：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以根据上面的逻辑得出，计算状态后的界面应该是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在这种情况下如果用户点击 尺码 &lt;code&gt;中&lt;/code&gt; 应该怎么交互呢？&lt;/p&gt;
+
+&lt;h3 id=&#34;优化体验&#34;&gt;优化体验&lt;/h3&gt;
+
+&lt;p&gt;因为当前情况下路径 &lt;code&gt;红-中-A&lt;/code&gt; 并不存在，如果点击 &lt;code&gt;中&lt;/code&gt;，那么除了尺码 &lt;code&gt;中&lt;/code&gt; 之外其它的属性中 &lt;strong&gt;至少有一个&lt;/strong&gt; 属性和 &lt;code&gt;中&lt;/code&gt; 的路径搭配是不存在的&lt;/p&gt;
+
+&lt;p&gt;交互方面需求是：如果不存在就高亮当前属性行，使用户必须选择到可以和 &lt;code&gt;中&lt;/code&gt; 组合存在的属性。而且用户之间选择过的属性要做一次缓存&lt;/p&gt;
+
+&lt;p&gt;所以当点击不存在的属性时交互流程是这样的：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;无论当前属性存不存在，先高亮（选中）当前属性&lt;/li&gt;
+&lt;li&gt;清除其它所有已选属性&lt;/li&gt;
+&lt;li&gt;更新当前状态（只选当前属性）下的其它属性可选状态&lt;/li&gt;
+&lt;li&gt;遍历非当前属性行的其它属性查找对应的在缓存中的已选属性&lt;/li&gt;
+&lt;li&gt;如果缓存中对应的属性存在（可选），则默认选中缓存属性并 &lt;strong&gt;再次更新&lt;/strong&gt; 其它可选状态。不存在，则高亮当前属性行（深色背景）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;这个过程的流程图大概是这样的，点进不存在的属性就会进入「单选流程」&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;假设后端数据是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
+   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; }, // 多加了一条
+   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
+   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当前选中状态是：&lt;code&gt;白-大-A&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果用户点击 &lt;code&gt;中&lt;/code&gt;。这个时候 &lt;code&gt;白-中&lt;/code&gt; 是存在的，但是 &lt;code&gt;中-A&lt;/code&gt; 并不存在，所以保留颜色 &lt;code&gt;白&lt;/code&gt;，高亮型号属性行：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由此可见和 &lt;code&gt;白-中&lt;/code&gt; 能搭配存在型号只有 &lt;code&gt;B&lt;/code&gt;，而缓存的作用就是为了少让用户选一次颜色 &lt;code&gt;白&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;到这里，基本上主要的功能就实现了。比如库存逻辑处理方式也和不存属性一样，就不再赘述。唯一需要注意的地方是求幂集的复杂度问题&lt;/p&gt;
+
+&lt;h2 id=&#34;算法复杂度&#34;&gt;算法复杂度&lt;/h2&gt;
+
+&lt;p&gt;幂集算法的时间复杂度是 &lt;code&gt;O(2^n)&lt;/code&gt;，也就是说每条数据上面的属性（维度）越多，复杂度越高。sku 数据的多少并不重要，因为是常数级的线性增长，而维度是指数级的增长&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{1}       2^1 = 2
+=&amp;gt; {},{1}
+{1,2}     2^2 = 4
+=&amp;gt; {},{1},{2},{1,2}
+{1,2,3}   2^3 = 8
+=&amp;gt; {},{1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在 chrome 里面简单跑了几个用例，可见这个算法非常低效，如果要使用这个算法，必须控制维度在合理范围内，而且不仅仅算法时间复杂度很高，生成最后的路径表也会非常大，相应的占用内存也很高。&lt;/p&gt;
+
+&lt;p&gt;举个例子：如果有一个 10 维的 sku，那么最终生成的路径表会有 2^10 个（1024） key/value&lt;/p&gt;
+
+&lt;p&gt;最终 demo 可以查看这个：
+&lt;a href=&#34;http://codepen.io/keelii/pen/RoOzgb&#34;&gt;sku 多维属性状态判断&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;相关资料：
+&lt;a href=&#34;http://git.shepherdwind.com/sku-search-algorithm.html&#34;&gt;sku组合查询算法探索&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -81,7 +1337,177 @@
       
       <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
-&lt;/p&gt;</description>
+&lt;/p&gt;
+
+&lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;
+
+&lt;h3 id=&#34;表达式-expressions&#34;&gt;表达式 Expressions&lt;/h3&gt;
+
+&lt;p&gt;表达式和修饰符（其它模板语言中叫做过滤器 filter）中间用 &lt;code&gt;|&lt;/code&gt; 分割且 &lt;strong&gt;不能有空格&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${expr}
+${expr|modifier}
+${expr|modifier1:arg1,arg2|modifier2:arg1,arg2|...|modifierN:arg1,arg2}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;语句-statements&#34;&gt;语句 Statements&lt;/h3&gt;
+
+&lt;h4 id=&#34;控制流-control-flow&#34;&gt;控制流 Control Flow&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{if testExpr}
+    {elseif testExpr}
+    {else}
+{/if}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;循环-loops&#34;&gt;循环 Loops&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{for varName in listExpr}
+{/for}
+
+{for varName in listExpr}
+    ...循环主体...
+{forelse}
+    ...当 listExpr 是 null 或者 length 为 0 ...
+{/for}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;变量声明-variable-declarations&#34;&gt;变量声明 Variable Declarations&lt;/h4&gt;
+
+&lt;p&gt;变量声明语句用花括号 &lt;code&gt;{}&lt;/code&gt; 括起来，不需要关闭。类似 JavaScript 中的赋值语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{var varName}
+{var varName = varInitExpr}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;宏声明-macro-declarations&#34;&gt;宏声明 Macro Declarations&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro macroName(arg1, arg2, ...argN)}
+    ...macro 主体...
+{/macro}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;cdata-部分-cdata-text-sections&#34;&gt;CDATA 部分 CDATA Text Sections&lt;/h4&gt;
+
+&lt;p&gt;CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出。比如展示一个模板字符串本身&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{cdata}
+    ${customer.firstName} ${customer.lastName}
+{/cdata}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;in-line-javascript&#34;&gt;In-line JavaScript&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;eval blocks&lt;/strong&gt; 用来执行 JavaScript 代码片段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{eval}
+    ...模板渲染的时候执行的 JavaScript 代码...
+{/eval
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;minify blocks&lt;/strong&gt; 用来压缩内容中的换行符，比如压缩 HTML 属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;commentPanel&amp;quot; style=&amp;quot;{minify}
+      display:none;
+      margin: 1em;
+      border: 1px solid #333;
+      background: #eee;
+      padding: 1em;
+    {/minify}&amp;quot;&amp;gt;
+  ...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;修饰符-modifier&#34;&gt;修饰符 Modifier&lt;/h2&gt;
+
+&lt;p&gt;修饰符用来处理上一个表达式的结果，并输出内容。类似于 Linux shell 中的管道操作符，使用「|」分割不同修饰符，可以串联使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;${name|capitalize}
+${name|default:&amp;quot;noname&amp;quot;|capitalize}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;内置修饰符&#34;&gt;内置修饰符&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;capitalize&lt;/strong&gt; 返回大写内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;default:valueWhenNull&lt;/strong&gt; 如果内容为 null，返回 valueWhenNull&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;eat&lt;/strong&gt; 返回空内容，一般用于表达式求值后又不想展示输出的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;escape&lt;/strong&gt; 转换 HTML 字符实体，比如： &amp;amp; 转换成 &amp;amp;amp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; 和 escape 效果一样&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;自定义修饰符&#34;&gt;自定义修饰符&lt;/h3&gt;
+
+&lt;p&gt;自定义修饰符可以挂载到 contextObject 上的 &lt;code&gt;_MODIFIERS&lt;/code&gt; 属性上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var Modifiers = {
+  toFixed: function(value, num) {
+    return value.toFixed(num)
+  }
+}
+var out = &#39;${num|toFixed:2}&#39;.process({
+  _MODIFIERS: Modifiers,
+  num: 1024
+})
+// =&amp;gt; &amp;quot;1024.00&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;宏-macro&#34;&gt;宏 Macro&lt;/h2&gt;
+
+&lt;p&gt;macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上（下次调用 process() 方法的时候再手动挂载上!? ）。需要在调用 process() 方法之前给 contextObject 设置一个空的 exported 属性：&lt;code&gt;contextObject[&#39;exported&#39;] = {}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这个公用的 macro 设计的有点奇葩，可以参考这个 &lt;a href=&#34;http://codepen.io/keelii/pen/dOvgOJ&#34;&gt;示例&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{macro link(href, name)}
+    &amp;lt;a href=&amp;quot;${href}&amp;quot;&amp;gt;${name}&amp;lt;/a&amp;gt;
+{/macro}
+
+${link(&#39;http://google.com&#39;, &#39;google&#39;)}      =&amp;gt; &amp;lt;a href=&amp;quot;http://google.com&amp;quot;&amp;gt;google&amp;lt;/a&amp;gt;
+${link(&#39;http://facebook.com&#39;, &#39;facebook&#39;)}  =&amp;gt; &amp;lt;a href=&amp;quot;http://facebook.com&amp;quot;&amp;gt;facebook&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;示例&#34;&gt;示例&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = {
+    name: &#39;iPhone 6 Plus&#39;,
+    weight: 480,
+    ram: &#39;16gb&#39;,
+    networks: [
+        &#39;移动（TD-LTE)&#39;,
+        &#39;联通(TD-LTE)&#39;,
+        &#39;电信(FDD-LTE)&#39;
+    ]
+}
+
+data._MODIFIERS = {
+    toFixed: function(n, num) {
+        return n.toFixed(num)
+    }
+}
+
+var template = &#39;\
+名称: ${name}&amp;lt;br&amp;gt;\
+重量：${weight|toFixed:2}&amp;lt;br&amp;gt;\
+内存：${ram|capitalize}&amp;lt;br&amp;gt;\
+网络：\
+{for item in networks}\
+  {if item_index!=0}|{/if}\
+  ${item}\
+{/for}&#39;;
+
+template.process(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;名称: iPhone 6 Plus&amp;lt;br&amp;gt;
+重量：480.00&amp;lt;br&amp;gt;
+内存：16GB&amp;lt;br&amp;gt;
+网络：
+  移动（TD-LTE)
+ | 联通(TD-LTE)
+ | 电信(FDD-LTE)
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -92,7 +1518,205 @@
       <guid>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;为什么需要一个前端监控系统&#34;&gt;为什么需要一个前端监控系统&lt;/h2&gt;
+
+&lt;p&gt;通常在一个大型的 Web 项目中有很多监控，比如后端的服务 API 监控，接口存活、调用、延迟等监控，这些一般都用来监控后台接口数据层面的信息。而且对于大型网站系统来说，从后端服务到前台展示会有很多层：内网 VIP、CDN 等。但是这些监控并不能准确地反应用户看到的前端页面状态，比如：页面第三方系统数据调用失败，模块加载异常，数据不正确，空白开天窗等。这时候就需要从前端 DOM 展示的角度去分析和收集用户真正看到的东西，从而检测出页面是否出现异常问题&lt;/p&gt;
+
+&lt;h2 id=&#34;需要监控系统解决的问题&#34;&gt;需要监控系统解决的问题&lt;/h2&gt;
+
+&lt;p&gt;页面通常出现以下问题时需要使用邮件、短信通知相关人员修复问题&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;状态码返回错误（50x, 40x）无法打开&lt;/li&gt;
+&lt;li&gt;模块加载失败&lt;/li&gt;
+&lt;li&gt;页面乱码&lt;/li&gt;
+&lt;li&gt;数据正确性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;触发报警时要有现场快照，以便复现问题&lt;/p&gt;
+
+&lt;h2 id=&#34;技术选型&#34;&gt;技术选型&lt;/h2&gt;
+
+&lt;p&gt;监控的意义和回归测试的在本质上是一致的，都是对已上线功能进行回归测试，但不同的是监控需要做长期的可持续可循环的回归测试，而测试仅仅需要在上线之后做一次回归&lt;/p&gt;
+
+&lt;p&gt;既然监控和测试的本质一致，那我们完全可以采用测试的方式来做监控系统。在自动化测试技术遍地开花的时代，不乏很多好用的自动化工具，我们只需要把这些自动化工具进行整合为我们所用即可&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NodeJS - 特别适用于网络密集型任务&lt;/li&gt;
+&lt;li&gt;PhantomJS - 模拟无界面的浏览器，提供丰富的内核交互 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;nodejs&#34;&gt;NodeJS&lt;/h3&gt;
+
+&lt;p&gt;NodeJS 是一个 JavaScript 运行环境，非阻塞 I/O 和异步、事件驱动，这几点对于我们构建基于 DOM 元素的监控是非常重要的&lt;/p&gt;
+
+&lt;h3 id=&#34;phantomjs&#34;&gt;PhantomJS&lt;/h3&gt;
+
+&lt;p&gt;PhantomJS 是一个基于 webkit 的浏览器引擎，可以使用 JavaScript API 来模拟浏览器的操作。它使用 QtWebKit 作为它的浏览器核心，使用 webkit 来编译解释执行 JavaScript 代码。也就是说任何你可以在 webkit 浏览器里做的事情，它都能做到&lt;/p&gt;
+
+&lt;p&gt;它不仅是个隐形的浏览器，提供了诸如 CSS 选择器、支持 Web 标准、DOM 操作、JSON、HTML5、Canvas、SVG 等，同时也提供了处理文件 I/O 的操作等。PhantomJS 的用处可谓非常广泛，诸如网络监测、网页截屏、无浏览器的 Web 测试、页面访问自动化等&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么不是 Selenium&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;做自动化测试的同学肯定都知道 Selenium。可以使用 Selenium 将测试用例在浏览器中执行，而且 Selenium 对各种平台和常见浏览器支持比较好，但是 Selenium 上手难度系数略高，而且使用Selenium 需要在服务器端安装浏览器&lt;/p&gt;
+
+&lt;p&gt;考虑到监控主要任务在监控不在测试。系统并不需要太多考虑兼容性，而且监控功能相对单一，主要对页面进行功能上的回归测试，所以选择了 PhantomJS&lt;/p&gt;
+
+&lt;h2 id=&#34;架构设计&#34;&gt;架构设计&lt;/h2&gt;
+
+&lt;h3 id=&#34;架构概览&#34;&gt;架构概览&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17013271/ec2bc29e-4f4f-11e6-9591-0838a0243206.png&#34; alt=&#34;4&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;架构简述&#34;&gt;架构简述&lt;/h3&gt;
+
+&lt;p&gt;对于 DOM 监控服务，在应用层面上进行了垂直划分：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;规则管理系统&lt;/li&gt;
+&lt;li&gt;规则队列生成器&lt;/li&gt;
+&lt;li&gt;长时持续处理器&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务&lt;/li&gt;
+&lt;li&gt;服务化 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在应用层面上进行的垂直划分可以对应用做分布式部署，提高处理能力。后期也方便做性能优化、系统改造扩展等&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+
+&lt;h3 id=&#34;前台规则录入&#34;&gt;前台规则录入&lt;/h3&gt;
+
+&lt;p&gt;这是一个独立的 Web 系统，系统主要用来收集用户录入的页面信息、页面对应的规则、展示错误信息。通过调用后端页面抓取服务来完成页面检测的任务，系统可以创建三种类型的检测页面：常规监控、高级监控、可用性监控&lt;/p&gt;
+
+&lt;h4 id=&#34;常规监控&#34;&gt;常规监控&lt;/h4&gt;
+
+&lt;p&gt;录入一个页面地址，和若干检测规则。注意这里的检测规则，我们把常用的一些检测点抽象成了一条类似测试用例的语句。每条规则用来匹配页面上的一个 DOM 元素，用 DOM 元素的属性来和预期做匹配，如果匹配失败系统就会产生一条错误信息，后续交由报警系统处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;匹配类型&lt;/strong&gt; 一般有这么几种：&lt;code&gt;长度、文本、HTML、属性&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;处理器&lt;/strong&gt; 类似编程语言中的操作符：&lt;code&gt;大于、大于等于、小于、小于等于、等于、正则&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样做的处就是，录入规则的人只要了解一点 DOM 选择器的知识就可以上手操作了，在我们内部通常是交由测试工程师统一完成规则的录入&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012424/2963f11e-4f4a-11e6-96f1-a962c767e651.png&#34; alt=&#34;1&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;高级监控&#34;&gt;高级监控&lt;/h4&gt;
+
+&lt;p&gt;主要用来提供高级页面测试的功能，一般由有经验的工程师来撰写测试用例。这个测试用例写起来会有一些学习成本，但是可以模拟 Web 页面操作，如：点击、鼠标移动等事件从而做到精确捕捉页面信息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012590/324509de-4f4b-11e6-9ddc-63e5a140b208.png&#34; alt=&#34;2&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;可用性监控&#34;&gt;可用性监控&lt;/h4&gt;
+
+&lt;p&gt;可用性监控侧重于对页面的可访问性、内容正确性等比较 &lt;strong&gt;严重的问题&lt;/strong&gt; 做即时监控。通常这类页面我们只需要在程序里面启一个 Worker 不断的去获取页面 HTML 就可以对结果进行检测匹配了，所以我们选择了 NodeJS 来做异步的页面抓取队列，高效快速的完成这种网络密集型任务&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/17012775/7ccfad00-4f4c-11e6-80b6-60186069bdac.png&#34; alt=&#34;3&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;主动错误上报&#34;&gt;主动错误上报&lt;/h3&gt;
+
+&lt;h4 id=&#34;页面脚本执行错误监控&#34;&gt;页面脚本执行错误监控&lt;/h4&gt;
+
+&lt;p&gt;页面引入一段监控脚本来收集页面产成 error 事件返回的错误信息，自动上报给后端服务，在系统里面可以汇总所有报错信息，以及对应的客户端浏览器版本、操作系统、IP 地址等&lt;/p&gt;
+
+&lt;h4 id=&#34;页面主动上报&#34;&gt;页面主动上报&lt;/h4&gt;
+
+&lt;p&gt;这个功能需要对应的前端工程师在代码中调用错误上报 API，来主动提交错误信息。主要使用的场景有，页面异步服务延时无响应、模块降级兜底主动通知等。监控脚本提供几个简单的 API 来完成这项任务&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-JavaScript&#34;&gt;// error 方法调用后立即上报错误信息并发出邮件、短信通知
+errorTracker.error(&#39;错误描述&#39;)
+// info 方法调用后立即上报信息，并在单位时间内仅产生一条邮件、短信通知
+errorTracker.info(&#39;信息描述&#39;)
+// log 方法调用后由报错检测是否达到设置阀值，最终确认是否报错
+errorTracker.log(&#39;日志信息&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;后端页面抓取服务&#34;&gt;后端页面抓取服务&lt;/h3&gt;
+
+&lt;p&gt;由于京东很多页面内容是异步加载的，像首页、单品等系统有许多第三方异步接口调用，使用后端程序抓取到的页面数据是同步的，并不能取到动态的 JavaScript 渲染的内容，所以就必须使用像 PhantomJS 这种能模拟浏览器的工具&lt;/p&gt;
+
+&lt;p&gt;常规监控我们使用 PhantomJS 模拟浏览器打开页面进行抓取，然后将监控规则解析成 JavaScript 代码片段执行并收集结果&lt;/p&gt;
+
+&lt;p&gt;高级监控我们使用 PhantomJS 打开页面后向页面注入像 jasmine, mocha 等类似的前端 JavaScript 测试框架，然后在页面执行对应的录入测试用例并返回结果&lt;/p&gt;
+
+&lt;h4 id=&#34;规则队列生成器&#34;&gt;规则队列生成器&lt;/h4&gt;
+
+&lt;p&gt;规则队列生成器会将采集的规则转化类成消息队列，然后交由长时持续处理器一次处理&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么采用类消息队列的处理方式？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这和 PhantomJS 的性能是密不可分的，由多次实践发现，PhantomJS 并不能很好地进行并发处理，当并发过多，会导致 CPU 过载，从而导致机器宕机&lt;/p&gt;
+
+&lt;p&gt;在本机环境下的虚拟机中进行并发测试，数据并不理想，极限基本在 ab -n 100 -c 50 左右。 所以为了防止并发导致的问题，就选择了使用类消息队列来避免因为并发过高导致的服务不可用&lt;/p&gt;
+
+&lt;h4 id=&#34;类消息队列的实现&#34;&gt;类消息队列的实现&lt;/h4&gt;
+
+&lt;p&gt;我们这里通过调用内部的分布式缓存系统生成类消息队列，队列的生成其实可以参考数据结构&amp;ndash;队列。最基本的模型就是在缓存中创建一个 KEY ，然后根据队列数据结构的模式进行数据的插入和读取&lt;/p&gt;
+
+&lt;p&gt;当然，类消息队列的中间介质可根据你实际的条件来选择，你也可以使用本机内存实现。这可能会导致应用和类消息队列竞争内存&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理器&#34;&gt;长时持续处理器&lt;/h4&gt;
+
+&lt;p&gt;长时持续处理器是要功能就是消费规则队列生成器生成的类消息队列&lt;/p&gt;
+
+&lt;h4 id=&#34;长时持续处理实现&#34;&gt;长时持续处理实现&lt;/h4&gt;
+
+&lt;p&gt;在长时持续处理器的具体实现中，我们利用了 JavaScript 的 setInterval 方法来持续获取累消息队列的内容下发给规则转化器，然后转发给负载均衡调度器。之后再对返回的结果进行统一处理，比如邮件或者短信报警&lt;/p&gt;
+
+&lt;h4 id=&#34;api&#34;&gt;API&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务可以做为公共 API 提供给客户端进行测试需求的处理， API 通过 HTTP 方式调用。在 API 的处理上需要提供 HTTP 数据到规则和 PhantomJS 的转换。从而又演化出了 HTTP 数据到规则转换器&lt;/p&gt;
+
+&lt;h4 id=&#34;phantomjs-服务&#34;&gt;PhantomJS 服务&lt;/h4&gt;
+
+&lt;p&gt;PhantomJS 服务是指将 PhantomJS 结合 HTTP 服务和子进程进行服务化的处理&lt;/p&gt;
+
+&lt;p&gt;首先、启动 HTTP 服务，然后将长时处理器下发的规则进行进一步转化，转化后启动子进程，HTTP 服务会监听子进程的处理结果，并在处理完毕之后返回&lt;/p&gt;
+
+&lt;h3 id=&#34;报警系统&#34;&gt;报警系统&lt;/h3&gt;
+
+&lt;p&gt;报警系统我们目前使用的是京东内部自己的统一监控平台 UMP，通过调用平台提供的一些 API 来实现报警邮件与短信通知&lt;/p&gt;
+
+&lt;h4 id=&#34;如何根据报警定位到具体页面&#34;&gt;如何根据报警定位到具体页面？&lt;/h4&gt;
+
+&lt;p&gt;用户通过监控管理系统录入规则后，监控系统会根据 UMP 规则针对用户录入的页面生成 UMP 使用的 key。当长时持续处理器发现 PhantomJS 服务返回的结果标示为异常后，就会使用 key 来进行日志记录&lt;/p&gt;
+
+&lt;h4 id=&#34;何时出发报警&#34;&gt;何时出发报警？&lt;/h4&gt;
+
+&lt;p&gt;报警主要分为了短信和邮件报警。邮件报警是在每条异常之后就会发给指定系统用户。短信则是根据异常次数来进行处理的，当异常次数过大，就会下发短信通知&lt;/p&gt;
+
+&lt;h3 id=&#34;部署&#34;&gt;部署&lt;/h3&gt;
+
+&lt;p&gt;对于系统部署可以分为两大块进行。因为机器资源数量有限，没有将所有部分都单独部署&lt;/p&gt;
+
+&lt;p&gt;规则管理系统以及规则队列生成器和持续处理器整合部署在一台机器上，PhantomJS 服务部署在了其他的机器上。进程管理使用了著名的 NPM 模块 —— PM2&lt;/p&gt;
+
+&lt;p&gt;PM2 是一个带有负载均衡功能的 NodeJS 应用的进程管理器。可充分利用 CPU，并保证进程稳定存活&lt;/p&gt;
+
+&lt;p&gt;PM2 特性：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;内建负载均衡（使用 Node cluster 集群模块）&lt;/li&gt;
+&lt;li&gt;无缝重启类似 nginx reload&lt;/li&gt;
+&lt;li&gt;具有 Ubuntu 和 CentOS 的开机启动脚本&lt;/li&gt;
+&lt;li&gt;控制台检测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不过在目前部署任务中，并没有使用内建负载均衡的特性，没用通过集群的方式部署代理。仅使用了后台运行和无缝重启的特性&lt;/p&gt;
+
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+
+&lt;p&gt;其实我们现在开发的这套监控系统并不复杂，只是合理的运用了一些现有的技术框架。抽象出来我们自己需要的一些功能。但却有效的达到了我们的预期功能，并且节省了很多之前需要人肉测试的时间成本。系统本身还有很多问题在待解决状态，比如报警系统的规则处理与阀值设定，JavaScript 报错的准确过滤机制等，这些问题我们都会逐个解决，并且未来的前端监控系统会成为一个平台，核心服务在后端爬取页面服务，应用端可以有多种形式，比如监控、测试工具等&lt;/p&gt;
+
+&lt;p&gt;一些可以持续优化点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;监控系统虽然在应用层面进行了垂直划分，但是由于机器资源等限制，并没有进行单独功能的部署。这点可能会在后期的使用中进行优化&lt;/li&gt;
+&lt;li&gt;PhantomJS 服务还需要进一步优化，以承载大并发，大处理量。提供稳定的服务&lt;/li&gt;
+&lt;li&gt;报警由于依赖于公司内部的 UMP 系统，所以并不是特别灵活，后期可以考虑自己实现一套报警机制&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -107,293 +1731,92 @@
 
 &lt;p&gt;但就在最近因为家里的用 Macbook，刚好升级到了新版的 Sierria，杯具的是之前安装的 Octopress bundle 都失效了。调试了很久还没把环境搭建好，再加上之前发现 Octopress 的 Markdown 解析器老报错，于是就决定要更换一个配置安装简单点的博客生成器了&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>简单方法解决 Macbook 电源接口接触不良的问题</title>
-      <link>https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/</link>
-      <pubDate>Tue, 04 Oct 2016 17:22:29 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/</guid>
-      <description>&lt;p&gt;Macbook 电源用的时候久了，接口里面的几个针脚弹性变差，有时候接通电源然而灯不能亮&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;在网上搜索了下发现一个好方法：&lt;strong&gt;接电源那头是突出金属的，稍微打磨下去一点就可以了&lt;/strong&gt;，亲测有效&lt;/p&gt;
+&lt;p&gt;在参考了这个网站上的各种生成器后 &lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen&lt;/a&gt;，果断选择了 Hugo。没有什么特殊原因，下载安装试用一下就明白了。Hugo 由于是 Go 语言写的，所以你只需要下载好官方给的二进制可执行文件就可以了，再也不用安装各种依赖，然后各种换源什么的乱折腾了。这一点就足以让我转入 Hugo&lt;/p&gt;
 
-&lt;p&gt;PS: 如果没有打磨工具可以直接找个空地面磨，有条件的话磨完再用砂纸抛光下就可以了&lt;/p&gt;
+&lt;h2 id=&#34;主题&#34;&gt;主题&lt;/h2&gt;
 
-&lt;p&gt;来两张图片看看&lt;/p&gt;
+&lt;p&gt;由于自己还是比较喜欢 Octopress 默认的这套主题，所以在读过 Hugo 开发文档后，在严格尊重原主题的原则下修改了部分增强样式，制做了一个适配 Hugo 的 Octopress 主题。虽然 Hugo 官方有一个适配 Octopress 的主题 &lt;a href=&#34;http://themes.gohugo.io/hugo-octopress/&#34;&gt;hugo-octopress&lt;/a&gt; 但是对原主题改动太多，我并不喜欢&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>JavaScript 浏览器事件</title>
-      <link>https://keelii.github.io/2016/09/29/javascript-browser-event/</link>
-      <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/09/29/javascript-browser-event/</guid>
-      <description>&lt;h2 id=&#34;javascript-浏览器-事件之间的关系&#34;&gt;JavaScript、浏览器、事件之间的关系&lt;/h2&gt;
+&lt;h2 id=&#34;迁移&#34;&gt;迁移&lt;/h2&gt;
 
-&lt;p&gt;JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是：&lt;/p&gt;
+&lt;h3 id=&#34;文章&#34;&gt;文章&lt;/h3&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 15 - 脚本化文档</title>
-      <link>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</link>
-      <pubDate>Fri, 12 Aug 2016 15:36:59 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</guid>
-      <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
+&lt;p&gt;Octopress 使用的文章描述头是 yaml 格式的，需要转换成 Hugo 的 toml，自己手动写了个 &lt;a href=&#34;https://gist.github.com/keelii/b6c51290e5ee0253f99a6424a7e2faeb&#34;&gt;NodeJS 脚本&lt;/a&gt; 来完成这个工作，基本上很轻松就完成了。注意：建议放在 &lt;code&gt;content/archives&lt;/code&gt; 目录下面，这样的话原来的文件目录和新的就是一致的了&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>京东单品页前端开发那些不得不说的事儿</title>
-      <link>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</link>
-      <pubDate>Sun, 31 Jul 2016 10:48:57 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</guid>
-      <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;再吐槽下 md 文件名，Octopress 默认是生成时间为前缀的，如：&lt;code&gt;2016-06-13-name.markdown&lt;/code&gt;。 如果转移到 Hugo 永久链接还要保持原来文件名格式的话就得把这个前缀干掉（&lt;code&gt;name.md&lt;/code&gt;），这样的话排序就乱了。在各种编辑器、文件夹中不按创建顺序排序，看起来很别扭也不方便&lt;/p&gt;
 
-&lt;p&gt;详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合&lt;/p&gt;
+&lt;h3 id=&#34;文章链接&#34;&gt;文章链接&lt;/h3&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 14 - Window 对象</title>
-      <link>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</link>
-      <pubDate>Tue, 26 Jul 2016 11:35:42 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</guid>
-      <description>&lt;p&gt;本章介绍 Window 对象的属性和方法&lt;/p&gt;
+&lt;p&gt;考虑到之间已经写过很多文章了，搜索引擎都已收录，所以要保持原来的文章链接格式不变。在 Hugo 配置文件里面加上这段，使用文件名做文章永久链接：&lt;/p&gt;
 
-&lt;h2 id=&#34;计时器&#34;&gt;计时器&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;[permalinks]
+    archives = &amp;quot;/:year/:month/:day/:filename/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
+&lt;h3 id=&#34;存档&#34;&gt;存档&lt;/h3&gt;
 
-由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</link>
-      <pubDate>Thu, 14 Jul 2016 14:11:08 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</guid>
-      <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
+&lt;p&gt;Octopress 默认的存档地址是 &lt;code&gt;archives&lt;/code&gt;，这个我们可以直接在 Hugo 博客目录 content 里面新建一个目录名为 archives 就可以了，以后新建文章都以这个 Section 为准：&lt;code&gt;hugo new archives/your-post-name.md&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</link>
-      <pubDate>Sun, 10 Jul 2016 19:47:18 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</guid>
-      <description>&lt;h2 id=&#34;用-node-实现异步-i-o&#34;&gt;用 Node 实现异步 I/O&lt;/h2&gt;
+&lt;h3 id=&#34;rss&#34;&gt;RSS&lt;/h3&gt;
 
-&lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</title>
-      <link>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</link>
-      <pubDate>Wed, 06 Jul 2016 12:43:30 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</guid>
-      <description>&lt;p&gt;正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换&lt;/p&gt;
+&lt;p&gt;Octopress 默认的是 &lt;code&gt;atom.xml&lt;/code&gt;，然而 Hugo 中默认的是 &lt;code&gt;index.xml&lt;/code&gt;。不过我们可以在 Hugo 中做个配置，和之间保持一致：&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>使用 lisp 简单描述加法运算</title>
-      <link>https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</link>
-      <pubDate>Mon, 04 Jul 2016 09:32:45 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/04/describe-a-simple-add-method-use-lisp/</guid>
-      <description>&lt;p&gt;最近在看 &lt;a href=&#34;http://v.youku.com/v_show/id_XNTEzMDAyMTU2.html?f=18958522&#34;&gt;MIT 公开课-计算机程序的构造和解释&lt;/a&gt;，即使你像我一样根本没学过 lisp 也能看懂下面这段代码，这段代码展示了怎么实现加法运算，这种我们几乎从来不会去想为什么的问题，这几行简单的代码告诉我们如何计算出 3 + 4 的值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;RSSUri = &amp;quot;atom.xml&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;由 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86&#34;&gt;皮亚诺&lt;/a&gt; 算术定义的求 x 和 y 之和的过程&lt;/p&gt;
+&lt;p&gt;然而实际测试的时候在模板里面调用 &lt;code&gt;{{ .RSSlink }}&lt;/code&gt; 始终都返回 index.xml。手动把模板里面的 RSS 链接改成 &lt;code&gt;{{ .Site.BaseURL }}atom.xml&lt;/code&gt; 居然能生效？！这估计是 Hugo 的一个 bug。好在被发现了，要不然新老订阅 RSS 地址不一样事情就比较麻烦了&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 9 - 类和模块</title>
-      <link>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</link>
-      <pubDate>Sat, 02 Jul 2016 13:58:30 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</guid>
-      <description>&lt;p&gt;每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）&lt;/p&gt;
+&lt;h3 id=&#34;分页&#34;&gt;分页&lt;/h3&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 8 - 函数</title>
-      <link>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</link>
-      <pubDate>Wed, 29 Jun 2016 20:22:22 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</guid>
-      <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
+&lt;p&gt;Octopress 默认的格式是 &lt;code&gt;posts/2&lt;/code&gt;，Hugo 中是 &lt;code&gt;posts/2&lt;/code&gt; 同样需要加个配置：&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 5 - 语句</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</guid>
-      <description>&lt;p&gt;表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;paginatePath = &amp;quot;posts&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 6 - 对象</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</guid>
-      <description>&lt;p&gt;对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 &lt;strong&gt;原型&lt;/strong&gt; 的对象继承属性&lt;/p&gt;
+&lt;h2 id=&#34;hugo-的几个基本概念&#34;&gt;Hugo 的几个基本概念&lt;/h2&gt;
 
-&lt;p&gt;JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象&lt;/p&gt;
+&lt;p&gt;这几个概念主要在修改主题的时候能用到&lt;/p&gt;
 
-&lt;p&gt;对象是可变的，通过引用操作对象原对象也会受到影响
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 7 - 数组</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</link>
-      <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</guid>
-      <description>&lt;p&gt;数组是值的 &lt;strong&gt;有序集合&lt;/strong&gt;。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型&lt;/p&gt;
+&lt;h3 id=&#34;front-matter&#34;&gt;Front Matter&lt;/h3&gt;
 
-&lt;p&gt;JavaScript 数组是 &lt;strong&gt;动态的&lt;/strong&gt;，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小&lt;/p&gt;
+&lt;p&gt;类似 markdown 文件的配置描述，用来配置文章的标题、时间、链接、分类等元信息，提供给模板调用&lt;/p&gt;
 
-&lt;p&gt;JavaScript 数组可能是 &lt;strong&gt;稀疏的&lt;/strong&gt;，数组元素索引不一定要连续&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
+title = &amp;quot;post title&amp;quot;
+description = &amp;quot;description.&amp;quot;
+date = &amp;quot;2012-04-06&amp;quot;
+tags = [ &amp;quot;.vimrc&amp;quot;, &amp;quot;plugins&amp;quot;, &amp;quot;spf13-vim&amp;quot;, &amp;quot;vim&amp;quot; ]
+categories = [
+  &amp;quot;cat1&amp;quot;,
+  &amp;quot;cat2&amp;quot;
+]
++++
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 &lt;strong&gt;快很多&lt;/strong&gt;
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</title>
-      <link>https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</link>
-      <pubDate>Mon, 20 Jun 2016 19:10:28 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/</guid>
-      <description>&lt;p&gt;表达式（expression）是 JavaScript 中的一个短语（phrases），JavaScript 解释器会将其计算（evaluate）出一个结果。程序中的常量、变量名、数组访问等都是表达式&lt;/p&gt;
+&lt;h3 id=&#34;sections&#34;&gt;Sections&lt;/h3&gt;
 
-&lt;p&gt;简单表达式组合成复杂表达式最常用的方法就是使用运算符（operator）&lt;/p&gt;
+&lt;p&gt;在 content 下面的一级目录，通常有分类的概念，但只是文件夹维度的物理隔离&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 1 - 简介</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-0/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;第一章 主要介绍 JavaScript 的大概情况、基本语法。之前没有 JavaScript 基础的看不懂也没关系，后续章节会有进一步的详细说明，我会通读一遍 《&lt;a href=&#34;https://book.douban.com/subject/10549733/&#34;&gt;JavaScript 权威指南&lt;/a&gt;》，然后根据个人的理解整理出来我认为重要的核心概念，同时我也会参考原版英文版 &lt;a href=&#34;http://shop.oreilly.com/product/9780596805531.do&#34;&gt;JavaScript The Definitive Guide&lt;/a&gt;，取一些关键性、重要的单词做补充，以及对原版和译版做的一些勘误&lt;/p&gt;
+&lt;h3 id=&#34;types&#34;&gt;Types&lt;/h3&gt;
 
-&lt;p&gt;中文排版指南遵守 &lt;a href=&#34;https://github.com/mzlogin/chinese-copywriting-guidelines&#34;&gt;中文文案排版指北&lt;/a&gt;，欢迎批评批正&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;如果没有为文章指定 type 配置，文章默认就属于当前属的 Section，type 可以在 Front Matter 中指定，而
+Section 不可以&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 2 - 词法结构</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-1/</guid>
-      <description>&lt;p&gt;词法结构（Lexical Structure）是程序语言的一套基础性规则，用来描述如何使用这门语言来编写程序&lt;/p&gt;
+&lt;h3 id=&#34;archetype&#34;&gt;Archetype&lt;/h3&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</title>
-      <link>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</link>
-      <pubDate>Thu, 16 Jun 2016 13:06:13 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/</guid>
-      <description>&lt;p&gt;JavaScript 中的数据类型分为两类：原始类型（primitive type）和对象类型（object type）。原始类型包括数字、字符串和布尔值&lt;/p&gt;
+&lt;p&gt;新建文章时候的默认模板，会带有指定的 Front Matter 头&lt;/p&gt;
 
-&lt;p&gt;JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定义），它们不是数字、字符串或布尔值。它们通常代表了各自特殊类型的唯一的成员&lt;/p&gt;
+&lt;h3 id=&#34;taxonomy&#34;&gt;Taxonomy&lt;/h3&gt;
 
-&lt;p&gt;除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</title>
-      <link>https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</link>
-      <pubDate>Tue, 14 Jun 2016 10:39:40 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</guid>
-      <description>&lt;p&gt;vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
-官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>可能是 Windows 下最漂亮的 Gvim 配置了</title>
-      <link>https://keelii.github.io/2016/06/13/awsome-window-vimrc/</link>
-      <pubDate>Mon, 13 Jun 2016 21:25:57 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/13/awsome-window-vimrc/</guid>
-      <description>&lt;p&gt;一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim&lt;/p&gt;
+&lt;p&gt;分类、标签、系列这种描述文章属性的都属于 Taxonomy Terms&lt;/p&gt;
 
-&lt;p&gt;不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>免费 https 证书（Let&#39;s Encrypt）申请与配置</title>
-      <link>https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/</link>
-      <pubDate>Sun, 12 Jun 2016 18:04:47 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/</guid>
-      <description>&lt;p&gt;之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>JavaScript 节流函数 throttle 详解</title>
-      <link>https://keelii.github.io/2016/06/11/javascript-throttle/</link>
-      <pubDate>Sat, 11 Jun 2016 06:52:57 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/11/javascript-throttle/</guid>
-      <description>&lt;p&gt;在浏览器 DOM 事件里面，有一些事件会随着用户的操作不间断触发。比如：重新调整浏览器窗口大小（resize），浏览器页面滚动（scroll），鼠标移动（mousemove）。也就是说用户在触发这些浏览器操作的时候，如果脚本里面绑定了对应的事件处理方法，这个方法就不停的触发。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>测试文章</title>
-      <link>https://keelii.github.io/2016/06/10/test-post/</link>
-      <pubDate>Fri, 10 Jun 2016 18:04:47 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/06/10/test-post/</guid>
-      <description>标题一 标题二 标题三 标题四 标题五 标题六 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrudexercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident,</description>
+&lt;p&gt;Hugo 确实是一个不错的博客框架，配置简单、功能强大，很多东西都以「惯例」默认提供了，比如内置 TableOfContents，用来写博客足亦&lt;/p&gt;
+
+&lt;p&gt;不过由于是 Go 语言写的，很多人并不知道有这么好用的一个东西，所以社区并不是很好。这可能就是所谓的编程的帮派论吧&lt;/p&gt;</description>
     </item>
     
   </channel>

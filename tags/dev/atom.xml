@@ -20,7 +20,7 @@
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程&lt;/p&gt;
+&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程，主要记录一些常用的配置技巧&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&#34;系统设置&#34;&gt;系统设置&lt;/h2&gt;
@@ -51,9 +51,12 @@
 
 &lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;桌面图标排序&#34;&gt;桌面图标排序&lt;/h3&gt;
+&lt;h3 id=&#34;其它&#34;&gt;其它&lt;/h3&gt;
 
-&lt;p&gt;桌面空白处右键 &lt;code&gt;排序方式-贴紧风格&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;系统偏好设置-键盘-输入法-自动切换到文稿输入法&lt;/code&gt; 应用切换的时候会保持原来的输入法不变&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;桌面空白处右键-排序方式-贴紧网格&lt;/code&gt; 右键整理图标的时候就会按网格排列&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&#34;开发环境设置&#34;&gt;开发环境设置&lt;/h2&gt;
 
@@ -68,7 +71,7 @@
 
 &lt;h3 id=&#34;安装-brew&#34;&gt;安装 brew&lt;/h3&gt;
 
-&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可&lt;/p&gt;
+&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可，App Store 我一般用来购买安装一些收费软件&lt;/p&gt;
 
 &lt;p&gt;打开命令行执行下面的命令来安装 brew&lt;/p&gt;
 
@@ -86,7 +89,7 @@ cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
 git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走番习习墙代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走 &lt;em&gt;番习习墙&lt;/em&gt; 代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;socks5 = &amp;quot;127.0.0.1:1080&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
@@ -120,16 +123,18 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 &lt;p&gt;&lt;a href=&#34;https://www.iterm2.com/&#34;&gt;下载&lt;/a&gt; 并安装，打开 Preferences 偏好设置&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;General关闭 &lt;code&gt;Native full screen windows&lt;/code&gt;。我不使用系统的全屏（因为有过渡动画），是为了方便全局快捷调出命令行&lt;/li&gt;
-&lt;li&gt;设置透明度 &lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;设置全局显示隐藏快捷键 &lt;code&gt;Keys-Hotkey&lt;/code&gt; 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;General&lt;/code&gt; 关闭 &lt;code&gt;Native full screen windows&lt;/code&gt; 我不使用系统的全屏（因为有过渡动画），是为了使用全局快捷键 &lt;strong&gt;立即&lt;/strong&gt; 调出命令行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 设置透明度 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Keys-Hotkey&lt;/code&gt; 设置全局显示隐藏快捷键 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;blockquote&gt;
 &lt;p&gt;最佳实践，启动 iTerm2 后按 &lt;code&gt;⌘+enter&lt;/code&gt; 全屏，然后 &lt;code&gt;⌘+\&lt;/code&gt; 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 &lt;code&gt;⌘+\&lt;/code&gt; 即可&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h3 id=&#34;brew-常用工具&#34;&gt;brew 常用工具&lt;/h3&gt;
 
-&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xxx&lt;/code&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;htop&#34;&gt;htop&lt;/h4&gt;
 
@@ -178,9 +183,9 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 &lt;h4 id=&#34;autojump&#34;&gt;autojump&lt;/h4&gt;
 
-&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配&lt;/p&gt;
+&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配。&lt;strong&gt;注意: autojump 只会记录安装后使用 cd 命令进入过的目录&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34;&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
 
@@ -230,7 +235,9 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.mowglii.com/itsycal/&#34;&gt;Itsycal&lt;/a&gt; ⇒ 简洁版日历&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://snappy-app.com/&#34;&gt;Snappy&lt;/a&gt; ⇒ 屏幕截图、修改分享&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;

@@ -95,7 +95,7 @@
                 <div class="entry-content">
 
 <blockquote>
-<p>本文来自于我自己配置两台 macOS 开发环境的过程</p>
+<p>本文来自于我自己配置两台 macOS 开发环境的过程，主要记录一些常用的配置技巧</p>
 </blockquote>
 
 <h2 id="系统设置">系统设置</h2>
@@ -126,9 +126,12 @@
 
 <p><a href="https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png"><img src="https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png" alt="finder" /></a></p>
 
-<h3 id="桌面图标排序">桌面图标排序</h3>
+<h3 id="其它">其它</h3>
 
-<p>桌面空白处右键 <code>排序方式-贴紧风格</code></p>
+<ul>
+<li><code>系统偏好设置-键盘-输入法-自动切换到文稿输入法</code> 应用切换的时候会保持原来的输入法不变</li>
+<li><code>桌面空白处右键-排序方式-贴紧网格</code> 右键整理图标的时候就会按网格排列</li>
+</ul>
 
 <h2 id="开发环境设置">开发环境设置</h2>
 
@@ -143,7 +146,7 @@
 
 <h3 id="安装-brew">安装 brew</h3>
 
-<p>一般命令行的工具，或者开发环境包都用 <a href="https://brew.sh/">brew</a> 来安装。GUI 的应用直接去网站下载安装包即可</p>
+<p>一般命令行的工具，或者开发环境包都用 <a href="https://brew.sh/">brew</a> 来安装。GUI 的应用直接去网站下载安装包即可，App Store 我一般用来购买安装一些收费软件</p>
 
 <p>打开命令行执行下面的命令来安装 brew</p>
 
@@ -161,7 +164,7 @@ cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
 git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 </code></pre>
 
-<p>由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走番习习墙代理，我一般在配置文件中设置 <code>vim ~/.curlrc</code></p>
+<p>由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走 <em>番习习墙</em> 代理，我一般在配置文件中设置 <code>vim ~/.curlrc</code></p>
 
 <pre><code class="language-bash">socks5 = &quot;127.0.0.1:1080&quot;
 </code></pre>
@@ -195,16 +198,18 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 <p><a href="https://www.iterm2.com/">下载</a> 并安装，打开 Preferences 偏好设置</p>
 
 <ul>
-<li>General关闭 <code>Native full screen windows</code>。我不使用系统的全屏（因为有过渡动画），是为了方便全局快捷调出命令行</li>
-<li>设置透明度 <code>Profiles-Window-Transparency</code> 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 <code>⌘+u</code></li>
-<li>设置全局显示隐藏快捷键 <code>Keys-Hotkey</code> 系统级别的快捷键设置为 <code>⌘+\</code></li>
+<li><code>General</code> 关闭 <code>Native full screen windows</code> 我不使用系统的全屏（因为有过渡动画），是为了使用全局快捷键 <strong>立即</strong> 调出命令行</li>
+<li><code>Profiles-Window-Transparency</code> 设置透明度 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 <code>⌘+u</code></li>
+<li><code>Keys-Hotkey</code> 设置全局显示隐藏快捷键 系统级别的快捷键设置为 <code>⌘+\</code></li>
 </ul>
 
+<blockquote>
 <p>最佳实践，启动 iTerm2 后按 <code>⌘+enter</code> 全屏，然后 <code>⌘+\</code> 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 <code>⌘+\</code> 即可</p>
+</blockquote>
 
 <h3 id="brew-常用工具">brew 常用工具</h3>
 
-<p>下面这些都是用 brew 安装的，即 <code>brew install xx</code></p>
+<p>下面这些都是用 brew 安装的，即 <code>brew install xxx</code></p>
 
 <h4 id="htop">htop</h4>
 
@@ -253,9 +258,9 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 <h4 id="autojump">autojump</h4>
 
-<p>方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配</p>
+<p>方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配。<strong>注意: autojump 只会记录安装后使用 cd 命令进入过的目录</strong></p>
 
-<p><a href="https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png"><img src="https://img14.360buyimg.com/devfe/jfs/t9631/290/833857815/33393/fd393bbd/59d8e5b2Na4ea2eb9.png" alt="autojump" /></a></p>
+<p><a href="//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif"><img src="//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif" alt="autojump" /></a></p>
 
 <h4 id="yarn">yarn</h4>
 
@@ -305,7 +310,9 @@ sass_binary_site &quot;http://cdn.npm.taobao.org/dist/node-sass&quot;
 <ul>
 <li><a href="https://theunarchiver.com/">The Unarchiver</a> ⇒ 解压工具</li>
 <li><a href="https://itunes.apple.com/cn/app/magnet/id441258766?mt=12">Magent</a> ⇒ 排列窗口</li>
+<li><a href="https://www.mowglii.com/itsycal/">Itsycal</a> ⇒ 简洁版日历</li>
 <li><a href="http://snip.qq.com/">Snip</a> ⇒ 屏幕截图</li>
+<li><a href="http://snappy-app.com/">Snappy</a> ⇒ 屏幕截图、修改分享</li>
 <li><a href="https://pqrs.org/osx/karabiner/">Karabiner-Elements</a> ⇒ 改键器, 改键方案参照<a href="/2017/10/03/how-to-map-single-command-key-on-mac/">上篇</a></li>
 <li><a href="https://freemacsoft.net/appcleaner/">AppCleaner 2</a> ⇒ 卸载应用</li>
 <li><a href="https://www.cockos.com/licecap/">licecap for mac</a> ⇒ 录制 gif 图片</li>
@@ -376,7 +383,7 @@ sass_binary_site &quot;http://cdn.npm.taobao.org/dist/node-sass&quot;
 <li><a href="#更改计算机名称">更改计算机名称</a></li>
 <li><a href="#触控板">触控板</a></li>
 <li><a href="#finder">Finder</a></li>
-<li><a href="#桌面图标排序">桌面图标排序</a></li>
+<li><a href="#其它">其它</a></li>
 </ul></li>
 <li><a href="#开发环境设置">开发环境设置</a>
 <ul>

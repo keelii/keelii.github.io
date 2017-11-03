@@ -6,10 +6,66 @@
     <description>Recent content on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Nov 2017 15:51:27 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.github.io/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>解决 seajs parseDependencies 方法引起的依赖解析错误问题</title>
+      <link>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</link>
+      <pubDate>Fri, 03 Nov 2017 15:51:27 +0000</pubDate>
+      
+      <guid>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</guid>
+      <description>&lt;p&gt;使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径&lt;/p&gt;
+
+&lt;p&gt;正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 &lt;code&gt;GLOBAL_ROOT/base/cookie&lt;/code&gt; 和 &lt;code&gt;GLOBAL_ROOT/base/utils&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(&#39;moduleName&#39;, function() {
+    var a = require(&#39;GLOBAL_ROOT/base/cookie&#39;)
+    var b = require(&#39;GLOBAL_ROOT/base/utils&#39;)
+    // 正常情况 a 应该是个对象，
+    console.log(a)
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是如果 cookie 模块加载失败，a 就会返回 null 这时候再调 a 上面的方法就会报错。当 seajs 内部解析依赖时发生了错误时就会出现这种情况，由于我们使用的是比较老的 seajs 版本（2.2.0），去查看源代码发现 parseDependencies 方法使用了一个正则表达式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var REQUIRE_RE = /&amp;quot;(?:\\&amp;quot;|[^&amp;quot;])*&amp;quot;|&#39;(?:\\&#39;|[^&#39;])*&#39;|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*([&amp;quot;&#39;])(.+?)\1\s*\)/g
+var SLASH_RE = /\\\\/g
+
+function parseDependencies(code) {
+  var ret = []
+
+  code.replace(SLASH_RE, &amp;quot;&amp;quot;)
+      .replace(REQUIRE_RE, function(m, m1, m2) {
+        if (m2) {
+          ret.push(m2)
+        }
+      })
+
+  return ret
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们在控制台里面跑一下看看结果，上面的模块解析正确：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t11401/113/1005903134/64122/b08677b9/59fc23d6N998f2848.png&#34; alt=&#34;seajs-works-well&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是我自己的场景并没有这么简单，我贴上自己的代码时就异常了，由于源码比较多我就放到 jsbin 上了&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://jsbin.com/bowazakosu/edit?html,js,console,output&#34;&gt;压缩成一行&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jsbin.com/likonikoye/edit?html,js,console,output&#34;&gt;格式化压缩代码后&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;有意思的地方就在于 压缩成一行 的代码中是异常的，但是当我把代码格式化后就正常了？！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;seajs 3.x 版本以后 &lt;a href=&#34;https://github.com/seajs/seajs/blob/3.0.0/src/util-deps.js&#34;&gt;util-deps.js&lt;/a&gt; 引入了一个依赖解析器方法，直接用这个替代原来的即可。至于为什么那个正则对于压缩后的代码没起作用我暂还没详细研究，不过感觉像获取模块依赖关系这种静态分析任务还是用解析器靠谱点，正则有太多的不确定性，虽然它能节省很多代码&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>macOS Sierra 开发环境配置指南</title>
@@ -1724,106 +1780,6 @@ errorTracker.log(&#39;日志信息&#39;)
 &lt;li&gt;PhantomJS 服务还需要进一步优化，以承载大并发，大处理量。提供稳定的服务&lt;/li&gt;
 &lt;li&gt;报警由于依赖于公司内部的 UMP 系统，所以并不是特别灵活，后期可以考虑自己实现一套报警机制&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>平滑迁移 Octopress 到 Hugo</title>
-      <link>https://keelii.github.io/2016/10/25/migrating-from-octopress-to-hugo-smoothly/</link>
-      <pubDate>Tue, 25 Oct 2016 13:27:20 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/10/25/migrating-from-octopress-to-hugo-smoothly/</guid>
-      <description>&lt;h2 id=&#34;原由&#34;&gt;原由&lt;/h2&gt;
-
-&lt;p&gt;自从新博客建立以来一直用 &lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt; 这个博客框架来搭建静态文章页面。漂亮的默认主题、方便的发布到 github page 等功能吸引了我&lt;/p&gt;
-
-&lt;p&gt;但就在最近因为家里的用 Macbook，刚好升级到了新版的 Sierria，杯具的是之前安装的 Octopress bundle 都失效了。调试了很久还没把环境搭建好，再加上之前发现 Octopress 的 Markdown 解析器老报错，于是就决定要更换一个配置安装简单点的博客生成器了&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;在参考了这个网站上的各种生成器后 &lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen&lt;/a&gt;，果断选择了 Hugo。没有什么特殊原因，下载安装试用一下就明白了。Hugo 由于是 Go 语言写的，所以你只需要下载好官方给的二进制可执行文件就可以了，再也不用安装各种依赖，然后各种换源什么的乱折腾了。这一点就足以让我转入 Hugo&lt;/p&gt;
-
-&lt;h2 id=&#34;主题&#34;&gt;主题&lt;/h2&gt;
-
-&lt;p&gt;由于自己还是比较喜欢 Octopress 默认的这套主题，所以在读过 Hugo 开发文档后，在严格尊重原主题的原则下修改了部分增强样式，制做了一个适配 Hugo 的 Octopress 主题。虽然 Hugo 官方有一个适配 Octopress 的主题 &lt;a href=&#34;http://themes.gohugo.io/hugo-octopress/&#34;&gt;hugo-octopress&lt;/a&gt; 但是对原主题改动太多，我并不喜欢&lt;/p&gt;
-
-&lt;h2 id=&#34;迁移&#34;&gt;迁移&lt;/h2&gt;
-
-&lt;h3 id=&#34;文章&#34;&gt;文章&lt;/h3&gt;
-
-&lt;p&gt;Octopress 使用的文章描述头是 yaml 格式的，需要转换成 Hugo 的 toml，自己手动写了个 &lt;a href=&#34;https://gist.github.com/keelii/b6c51290e5ee0253f99a6424a7e2faeb&#34;&gt;NodeJS 脚本&lt;/a&gt; 来完成这个工作，基本上很轻松就完成了。注意：建议放在 &lt;code&gt;content/archives&lt;/code&gt; 目录下面，这样的话原来的文件目录和新的就是一致的了&lt;/p&gt;
-
-&lt;p&gt;再吐槽下 md 文件名，Octopress 默认是生成时间为前缀的，如：&lt;code&gt;2016-06-13-name.markdown&lt;/code&gt;。 如果转移到 Hugo 永久链接还要保持原来文件名格式的话就得把这个前缀干掉（&lt;code&gt;name.md&lt;/code&gt;），这样的话排序就乱了。在各种编辑器、文件夹中不按创建顺序排序，看起来很别扭也不方便&lt;/p&gt;
-
-&lt;h3 id=&#34;文章链接&#34;&gt;文章链接&lt;/h3&gt;
-
-&lt;p&gt;考虑到之间已经写过很多文章了，搜索引擎都已收录，所以要保持原来的文章链接格式不变。在 Hugo 配置文件里面加上这段，使用文件名做文章永久链接：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;[permalinks]
-    archives = &amp;quot;/:year/:month/:day/:filename/&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;存档&#34;&gt;存档&lt;/h3&gt;
-
-&lt;p&gt;Octopress 默认的存档地址是 &lt;code&gt;archives&lt;/code&gt;，这个我们可以直接在 Hugo 博客目录 content 里面新建一个目录名为 archives 就可以了，以后新建文章都以这个 Section 为准：&lt;code&gt;hugo new archives/your-post-name.md&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;rss&#34;&gt;RSS&lt;/h3&gt;
-
-&lt;p&gt;Octopress 默认的是 &lt;code&gt;atom.xml&lt;/code&gt;，然而 Hugo 中默认的是 &lt;code&gt;index.xml&lt;/code&gt;。不过我们可以在 Hugo 中做个配置，和之间保持一致：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;RSSUri = &amp;quot;atom.xml&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然而实际测试的时候在模板里面调用 &lt;code&gt;{{ .RSSlink }}&lt;/code&gt; 始终都返回 index.xml。手动把模板里面的 RSS 链接改成 &lt;code&gt;{{ .Site.BaseURL }}atom.xml&lt;/code&gt; 居然能生效？！这估计是 Hugo 的一个 bug。好在被发现了，要不然新老订阅 RSS 地址不一样事情就比较麻烦了&lt;/p&gt;
-
-&lt;h3 id=&#34;分页&#34;&gt;分页&lt;/h3&gt;
-
-&lt;p&gt;Octopress 默认的格式是 &lt;code&gt;posts/2&lt;/code&gt;，Hugo 中是 &lt;code&gt;posts/2&lt;/code&gt; 同样需要加个配置：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;paginatePath = &amp;quot;posts&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;hugo-的几个基本概念&#34;&gt;Hugo 的几个基本概念&lt;/h2&gt;
-
-&lt;p&gt;这几个概念主要在修改主题的时候能用到&lt;/p&gt;
-
-&lt;h3 id=&#34;front-matter&#34;&gt;Front Matter&lt;/h3&gt;
-
-&lt;p&gt;类似 markdown 文件的配置描述，用来配置文章的标题、时间、链接、分类等元信息，提供给模板调用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
-title = &amp;quot;post title&amp;quot;
-description = &amp;quot;description.&amp;quot;
-date = &amp;quot;2012-04-06&amp;quot;
-tags = [ &amp;quot;.vimrc&amp;quot;, &amp;quot;plugins&amp;quot;, &amp;quot;spf13-vim&amp;quot;, &amp;quot;vim&amp;quot; ]
-categories = [
-  &amp;quot;cat1&amp;quot;,
-  &amp;quot;cat2&amp;quot;
-]
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;sections&#34;&gt;Sections&lt;/h3&gt;
-
-&lt;p&gt;在 content 下面的一级目录，通常有分类的概念，但只是文件夹维度的物理隔离&lt;/p&gt;
-
-&lt;h3 id=&#34;types&#34;&gt;Types&lt;/h3&gt;
-
-&lt;p&gt;如果没有为文章指定 type 配置，文章默认就属于当前属的 Section，type 可以在 Front Matter 中指定，而
-Section 不可以&lt;/p&gt;
-
-&lt;h3 id=&#34;archetype&#34;&gt;Archetype&lt;/h3&gt;
-
-&lt;p&gt;新建文章时候的默认模板，会带有指定的 Front Matter 头&lt;/p&gt;
-
-&lt;h3 id=&#34;taxonomy&#34;&gt;Taxonomy&lt;/h3&gt;
-
-&lt;p&gt;分类、标签、系列这种描述文章属性的都属于 Taxonomy Terms&lt;/p&gt;
-
-&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
-
-&lt;p&gt;Hugo 确实是一个不错的博客框架，配置简单、功能强大，很多东西都以「惯例」默认提供了，比如内置 TableOfContents，用来写博客足亦&lt;/p&gt;
-
-&lt;p&gt;不过由于是 Go 语言写的，很多人并不知道有这么好用的一个东西，所以社区并不是很好。这可能就是所谓的编程的帮派论吧&lt;/p&gt;</description>
     </item>
     
   </channel>

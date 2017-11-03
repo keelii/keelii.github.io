@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>GVim</title>
+    <title>解决 Seajs ParseDependencies 方法引起的依赖解析错误问题</title>
     <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
@@ -12,12 +12,13 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="https://keelii.github.io/tags/gVim/">
+    <link rel="canonical" href="https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/">
     <link href="https://keelii.github.io/favicon.ico" rel="icon">
     <link href="https://keelii.github.io/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
 
     
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
     <meta name="360-site-verification" content="97274d5ff16511caf615a565d3257ce8">
     
@@ -53,8 +54,6 @@
     <ul class="subscription" data-subscription="rss">
         <li>
             
-            <a href="https://keelii.github.io/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
-            
         </li>
     </ul>
 
@@ -79,41 +78,118 @@
 
 <div id="main">
     <div id="content">
-
         <div>
-            <article role="article">
+            <article class="hentry" role="article">
                 <header>
-                    
-                    <h1>Tag: GVim</h1>
-                    
+                    <h1 class="entry-title">解决 Seajs ParseDependencies 方法引起的依赖解析错误问题</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2017-11-03 15:51:27">
+                            <span class="date">2017-11-3</span>
+                            <span class="time">15:51 PM</span>
+                        </time>
+                    </p>
                 </header>
-                <div id="blog-archives">
-                    
-                        <h2>2016</h2>
-                        <article>
-                            <h1><a href="https://keelii.github.io/2016/06/13/awsome-window-vimrc/">可能是 Windows 下最漂亮的 Gvim 配置了</a></h1>
-                            <time class="entry-date" datetime="2016-06-13 21:25:57">
-                                <span class="date">Jun</span>
-                                <span class="time">13</span>
-                            </time>
-                            <footer>
-                                <div class="categories">
-                                    posted in
-                                    
-                                    <a class="category" href="/categories/editor">editor</a>
-                                    
-                                    <a class="category" href="/categories/VIM">VIM</a>
-                                    
-                                </div>
-                            </footer>
-                        </article>
-                    
-                </div>
+
+                <div class="entry-content"><p>使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径</p>
+
+<p>正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 <code>GLOBAL_ROOT/base/cookie</code> 和 <code>GLOBAL_ROOT/base/utils</code></p>
+
+<pre><code class="language-javascript">define('moduleName', function() {
+    var a = require('GLOBAL_ROOT/base/cookie')
+    var b = require('GLOBAL_ROOT/base/utils')
+    // 正常情况 a 应该是个对象，
+    console.log(a)
+})
+</code></pre>
+
+<p>但是如果 cookie 模块加载失败，a 就会返回 null 这时候再调 a 上面的方法就会报错。当 seajs 内部解析依赖时发生了错误时就会出现这种情况，由于我们使用的是比较老的 seajs 版本（2.2.0），去查看源代码发现 parseDependencies 方法使用了一个正则表达式</p>
+
+<pre><code>var REQUIRE_RE = /&quot;(?:\\&quot;|[^&quot;])*&quot;|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*([&quot;'])(.+?)\1\s*\)/g
+var SLASH_RE = /\\\\/g
+
+function parseDependencies(code) {
+  var ret = []
+
+  code.replace(SLASH_RE, &quot;&quot;)
+      .replace(REQUIRE_RE, function(m, m1, m2) {
+        if (m2) {
+          ret.push(m2)
+        }
+      })
+
+  return ret
+}
+</code></pre>
+
+<p>我们在控制台里面跑一下看看结果，上面的模块解析正确：</p>
+
+<p><img src="//img30.360buyimg.com/devfe/jfs/t11401/113/1005903134/64122/b08677b9/59fc23d6N998f2848.png" alt="seajs-works-well" /></p>
+
+<p>但是我自己的场景并没有这么简单，我贴上自己的代码时就异常了，由于源码比较多我就放到 jsbin 上了</p>
+
+<ul>
+<li><a href="http://jsbin.com/bowazakosu/edit?html,js,console,output">压缩成一行</a></li>
+<li><a href="http://jsbin.com/likonikoye/edit?html,js,console,output">格式化压缩代码后</a></li>
+</ul>
+
+<p>有意思的地方就在于 压缩成一行 的代码中是异常的，但是当我把代码格式化后就正常了？！</p>
+
+<p><strong>解决方法</strong></p>
+
+<p>seajs 3.x 版本以后 <a href="https://github.com/seajs/seajs/blob/3.0.0/src/util-deps.js">util-deps.js</a> 引入了一个依赖解析器方法，直接用这个替代原来的即可。至于为什么那个正则对于压缩后的代码没起作用我暂还没详细研究，不过感觉像获取模块依赖关系这种静态分析任务还是用解析器靠谱点，正则有太多的不确定性，虽然它能节省很多代码</p>
+</div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.github.io/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    <p class="meta">
+                        <span class="span">Last modified •</span>
+                        <time class="entry-date" datetime="2017-11-03 15:51:27">
+                            <span class="date">2017-11-3</span>
+                            <span class="time">15:51 PM</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2017/10/07/macos-development-setup-guide/" title="Previous Post: macOS Sierra 开发环境配置指南">macOS Sierra 开发环境配置指南</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
             </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
         </div>
+
         <aside class="sidebar">
     
         
+    
 <section class="odd">
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
@@ -219,6 +295,9 @@
 </section>
 
 
+
+
+
     
 </aside>
 
@@ -236,6 +315,15 @@
 
 <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 <script src="/javascripts/octopress.js"></script>
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
 
 
 

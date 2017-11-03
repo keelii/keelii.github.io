@@ -6,10 +6,66 @@
     <description>Recent content in Javascript on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 03 May 2017 17:59:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Nov 2017 15:51:27 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.github.io/categories/javascript/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>解决 seajs parseDependencies 方法引起的依赖解析错误问题</title>
+      <link>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</link>
+      <pubDate>Fri, 03 Nov 2017 15:51:27 +0000</pubDate>
+      
+      <guid>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</guid>
+      <description>&lt;p&gt;使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径&lt;/p&gt;
+
+&lt;p&gt;正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 &lt;code&gt;GLOBAL_ROOT/base/cookie&lt;/code&gt; 和 &lt;code&gt;GLOBAL_ROOT/base/utils&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(&#39;moduleName&#39;, function() {
+    var a = require(&#39;GLOBAL_ROOT/base/cookie&#39;)
+    var b = require(&#39;GLOBAL_ROOT/base/utils&#39;)
+    // 正常情况 a 应该是个对象，
+    console.log(a)
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是如果 cookie 模块加载失败，a 就会返回 null 这时候再调 a 上面的方法就会报错。当 seajs 内部解析依赖时发生了错误时就会出现这种情况，由于我们使用的是比较老的 seajs 版本（2.2.0），去查看源代码发现 parseDependencies 方法使用了一个正则表达式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var REQUIRE_RE = /&amp;quot;(?:\\&amp;quot;|[^&amp;quot;])*&amp;quot;|&#39;(?:\\&#39;|[^&#39;])*&#39;|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*([&amp;quot;&#39;])(.+?)\1\s*\)/g
+var SLASH_RE = /\\\\/g
+
+function parseDependencies(code) {
+  var ret = []
+
+  code.replace(SLASH_RE, &amp;quot;&amp;quot;)
+      .replace(REQUIRE_RE, function(m, m1, m2) {
+        if (m2) {
+          ret.push(m2)
+        }
+      })
+
+  return ret
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我们在控制台里面跑一下看看结果，上面的模块解析正确：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t11401/113/1005903134/64122/b08677b9/59fc23d6N998f2848.png&#34; alt=&#34;seajs-works-well&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是我自己的场景并没有这么简单，我贴上自己的代码时就异常了，由于源码比较多我就放到 jsbin 上了&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://jsbin.com/bowazakosu/edit?html,js,console,output&#34;&gt;压缩成一行&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jsbin.com/likonikoye/edit?html,js,console,output&#34;&gt;格式化压缩代码后&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;有意思的地方就在于 压缩成一行 的代码中是异常的，但是当我把代码格式化后就正常了？！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;seajs 3.x 版本以后 &lt;a href=&#34;https://github.com/seajs/seajs/blob/3.0.0/src/util-deps.js&#34;&gt;util-deps.js&lt;/a&gt; 引入了一个依赖解析器方法，直接用这个替代原来的即可。至于为什么那个正则对于压缩后的代码没起作用我暂还没详细研究，不过感觉像获取模块依赖关系这种静态分析任务还是用解析器靠谱点，正则有太多的不确定性，虽然它能节省很多代码&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>jQuery data 方法的一个小特技</title>
@@ -2191,341 +2247,6 @@ while((result = pattern.exec(text)) != null) {
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var pattern = /java/i;
 pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
 &lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
-      <title>《JavaScript 权威指南》读书笔记 9 - 类和模块</title>
-      <link>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</link>
-      <pubDate>Sat, 02 Jul 2016 13:58:30 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</guid>
-      <description>&lt;p&gt;每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;JavaScript 中类的一个重要特性是「&lt;strong&gt;动态可继承&lt;/strong&gt;」（dynamically extendable），我们可以将类看做是类型，本章会介绍一种编程哲学 —— 「&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B&#34;&gt;&lt;strong&gt;鸭子类型&lt;/strong&gt;&lt;/a&gt;」（duck-typing），它弱化了对象的类型，强化了对象的功能&lt;/p&gt;
-
-&lt;h2 id=&#34;类和原型&#34;&gt;类和原型&lt;/h2&gt;
-
-&lt;p&gt;在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在之前的 &lt;a href=&#34;https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/#TOC-4&#34;&gt;章节&lt;/a&gt; 里定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 一个简单的实现表示值的范围的类
-function range(from, to) {
-    var r = inherit(range.methods);
-
-    r.from = from;
-    r.to = to;
-    return r;
-}
-range.methods = {
-    includes: function(x) {
-        return this.from &amp;lt;= x &amp;amp;&amp;amp; x &amp;lt;= this.to;
-    },
-    foreach: function (f) {
-        for (var x = Math.ceil(this.from); x &amp;lt;= this.to; x++) f(x);
-    }
-    toString: function() {
-        return &amp;quot;(&amp;quot; + this.from + &amp;quot;...&amp;quot; + this.to + &amp;quot;)&amp;quot;;
-    }
-}
-var r = range(1, 3);
-r.includes(2)           // =&amp;gt; true
-r.foreach(console.log)
-// =&amp;gt; 1
-// =&amp;gt; 2
-// =&amp;gt; 3
-console.log(r);         // =&amp;gt; (1...3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这段代码定义了一个工厂方法 range()，用来创建新的范围对象。range.methods 属性用来快捷地存放定义类的原型对象。range() 函数给每个范围对象都定义了 from 和 to 属性，用以定义范围的起始和结束位置，这两个属性是 &lt;strong&gt;非共享&lt;/strong&gt; 的，当然也是不可继承的。&lt;/p&gt;
-
-&lt;h2 id=&#34;类和构造函数&#34;&gt;类和构造函数&lt;/h2&gt;
-
-&lt;p&gt;上节中展示了定义类的一种方法，但是这种方法并不常用，它没定义构造函数。构造函数是用来初始化新创建的对象的。调用构造函数的一个重要特征是，构造函数的 prototype 属性被用做新对象的原型。这意味着 &lt;strong&gt;通过同一个构造函数创建的所有对象都继承自一个相同的对象&lt;/strong&gt;，因此它们都是同一个类的成员&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;例9-2&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Range(from, to) {
-    this.from = from;
-    this.to = to;
-}
-Range.prototype = {
-    includes: function(x) {
-        return this.from &amp;lt;= x &amp;amp;&amp;amp; x &amp;lt;= this.to;
-    },
-    foreach: function (f) {
-        for (var x = Math.ceil(this.from); x &amp;lt;= this.to; x++) f(x);
-    }
-    toString: function() {
-        return &amp;quot;(&amp;quot; + this.from + &amp;quot;...&amp;quot; + this.to + &amp;quot;)&amp;quot;;
-    }
-};
-var r = new Range(1, 3)
-r.includes(2)       // =&amp;gt; true
-r.foreach(console.log)
-// =&amp;gt; 1
-// =&amp;gt; 2
-// =&amp;gt; 3
-console.log(r);    // =&amp;gt; &amp;quot;(1...3)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;从某种意义上讲，定义构造函数既是定义类，并且 &lt;strong&gt;类名首字母要大写&lt;/strong&gt;，而普通普通的函数和方法都是首字母小写，Range() 构造函数是通过 new 关键字调用的，而在上一节的工厂函数则不必使用 new。通过 new 调用不必再用  inherit 来创建对象，构造函数会自动创建对象，然后将构造函数作为这个对象的方法来调用一次，最后返回这个对象&lt;/p&gt;
-
-&lt;h3 id=&#34;构造函数的类的标识&#34;&gt;构造函数的类的标识&lt;/h3&gt;
-
-&lt;p&gt;上文提到，原型对象是类的唯一标识：当且仅当两个对象继承自同一个原型对象时，它们才是属于同一个类的实例。而初始化对象的状态的构造函数则不能作为类的标识，两个构造函数的 prototype 属性可能指责同一个原型对象。那么这两个构造函数创建的实例是属于同一个类的&lt;/p&gt;
-
-&lt;p&gt;构造函数的名字通常用做类名，比如我们说 Range() 构造函数创建 Range 对象。然而，更根本地讲，当使用 instancdof 运算符来检测对象是否属于某个类时会用到构造函数。假设有一个对象 r，我们想知道它是否是 Range 对象，可以这样判断&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;r instanceof Range  // 如果 r 继承自 Range.prototype，则返回 true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;实际上 instanceof 运算符并不会检查 r 是否是由 Range() 构造函数初始化而来，而是 &lt;strong&gt;检查 r 是否继承自 Range.prototype&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;constructor-属性&#34;&gt;constructor 属性&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;每个 JavaScript 函数（bind除外）都自动拥有一个 prototype 属性。这个属性的值是一个对象，这个对象包含唯一一个不可枚举属性 constructor。constructor 属性的值是一个函数对象&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var F = function() {};
-var p = F.prototype;
-var c = p.constructor;
-c === F                 // =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;图 9-1 展示了构造函数和原型对象之间的关系，包括原型到构造函数的反向引用以及构造函数创建的实例&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;图9-1&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;   构 造 函 数                      原 型                        实 例
-+------------------+       +------------------+          +---------------+
-|                  |       |                  | inherits |               |
-|  Range()         &amp;lt;---------- contructor     &amp;lt;----------+ new Range(2)  |
-|                  |       |                  |          |               |
-|                  |       |                  |          +---------------+
-|                  |       |   includes       |
-|   prototype  ------------&amp;gt;                  |
-|                  |       |   foreach        |          +---------------+
-|                  |       |                  | inherits |               |
-|                  |       |   toString       &amp;lt;----------+ new Range(3,4)|
-|                  |       |                  |          |               |
-|                  |       |                  |          +---------------+
-+------------------+       +------------------+
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;例9-2中定义的 Range 类使用它自身的一个新对象重写预定义的 Range.prototype 对象。这个新定义的原型对象不含有 constructor 属性。因此 Range 类的实例也不含有 constructor 属性。我匀可以通过补救措施来修正这个问题，显式给原型添加一个构造函数：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Range.prototype = {
-    constructor: Range,
-    incluces: function() {/*code*/}
-};
-// 当然也可以使用给 prototype 指定方法赋值的方式，避免重写整个 prototype
-Range.prototype.includes = function() {/*code*/}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;javascript-中-java-式的类继承&#34;&gt;JavaScript 中 Java 式的类继承&lt;/h2&gt;
-
-&lt;p&gt;在 Java 或者其它类似强类型面向对象语言中，类成员可能是这样的：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;实例字段&lt;/strong&gt; 它们是基于实例的属性或变量，用以保存独立对象的状态&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;实例方法&lt;/strong&gt; 它们是类的所有实例共享方法，由每个独立的实例调用&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;类字段&lt;/strong&gt; 这些属性或变量是属于类的，而不属于类的某个实例&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;类方法&lt;/strong&gt; 这些方法是属于类的，而不属于类的某个实例&lt;/p&gt;
-
-&lt;p&gt;JavaScript 和 Java 的一个不同之处在于，JavaScript 中的函数都是以值的形式出现的，方法和字段之间并没有太大的区别。如果属性是函数，那么这个属性就定义一个方法，否则，它只是一个普通的属性或「字段」&lt;/p&gt;
-
-&lt;h2 id=&#34;类和类型&#34;&gt;类和类型&lt;/h2&gt;
-
-&lt;h3 id=&#34;instanceof-运算符&#34;&gt;instanceof 运算符&lt;/h3&gt;
-
-&lt;p&gt;之前我们已经了解过 instanceof 运算符。左操作数是待检测其类的对象，右操作数是定义类的构造函数。如果 o 继承自 c.prototype，则表达式 o instanceof c 值返回 true。这里的继承可以不是直接继承，如果 o 所继承的对象继承自另一个对象，后一个对象继承自 c.prototype，这个表达式的运算结果也是 true&lt;/p&gt;
-
-&lt;p&gt;构造函数是类的公共标识，但原型是唯一的标识。尽管 instanceof 运算符的右操作数是构造函数，但计算过程实际上是检测了对象的继承关系，而不是检测创建对象的构造函数&lt;/p&gt;
-
-&lt;h3 id=&#34;constructor-属性-1&#34;&gt;constructor 属性&lt;/h3&gt;
-
-&lt;p&gt;另一种识别对象是否属于某个类的方法是使用 constructor 属性，因为构造函数是类的公共标识，所以最直接的方法就是使用 constructor 属性，比如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function typeAndValue(x) {
-    if (x == null) return &amp;quot;&amp;quot;;
-    switch(x.constructor) {
-        case: Number:
-            return &amp;quot;Number: &amp;quot; + x;
-        case: String:
-            return &amp;quot;String: &amp;quot; + x;
-        case: Date:
-            return &amp;quot;Date: &amp;quot; + x;
-        case: RegExp:
-            return &amp;quot;RegExp: &amp;quot; + x;
-        case: Complex:
-            return &amp;quot;Complex: &amp;quot; + x;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;使用 constructor 属性检测对象属于某个类的技术不足之处和 instanceof 一样。在 &lt;strong&gt;多个执行上下文&lt;/strong&gt; 场景中它是无法正常工作的（比如在浏览器窗口的多个框架子页面中）。在这种情况下每个框架页面各自拥有独立的构造函数集合。比如一个框架页面中的 Array 构造函数和另一个构架页面的 Array 构造函数不是同一个&lt;/p&gt;
-
-&lt;h3 id=&#34;鸭子类型&#34;&gt;鸭子类型&lt;/h3&gt;
-
-&lt;p&gt;上面描述的检测对象的类的各种技术多少都会有些问题，至少在客户端 JavaScript 中是如此。解决办法就是规避掉这些问题：&lt;strong&gt;不要关注「对象是什么」，而是关注「对象能做什么」&lt;/strong&gt;。这种思考问题的方式在 Python 和 Ruby 中右学普遍，称为「鸭子类型」&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;像鸭子一样走路、游泳并且嘎嘎叫的鸟就是鸭子&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;这又让我想起了《蝙蝠侠》里面的那句话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;It’s not who you are underneath, it’s what you do that defines you&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;javascript-中的面向对象技术&#34;&gt;JavaScript 中的面向对象技术&lt;/h2&gt;
-
-&lt;h3 id=&#34;一个例子-集合类&#34;&gt;一个例子：集合类&lt;/h3&gt;
-
-&lt;p&gt;集合（set）是一种数据结构，用来表示非重复值的无序集合。集合有添加值、检测值是否存在等方法，下面的例子实现了一个更加通用的 Set 类&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Set() {
-    this.values = {};
-    this.n = 0;
-    this.add.apply(this, arguments)
-}
-Set.prototype.add = function () {
-    for (var i = 0; i &amp;lt; arguments.length; i++) {
-        var val = arguments[i];
-        var str = Set._v2s(val);
-        if (!this.values.hasOwnProperty(str)) {
-            this.values[str] = val;
-            this.n++;
-        }
-    }
-
-    return this;
-}
-Set.prototype.remove = function () {
-    for (var i = 0; i &amp;lt; arguments.length; i++) {
-        var str = Set._v2s(arguments[i]);
-        if (this.values.hasOwnProperty(str)) {
-            delete this.values[str];
-            this.n--;
-        }
-    }
-}
-Set.prototype.contains = function (value) {
-    return this.values.hasOwnProperty(Set._v2s(value))
-}
-Set.prototype.size = function () {
-    return this.n;
-}
-Set.prototype.foreach = function(f, context) {
-    for (var s in this.values) {
-        if (this.values.hasOwnProperty(s)) {
-            f.call(context, this.values[s]);
-        }
-    }
-}
-Set._v2s = function (val) {
-    switch (val) {
-        case undefined:     return &#39;u&#39;;
-        case null:          return &#39;n&#39;;
-        case true:          return &#39;t&#39;;
-        case false:         return &#39;f&#39;;
-        default:
-            switch (typeof val) {
-                case &#39;number&#39;: return &#39;#&#39; + val;
-                case &#39;string&#39;: return &#39;&amp;quot;&#39; + val;
-                default: return &#39;@&#39; + objectId(val)
-            }
-    }
-    function objectId(o) {
-        var prop = &amp;quot;|**objectid**|&amp;quot;;
-        if (!o.hasOwnProperty(prop)) {
-            o[prop] = Set._v2s.nex++;
-        }
-        return o[prop];
-    }
-}
-Set._v2s.next = 100;
-
-var s = new Set(1,2,3);
-s.values;       // =&amp;gt; Object {#1: 1, #2: 2, #3: 3}
-var s1 = new Set(1,2,3,3,2,1, null, undefined)
-s1.values;      // =&amp;gt; Object {#1: 1, #2: 2, #3: 3, n: null, u: undefined}
-s1.remove(null, undefined);
-s1.values;      // =&amp;gt; Object {#1: 1, #2: 2, #3: 3}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;构造函数的重载和工厂方法&#34;&gt;构造函数的重载和工厂方法&lt;/h3&gt;
-
-&lt;p&gt;有时候，我们希望对象的初始化有多种方式，比如 Set 对象，我们想专入一个数组或者类数组，而不是多个参数来初始化它，我们可以加一些判断来实现重载（overload）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 重载
-function Set() {
-    this.values = {};
-    this.n = 0;
-
-    if (arguments.length == 1 &amp;amp;&amp;amp; isArrayLike(arguments[0])) {
-        this.add.apply(this, arguments[0])
-    } else {
-        this.add.apply(this, arguments)
-    }
-}
-
-// 工厂方法: 可以从数组创建一个集合对象
-Set.fromArray = function(a) {
-    var s = new Set();
-    s.add.apply(s, a)
-    return s;
-}
-// Set 类的一个辅助构造函数
-function SetFromArray(a) {
-    Set.apply(this, a);
-}
-SetFromArray.prototype = Set.prototype;
-var s = new SetFromArray([1,2,3]);
-s instanceof Set        // =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;子类&#34;&gt;子类&lt;/h2&gt;
-
-&lt;p&gt;在面向对象编程中，类 B 可以继承自另外一个类 A。我们将 A 称为父类（superclass），将 B 称为子类（subclass）。B 的实例从 A继承了所有的实例方法。类 B 可以定义自己的实例类方法，有些方法可以重载类 A 中的同名方法，如果 B 的方法重载了 A 中的方法，B 中的重载方法可能会调用 A 中的重载类 A 方法，这种做法称为「方法链」（method chaining）。同样子类的构造函数 B() 有时需要调用父类的构造函数 A()，这种做法称为「构造函数链」（constructor chaining）。子类还可以有子类，当涉及类的层次结构时，往往需要定义抽象类（abstract class）。抽象类中定义的方法没有实现。抽象类中的抽象方法是在抽象类的具体子类中实现的&lt;/p&gt;
-
-&lt;h3 id=&#34;定义子类&#34;&gt;定义子类&lt;/h3&gt;
-
-&lt;p&gt;JavaScript 的对象可以从类的原型对象中继承属性。如果 O 是类 B 的实例，B 是 A 的子类，那么 O 也一定从 A 中继承了属性。为此，首先要确保 B 的原型对象继承自 A 的原型对象，通过 inherit() 函数可以实现&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;B.prototype = inherit(A.prototype);
-B.prototype.constructor = B;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;构造函数和方法链&#34;&gt;构造函数和方法链&lt;/h3&gt;
-
-&lt;p&gt;我们定义一个 Set 的子类 NonNullSet，它不允许 null 和 undefined 作为集合成员，这就需要在子类的 add() 方法中对 null 和 undefined 值做检测。它需要完全重新实现一个 add() 方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function NonNullSet() {
-    Set.apply(this, arguments);
-}
-NonNullSet.prototype = inherit(Set.prototype);
-NonNullSet.prototype.constructor = NonNullSet;
-NonNullSet.prototype.add = function() {
-    for (var i = 0; i &amp;lt; arguments.length; i++) {
-        if (arguments[i] == null) {
-            throw new Error(&amp;quot;Cant&#39;t add null or undefined to a NonNullSet&amp;quot;);
-        }
-    }
-    return Set.prototype.add.apply(this, arguments);
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;组合-vs-子类&#34;&gt;组合 vs 子类&lt;/h3&gt;
-
-&lt;p&gt;上节中定义的集合可以根据特定的标准对集合成员做限制，而且使用了子类的技术来实现这种功能&lt;/p&gt;
-
-&lt;p&gt;然后还有一种更好的方法来完成这种需求，既面向对象编程中一条广为人知的设计原则：「组合优于继承」。这样，可以利用组合的原理定义一个新的集合实现，它「包装」了另外一个集合对象，在将受限制的成员过滤掉之后会用到这个集合对象&lt;/p&gt;</description>
     </item>
     
   </channel>

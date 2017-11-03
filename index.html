@@ -17,8 +17,6 @@
     <link href="https://keelii.github.io/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
 
     
-    <link href="//fonts.crazy4code.com/css?family=PT&#43;Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-    <link href="//fonts.crazy4code.com/css?family=PT&#43;Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
 
     <meta name="360-site-verification" content="97274d5ff16511caf615a565d3257ce8">
@@ -83,6 +81,26 @@
     <div id="content">
         <div class="blog-index">
             
+            
+            <article>
+                <header>
+                    <h1>
+                        <div class="entry-title"><a href="https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/">解决 seajs parseDependencies 方法引起的依赖解析错误问题</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2017-11-03 15:51:27">
+                            <span class="date">Nov, 3, 2017</span>
+                            <span class="time">15:51 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p>使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径 正常情况下，下面这个模块里面</p></div>
+                
+                <footer>
+                    <a title="486 Words, 1 Minutes" href="/2017/11/03/fix-seajs-parse-dep-bug/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
             
             <article>
                 <header>
@@ -267,32 +285,6 @@
                 
             </article>
             
-            <article>
-                <header>
-                    <h1>
-                        <div class="entry-title"><a href="https://keelii.github.io/2016/10/25/migrating-from-octopress-to-hugo-smoothly/">平滑迁移 Octopress 到 Hugo</a></div>
-                    </h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2016-10-25 13:27:20">
-                            <span class="date">Oct, 25, 2016</span>
-                            <span class="time">13:27 PM</span>
-                        </time>
-                    </p>
-                </header>
-                <div class="entry-content"><p><h2 id="原由">原由</h2>
-
-<p>自从新博客建立以来一直用 <a href="http://octopress.org/">Octopress</a> 这个博客框架来搭建静态文章页面。漂亮的默认主题、方便的发布到 github page 等功能吸引了我</p>
-
-<p>但就在最近因为家里的用 Macbook，刚好升级到了新版的 Sierria，杯具的是之前安装的 Octopress bundle 都失效了。调试了很久还没把环境搭建好，再加上之前发现 Octopress 的 Markdown 解析器老报错，于是就决定要更换一个配置安装简单点的博客生成器了</p>
-
-<p></p></p></div>
-                
-                <footer>
-                    <a title="1309 Words, 3 Minutes" href="/2016/10/25/migrating-from-octopress-to-hugo-smoothly/" rel="full-article">Read More »</a>
-                </footer>
-                
-            </article>
-            
 
             
             <div class="pagination">
@@ -312,6 +304,10 @@
     <ul id="recent_posts">
         
         <li class="post">
+            <a href="/2017/11/03/fix-seajs-parse-dep-bug/">解决 seajs parseDependencies 方法引起的依赖解析错误问题</a>
+        </li>
+        
+        <li class="post">
             <a href="/2017/10/07/macos-development-setup-guide/">macOS Sierra 开发环境配置指南</a>
         </li>
         
@@ -325,10 +321,6 @@
         
         <li class="post">
             <a href="/2017/04/29/sublime-text-3-configure-eslint/">Sublime text 3 配置 ESLint 代码检查</a>
-        </li>
-        
-        <li class="post">
-            <a href="/2017/04/22/proxy-google-fonts-with-ssl-http2-support/">Nginx 配置 Google fonts 反向代理开启 HTTP2/SSL 支持</a>
         </li>
         
     </ul>
@@ -381,7 +373,7 @@
         </li>
         
         <li>
-            <a href="https://keelii.github.io/categories/javascript">javascript (19)</a>
+            <a href="https://keelii.github.io/categories/javascript">javascript (20)</a>
         </li>
         
         <li>

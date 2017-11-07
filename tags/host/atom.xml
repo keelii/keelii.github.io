@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Host on Something</title>
+    <link>https://keelii.github.io/tags/host/</link>
+    <description>Recent content in Host on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Nov 2017 12:51:27 +0000</lastBuildDate>
+    
+        <atom:link href="https://keelii.github.io/tags/host/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>又双叕写了一个 host 管理插件</title>
+      <link>https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/</link>
+      <pubDate>Tue, 07 Nov 2017 12:51:27 +0000</pubDate>
+      
+      <guid>https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/</guid>
+      <description>
+
+&lt;p&gt;切 host 对于平常开发来说再正常不过了，可是「切 host 难」的问题一直没解决，因为手动修改 host 文件会有很多（系统dns、浏览器）缓存问题。经常听到xx说「我这是好的呀，你 host 有问题吧&amp;hellip;」&lt;/p&gt;
+
+&lt;p&gt;在 windows 下我一直使用 fiddler 来切换 host，很多人可能不知道这个功能。他的实现本质就是实用代理映射来实现 host 切换。这样的欢最大的优点就是 &lt;strong&gt;无延迟，秒切 host&lt;/strong&gt; 这个体验就非常赞，而且是系统级别的，也就是说别的浏览器里面也适用（前提是浏览器代理设置为系统）&lt;/p&gt;
+
+&lt;p&gt;然后由于最近切换到 mac 开发环境，发现 mac 下面的解决方案都不是很完美，或者说不适合我的要求。无外乎以下几种：&lt;/p&gt;
+
+&lt;h2 id=&#34;物理修改-host-文件&#34;&gt;物理修改 host 文件&lt;/h2&gt;
+
+&lt;p&gt;像 iHosts, Switchhosts 这类，但据我所知这种方法都有延迟&lt;/p&gt;
+
+&lt;h2 id=&#34;抓包工具代理切-host&#34;&gt;抓包工具代理切 host&lt;/h2&gt;
+
+&lt;p&gt;比如 mac 下的 Wireshark、Charles，这些工具据说很强大，可是我自己用不惯，而且我是需求也很小，杀鸡焉用牛刀。fiddler for mac 虽然也能跑起来，但是体验太差了，界面卡的要死&lt;/p&gt;
+
+&lt;h2 id=&#34;浏览器插件代理切-host&#34;&gt;浏览器插件代理切 host&lt;/h2&gt;
+
+&lt;p&gt;像 Chrome 下的 Chrome-host-switch、 Switch host plus 等，试用了下效果很理想。美中不足的是体验不好，只有标签没有分组，把标签当分组切的人很蛋疼&lt;/p&gt;
+
+&lt;p&gt;简单看了下 switch host plus 的实现方式，再加上自己之前也写过 chrome 插件就决定自己造个轮子。Chrome 插件基于html、css、javascript 自然很适合前端来做&lt;/p&gt;
+
+&lt;p&gt;由于最近在看 react 相关的东西，刚好拿来练练手。技术选型基本上都是现成的框架拿来用就行了&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;react &amp;amp; redux 构建整体应用&lt;/li&gt;
+&lt;li&gt;bulma.css 简洁小巧的 CSS 框架&lt;/li&gt;
+&lt;li&gt;localStorage 数据直接写本地存储&lt;/li&gt;
+&lt;li&gt;create react app 构建打包应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;应用截图&#34;&gt;应用截图&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t11611/80/1444685331/28555/590b5dfa/5a013f0aN19565830.png&#34; alt=&#34;ahm-640x440&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png&#34; alt=&#34;ahm-1280x800&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;功能&#34;&gt;功能&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;秒切 host 无延迟 😎&lt;/li&gt;
+&lt;li&gt;基于 chrome 代理 ❤️&lt;/li&gt;
+&lt;li&gt;兼容 socket 代理 🤔&lt;/li&gt;
+&lt;li&gt;简洁好用，无多余功能 👏&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/awesome-host-manager/pikaoeecieigblebdddckmlegonlogha?hl=zh-CN&#34;&gt;Chrome 应用商店&lt;/a&gt;（建议）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/keelii/awesome-host-manager/master/awesome-host-manager.crx&#34;&gt;下载 .crx 文件&lt;/a&gt; chrome 中打开 chrome://extensions/ 将.crx 文件托进安装即可&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;h4 id=&#34;host-proxy&#34;&gt;Host proxy&lt;/h4&gt;
+
+&lt;p&gt;和 host 文件规则一致&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;192.168.100.1 your.domain.com your-anther.domain.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;socket-proxy&#34;&gt;Socket proxy&lt;/h4&gt;
+
+&lt;p&gt;新建分组加入以下规则（按自己实际情况修改）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SOCKS5 127.0.0.1:1080
+SOCKS 127.0.0.1:1080
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;源代码&#34;&gt;源代码&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/keelii/awesome-host-manager&#34;&gt;Github&lt;/a&gt;(MIT)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>又双叕写了一个 Host 管理插件</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.29" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="canonical" href="https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/">
+    <link href="https://keelii.github.io/favicon.ico" rel="icon">
+    <link href="https://keelii.github.io/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
+
+    
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+
+    <meta name="360-site-verification" content="97274d5ff16511caf615a565d3257ce8">
+    
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-79264835-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+</head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.github.io/">Something</a></h1>
+        <h2>__ you don&#39;t know yet</h2>
+    </hgroup>
+</header>
+
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.github.io/">Blog</a> </li>
+        
+        <li><a href="https://keelii.github.io/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.github.io/about">About</a> </li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">又双叕写了一个 Host 管理插件</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2017-11-07 12:51:27">
+                            <span class="date">2017-11-7</span>
+                            <span class="time">12:51 PM</span>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p>切 host 对于平常开发来说再正常不过了，可是「切 host 难」的问题一直没解决，因为手动修改 host 文件会有很多（系统dns、浏览器）缓存问题。经常听到xx说「我这是好的呀，你 host 有问题吧&hellip;」</p>
+
+<p>在 windows 下我一直使用 fiddler 来切换 host，很多人可能不知道这个功能。他的实现本质就是实用代理映射来实现 host 切换。这样的欢最大的优点就是 <strong>无延迟，秒切 host</strong> 这个体验就非常赞，而且是系统级别的，也就是说别的浏览器里面也适用（前提是浏览器代理设置为系统）</p>
+
+<p>然后由于最近切换到 mac 开发环境，发现 mac 下面的解决方案都不是很完美，或者说不适合我的要求。无外乎以下几种：</p>
+
+<h2 id="物理修改-host-文件">物理修改 host 文件</h2>
+
+<p>像 iHosts, Switchhosts 这类，但据我所知这种方法都有延迟</p>
+
+<h2 id="抓包工具代理切-host">抓包工具代理切 host</h2>
+
+<p>比如 mac 下的 Wireshark、Charles，这些工具据说很强大，可是我自己用不惯，而且我是需求也很小，杀鸡焉用牛刀。fiddler for mac 虽然也能跑起来，但是体验太差了，界面卡的要死</p>
+
+<h2 id="浏览器插件代理切-host">浏览器插件代理切 host</h2>
+
+<p>像 Chrome 下的 Chrome-host-switch、 Switch host plus 等，试用了下效果很理想。美中不足的是体验不好，只有标签没有分组，把标签当分组切的人很蛋疼</p>
+
+<p>简单看了下 switch host plus 的实现方式，再加上自己之前也写过 chrome 插件就决定自己造个轮子。Chrome 插件基于html、css、javascript 自然很适合前端来做</p>
+
+<p>由于最近在看 react 相关的东西，刚好拿来练练手。技术选型基本上都是现成的框架拿来用就行了</p>
+
+<ul>
+<li>react &amp; redux 构建整体应用</li>
+<li>bulma.css 简洁小巧的 CSS 框架</li>
+<li>localStorage 数据直接写本地存储</li>
+<li>create react app 构建打包应用</li>
+</ul>
+
+<h2 id="应用截图">应用截图</h2>
+
+<p><img src="https://img20.360buyimg.com/devfe/jfs/t11611/80/1444685331/28555/590b5dfa/5a013f0aN19565830.png" alt="ahm-640x440" /></p>
+
+<p><a href="https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png"><img src="https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png" alt="ahm-1280x800" /></a></p>
+
+<h2 id="功能">功能</h2>
+
+<ul>
+<li>秒切 host 无延迟 😎</li>
+<li>基于 chrome 代理 ❤️</li>
+<li>兼容 socket 代理 🤔</li>
+<li>简洁好用，无多余功能 👏</li>
+</ul>
+
+<h2 id="安装">安装</h2>
+
+<ul>
+<li><a href="https://chrome.google.com/webstore/detail/awesome-host-manager/pikaoeecieigblebdddckmlegonlogha?hl=zh-CN">Chrome 应用商店</a>（建议）</li>
+<li><a href="https://raw.githubusercontent.com/keelii/awesome-host-manager/master/awesome-host-manager.crx">下载 .crx 文件</a> chrome 中打开 chrome://extensions/ 将.crx 文件托进安装即可</li>
+</ul>
+
+<h2 id="使用">使用</h2>
+
+<h4 id="host-proxy">Host proxy</h4>
+
+<p>和 host 文件规则一致</p>
+
+<pre><code>192.168.100.1 your.domain.com your-anther.domain.com
+</code></pre>
+
+<h4 id="socket-proxy">Socket proxy</h4>
+
+<p>新建分组加入以下规则（按自己实际情况修改）</p>
+
+<pre><code>SOCKS5 127.0.0.1:1080
+SOCKS 127.0.0.1:1080
+</code></pre>
+
+<h2 id="源代码">源代码</h2>
+
+<p><a href="https://github.com/keelii/awesome-host-manager">Github</a>(MIT)</p>
+</div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|2" href="https://keelii.github.io/categories/chrome">chrome</a>,
+                            
+                            <a class="category 1|2" href="https://keelii.github.io/categories/webdev">webdev</a>
+                            
+                        </span>
+                        
+                    </p>
+                    <p class="meta">
+                        <span class="span">Last modified •</span>
+                        <time class="entry-date" datetime="2017-11-07 12:51:27">
+                            <span class="date">2017-11-7</span>
+                            <span class="time">12:51 PM</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/" title="Previous Post: 解决 seajs parseDependencies 方法引起的依赖解析错误问题">解决 seajs parseDependencies 方法引起的依赖解析错误问题</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h1>Table  of contents</h1>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#物理修改-host-文件">物理修改 host 文件</a></li>
+<li><a href="#抓包工具代理切-host">抓包工具代理切 host</a></li>
+<li><a href="#浏览器插件代理切-host">浏览器插件代理切 host</a></li>
+<li><a href="#应用截图">应用截图</a></li>
+<li><a href="#功能">功能</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#使用">使用</a>
+<ul>
+<li>
+<ul>
+<li><a href="#host-proxy">Host proxy</a></li>
+<li><a href="#socket-proxy">Socket proxy</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#源代码">源代码</a></li>
+</ul></li>
+</ul>
+</nav>
+</section>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2017 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
+</footer>
+
+
+<script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<script src="/javascripts/octopress.js"></script>
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+[G] for scroll page bottom
+-->
+
+</body>
+</html>

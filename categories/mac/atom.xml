@@ -233,11 +233,15 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 &lt;h3 id=&#34;其它-gui-应用&#34;&gt;其它 GUI 应用&lt;/h3&gt;
 
 &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt; 程序启动器&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口（付费）&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.mowglii.com/itsycal/&#34;&gt;Itsycal&lt;/a&gt; ⇒ 简洁版日历&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://snappy-app.com/&#34;&gt;Snappy&lt;/a&gt; ⇒ 屏幕截图、修改分享&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snappy-app.com/&#34;&gt;Snappy&lt;/a&gt; ⇒ 屏幕截图、修改分享&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;

@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>Plugin</title>
+    <title>JQuery Ajax 方法 Data 参数默认 Encode 失败的 Bug</title>
     <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
@@ -12,12 +12,13 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="https://keelii.github.io/tags/plugin/">
+    <link rel="canonical" href="https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/">
     <link href="https://keelii.github.io/favicon.ico" rel="icon">
     <link href="https://keelii.github.io/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
 
     
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
     <meta name="360-site-verification" content="97274d5ff16511caf615a565d3257ce8">
     
@@ -53,8 +54,6 @@
     <ul class="subscription" data-subscription="rss">
         <li>
             
-            <a href="https://keelii.github.io/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
-            
         </li>
     </ul>
 
@@ -79,41 +78,138 @@
 
 <div id="main">
     <div id="content">
-
         <div>
-            <article role="article">
+            <article class="hentry" role="article">
                 <header>
-                    
-                    <h1>Tag: Plugin</h1>
-                    
+                    <h1 class="entry-title">JQuery Ajax 方法 Data 参数默认 Encode 失败的 Bug</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2018-05-25 19:20:04">
+                            <span class="date">2018-5-25</span>
+                            <span class="time">19:20 PM</span>
+                        </time>
+                    </p>
                 </header>
-                <div id="blog-archives">
-                    
-                        <h2>2017</h2>
-                        <article>
-                            <h1><a href="https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/">又双叕写了一个 host 管理插件</a></h1>
-                            <time class="entry-date" datetime="2017-11-07 12:51:27">
-                                <span class="date">Nov</span>
-                                <span class="time">7</span>
-                            </time>
-                            <footer>
-                                <div class="categories">
-                                    posted in
-                                    
-                                    <a class="category" href="/categories/chrome">chrome</a>
-                                    
-                                    <a class="category" href="/categories/webdev">webdev</a>
-                                    
-                                </div>
-                            </footer>
-                        </article>
-                    
-                </div>
+
+                <div class="entry-content"><p>使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 <code>encodeURIComponent</code>，如下：</p>
+
+<pre><code class="language-javascript">$.ajax({
+    url: 'http://your.domain.com/action',
+    dataType: 'jsonp',
+    data: {
+        spaces: 'a b',
+        other: '&amp;'
+    }
+})
+</code></pre>
+
+<p>上面的代码会向 <code>http://your.domain.com/action?spaces=a+b&amp;other=%26</code> 发送 get 请求，奇怪的是参数中的 <code>&amp;</code> 被正确转码成 <code>%26</code>，但是  被转成了 <code>+</code> 而不是 <code>%20</code></p>
+
+<p>看看正确的转码结果长啥样</p>
+
+<pre><code class="language-javascript">encodeURIComponent('&amp;') // =&gt; &quot;%26&quot;
+encodeURIComponent(' ') // =&gt; &quot;%20&quot;
+</code></pre>
+
+<p>既然 data 参数里面的 key,value 都要被 encodeURIComponent，那么出现这种情况只能去查 jQuery 源代码了。jQuery 会调用 $.param 方法来编码 data 参数，大概在 <strong>jQuery-1.7.2</strong> 的 <em>(7736)</em> 行：</p>
+
+<pre><code class="language-javascript">param: function( a, traditional ) {
+    // ...
+    } else {
+        // If traditional, encode the &quot;old&quot; way (the way 1.3.2 or older
+        // did it), otherwise encode params recursively.
+        for ( var prefix in a ) {
+            buildParams( prefix, a[ prefix ], traditional, add );
+        }
+    }
+
+    // Return the resulting serialization
+    return s.join( &quot;&amp;&quot; ).replace( r20, &quot;+&quot; );
+}
+</code></pre>
+
+<p>param 方法内部会再调用 <code>buildParams</code> 来把 data 对象键值对添加编码，一切都很正常</p>
+
+<p>然饿最后一行 <code>replace( r20, &quot;+&quot; )</code> 是什么鬼！<code>r20</code> 变量是内部的一个空白转义符的正则 <code>/%20/g</code></p>
+
+<p>这就有点意思了，为啥把正确的空格编码再转回 <code>+</code> 呢？</p>
+
+<p>外事不决问 Google，搜索 <code>why jquery ajax convert %20 to +</code> 结果发现有一条 jQuery 官方的 github issue: <a href="https://github.com/jquery/jquery/issues/2658">Only change %20 to + for application/x-www-form-urlencoded</a></p>
+
+<p><img src="//img11.360buyimg.com/devfe/jfs/t20344/242/259059096/183424/9e8e0f30/5b078bbdN06c75a01.png" alt="google-why-jquery-convert-space-to-plus" /></p>
+
+<p>根据 issue 的描述大意是说 <code>convert %20 to +</code> 这个逻辑只应该在 POST 请求的时候做转换，而不是所有请求。我们的示例中的 jsonp 刚好是 get 请求</p>
+
+<p>继续往下看找到了一个 <a href="https://github.com/dmethvin/jquery/commit/60453ce299a0c84550e70010ceea12d538226bf5">commit(60453ce)</a> 修复了这个问题</p>
+
+<p><img src="//img14.360buyimg.com/devfe/jfs/t20692/166/263146843/79735/7f45adb2/5b078b49N8f97629d.png" alt="jquery-param-encode-bug" /></p>
+
+<p>注意一点，我们并不能简单的在 data 对象传入的时候手动添加 <code>encodeURIComponent</code>：</p>
+
+<pre><code class="language-javascript">$.ajax({
+    url: 'http://your.domain.com/action',
+    dataType: 'jsonp',
+    data: {
+        // 错误的做法
+        spaces: encodeURIComponent('a b'),
+        other: '&amp;'
+    }
+})
+</code></pre>
+
+<p>如果 spaces 参数有别的应该被正常编码的字符串，这样会导致正常的被编码的字符被 <strong>两次</strong> encodeURIComponent。所以要正确解决这个问题需要修改 jQuery 源代码，这个可以参考上面的那个 fix commit</p>
+</div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.github.io/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    <p class="meta">
+                        <span class="span">Last modified •</span>
+                        <time class="entry-date" datetime="2018-05-25 19:20:04">
+                            <span class="date">2018-5-25</span>
+                            <span class="time">19:20 PM</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/" title="Previous Post: 又双叕写了一个 host 管理插件">又双叕写了一个 host 管理插件</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
             </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
         </div>
+
         <aside class="sidebar">
     
         
+    
 <section class="odd">
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
@@ -227,6 +323,9 @@
 </section>
 
 
+
+
+
     
 </aside>
 
@@ -244,6 +343,15 @@
 
 <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 <script src="/javascripts/octopress.js"></script>
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
 
 
 

@@ -6,10 +6,86 @@
     <description>Recent content in Archives on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Nov 2017 12:51:27 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 25 May 2018 19:20:04 -0700</lastBuildDate>
     
         <atom:link href="https://keelii.github.io/archives/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jQuery ajax 方法 data 参数默认 encode 失败的 bug</title>
+      <link>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
+      <pubDate>Fri, 25 May 2018 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
+      <description>&lt;p&gt;使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 &lt;code&gt;encodeURIComponent&lt;/code&gt;，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$.ajax({
+    url: &#39;http://your.domain.com/action&#39;,
+    dataType: &#39;jsonp&#39;,
+    data: {
+        spaces: &#39;a b&#39;,
+        other: &#39;&amp;amp;&#39;
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码会向 &lt;code&gt;http://your.domain.com/action?spaces=a+b&amp;amp;other=%26&lt;/code&gt; 发送 get 请求，奇怪的是参数中的 &lt;code&gt;&amp;amp;&lt;/code&gt; 被正确转码成 &lt;code&gt;%26&lt;/code&gt;，但是  被转成了 &lt;code&gt;+&lt;/code&gt; 而不是 &lt;code&gt;%20&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;看看正确的转码结果长啥样&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;encodeURIComponent(&#39;&amp;amp;&#39;) // =&amp;gt; &amp;quot;%26&amp;quot;
+encodeURIComponent(&#39; &#39;) // =&amp;gt; &amp;quot;%20&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;既然 data 参数里面的 key,value 都要被 encodeURIComponent，那么出现这种情况只能去查 jQuery 源代码了。jQuery 会调用 $.param 方法来编码 data 参数，大概在 &lt;strong&gt;jQuery-1.7.2&lt;/strong&gt; 的 &lt;em&gt;(7736)&lt;/em&gt; 行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;param: function( a, traditional ) {
+    // ...
+    } else {
+        // If traditional, encode the &amp;quot;old&amp;quot; way (the way 1.3.2 or older
+        // did it), otherwise encode params recursively.
+        for ( var prefix in a ) {
+            buildParams( prefix, a[ prefix ], traditional, add );
+        }
+    }
+
+    // Return the resulting serialization
+    return s.join( &amp;quot;&amp;amp;&amp;quot; ).replace( r20, &amp;quot;+&amp;quot; );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;param 方法内部会再调用 &lt;code&gt;buildParams&lt;/code&gt; 来把 data 对象键值对添加编码，一切都很正常&lt;/p&gt;
+
+&lt;p&gt;然饿最后一行 &lt;code&gt;replace( r20, &amp;quot;+&amp;quot; )&lt;/code&gt; 是什么鬼！&lt;code&gt;r20&lt;/code&gt; 变量是内部的一个空白转义符的正则 &lt;code&gt;/%20/g&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这就有点意思了，为啥把正确的空格编码再转回 &lt;code&gt;+&lt;/code&gt; 呢？&lt;/p&gt;
+
+&lt;p&gt;外事不决问 Google，搜索 &lt;code&gt;why jquery ajax convert %20 to +&lt;/code&gt; 结果发现有一条 jQuery 官方的 github issue: &lt;a href=&#34;https://github.com/jquery/jquery/issues/2658&#34;&gt;Only change %20 to + for application/x-www-form-urlencoded&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t20344/242/259059096/183424/9e8e0f30/5b078bbdN06c75a01.png&#34; alt=&#34;google-why-jquery-convert-space-to-plus&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;根据 issue 的描述大意是说 &lt;code&gt;convert %20 to +&lt;/code&gt; 这个逻辑只应该在 POST 请求的时候做转换，而不是所有请求。我们的示例中的 jsonp 刚好是 get 请求&lt;/p&gt;
+
+&lt;p&gt;继续往下看找到了一个 &lt;a href=&#34;https://github.com/dmethvin/jquery/commit/60453ce299a0c84550e70010ceea12d538226bf5&#34;&gt;commit(60453ce)&lt;/a&gt; 修复了这个问题&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img14.360buyimg.com/devfe/jfs/t20692/166/263146843/79735/7f45adb2/5b078b49N8f97629d.png&#34; alt=&#34;jquery-param-encode-bug&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意一点，我们并不能简单的在 data 对象传入的时候手动添加 &lt;code&gt;encodeURIComponent&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$.ajax({
+    url: &#39;http://your.domain.com/action&#39;,
+    dataType: &#39;jsonp&#39;,
+    data: {
+        // 错误的做法
+        spaces: encodeURIComponent(&#39;a b&#39;),
+        other: &#39;&amp;amp;&#39;
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 spaces 参数有别的应该被正常编码的字符串，这样会导致正常的被编码的字符被 &lt;strong&gt;两次&lt;/strong&gt; encodeURIComponent。所以要正确解决这个问题需要修改 jQuery 源代码，这个可以参考上面的那个 fix commit&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>又双叕写了一个 host 管理插件</title>
@@ -1477,186 +1553,6 @@ function powerset(arr) {
 &lt;p&gt;相关资料：
 &lt;a href=&#34;http://git.shepherdwind.com/sku-search-algorithm.html&#34;&gt;sku组合查询算法探索&lt;/a&gt;&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>TrimPath 模板引擎使用指南</title>
-      <link>https://keelii.github.io/2016/11/21/trimpath-template-engine/</link>
-      <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
-      
-      <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
-&lt;/p&gt;
-
-&lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;
-
-&lt;h3 id=&#34;表达式-expressions&#34;&gt;表达式 Expressions&lt;/h3&gt;
-
-&lt;p&gt;表达式和修饰符（其它模板语言中叫做过滤器 filter）中间用 &lt;code&gt;|&lt;/code&gt; 分割且 &lt;strong&gt;不能有空格&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;${expr}
-${expr|modifier}
-${expr|modifier1:arg1,arg2|modifier2:arg1,arg2|...|modifierN:arg1,arg2}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;语句-statements&#34;&gt;语句 Statements&lt;/h3&gt;
-
-&lt;h4 id=&#34;控制流-control-flow&#34;&gt;控制流 Control Flow&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;{if testExpr}
-    {elseif testExpr}
-    {else}
-{/if}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;循环-loops&#34;&gt;循环 Loops&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;{for varName in listExpr}
-{/for}
-
-{for varName in listExpr}
-    ...循环主体...
-{forelse}
-    ...当 listExpr 是 null 或者 length 为 0 ...
-{/for}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;变量声明-variable-declarations&#34;&gt;变量声明 Variable Declarations&lt;/h4&gt;
-
-&lt;p&gt;变量声明语句用花括号 &lt;code&gt;{}&lt;/code&gt; 括起来，不需要关闭。类似 JavaScript 中的赋值语句&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{var varName}
-{var varName = varInitExpr}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;宏声明-macro-declarations&#34;&gt;宏声明 Macro Declarations&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;{macro macroName(arg1, arg2, ...argN)}
-    ...macro 主体...
-{/macro}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;cdata-部分-cdata-text-sections&#34;&gt;CDATA 部分 CDATA Text Sections&lt;/h4&gt;
-
-&lt;p&gt;CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出。比如展示一个模板字符串本身&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{cdata}
-    ${customer.firstName} ${customer.lastName}
-{/cdata}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;in-line-javascript&#34;&gt;In-line JavaScript&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;eval blocks&lt;/strong&gt; 用来执行 JavaScript 代码片段&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{eval}
-    ...模板渲染的时候执行的 JavaScript 代码...
-{/eval
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;minify blocks&lt;/strong&gt; 用来压缩内容中的换行符，比如压缩 HTML 属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;commentPanel&amp;quot; style=&amp;quot;{minify}
-      display:none;
-      margin: 1em;
-      border: 1px solid #333;
-      background: #eee;
-      padding: 1em;
-    {/minify}&amp;quot;&amp;gt;
-  ...
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;修饰符-modifier&#34;&gt;修饰符 Modifier&lt;/h2&gt;
-
-&lt;p&gt;修饰符用来处理上一个表达式的结果，并输出内容。类似于 Linux shell 中的管道操作符，使用「|」分割不同修饰符，可以串联使用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;${name|capitalize}
-${name|default:&amp;quot;noname&amp;quot;|capitalize}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;内置修饰符&#34;&gt;内置修饰符&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;capitalize&lt;/strong&gt; 返回大写内容&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;default:valueWhenNull&lt;/strong&gt; 如果内容为 null，返回 valueWhenNull&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;eat&lt;/strong&gt; 返回空内容，一般用于表达式求值后又不想展示输出的内容&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;escape&lt;/strong&gt; 转换 HTML 字符实体，比如： &amp;amp; 转换成 &amp;amp;amp;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; 和 escape 效果一样&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;自定义修饰符&#34;&gt;自定义修饰符&lt;/h3&gt;
-
-&lt;p&gt;自定义修饰符可以挂载到 contextObject 上的 &lt;code&gt;_MODIFIERS&lt;/code&gt; 属性上&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var Modifiers = {
-  toFixed: function(value, num) {
-    return value.toFixed(num)
-  }
-}
-var out = &#39;${num|toFixed:2}&#39;.process({
-  _MODIFIERS: Modifiers,
-  num: 1024
-})
-// =&amp;gt; &amp;quot;1024.00&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;宏-macro&#34;&gt;宏 Macro&lt;/h2&gt;
-
-&lt;p&gt;macro 一般用来封装可复用 HTML 模板，类似函数的功能。对于每个模板来说 macro 是私用的。如果想公用 macro，可以保存 macro 引用到 contextObject 上（下次调用 process() 方法的时候再手动挂载上!? ）。需要在调用 process() 方法之前给 contextObject 设置一个空的 exported 属性：&lt;code&gt;contextObject[&#39;exported&#39;] = {}&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;这个公用的 macro 设计的有点奇葩，可以参考这个 &lt;a href=&#34;http://codepen.io/keelii/pen/dOvgOJ&#34;&gt;示例&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{macro link(href, name)}
-    &amp;lt;a href=&amp;quot;${href}&amp;quot;&amp;gt;${name}&amp;lt;/a&amp;gt;
-{/macro}
-
-${link(&#39;http://google.com&#39;, &#39;google&#39;)}      =&amp;gt; &amp;lt;a href=&amp;quot;http://google.com&amp;quot;&amp;gt;google&amp;lt;/a&amp;gt;
-${link(&#39;http://facebook.com&#39;, &#39;facebook&#39;)}  =&amp;gt; &amp;lt;a href=&amp;quot;http://facebook.com&amp;quot;&amp;gt;facebook&amp;lt;/a&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;示例&#34;&gt;示例&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var data = {
-    name: &#39;iPhone 6 Plus&#39;,
-    weight: 480,
-    ram: &#39;16gb&#39;,
-    networks: [
-        &#39;移动（TD-LTE)&#39;,
-        &#39;联通(TD-LTE)&#39;,
-        &#39;电信(FDD-LTE)&#39;
-    ]
-}
-
-data._MODIFIERS = {
-    toFixed: function(n, num) {
-        return n.toFixed(num)
-    }
-}
-
-var template = &#39;\
-名称: ${name}&amp;lt;br&amp;gt;\
-重量：${weight|toFixed:2}&amp;lt;br&amp;gt;\
-内存：${ram|capitalize}&amp;lt;br&amp;gt;\
-网络：\
-{for item in networks}\
-  {if item_index!=0}|{/if}\
-  ${item}\
-{/for}&#39;;
-
-template.process(data)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面的代码输出：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;名称: iPhone 6 Plus&amp;lt;br&amp;gt;
-重量：480.00&amp;lt;br&amp;gt;
-内存：16GB&amp;lt;br&amp;gt;
-网络：
-  移动（TD-LTE)
- | 联通(TD-LTE)
- | 电信(FDD-LTE)
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

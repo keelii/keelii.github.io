@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sublime text on Something</title>
-    <link>https://keelii.github.io/categories/sublime-text/</link>
+    <link>https://keelii.com/categories/sublime-text/</link>
     <description>Recent content in Sublime text on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 29 Apr 2017 17:17:24 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/sublime-text/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/sublime-text/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Sublime text 3 配置 ESLint 代码检查</title>
-      <link>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</link>
+      <link>https://keelii.com/2017/04/29/sublime-text-3-configure-eslint/</link>
       <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</guid>
+      <guid>https://keelii.com/2017/04/29/sublime-text-3-configure-eslint/</guid>
       <description>
 
 &lt;h2 id=&#34;安装环境&#34;&gt;安装环境&lt;/h2&gt;

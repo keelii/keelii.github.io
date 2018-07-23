@@ -2,102 +2,102 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Something</title>
-    <link>https://keelii.github.io/categories/</link>
+    <link>https://keelii.com/categories/</link>
     <description>Recent content in Categories on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 22 Dec 2016 15:55:52 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algorithm</title>
-      <link>https://keelii.github.io/categories/algorithm/</link>
+      <link>https://keelii.com/categories/algorithm/</link>
       <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/algorithm/</guid>
+      <guid>https://keelii.com/categories/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blog</title>
-      <link>https://keelii.github.io/categories/blog/</link>
+      <link>https://keelii.com/categories/blog/</link>
       <pubDate>Tue, 25 Oct 2016 13:27:20 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/blog/</guid>
+      <guid>https://keelii.com/categories/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Chrome</title>
-      <link>https://keelii.github.io/categories/chrome/</link>
+      <link>https://keelii.com/categories/chrome/</link>
       <pubDate>Tue, 07 Nov 2017 12:51:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/categories/chrome/</guid>
+      <guid>https://keelii.com/categories/chrome/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Database</title>
-      <link>https://keelii.github.io/categories/database/</link>
+      <link>https://keelii.com/categories/database/</link>
       <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/database/</guid>
+      <guid>https://keelii.com/categories/database/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Editor</title>
-      <link>https://keelii.github.io/categories/editor/</link>
+      <link>https://keelii.com/categories/editor/</link>
       <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/editor/</guid>
+      <guid>https://keelii.com/categories/editor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Event</title>
-      <link>https://keelii.github.io/categories/Event/</link>
+      <link>https://keelii.com/categories/Event/</link>
       <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/Event/</guid>
+      <guid>https://keelii.com/categories/Event/</guid>
       <description></description>
     </item>
     
     <item>
       <title>JavaScript_The_Definitive_Guide</title>
-      <link>https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/</link>
+      <link>https://keelii.com/categories/JavaScript_The_Definitive_Guide/</link>
       <pubDate>Fri, 12 Aug 2016 15:36:59 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/</guid>
+      <guid>https://keelii.com/categories/JavaScript_The_Definitive_Guide/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Javascript</title>
-      <link>https://keelii.github.io/categories/javascript/</link>
+      <link>https://keelii.com/categories/javascript/</link>
       <pubDate>Fri, 25 May 2018 19:20:04 -0700</pubDate>
       
-      <guid>https://keelii.github.io/categories/javascript/</guid>
+      <guid>https://keelii.com/categories/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Jd</title>
-      <link>https://keelii.github.io/categories/jd/</link>
+      <link>https://keelii.com/categories/jd/</link>
       <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/jd/</guid>
+      <guid>https://keelii.com/categories/jd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux</title>
-      <link>https://keelii.github.io/categories/Linux/</link>
+      <link>https://keelii.com/categories/Linux/</link>
       <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
       
-      <guid>https://keelii.github.io/categories/Linux/</guid>
+      <guid>https://keelii.com/categories/Linux/</guid>
       <description></description>
     </item>
     

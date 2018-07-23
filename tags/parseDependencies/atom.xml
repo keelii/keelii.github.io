@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ParseDependencies on Something</title>
-    <link>https://keelii.github.io/tags/parseDependencies/</link>
+    <link>https://keelii.com/tags/parseDependencies/</link>
     <description>Recent content in ParseDependencies on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 03 Nov 2017 15:51:27 +0000</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/parseDependencies/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/parseDependencies/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>解决 seajs parseDependencies 方法引起的依赖解析错误问题</title>
-      <link>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</link>
+      <link>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</link>
       <pubDate>Fri, 03 Nov 2017 15:51:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</guid>
+      <guid>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</guid>
       <description>&lt;p&gt;使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径&lt;/p&gt;
 
 &lt;p&gt;正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 &lt;code&gt;GLOBAL_ROOT/base/cookie&lt;/code&gt; 和 &lt;code&gt;GLOBAL_ROOT/base/utils&lt;/code&gt;&lt;/p&gt;

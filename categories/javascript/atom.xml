@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Javascript on Something</title>
-    <link>https://keelii.github.io/categories/javascript/</link>
+    <link>https://keelii.com/categories/javascript/</link>
     <description>Recent content in Javascript on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 25 May 2018 19:20:04 -0700</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/javascript/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/javascript/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>jQuery ajax 方法 data 参数默认 encode 失败的 bug</title>
-      <link>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
+      <link>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
       <pubDate>Fri, 25 May 2018 19:20:04 -0700</pubDate>
       
-      <guid>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
+      <guid>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
       <description>&lt;p&gt;使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 &lt;code&gt;encodeURIComponent&lt;/code&gt;，如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$.ajax({
@@ -89,10 +89,10 @@ encodeURIComponent(&#39; &#39;) // =&amp;gt; &amp;quot;%20&amp;quot;
     
     <item>
       <title>解决 seajs parseDependencies 方法引起的依赖解析错误问题</title>
-      <link>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</link>
+      <link>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</link>
       <pubDate>Fri, 03 Nov 2017 15:51:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</guid>
+      <guid>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</guid>
       <description>&lt;p&gt;使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径&lt;/p&gt;
 
 &lt;p&gt;正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 &lt;code&gt;GLOBAL_ROOT/base/cookie&lt;/code&gt; 和 &lt;code&gt;GLOBAL_ROOT/base/utils&lt;/code&gt;&lt;/p&gt;
@@ -145,10 +145,10 @@ function parseDependencies(code) {
     
     <item>
       <title>jQuery data 方法的一个小特技</title>
-      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <link>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</link>
       <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <guid>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</guid>
       <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
 
 &lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
@@ -231,10 +231,10 @@ console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，�
     
     <item>
       <title>TrimPath 模板引擎使用指南</title>
-      <link>https://keelii.github.io/2016/11/21/trimpath-template-engine/</link>
+      <link>https://keelii.com/2016/11/21/trimpath-template-engine/</link>
       <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/11/21/trimpath-template-engine/</guid>
+      <guid>https://keelii.com/2016/11/21/trimpath-template-engine/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
 &lt;/p&gt;
 
@@ -411,10 +411,10 @@ template.process(data)
     
     <item>
       <title>PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践</title>
-      <link>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</link>
+      <link>https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</link>
       <pubDate>Thu, 17 Nov 2016 09:55:41 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
+      <guid>https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
 &lt;/p&gt;
@@ -620,10 +620,10 @@ errorTracker.log(&#39;日志信息&#39;)
     
     <item>
       <title>JavaScript 浏览器事件</title>
-      <link>https://keelii.github.io/2016/09/29/javascript-browser-event/</link>
+      <link>https://keelii.com/2016/09/29/javascript-browser-event/</link>
       <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/09/29/javascript-browser-event/</guid>
+      <guid>https://keelii.com/2016/09/29/javascript-browser-event/</guid>
       <description>&lt;h2 id=&#34;javascript-浏览器-事件之间的关系&#34;&gt;JavaScript、浏览器、事件之间的关系&lt;/h2&gt;
 
 &lt;p&gt;JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是：&lt;/p&gt;
@@ -880,7 +880,7 @@ $(document).unbind()                    // 解除所有事件
 
 &lt;h2 id=&#34;自定义事件与发布-订阅者设计模式&#34;&gt;自定义事件与发布/订阅者设计模式&lt;/h2&gt;
 
-&lt;p&gt;自定义事件是设计模式中的 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85&#34;&gt;发布/订阅者&lt;/a&gt; 的一种实现。发布者与订阅者松散地耦合，而且不需要关心对方的存在。&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;这里&lt;/a&gt;有 NC 大师的一种实现。实际使用过程中，主要被运用在异步操作比较多的场景和不同系统之间消息通信，之前的&lt;a href=&#34;https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/#TOC-25&#34;&gt;文章&lt;/a&gt;中有过一些实例&lt;/p&gt;
+&lt;p&gt;自定义事件是设计模式中的 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85&#34;&gt;发布/订阅者&lt;/a&gt; 的一种实现。发布者与订阅者松散地耦合，而且不需要关心对方的存在。&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;这里&lt;/a&gt;有 NC 大师的一种实现。实际使用过程中，主要被运用在异步操作比较多的场景和不同系统之间消息通信，之前的&lt;a href=&#34;https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/#TOC-25&#34;&gt;文章&lt;/a&gt;中有过一些实例&lt;/p&gt;
 
 &lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
 
@@ -893,10 +893,10 @@ $(document).unbind()                    // 解除所有事件
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 15 - 脚本化文档</title>
-      <link>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</link>
+      <link>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</link>
       <pubDate>Fri, 12 Aug 2016 15:36:59 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</guid>
+      <guid>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</guid>
       <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1362,10 +1362,10 @@ offsetParent
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 14 - Window 对象</title>
-      <link>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</link>
+      <link>https://keelii.com/2016/07/26/javascript-definitive-guide-note-12/</link>
       <pubDate>Tue, 26 Jul 2016 11:35:42 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</guid>
+      <guid>https://keelii.com/2016/07/26/javascript-definitive-guide-note-12/</guid>
       <description>&lt;p&gt;本章介绍 Window 对象的属性和方法&lt;/p&gt;
 
 &lt;h2 id=&#34;计时器&#34;&gt;计时器&lt;/h2&gt;
@@ -1474,7 +1474,7 @@ setTimeout(&#39;fn()&#39;, 1000);
 
 &lt;p&gt;Web 浏览器的窗口中每一个标签页都是独立的「浏览上下文」（browsing context），每一个上下文都有独立的 Window 对象，而且相互之间不干扰，也不知道其他标签页的存在&lt;/p&gt;
 
-&lt;p&gt;但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 &lt;a href=&#34;https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/#TOC-16&#34;&gt;同源策略&lt;/a&gt;）&lt;/p&gt;
+&lt;p&gt;但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 &lt;a href=&#34;https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/#TOC-16&#34;&gt;同源策略&lt;/a&gt;）&lt;/p&gt;
 
 &lt;h3 id=&#34;打开和关闭窗口&#34;&gt;打开和关闭窗口&lt;/h3&gt;
 
@@ -1561,10 +1561,10 @@ var s = new parent.Set();   // 甚至可以构造父窗口中的对象
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</link>
+      <link>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</link>
       <pubDate>Thu, 14 Jul 2016 14:11:08 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</guid>
+      <guid>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</guid>
       <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
 
 &lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
@@ -1844,10 +1844,10 @@ name = name.replace(/&amp;lt;/g, &amp;quot;&amp;amp;lt;&amp;quot;).replace(/&amp
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</link>
+      <link>https://keelii.com/2016/07/10/javascript-definitive-guide-note-10/</link>
       <pubDate>Sun, 10 Jul 2016 19:47:18 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</guid>
+      <guid>https://keelii.com/2016/07/10/javascript-definitive-guide-note-10/</guid>
       <description>&lt;h2 id=&#34;用-node-实现异步-i-o&#34;&gt;用 Node 实现异步 I/O&lt;/h2&gt;
 
 &lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;

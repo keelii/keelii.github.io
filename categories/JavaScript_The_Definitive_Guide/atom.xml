@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JavaScript_The_Definitive_Guide on Something</title>
-    <link>https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/</link>
+    <link>https://keelii.com/categories/JavaScript_The_Definitive_Guide/</link>
     <description>Recent content in JavaScript_The_Definitive_Guide on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 12 Aug 2016 15:36:59 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/JavaScript_The_Definitive_Guide/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/JavaScript_The_Definitive_Guide/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 15 - 脚本化文档</title>
-      <link>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</link>
+      <link>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</link>
       <pubDate>Fri, 12 Aug 2016 15:36:59 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/08/12/javascript-definitive-guide-note-13/</guid>
+      <guid>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</guid>
       <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -482,10 +482,10 @@ offsetParent
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 14 - Window 对象</title>
-      <link>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</link>
+      <link>https://keelii.com/2016/07/26/javascript-definitive-guide-note-12/</link>
       <pubDate>Tue, 26 Jul 2016 11:35:42 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/26/javascript-definitive-guide-note-12/</guid>
+      <guid>https://keelii.com/2016/07/26/javascript-definitive-guide-note-12/</guid>
       <description>&lt;p&gt;本章介绍 Window 对象的属性和方法&lt;/p&gt;
 
 &lt;h2 id=&#34;计时器&#34;&gt;计时器&lt;/h2&gt;
@@ -594,7 +594,7 @@ setTimeout(&#39;fn()&#39;, 1000);
 
 &lt;p&gt;Web 浏览器的窗口中每一个标签页都是独立的「浏览上下文」（browsing context），每一个上下文都有独立的 Window 对象，而且相互之间不干扰，也不知道其他标签页的存在&lt;/p&gt;
 
-&lt;p&gt;但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 &lt;a href=&#34;https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/#TOC-16&#34;&gt;同源策略&lt;/a&gt;）&lt;/p&gt;
+&lt;p&gt;但是窗口并不总是和其它窗口完全没关系，因为可以通过脚本打开新的窗口或标签页。如果这么做就可以通过脚本跨窗口进行操作（参照之前的 &lt;a href=&#34;https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/#TOC-16&#34;&gt;同源策略&lt;/a&gt;）&lt;/p&gt;
 
 &lt;h3 id=&#34;打开和关闭窗口&#34;&gt;打开和关闭窗口&lt;/h3&gt;
 
@@ -681,10 +681,10 @@ var s = new parent.Set();   // 甚至可以构造父窗口中的对象
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</link>
+      <link>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</link>
       <pubDate>Thu, 14 Jul 2016 14:11:08 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/14/javascript-definitive-guide-note-11/</guid>
+      <guid>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</guid>
       <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
 
 &lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
@@ -964,10 +964,10 @@ name = name.replace(/&amp;lt;/g, &amp;quot;&amp;amp;lt;&amp;quot;).replace(/&amp
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</title>
-      <link>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</link>
+      <link>https://keelii.com/2016/07/10/javascript-definitive-guide-note-10/</link>
       <pubDate>Sun, 10 Jul 2016 19:47:18 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/10/javascript-definitive-guide-note-10/</guid>
+      <guid>https://keelii.com/2016/07/10/javascript-definitive-guide-note-10/</guid>
       <description>&lt;h2 id=&#34;用-node-实现异步-i-o&#34;&gt;用 Node 实现异步 I/O&lt;/h2&gt;
 
 &lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;
@@ -1054,10 +1054,10 @@ server.listen(port, hostname, function() {
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</title>
-      <link>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</link>
+      <link>https://keelii.com/2016/07/06/javascript-definitive-guide-note-9/</link>
       <pubDate>Wed, 06 Jul 2016 12:43:30 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/06/javascript-definitive-guide-note-9/</guid>
+      <guid>https://keelii.com/2016/07/06/javascript-definitive-guide-note-9/</guid>
       <description>&lt;p&gt;正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1447,10 +1447,10 @@ pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 9 - 类和模块</title>
-      <link>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</link>
+      <link>https://keelii.com/2016/07/02/javascript-definitive-guide-note-8/</link>
       <pubDate>Sat, 02 Jul 2016 13:58:30 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/02/javascript-definitive-guide-note-8/</guid>
+      <guid>https://keelii.com/2016/07/02/javascript-definitive-guide-note-8/</guid>
       <description>&lt;p&gt;每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -1459,7 +1459,7 @@ pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
 
 &lt;h2 id=&#34;类和原型&#34;&gt;类和原型&lt;/h2&gt;
 
-&lt;p&gt;在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在之前的 &lt;a href=&#34;https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/#TOC-4&#34;&gt;章节&lt;/a&gt; 里定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象&lt;/p&gt;
+&lt;p&gt;在 JavaScript 中，类的所有实例对象都从同一个原型对象上继承属性。因此，原型对象是类的核心。在之前的 &lt;a href=&#34;https://keelii.com/2016/06/23/javascript-definitive-guide-note-5/#TOC-4&#34;&gt;章节&lt;/a&gt; 里定义了 inherit() 函数，这个函数返回一个新创建的对象，后者继承自某个原型对象。如果定义一个原型对象，然后通过 inherit() 函数创建一个继承自它的对象，这样就定义了一个 JavaScript 类。通常，类的实例还需要进一步的初始化，通常是通过定义一个函数来创建并初始化这个新对象&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 一个简单的实现表示值的范围的类
 function range(from, to) {
@@ -1782,11 +1782,11 @@ NonNullSet.prototype.add = function() {
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 8 - 函数</title>
-      <link>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</link>
+      <link>https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/</link>
       <pubDate>Wed, 29 Jun 2016 20:22:22 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/</guid>
-      <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.github.io/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
+      <guid>https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/</guid>
+      <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.com/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -1906,7 +1906,7 @@ calculator.operand2         // =&amp;gt; 3
 
 &lt;h3 id=&#34;可变长的实参列表-实参对象&#34;&gt;可变长的实参列表：实参对象&lt;/h3&gt;
 
-&lt;p&gt;当调用函数的时候传入实参人个数超过形参个数时（和上面相反），没有办法直接获得未命名值的引用。参数对象解决了这个问题，在函数体内，标识符 arguments 是指向实参对象的引用，参数对象是一个 &lt;a href=&#34;https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/#TOC-23&#34;&gt;类数组对象&lt;/a&gt;，这样可以通过索引来访问实参了&lt;/p&gt;
+&lt;p&gt;当调用函数的时候传入实参人个数超过形参个数时（和上面相反），没有办法直接获得未命名值的引用。参数对象解决了这个问题，在函数体内，标识符 arguments 是指向实参对象的引用，参数对象是一个 &lt;a href=&#34;https://keelii.com/2016/06/23/javascript-definitive-guide-note-6/#TOC-23&#34;&gt;类数组对象&lt;/a&gt;，这样可以通过索引来访问实参了&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function fn(x, y, z) {
     console.log(arguments);
@@ -2339,7 +2339,7 @@ squareofsum(2, 3)           // =&amp;gt; 25
 
 &lt;h3 id=&#34;不完全函数&#34;&gt;不完全函数&lt;/h3&gt;
 
-&lt;p&gt;函数 &lt;a href=&#34;https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/#TOC-19&#34;&gt;f()&lt;/a&gt; 的 bind() 方法返回一个新函数，给新函数传入特定的上下文和一组指定的参数，然后调用函数 f()。我们说它把函数「绑定至」对象并传入一部分参数。bind() 方法只是将实参放在左侧，也就是说传入 bind() 的实参都是放在传入原始函数的实参列表开始的位置，但有时我们期望将传入 bind() 的实参放在右侧&lt;/p&gt;
+&lt;p&gt;函数 &lt;a href=&#34;https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/#TOC-19&#34;&gt;f()&lt;/a&gt; 的 bind() 方法返回一个新函数，给新函数传入特定的上下文和一组指定的参数，然后调用函数 f()。我们说它把函数「绑定至」对象并传入一部分参数。bind() 方法只是将实参放在左侧，也就是说传入 bind() 的实参都是放在传入原始函数的实参列表开始的位置，但有时我们期望将传入 bind() 的实参放在右侧&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 将类数组对象转换为真正的数组
 function array(arr, n) { return Array.prototype.slice.call(arr, n || 0); }
@@ -2386,7 +2386,7 @@ partial(f, undefined, 2)(3, 4)      // =&amp;gt; -6 3 * (2-4)
 
 &lt;h3 id=&#34;记忆&#34;&gt;记忆&lt;/h3&gt;
 
-&lt;p&gt;上面的 &lt;a href=&#34;https://keelii.github.io/2016/06/29/javascript-definitive-guide-note-7/#TOC-13&#34;&gt;章节&lt;/a&gt; 中定义了一个阶乘函数，它可以将上次的计算结果缓存起来。在函数式程序当中，这种缓存技巧叫做「记忆」（memorization）。下面的代码展示了一个高阶函数，memorize() 接收一个函数作为实参，并返回带有记忆能力的函数&lt;/p&gt;
+&lt;p&gt;上面的 &lt;a href=&#34;https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/#TOC-13&#34;&gt;章节&lt;/a&gt; 中定义了一个阶乘函数，它可以将上次的计算结果缓存起来。在函数式程序当中，这种缓存技巧叫做「记忆」（memorization）。下面的代码展示了一个高阶函数，memorize() 接收一个函数作为实参，并返回带有记忆能力的函数&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function memorize(f) {
     var cache = {};
@@ -2444,10 +2444,10 @@ memorize(factorial)(3)
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 5 - 语句</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</link>
+      <link>https://keelii.com/2016/06/23/javascript-definitive-guide-note-4/</link>
       <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-4/</guid>
+      <guid>https://keelii.com/2016/06/23/javascript-definitive-guide-note-4/</guid>
       <description>&lt;p&gt;表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -2613,7 +2613,7 @@ while(test) {
 
 &lt;p&gt;variable 通常是一个变量名（也可以是个表达式），也可以是一个可以产生左值的表达式或者一个通过 var 语句声明的变量，总之必须是一个适用于赋值表达式左侧的值。object 是一个 &lt;strong&gt;表达式&lt;/strong&gt;，这个表达式计算结果是一个对象&lt;/p&gt;
 
-&lt;p&gt;在执行 for/in 语句的过程中，JavaScript 解释器首先计算 object 表达式。如果表达式为 null 或者 undefined，解释器将会跳过循环并执行后续代码（ECMAScript 3 可能会抛出一个类型错误异常）。如果表达式等于一个原始值，这个原始值将会转换为与之对应的 &lt;a href=&#34;https://keelii.github.io/2016/06/16/javascript-definitive-guide-note-2/&#34;&gt;包装对象&lt;/a&gt;（wrapper object）否则，expression 本身已经是对象了。JavaScript 会依次遍历 &lt;strong&gt;可枚举&lt;/strong&gt; 的对象属性来执行循环体语句&lt;/p&gt;
+&lt;p&gt;在执行 for/in 语句的过程中，JavaScript 解释器首先计算 object 表达式。如果表达式为 null 或者 undefined，解释器将会跳过循环并执行后续代码（ECMAScript 3 可能会抛出一个类型错误异常）。如果表达式等于一个原始值，这个原始值将会转换为与之对应的 &lt;a href=&#34;https://keelii.com/2016/06/16/javascript-definitive-guide-note-2/&#34;&gt;包装对象&lt;/a&gt;（wrapper object）否则，expression 本身已经是对象了。JavaScript 会依次遍历 &lt;strong&gt;可枚举&lt;/strong&gt; 的对象属性来执行循环体语句&lt;/p&gt;
 
 &lt;p&gt;for/in 循环并不会遍历对象的所有属性，只有「可枚举」（emumerable）的属性才会遍历到。JavaScript 语言核心所定义的内置方法就 &lt;strong&gt;不是&lt;/strong&gt;「可枚举的」，比如，所有对象都有方法 toString()，但 for/in 循环并不枚举 toString 这个属性，还有很多内置属性也是不可枚举的（nonenumerable）。而代码中定义的所有属性和方法都是可枚举的&lt;/p&gt;
 
@@ -2825,10 +2825,10 @@ o           // =&amp;gt; {a: 2, b: 2, c: 3}
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 6 - 对象</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</link>
+      <link>https://keelii.com/2016/06/23/javascript-definitive-guide-note-5/</link>
       <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-5/</guid>
+      <guid>https://keelii.com/2016/06/23/javascript-definitive-guide-note-5/</guid>
       <description>&lt;p&gt;对象是 JavaScript 的基本数据类型。是一种复合值：将很多值聚合在一起。对象可以看做是无序集合，每个属性都是一个名/值对。这种基本数据结构还有很多叫法，比如「散列」（hash）、「散列表」（hashtable）、「字典」（dictionary）、「关联数组」（associative array）。JavaScript 还可以从一个称为 &lt;strong&gt;原型&lt;/strong&gt; 的对象继承属性&lt;/p&gt;
 
 &lt;p&gt;JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象&lt;/p&gt;
@@ -3266,10 +3266,10 @@ s.toString();       // =&amp;gt; &amp;quot;[object Ojbect]&amp;quot;
     
     <item>
       <title>《JavaScript 权威指南》读书笔记 7 - 数组</title>
-      <link>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</link>
+      <link>https://keelii.com/2016/06/23/javascript-definitive-guide-note-6/</link>
       <pubDate>Thu, 23 Jun 2016 19:10:28 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/23/javascript-definitive-guide-note-6/</guid>
+      <guid>https://keelii.com/2016/06/23/javascript-definitive-guide-note-6/</guid>
       <description>&lt;p&gt;数组是值的 &lt;strong&gt;有序集合&lt;/strong&gt;。每个值（任意 JavaScript 数据类型）叫做一个元素，元素在数组中的位置叫索引。JavaScript 数组是无/弱类型的（untyped），数组元素可以是任意类型&lt;/p&gt;
 
 &lt;p&gt;JavaScript 数组是 &lt;strong&gt;动态的&lt;/strong&gt;，根据需要它们会增长或缩减，创建的时候不须要声明一个固定的大小&lt;/p&gt;

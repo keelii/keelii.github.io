@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Event on Something</title>
-    <link>https://keelii.github.io/categories/Event/</link>
+    <link>https://keelii.com/categories/Event/</link>
     <description>Recent content in Event on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 29 Sep 2016 17:22:29 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/Event/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/Event/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>JavaScript 浏览器事件</title>
-      <link>https://keelii.github.io/2016/09/29/javascript-browser-event/</link>
+      <link>https://keelii.com/2016/09/29/javascript-browser-event/</link>
       <pubDate>Thu, 29 Sep 2016 17:22:29 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/09/29/javascript-browser-event/</guid>
+      <guid>https://keelii.com/2016/09/29/javascript-browser-event/</guid>
       <description>&lt;h2 id=&#34;javascript-浏览器-事件之间的关系&#34;&gt;JavaScript、浏览器、事件之间的关系&lt;/h2&gt;
 
 &lt;p&gt;JavaScript 程序采用了异步事件驱动编程（Event-driven programming）模型，维基百科对它的解释是：&lt;/p&gt;
@@ -273,7 +273,7 @@ $(document).unbind()                    // 解除所有事件
 
 &lt;h2 id=&#34;自定义事件与发布-订阅者设计模式&#34;&gt;自定义事件与发布/订阅者设计模式&lt;/h2&gt;
 
-&lt;p&gt;自定义事件是设计模式中的 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85&#34;&gt;发布/订阅者&lt;/a&gt; 的一种实现。发布者与订阅者松散地耦合，而且不需要关心对方的存在。&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;这里&lt;/a&gt;有 NC 大师的一种实现。实际使用过程中，主要被运用在异步操作比较多的场景和不同系统之间消息通信，之前的&lt;a href=&#34;https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/#TOC-25&#34;&gt;文章&lt;/a&gt;中有过一些实例&lt;/p&gt;
+&lt;p&gt;自定义事件是设计模式中的 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85&#34;&gt;发布/订阅者&lt;/a&gt; 的一种实现。发布者与订阅者松散地耦合，而且不需要关心对方的存在。&lt;a href=&#34;https://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/&#34;&gt;这里&lt;/a&gt;有 NC 大师的一种实现。实际使用过程中，主要被运用在异步操作比较多的场景和不同系统之间消息通信，之前的&lt;a href=&#34;https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/#TOC-25&#34;&gt;文章&lt;/a&gt;中有过一些实例&lt;/p&gt;
 
 &lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
 

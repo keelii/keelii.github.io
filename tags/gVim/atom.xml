@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GVim on Something</title>
-    <link>https://keelii.github.io/tags/gVim/</link>
+    <link>https://keelii.com/tags/gVim/</link>
     <description>Recent content in GVim on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 13 Jun 2016 21:25:57 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/gVim/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/gVim/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>可能是 Windows 下最漂亮的 Gvim 配置了</title>
-      <link>https://keelii.github.io/2016/06/13/awsome-window-vimrc/</link>
+      <link>https://keelii.com/2016/06/13/awsome-window-vimrc/</link>
       <pubDate>Mon, 13 Jun 2016 21:25:57 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/13/awsome-window-vimrc/</guid>
+      <guid>https://keelii.com/2016/06/13/awsome-window-vimrc/</guid>
       <description>&lt;p&gt;一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim&lt;/p&gt;
 
 &lt;p&gt;不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^&lt;/p&gt;
@@ -326,7 +326,7 @@ endif
 
 &lt;h4 id=&#34;neocomplete&#34;&gt;Neocomplete&lt;/h4&gt;
 
-&lt;p&gt;自动补全插件，这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，&lt;a href=&#34;https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/&#34;&gt;下篇文章&lt;/a&gt; 我将记录下自己在 Windows 上编译安装的过程&lt;/p&gt;
+&lt;p&gt;自动补全插件，这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，&lt;a href=&#34;https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/&#34;&gt;下篇文章&lt;/a&gt; 我将记录下自己在 Windows 上编译安装的过程&lt;/p&gt;
 
 &lt;p&gt;什么？你说为啥不装 YouCompleteMe，官方作者都不支持的插件就别折腾了吧，Neocomplete 这个实例插件对于我的情况来说已经够用了&lt;/p&gt;
 

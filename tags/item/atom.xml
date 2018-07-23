@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Item on Something</title>
-    <link>https://keelii.github.io/tags/item/</link>
+    <link>https://keelii.com/tags/item/</link>
     <description>Recent content in Item on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 31 Jul 2016 10:48:57 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/item/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/item/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>京东单品页前端开发那些不得不说的事儿</title>
-      <link>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</link>
+      <link>https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/</link>
       <pubDate>Sun, 31 Jul 2016 10:48:57 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</guid>
+      <guid>https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/</guid>
       <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
 
 &lt;p&gt;详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合&lt;/p&gt;

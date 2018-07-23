@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Archives on Something</title>
-    <link>https://keelii.github.io/archives/</link>
+    <link>https://keelii.com/archives/</link>
     <description>Recent content in Archives on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 25 May 2018 19:20:04 -0700</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/archives/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/archives/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>jQuery ajax 方法 data 参数默认 encode 失败的 bug</title>
-      <link>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
+      <link>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
       <pubDate>Fri, 25 May 2018 19:20:04 -0700</pubDate>
       
-      <guid>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
+      <guid>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
       <description>&lt;p&gt;使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 &lt;code&gt;encodeURIComponent&lt;/code&gt;，如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$.ajax({
@@ -89,10 +89,10 @@ encodeURIComponent(&#39; &#39;) // =&amp;gt; &amp;quot;%20&amp;quot;
     
     <item>
       <title>又双叕写了一个 host 管理插件</title>
-      <link>https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/</link>
+      <link>https://keelii.com/2017/11/07/yet-another-host-manager-plugin/</link>
       <pubDate>Tue, 07 Nov 2017 12:51:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/11/07/yet-another-host-manager-plugin/</guid>
+      <guid>https://keelii.com/2017/11/07/yet-another-host-manager-plugin/</guid>
       <description>
 
 &lt;p&gt;切 host 对于平常开发来说再正常不过了，可是「切 host 难」的问题一直没解决，因为手动修改 host 文件会有很多（系统dns、浏览器）缓存问题。经常听到xx说「我这是好的呀，你 host 有问题吧&amp;hellip;」&lt;/p&gt;
@@ -171,10 +171,10 @@ SOCKS 127.0.0.1:1080
     
     <item>
       <title>解决 seajs parseDependencies 方法引起的依赖解析错误问题</title>
-      <link>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</link>
+      <link>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</link>
       <pubDate>Fri, 03 Nov 2017 15:51:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/11/03/fix-seajs-parse-dep-bug/</guid>
+      <guid>https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/</guid>
       <description>&lt;p&gt;使用 seajs 的过程中偶尔会发现 require 进来的模块甚至都没有加载。查看源代码之后发现 seajs 是通过正则表达式匹配出了模块 factory 中的 require 路径&lt;/p&gt;
 
 &lt;p&gt;正常情况下，下面这个模块里面 require 的外部模块会解析出依赖 &lt;code&gt;GLOBAL_ROOT/base/cookie&lt;/code&gt; 和 &lt;code&gt;GLOBAL_ROOT/base/utils&lt;/code&gt;&lt;/p&gt;
@@ -227,10 +227,10 @@ function parseDependencies(code) {
     
     <item>
       <title>macOS Sierra 开发环境配置指南</title>
-      <link>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</link>
+      <link>https://keelii.com/2017/10/07/macos-development-setup-guide/</link>
       <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</guid>
+      <guid>https://keelii.com/2017/10/07/macos-development-setup-guide/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -456,7 +456,7 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 &lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
@@ -466,10 +466,10 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
     
     <item>
       <title>macOS 单独设置 command(⌘) 键点击功能</title>
-      <link>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</link>
+      <link>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</link>
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
+      <guid>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
       <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
 
 &lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;
@@ -542,10 +542,10 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
     
     <item>
       <title>jQuery data 方法的一个小特技</title>
-      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <link>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</link>
       <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <guid>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</guid>
       <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
 
 &lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;
@@ -628,10 +628,10 @@ console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，�
     
     <item>
       <title>Sublime text 3 配置 ESLint 代码检查</title>
-      <link>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</link>
+      <link>https://keelii.com/2017/04/29/sublime-text-3-configure-eslint/</link>
       <pubDate>Sat, 29 Apr 2017 17:17:24 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/04/29/sublime-text-3-configure-eslint/</guid>
+      <guid>https://keelii.com/2017/04/29/sublime-text-3-configure-eslint/</guid>
       <description>
 
 &lt;h2 id=&#34;安装环境&#34;&gt;安装环境&lt;/h2&gt;
@@ -724,10 +724,10 @@ What format do you want your config file to be in? JavaScript
     
     <item>
       <title>Nginx 配置 Google fonts 反向代理开启 HTTP2/SSL 支持</title>
-      <link>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</link>
+      <link>https://keelii.com/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</link>
       <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
+      <guid>https://keelii.com/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
       <description>
 
 &lt;p&gt;由于博客主题使用了 Google fonts PT Serif 字体，国内只能通过中科大的代理来使用 Google fonts 字体。然而最近发现其速度不稳定，响应时间有时候甚至超过 600ms。刚好因为自己有 &lt;a href=&#34;http://www.vultr.com/?ref=6805146&#34;&gt;vultr 的 VPS(带小尾巴)&lt;/a&gt; 就自己动手搭了个来用&lt;/p&gt;
@@ -803,7 +803,7 @@ proxy_cache_path  /your/path/cache levels=1:2 keys_zone=cache1:100m inactive=30d
 
 &lt;h3 id=&#34;443-端口配置&#34;&gt;443 端口配置&lt;/h3&gt;
 
-&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;注意设置 &lt;code&gt;sub_filter&lt;/code&gt; 字段的时候 &lt;strong&gt;你的域名要加上 https://&lt;/strong&gt;，要不然会出现代理的 CSS 文件中的字体文件引用是 HTTP 而请求报 &lt;code&gt;blocked/mixed-content&lt;/code&gt; 错&lt;/p&gt;
 
@@ -866,10 +866,10 @@ if ($invalid_referer) {
     
     <item>
       <title>关系代数的基本运算</title>
-      <link>https://keelii.github.io/2017/02/19/basic-operations-of-relation-algebra/</link>
+      <link>https://keelii.com/2017/02/19/basic-operations-of-relation-algebra/</link>
       <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/02/19/basic-operations-of-relation-algebra/</guid>
+      <guid>https://keelii.com/2017/02/19/basic-operations-of-relation-algebra/</guid>
       <description>
 
 &lt;h2 id=&#34;关系代数运算符&#34;&gt;关系代数运算符&lt;/h2&gt;
@@ -1157,10 +1157,10 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
     
     <item>
       <title>sku 多维属性状态判断算法</title>
-      <link>https://keelii.github.io/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</link>
+      <link>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</link>
       <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
+      <guid>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
       <description>
 
 &lt;h2 id=&#34;问题描述&#34;&gt;问题描述&lt;/h2&gt;

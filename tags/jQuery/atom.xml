@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JQuery on Something</title>
-    <link>https://keelii.github.io/tags/jQuery/</link>
+    <link>https://keelii.com/tags/jQuery/</link>
     <description>Recent content in JQuery on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 25 May 2018 19:20:04 -0700</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/jQuery/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/jQuery/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>jQuery ajax 方法 data 参数默认 encode 失败的 bug</title>
-      <link>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
+      <link>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</link>
       <pubDate>Fri, 25 May 2018 19:20:04 -0700</pubDate>
       
-      <guid>https://keelii.github.io/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
+      <guid>https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/</guid>
       <description>&lt;p&gt;使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 &lt;code&gt;encodeURIComponent&lt;/code&gt;，如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$.ajax({
@@ -89,10 +89,10 @@ encodeURIComponent(&#39; &#39;) // =&amp;gt; &amp;quot;%20&amp;quot;
     
     <item>
       <title>jQuery data 方法的一个小特技</title>
-      <link>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</link>
+      <link>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</link>
       <pubDate>Wed, 03 May 2017 17:59:45 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/05/03/a-trick-from-jquery-data-method/</guid>
+      <guid>https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/</guid>
       <description>&lt;p&gt;通常我们在用 JavaScript 操作 DOM 元素的时候会往 DOM 上临时添加一些参数，用来记住一些状态，或者从后端取参数值等&lt;/p&gt;
 
 &lt;p&gt;一般通过在 HTML 标签上添加自定义属性来实现，但是这样会不可避免的访问 DOM，性能上并不好。如果你使用 jQuery 的话建议使用 &lt;code&gt;$el.data()&lt;/code&gt; 方法来取元素上 &lt;code&gt;data-*&lt;/code&gt; 的值，比如：&lt;/p&gt;

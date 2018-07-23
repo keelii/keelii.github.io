@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MinGW on Something</title>
-    <link>https://keelii.github.io/tags/MinGW/</link>
+    <link>https://keelii.com/tags/MinGW/</link>
     <description>Recent content in MinGW on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 14 Jun 2016 10:39:40 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/MinGW/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/MinGW/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</title>
-      <link>https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</link>
+      <link>https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/</link>
       <pubDate>Tue, 14 Jun 2016 10:39:40 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/06/14/compile-vim-on-windows-with-lua-support/</guid>
+      <guid>https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/</guid>
       <description>&lt;p&gt;vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
 官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等
 &lt;/p&gt;

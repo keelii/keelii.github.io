@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jd on Something</title>
-    <link>https://keelii.github.io/categories/jd/</link>
+    <link>https://keelii.com/categories/jd/</link>
     <description>Recent content in Jd on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 22 Dec 2016 15:55:52 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/jd/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/jd/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>sku 多维属性状态判断算法</title>
-      <link>https://keelii.github.io/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</link>
+      <link>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</link>
       <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
+      <guid>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
       <description>
 
 &lt;h2 id=&#34;问题描述&#34;&gt;问题描述&lt;/h2&gt;
@@ -413,10 +413,10 @@ function powerset(arr) {
     
     <item>
       <title>PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践</title>
-      <link>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</link>
+      <link>https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</link>
       <pubDate>Thu, 17 Nov 2016 09:55:41 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
+      <guid>https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
 &lt;/p&gt;
@@ -622,10 +622,10 @@ errorTracker.log(&#39;日志信息&#39;)
     
     <item>
       <title>京东单品页前端开发那些不得不说的事儿</title>
-      <link>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</link>
+      <link>https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/</link>
       <pubDate>Sun, 31 Jul 2016 10:48:57 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/07/31/something-have-to-say-with-JD-item/</guid>
+      <guid>https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/</guid>
       <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
 
 &lt;p&gt;详情页也叫做单品页，域名以「item.jd.com/skuid.html」为格式的页面。是负责展示京东商品 SKU 的落地页。主要任务是展示和商品相关的信息，如：价格、促销、库存、推荐，从而引导用户进入购买流程。同时单品页有很多版本。一般分为两类。一类我们通常看到的「通用类目详情页」—— 所有类目都可以使用，一类是不经常看到的「垂直属性详情页」—— 一些有特殊属性的商品集合&lt;/p&gt;

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mac on Something</title>
-    <link>https://keelii.github.io/categories/mac/</link>
+    <link>https://keelii.com/categories/mac/</link>
     <description>Recent content in Mac on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/mac/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/mac/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>macOS Sierra 开发环境配置指南</title>
-      <link>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</link>
+      <link>https://keelii.com/2017/10/07/macos-development-setup-guide/</link>
       <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</guid>
+      <guid>https://keelii.com/2017/10/07/macos-development-setup-guide/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -242,7 +242,7 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 &lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
@@ -252,10 +252,10 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
     
     <item>
       <title>macOS 单独设置 command(⌘) 键点击功能</title>
-      <link>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</link>
+      <link>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</link>
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
+      <guid>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
       <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
 
 &lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;
@@ -328,10 +328,10 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
     
     <item>
       <title>简单方法解决 Macbook 电源接口接触不良的问题</title>
-      <link>https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/</link>
+      <link>https://keelii.com/2016/10/04/rebuild-mbp-power-cord/</link>
       <pubDate>Tue, 04 Oct 2016 17:22:29 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2016/10/04/rebuild-mbp-power-cord/</guid>
+      <guid>https://keelii.com/2016/10/04/rebuild-mbp-power-cord/</guid>
       <description>&lt;p&gt;Macbook 电源用的时候久了，接口里面的几个针脚弹性变差，有时候接通电源然而灯不能亮&lt;/p&gt;
 
 &lt;p&gt;在网上搜索了下发现一个好方法：&lt;strong&gt;接电源那头是突出金属的，稍微打磨下去一点就可以了&lt;/strong&gt;，亲测有效&lt;/p&gt;

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Command on Something</title>
-    <link>https://keelii.github.io/tags/command/</link>
+    <link>https://keelii.com/tags/command/</link>
     <description>Recent content in Command on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 03 Oct 2017 17:10:27 +0000</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/command/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/command/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>macOS 单独设置 command(⌘) 键点击功能</title>
-      <link>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</link>
+      <link>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</link>
       <pubDate>Tue, 03 Oct 2017 17:10:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
+      <guid>https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/</guid>
       <description>&lt;p&gt;由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题&lt;/p&gt;
 
 &lt;p&gt;传统意义上像 &lt;code&gt;Ctrl, Alt, Shift, Win, Option, Command&lt;/code&gt; 都属于 &lt;code&gt;修饰键&lt;/code&gt;，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果&lt;/p&gt;

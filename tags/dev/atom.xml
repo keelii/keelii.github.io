@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dev on Something</title>
-    <link>https://keelii.github.io/tags/dev/</link>
+    <link>https://keelii.com/tags/dev/</link>
     <description>Recent content in Dev on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/tags/dev/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/tags/dev/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>macOS Sierra 开发环境配置指南</title>
-      <link>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</link>
+      <link>https://keelii.com/2017/10/07/macos-development-setup-guide/</link>
       <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
-      <guid>https://keelii.github.io/2017/10/07/macos-development-setup-guide/</guid>
+      <guid>https://keelii.com/2017/10/07/macos-development-setup-guide/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -242,7 +242,7 @@ sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
 &lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.github.io/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;

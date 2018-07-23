@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Something</title>
-    <link>https://keelii.github.io/categories/Linux/</link>
+    <link>https://keelii.com/categories/Linux/</link>
     <description>Recent content in Linux on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Apr 2017 11:19:58 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.github.io/categories/Linux/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/Linux/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Nginx 配置 Google fonts 反向代理开启 HTTP2/SSL 支持</title>
-      <link>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</link>
+      <link>https://keelii.com/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</link>
       <pubDate>Sat, 22 Apr 2017 11:19:58 +0800</pubDate>
       
-      <guid>https://keelii.github.io/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
+      <guid>https://keelii.com/2017/04/22/proxy-google-fonts-with-ssl-http2-support/</guid>
       <description>
 
 &lt;p&gt;由于博客主题使用了 Google fonts PT Serif 字体，国内只能通过中科大的代理来使用 Google fonts 字体。然而最近发现其速度不稳定，响应时间有时候甚至超过 600ms。刚好因为自己有 &lt;a href=&#34;http://www.vultr.com/?ref=6805146&#34;&gt;vultr 的 VPS(带小尾巴)&lt;/a&gt; 就自己动手搭了个来用&lt;/p&gt;
@@ -92,7 +92,7 @@ proxy_cache_path  /your/path/cache levels=1:2 keys_zone=cache1:100m inactive=30d
 
 &lt;h3 id=&#34;443-端口配置&#34;&gt;443 端口配置&lt;/h3&gt;
 
-&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.github.io/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：&lt;a href=&#34;https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/&#34;&gt;免费 Https 证书（Let&amp;rsquo;S Encrypt）申请与配置&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;注意设置 &lt;code&gt;sub_filter&lt;/code&gt; 字段的时候 &lt;strong&gt;你的域名要加上 https://&lt;/strong&gt;，要不然会出现代理的 CSS 文件中的字体文件引用是 HTTP 而请求报 &lt;code&gt;blocked/mixed-content&lt;/code&gt; 错&lt;/p&gt;
 

@@ -188,6 +188,16 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/2012/08/18/front-end-makes-change/</loc>
+    <lastmod>2012-08-18T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2011/05/11/front-end-tooling-editor/</loc>
+    <lastmod>2011-05-11T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/categories/algorithm/</loc>
     <lastmod>2018-04-24T18:14:51+08:00</lastmod>
     <priority>0</priority>
@@ -448,6 +458,12 @@
   <url>
     <loc>https://keelii.com/tags/powerset/</loc>
     <lastmod>2018-04-24T18:14:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/ppt/</loc>
+    <lastmod>2011-05-11T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   

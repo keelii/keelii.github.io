@@ -431,5 +431,21 @@ onAreaChange(function(area) {
 &lt;p&gt;关于单品页的前端开发本篇文章只是冰山一角，还有很多没有提及，每个小东西都可以单独写一篇文章来分享。随后希望可以有更多的总结和分享&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>前端，改变</title>
+      <link>https://keelii.com/2012/08/18/front-end-makes-change/</link>
+      <pubDate>Sat, 18 Aug 2012 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.com/2012/08/18/front-end-makes-change/</guid>
+      <description>&lt;p&gt;部门分享 ⎡前端，改变⎦，一些个人对前端的见解和想法&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;前端是一种介于程序和设计之间的契合，拥有程序严谨逻辑的同时也存在设计的感性，前端是设计师的代码实现更是一门艺术。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/mchiGHfKcsWLRG&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&#34;margin-bottom:5px&#34;&gt; &lt;strong&gt; &lt;a href=&#34;//www.slideshare.net/keelii/frontend-makes-change&#34; title=&#34;Front-end makes change&#34; target=&#34;_blank&#34;&gt;Front-end makes change&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&#34;https://www.slideshare.net/keelii&#34; target=&#34;_blank&#34;&gt;keelii&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ppt on Something</title>
+    <link>https://keelii.com/categories/ppt/</link>
+    <description>Recent content in Ppt on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 11 May 2011 19:20:04 -0700</lastBuildDate>
+    
+        <atom:link href="https://keelii.com/categories/ppt/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>前端开发工具 - 编辑器篇</title>
+      <link>https://keelii.com/2011/05/11/front-end-tooling-editor/</link>
+      <pubDate>Wed, 11 May 2011 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.com/2011/05/11/front-end-tooling-editor/</guid>
+      <description>&lt;p&gt;公司分享会上自己总结的一些关于前端开发的工具应用知识&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/DKyOV72B1j38ro&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
+&lt;div style=&#34;margin-bottom:5px&#34;&gt;
+    &lt;strong&gt; &lt;a href=&#34;//www.slideshare.net/keelii/ss-12892582&#34; title=&#34;前端开发工具 - 编辑器篇&#34; target=&#34;_blank&#34;&gt;前端开发工具 - 编辑器篇&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&#34;https://www.slideshare.net/keelii&#34; target=&#34;_blank&#34;&gt;keelii&lt;/a&gt;&lt;/strong&gt;
+&lt;/div&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,10 +6,163 @@
     <description>Recent content on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 May 2018 19:20:04 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 12 Aug 2018 19:20:04 -0700</lastBuildDate>
     
         <atom:link href="https://keelii.com/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fuzzy finder(fzf&#43;vim) 使用全指南</title>
+      <link>https://keelii.com/2018/08/12/fuzzy-finder-full-guide/</link>
+      <pubDate>Sun, 12 Aug 2018 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.com/2018/08/12/fuzzy-finder-full-guide/</guid>
+      <description>
+
+&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;Fuzzy finder&lt;/a&gt; 是一款使用 GO 语言编写的交互式的 Unix 命令行工具。可以用来查找任何 &lt;strong&gt;列表&lt;/strong&gt; 内容，文件、Git 分支、进程等。所有的命令行工具可以生成列表输出的都可以再通过管道 pipe 到 fzf 上进行搜索和查找&lt;/p&gt;
+
+&lt;h2 id=&#34;优点&#34;&gt;优点&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GO 语言编写，编译完生成可执行文件没有任何依赖&lt;/li&gt;
+&lt;li&gt;搜索/查找速度飞快&lt;/li&gt;
+&lt;li&gt;功能全面/可视化界面体验很棒&lt;/li&gt;
+&lt;li&gt;周边插件丰富 (vim, tmux, fuzzy auto-completion)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;以 macOS 为例子，直接使用 homebrew 安装即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install fzf
+# 如果要使用内置的快捷键绑定和命令行自动完成功能的话可以按需安装
+$(brew --prefix)/opt/fzf/install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;命令行下执行 &lt;code&gt;fzf&lt;/code&gt; 即可展示当前目录下所有文件列表，可以用键盘上下键或者鼠标点出来选择
+&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34; alt=&#34;fzf-normal&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;或许你会觉得这个查找提示看起来挺漂亮的，但是并没有什么卵用，因为查找出来就没有然后了。其实这也是 Fuzzy finder 最核心的地方，他只是一个通用的下拉查找功能，自己本身并不关心你用它来做什么，通常我们需要组合使用才会有很好的效果&lt;/p&gt;
+
+&lt;h3 id=&#34;用-vim-打开文件&#34;&gt;用 vim 打开文件&lt;/h3&gt;
+
+&lt;p&gt;比如我们用 vim 组合 fzf 来查找并打开目录下的文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim $(fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif&#34; alt=&#34;fzf-vim&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;切换当前工作目录&#34;&gt;切换当前工作目录&lt;/h3&gt;
+
+&lt;p&gt;再比如进入到某个文件夹下面，使用 fzf 的过滤选择真是太方便了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd $(find * -type d | fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这是个组合 (cd+find+fzf) 命令，完成切换到任意子目录的功能。可以看出来当 fzf 和其它命令组合使用时就能使得一些操作更方便：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;使用 find 命令找出所有的子目录&lt;/li&gt;
+&lt;li&gt;把子目录列表 pipe 到 fzf 上进行选择&lt;/li&gt;
+&lt;li&gt;再把结果以子命令的形式传给 cd&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif&#34; alt=&#34;fzf-find-cd&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;切换-git-分支&#34;&gt;切换 git 分支&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout $(git branch -r | fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif&#34; alt=&#34;fzf-git-branch&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不过这样组合使用命令的实在太长了，如果你不使用自动补全的话巧起来很累的。建议把常用的 alias 放在 .zshrc 中管理嘛&lt;/p&gt;
+
+&lt;h3 id=&#34;shell-命令行补全&#34;&gt;shell 命令行补全&lt;/h3&gt;
+
+&lt;p&gt;fzf 默认使用 &lt;code&gt;**&lt;/code&gt; 来补全 shell 命令，比起默认的 tab 补全，fzf 补全不知道高到哪里去了。cd, vim, kill, ssh, export&amp;hellip; 统统都能补全，好用哭了 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif&#34; alt=&#34;fzf-completion&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;fzf 提供了两个 &lt;em&gt;环境变量&lt;/em&gt; 配置参数，来分别设置默认的调用命令和 fzf 默认配置参数&lt;/p&gt;
+
+&lt;h3 id=&#34;核心命令-fzf-default-command&#34;&gt;核心命令 FZF_DEFAULT_COMMAND&lt;/h3&gt;
+
+&lt;p&gt;对于使用 fzf 来查找文件的情况，fzf 其实底层是调用的 Unix 系统 &lt;code&gt;find&lt;/code&gt; 命令，如果你觉得 find 不好用也可以使用其它查找文件的命令行工具「我使用 &lt;a href=&#34;https://github.com/sharkdp/fd&#34;&gt;fd&lt;/a&gt;」。注意：对原始命令添加一些参数应该在这个环境变量里面添加&lt;/p&gt;
+
+&lt;p&gt;比如说我们一般都会查找文件 &lt;code&gt;-type f&lt;/code&gt;，通常会忽略一些文件夹/目录 &lt;code&gt;--exclude=...&lt;/code&gt;，下面是我的变量值：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export FZF_DEFAULT_COMMAND=&amp;quot;fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;界面展示-fzf-default-opts&#34;&gt;界面展示 FZF_DEFAULT_OPTS&lt;/h3&gt;
+
+&lt;p&gt;界面展示这些参数在 &lt;code&gt;fzf --help&lt;/code&gt; 中都有，按需配置即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export FZF_DEFAULT_OPTS=&amp;quot;--height 40% --layout=reverse --preview &#39;(highlight -O ansi {} || cat {}) 2&amp;gt; /dev/null | head -500&#39;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;界面配置参数加上后就漂亮多了
+&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34; alt=&#34;fzf-with-preview&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--preview&lt;/code&gt; 表示在右侧显示文件的预览界面，语法高亮的设置使用了 &lt;a href=&#34;http://www.andre-simon.de/doku/highlight/en/highlight.php&#34;&gt;highlight&lt;/a&gt; 如果 highlight 失败则使用最常见的 &lt;code&gt;cat&lt;/code&gt; 命令来查看文件内容&lt;/p&gt;
+
+&lt;p&gt;highlight 安装可能会有个小插曲。highlight 需要手动编译安装，默认安装目录在 &lt;code&gt;/usr/bin&lt;/code&gt;, &lt;code&gt;/usr/share&lt;/code&gt; 下面。然而在 macOS 中由于 &lt;abbr title=&#34;System Integrity Protection&#34;&gt;SIP&lt;/abbr&gt; 保护，用户安装的程序不能在这几个目录下面「即使有 sudo 权限也不行」。我们可以手动更改下 highlight 源代码中 makefile 中的参数即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-make&#34;&gt;# PREFIX = /usr
+PREFIX = /usr/local
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将 &lt;code&gt;PREFIX = /usr&lt;/code&gt; 改成 &lt;code&gt;PREFIX = /usr/local&lt;/code&gt;，然后 &lt;code&gt;make&lt;/code&gt;，&lt;code&gt;sudo make install&lt;/code&gt; 就可以了&lt;/p&gt;
+
+&lt;h3 id=&#34;触发命令行补全-fzf-completion-trigger&#34;&gt;触发命令行补全 FZF_COMPLETION_TRIGGER&lt;/h3&gt;
+
+&lt;p&gt;默认是 &lt;code&gt;**&lt;/code&gt;，一般不用修改&lt;/p&gt;
+
+&lt;h2 id=&#34;vim-fzf-插件&#34;&gt;VIM fzf 插件&lt;/h2&gt;
+
+&lt;p&gt;如果你使用 vim，那么官方提供的插件会让你的 vim 使用更加流畅&lt;/p&gt;
+
+&lt;h3 id=&#34;安装插件&#34;&gt;安装插件&lt;/h3&gt;
+
+&lt;p&gt;如果你本地安装过 fzf 命令行工具了，只需要在 .vimrc 里面添加下面两个插件配置即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Plug &#39;/usr/local/opt/fzf&#39;
+Plug &#39;junegunn/fzf.vim&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：使用了 &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; 插件管理&lt;/p&gt;
+
+&lt;p&gt;插件主要对 fzf 集成绑定了一些和 vim 相关的功能，比如：查找当前 Buffer、Tag、Marks。甚至切换 window 更换 vim 主题配色等&lt;/p&gt;
+
+&lt;p&gt;命令模式下敲 &lt;code&gt;Files&lt;/code&gt; 即可选择当前目录下所有文件，&lt;code&gt;Buffers&lt;/code&gt; 可以过滤当前所有 vim buffer 内容&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif&#34; alt=&#34;fzf-vim-plugin&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再配置几个常用快捷键就可以直接取代 CtrlP 插件了 🤔&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ctrl + p 查看文件列表&lt;/li&gt;
+&lt;li&gt;Ctrl + e 查看当前 Buffer，两次 Ctrl + e 快速切换上次打开的 Buffer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;nmap &amp;lt;C-p&amp;gt; :Files&amp;lt;CR&amp;gt;
+nmap &amp;lt;C-e&amp;gt; :Buffers&amp;lt;CR&amp;gt;
+let g:fzf_action = { &#39;ctrl-e&#39;: &#39;edit&#39; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;当然 fzf 还可以在很多其它场景下用来。如果你想使用可视化的列表选择而不是咣咣敲命令，那就自己搭配一些组合来使用吧&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>jQuery ajax 方法 data 参数默认 encode 失败的 bug</title>
@@ -1152,406 +1305,6 @@ $$R \Join_{XθY} S = σ_{XθY}(R×S)$$
 &lt;p&gt;可知关系S存在于 a,b/c,k 象集 中。即 $R÷S$ 得&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>sku 多维属性状态判断算法</title>
-      <link>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</link>
-      <pubDate>Thu, 22 Dec 2016 15:55:52 +0800</pubDate>
-      
-      <guid>https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/</guid>
-      <description>
-
-&lt;h2 id=&#34;问题描述&#34;&gt;问题描述&lt;/h2&gt;
-
-&lt;p&gt;这个问题来源于选择商品属性的场景。比如我们买衣服、鞋子这类物件，一般都需要我们选择合适的颜色、尺码等属性&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3118/276/4984729113/37788/61331934/585b8939Na04471ff.png&#34; alt=&#34;color_size&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;先了解一下 sku 的学术概念吧&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;最小库存管理单元（Stock Keeping Unit, SKU）是一个会计学名词，定义为库存管理中的最小可用单元，例如纺织品中一个SKU通常表示规格、颜色、款式，而在连锁零售门店中有时称单品为一个SKU。最小库存管理单元可以区分不同商品销售的最小单元，是科学管理商品的采购、销售、物流和财务管理以及POS和MIS系统的数据统计的需求，通常对应一个管理信息系统的编码。 —— form wikipedia &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E5%AD%98%E8%B4%A7%E5%8D%95%E4%BD%8D&#34;&gt;最小存货单位&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;简单的结合上面的实例来说： sku 就是你上购物网站买到的最终商品，对应的上图中已选择的属性是：颜色 &lt;strong&gt;黑色&lt;/strong&gt; - 尺码 &lt;strong&gt;37&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我先看看后端数据结构一般是这样的，一个线性数组，每个元素是一个描述当前 sku 的 map，比如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;[
-   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;前端展示的时候显然需要 group 一下，按不同的属性分组，目的就是让用户按属性的维度去选择，group 后的数据大概是这样的：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-    &amp;quot;颜色&amp;quot;: [&amp;quot;红&amp;quot;, &amp;quot;白&amp;quot;, &amp;quot;蓝&amp;quot;],
-    &amp;quot;尺码&amp;quot;: [&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;],
-    &amp;quot;型号&amp;quot;: [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对应的在网页上大概是这样的 UI&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3307/119/4891794144/3339/dbde7abe/585b9042N5e527489.png&#34; alt=&#34;ui_demo&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这个时候，就会有一个问题，这些元子属性能组成的集合（用户的选择路径） &lt;strong&gt;远远大于&lt;/strong&gt; 真正可以组成的集合，比如上面的属性集合可以组合成一个 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF&#34;&gt;笛卡尔积&lt;/a&gt;，即。可以组合成以下序列：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
-    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],    // ✔
-    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;红&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],    // ✔
-    [&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;白&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;C&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;],
-    [&amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot;]     // ✔
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;根据公式可以知道，&lt;strong&gt;一个由 3 个元素，每个元素是有 3 个元素的子集构成的集合，能组成的笛卡尔积一共有 3 的 3 次幂，也就是 27 种&lt;/strong&gt;，然而源数据只可以形成 3 种组合&lt;/p&gt;
-
-&lt;p&gt;这种情况下最好能提前判断出来不可选的路径并置灰，告诉用户，否则会造成误解&lt;/p&gt;
-
-&lt;h2 id=&#34;确定规则&#34;&gt;确定规则&lt;/h2&gt;
-
-&lt;p&gt;看下图，如果我们定义红色为当前选中的商品的属性，即当前选中商品为 &lt;code&gt;红-大-A&lt;/code&gt;，这个时候如何确认其它非已选属性是否可以组成可选路径？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png&#34; alt=&#34;ui_selected&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;规则是这样的：&lt;/strong&gt; 假设当前用户想选 &lt;code&gt;白-大-A&lt;/code&gt;，刚好这个选择路径是不存在的，那么我们就把 &lt;code&gt;白&lt;/code&gt; 置灰&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3175/51/4906988054/3771/93679a78/585b9717Nf53b5e3e.png&#34; alt=&#34;ui_selected_disabled&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;以此类推，如果要确认 &lt;code&gt;蓝&lt;/code&gt; 属性是否可用，需要查找 &lt;code&gt;蓝-大-A&lt;/code&gt; 路径是否存在&lt;/p&gt;
-
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-
-&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
-
-&lt;p&gt;根据上面的逻辑代码实现思路就有了：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;遍历所有非已选元素：&lt;code&gt;&amp;quot;白&amp;quot;, &amp;quot;蓝&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt;
-
-&lt;ol&gt;
-&lt;li&gt;遍历所有属性行： &lt;code&gt;&amp;quot;颜色&amp;quot;, &amp;quot;尺码&amp;quot;, &amp;quot;型号&amp;quot;&lt;/code&gt;
-
-&lt;ol&gt;
-&lt;li&gt;取： a) 当前元素 b) 非当前元素所在的其它属性已选元素，形成一个路径&lt;/li&gt;
-&lt;li&gt;判断此路径是否存在，如果不存在将当前元素置灰&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;看来问题似乎已经解决了，然而 &amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;我们忽略了一个非常重要的问题：上例中虽然 &lt;code&gt;白&lt;/code&gt; 元素置灰，但是实际上 &lt;code&gt;白&lt;/code&gt; 是可以被点击的！因为用户可以选择 &lt;code&gt;白-中-B&lt;/code&gt; 路径&lt;/p&gt;
-
-&lt;p&gt;如果用户点击了 &lt;code&gt;白&lt;/code&gt; 情况就变得复杂了很多，我们假设用户 &lt;strong&gt;只选择了一个&lt;/strong&gt;元素 &lt;code&gt;白&lt;/code&gt;，此时如何判断其它未选元素是否可选？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3238/138/4916973929/3751/11a121a7/585b9c36N668cd64b.png&#34; alt=&#34;ui_selected_one&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;即：如何确定 &lt;code&gt;&amp;quot;大&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;&lt;/code&gt; 需要置灰？ 注意我们并不需要确认 &lt;code&gt;&amp;quot;红&amp;quot;，&amp;quot;蓝&amp;quot;&lt;/code&gt; 是否可选，因为属性里面的元素都是 &lt;strong&gt;单选&lt;/strong&gt;，当前的属性里任何元素都可选的&lt;/p&gt;
-
-&lt;h3 id=&#34;缩小问题规模&#34;&gt;缩小问题规模&lt;/h3&gt;
-
-&lt;p&gt;我们先 &lt;strong&gt;缩小问题范围&lt;/strong&gt;：当前情况下（只有一个 &lt;code&gt;白&lt;/code&gt; 已选）如何确定尺码 &lt;code&gt;&amp;quot;大&amp;quot;&lt;/code&gt; 需要置灰？ 你可能会想到根据我们之间的逻辑，需要分别查找：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;白 - 大 - A&lt;/li&gt;
-&lt;li&gt;白 - 大 - B&lt;/li&gt;
-&lt;li&gt;白 - 大 - C&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;他们都不存在的时候把尺码 &lt;code&gt;大&lt;/code&gt; 置灰，问题似乎也可以解决。其实这样是不对的，因为 &lt;strong&gt;型号没有被选择过&lt;/strong&gt;，所以只需要知道 &lt;code&gt;白-大&lt;/code&gt;是否可选即可&lt;/p&gt;
-
-&lt;p&gt;同时还有一个问题，如果已选的个数不确定而且维度可以增加到不确定呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t3931/229/741708498/8439/ce1088f3/585ba187N9bf3b55d.png&#34; alt=&#34;ui_muli-attr&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这种情况下如果还按之前的算法，即使实现也非常复杂。这时候就要考虑换一种思维方式&lt;/p&gt;
-
-&lt;h3 id=&#34;调整思路&#34;&gt;调整思路&lt;/h3&gt;
-
-&lt;p&gt;之前我们都是反向思考，找出不可选应该置灰的元素。我们现在正向的考虑，如何确定属性是否可选。而且多维的情况下用户可以跳着选。比如：用户选了两个元素 &lt;code&gt;白，B&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;我们再回过头来看下 &lt;strong&gt;原始存在的数据&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
-   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
-]
-// 即
-[
-   [ &amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot; ],   // 存在
-   [ &amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot; ],   // 存在
-   [ &amp;quot;蓝&amp;quot;, &amp;quot;小&amp;quot;, &amp;quot;C&amp;quot; ]    // 存在
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;显然：如果第一条数据 &lt;code&gt;&amp;quot;红&amp;quot;, &amp;quot;大&amp;quot;, &amp;quot;A&amp;quot;&lt;/code&gt; 存在，那么下面这些子组合 &lt;strong&gt;肯定都存在&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;红&lt;/li&gt;
-&lt;li&gt;大&lt;/li&gt;
-&lt;li&gt;A&lt;/li&gt;
-&lt;li&gt;红 - 大&lt;/li&gt;
-&lt;li&gt;红 - A&lt;/li&gt;
-&lt;li&gt;大 - A&lt;/li&gt;
-&lt;li&gt;红 - 大 - A&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;同理：如果第二条数据 &lt;code&gt;&amp;quot;白&amp;quot;, &amp;quot;中&amp;quot;, &amp;quot;B&amp;quot;&lt;/code&gt; 存在，那么下面这些子组合 &lt;strong&gt;肯定都存在&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;白&lt;/li&gt;
-&lt;li&gt;中&lt;/li&gt;
-&lt;li&gt;B&lt;/li&gt;
-&lt;li&gt;白 - 中&lt;/li&gt;
-&lt;li&gt;白 - B&lt;/li&gt;
-&lt;li&gt;中 - B&lt;/li&gt;
-&lt;li&gt;白 - 中 - B&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;我们提前把 &lt;strong&gt;所有存在的路径中的子组合&lt;/strong&gt; 算出来，算法上叫取集合所有子集，数学上叫 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%86%AA%E9%9B%86&#34;&gt;幂集&lt;/a&gt;， 形成一个所有存在的路径表，算法如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/**
- * 取得集合的所有子集「幂集」
- arr = [1,2,3]
-
-     i = 0, ps = [[]]:
-         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 1:
-             i=0, j=0 ps.push(ps[0].concat(arr[0])) =&amp;gt; ps.push([].concat(1)) =&amp;gt; [1]
-                      ps = [[], [1]]
-
-     i = 1, ps = [[], [1]] :
-         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 2
-             i=1, j=0 ps.push(ps[0].concat(arr[1])) =&amp;gt; ps.push([].concat(2))  =&amp;gt; [2]
-             i=1, j=1 ps.push(ps[1].concat(arr[1])) =&amp;gt; ps.push([1].concat(2)) =&amp;gt; [1,2]
-                      ps = [[], [1], [2], [1,2]]
-
-     i = 2, ps = [[], [1], [2], [1,2]]
-         j = 0; j &amp;lt; ps.length =&amp;gt; j &amp;lt; 4
-             i=2, j=0 ps.push(ps[0].concat(arr[2])) =&amp;gt; ps.push([3])    =&amp;gt; [3]
-             i=2, j=1 ps.push(ps[1].concat(arr[2])) =&amp;gt; ps.push([1, 3]) =&amp;gt; [1, 3]
-             i=2, j=2 ps.push(ps[2].concat(arr[2])) =&amp;gt; ps.push([2, 3]) =&amp;gt; [2, 3]
-             i=2, j=3 ps.push(ps[3].concat(arr[2])) =&amp;gt; ps.push([2, 3]) =&amp;gt; [1, 2, 3]
-                      ps = [[], [1], [2], [1,2], [3], [1, 3], [2, 3], [1, 2, 3]]
- */
-function powerset(arr) {
-    var ps = [[]];
-    for (var i=0; i &amp;lt; arr.length; i++) {
-        for (var j = 0, len = ps.length; j &amp;lt; len; j++) {
-            ps.push(ps[j].concat(arr[i]));
-        }
-    }
-    return ps;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;有了这个存在的子集集合，再回头看 &lt;em&gt;图1&lt;/em&gt; 举例：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3292/20/4882441565/5337/7c12589c/585ba3f5Nc07d80f6.png&#34; alt=&#34;ui_muli-attr_two&#34; /&gt;  &lt;em&gt;图1&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如何确定 &lt;code&gt;红&lt;/code&gt; 可选？ 只需要确定 &lt;code&gt;红-B&lt;/code&gt; 可选&lt;/li&gt;
-&lt;li&gt;如何确定 &lt;code&gt;中&lt;/code&gt; 可选？ 需要确定 &lt;code&gt;白-中-B&lt;/code&gt; 可选&lt;/li&gt;
-&lt;li&gt;如何确定 &lt;code&gt;2G&lt;/code&gt; 可选？ 需要确定 &lt;code&gt;白-B-2G&lt;/code&gt; 可选&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;算法描述如下：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;遍历所有非已选元素
-
-&lt;ol&gt;
-&lt;li&gt;遍历所有属性行
-
-&lt;ol&gt;
-&lt;li&gt;取： a) 当前元素 b) 非当前元素所在的其它属性已选元素（如果当前属性中没已选元素，则跳过），形成一个路径&lt;/li&gt;
-&lt;li&gt;判断此路径是否存在（在所有存在的路径表中查询），如果不存在将当前元素置灰&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;以最开始的后端数据为例，生成的所有可选路径表如下：
-注意路径用分割符号「-」分开是为了查找路径时方便，不用遍历&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-    &amp;quot;&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;, &amp;quot;3133859&amp;quot;, &amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;红&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;大&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;红-大&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;A&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;红-A&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;大-A&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;红-大-A&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3158054&amp;quot;]
-    },
-    &amp;quot;白&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;中&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;白-中&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;B&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;白-B&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;中-B&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;白-中-B&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3133859&amp;quot;]
-    },
-    &amp;quot;蓝&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;小&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;蓝-小&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;C&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;蓝-C&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;小-C&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    },
-    &amp;quot;蓝-小-C&amp;quot;: {
-        &amp;quot;skus&amp;quot;: [&amp;quot;3516833&amp;quot;]
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;为了更清楚的说明这个算法，再上一张图来解释下吧：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3232/357/5124948788/54677/7df39060/58620377Nde9640c3.jpg&#34; alt=&#34;color-size-sel&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以根据上面的逻辑得出，计算状态后的界面应该是这样的：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3160/115/5120711700/3214/2e9b7205/5862159bN7d072d5f.png&#34; alt=&#34;color_size_with_state&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;现在这种情况下如果用户点击 尺码 &lt;code&gt;中&lt;/code&gt; 应该怎么交互呢？&lt;/p&gt;
-
-&lt;h3 id=&#34;优化体验&#34;&gt;优化体验&lt;/h3&gt;
-
-&lt;p&gt;因为当前情况下路径 &lt;code&gt;红-中-A&lt;/code&gt; 并不存在，如果点击 &lt;code&gt;中&lt;/code&gt;，那么除了尺码 &lt;code&gt;中&lt;/code&gt; 之外其它的属性中 &lt;strong&gt;至少有一个&lt;/strong&gt; 属性和 &lt;code&gt;中&lt;/code&gt; 的路径搭配是不存在的&lt;/p&gt;
-
-&lt;p&gt;交互方面需求是：如果不存在就高亮当前属性行，使用户必须选择到可以和 &lt;code&gt;中&lt;/code&gt; 组合存在的属性。而且用户之间选择过的属性要做一次缓存&lt;/p&gt;
-
-&lt;p&gt;所以当点击不存在的属性时交互流程是这样的：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;无论当前属性存不存在，先高亮（选中）当前属性&lt;/li&gt;
-&lt;li&gt;清除其它所有已选属性&lt;/li&gt;
-&lt;li&gt;更新当前状态（只选当前属性）下的其它属性可选状态&lt;/li&gt;
-&lt;li&gt;遍历非当前属性行的其它属性查找对应的在缓存中的已选属性&lt;/li&gt;
-&lt;li&gt;如果缓存中对应的属性存在（可选），则默认选中缓存属性并 &lt;strong&gt;再次更新&lt;/strong&gt; 其它可选状态。不存在，则高亮当前属性行（深色背景）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这个过程的流程图大概是这样的，点进不存在的属性就会进入「单选流程」&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t3232/297/5253318434/61277/1eb899ea/58653ae6Nf0a3ed56.png&#34; alt=&#34;select_diag&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;假设后端数据是这样的：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[
-   { &amp;quot;颜色&amp;quot;: &amp;quot;红&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;大&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;A&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3158054&amp;quot; }, // 多加了一条
-   { &amp;quot;颜色&amp;quot;: &amp;quot;白&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;中&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;B&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3133859&amp;quot; },
-   { &amp;quot;颜色&amp;quot;: &amp;quot;蓝&amp;quot;, &amp;quot;尺码&amp;quot;: &amp;quot;小&amp;quot;, &amp;quot;型号&amp;quot;: &amp;quot;C&amp;quot;, &amp;quot;skuId&amp;quot;: &amp;quot;3516833&amp;quot; }
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;当前选中状态是：&lt;code&gt;白-大-A&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3235/190/5186335420/3376/e9633659/58624212Ne7f43d1f.png&#34; alt=&#34;color_size_demo&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如果用户点击 &lt;code&gt;中&lt;/code&gt;。这个时候 &lt;code&gt;白-中&lt;/code&gt; 是存在的，但是 &lt;code&gt;中-A&lt;/code&gt; 并不存在，所以保留颜色 &lt;code&gt;白&lt;/code&gt;，高亮型号属性行：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t4111/305/936307630/3771/c6076a9c/58624270N59d19a52.png&#34; alt=&#34;color_size_demo_width_hl&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;由此可见和 &lt;code&gt;白-中&lt;/code&gt; 能搭配存在型号只有 &lt;code&gt;B&lt;/code&gt;，而缓存的作用就是为了少让用户选一次颜色 &lt;code&gt;白&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;到这里，基本上主要的功能就实现了。比如库存逻辑处理方式也和不存属性一样，就不再赘述。唯一需要注意的地方是求幂集的复杂度问题&lt;/p&gt;
-
-&lt;h2 id=&#34;算法复杂度&#34;&gt;算法复杂度&lt;/h2&gt;
-
-&lt;p&gt;幂集算法的时间复杂度是 &lt;code&gt;O(2^n)&lt;/code&gt;，也就是说每条数据上面的属性（维度）越多，复杂度越高。sku 数据的多少并不重要，因为是常数级的线性增长，而维度是指数级的增长&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{1}       2^1 = 2
-=&amp;gt; {},{1}
-{1,2}     2^2 = 4
-=&amp;gt; {},{1},{2},{1,2}
-{1,2,3}   2^3 = 8
-=&amp;gt; {},{1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3280/36/5011858321/16515/2187c9c/5864aa23N95cea203.png&#34; alt=&#34;powerset_test&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在 chrome 里面简单跑了几个用例，可见这个算法非常低效，如果要使用这个算法，必须控制维度在合理范围内，而且不仅仅算法时间复杂度很高，生成最后的路径表也会非常大，相应的占用内存也很高。&lt;/p&gt;
-
-&lt;p&gt;举个例子：如果有一个 10 维的 sku，那么最终生成的路径表会有 2^10 个（1024） key/value&lt;/p&gt;
-
-&lt;p&gt;最终 demo 可以查看这个：
-&lt;a href=&#34;http://codepen.io/keelii/pen/RoOzgb&#34;&gt;sku 多维属性状态判断&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;相关资料：
-&lt;a href=&#34;http://git.shepherdwind.com/sku-search-algorithm.html&#34;&gt;sku组合查询算法探索&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

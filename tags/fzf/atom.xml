@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fzf on Something</title>
+    <link>https://keelii.com/tags/fzf/</link>
+    <description>Recent content in Fzf on Something</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 12 Aug 2018 19:20:04 -0700</lastBuildDate>
+    
+        <atom:link href="https://keelii.com/tags/fzf/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fuzzy finder(fzf&#43;vim) 使用全指南</title>
+      <link>https://keelii.com/2018/08/12/fuzzy-finder-full-guide/</link>
+      <pubDate>Sun, 12 Aug 2018 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.com/2018/08/12/fuzzy-finder-full-guide/</guid>
+      <description>
+
+&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;Fuzzy finder&lt;/a&gt; 是一款使用 GO 语言编写的交互式的 Unix 命令行工具。可以用来查找任何 &lt;strong&gt;列表&lt;/strong&gt; 内容，文件、Git 分支、进程等。所有的命令行工具可以生成列表输出的都可以再通过管道 pipe 到 fzf 上进行搜索和查找&lt;/p&gt;
+
+&lt;h2 id=&#34;优点&#34;&gt;优点&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GO 语言编写，编译完生成可执行文件没有任何依赖&lt;/li&gt;
+&lt;li&gt;搜索/查找速度飞快&lt;/li&gt;
+&lt;li&gt;功能全面/可视化界面体验很棒&lt;/li&gt;
+&lt;li&gt;周边插件丰富 (vim, tmux, fuzzy auto-completion)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;以 macOS 为例子，直接使用 homebrew 安装即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install fzf
+# 如果要使用内置的快捷键绑定和命令行自动完成功能的话可以按需安装
+$(brew --prefix)/opt/fzf/install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;命令行下执行 &lt;code&gt;fzf&lt;/code&gt; 即可展示当前目录下所有文件列表，可以用键盘上下键或者鼠标点出来选择
+&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34; alt=&#34;fzf-normal&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;或许你会觉得这个查找提示看起来挺漂亮的，但是并没有什么卵用，因为查找出来就没有然后了。其实这也是 Fuzzy finder 最核心的地方，他只是一个通用的下拉查找功能，自己本身并不关心你用它来做什么，通常我们需要组合使用才会有很好的效果&lt;/p&gt;
+
+&lt;h3 id=&#34;用-vim-打开文件&#34;&gt;用 vim 打开文件&lt;/h3&gt;
+
+&lt;p&gt;比如我们用 vim 组合 fzf 来查找并打开目录下的文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim $(fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif&#34; alt=&#34;fzf-vim&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;切换当前工作目录&#34;&gt;切换当前工作目录&lt;/h3&gt;
+
+&lt;p&gt;再比如进入到某个文件夹下面，使用 fzf 的过滤选择真是太方便了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd $(find * -type d | fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这是个组合 (cd+find+fzf) 命令，完成切换到任意子目录的功能。可以看出来当 fzf 和其它命令组合使用时就能使得一些操作更方便：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;使用 find 命令找出所有的子目录&lt;/li&gt;
+&lt;li&gt;把子目录列表 pipe 到 fzf 上进行选择&lt;/li&gt;
+&lt;li&gt;再把结果以子命令的形式传给 cd&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif&#34; alt=&#34;fzf-find-cd&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;切换-git-分支&#34;&gt;切换 git 分支&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout $(git branch -r | fzf)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif&#34; alt=&#34;fzf-git-branch&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不过这样组合使用命令的实在太长了，如果你不使用自动补全的话巧起来很累的。建议把常用的 alias 放在 .zshrc 中管理嘛&lt;/p&gt;
+
+&lt;h3 id=&#34;shell-命令行补全&#34;&gt;shell 命令行补全&lt;/h3&gt;
+
+&lt;p&gt;fzf 默认使用 &lt;code&gt;**&lt;/code&gt; 来补全 shell 命令，比起默认的 tab 补全，fzf 补全不知道高到哪里去了。cd, vim, kill, ssh, export&amp;hellip; 统统都能补全，好用哭了 🤣&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif&#34; alt=&#34;fzf-completion&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;fzf 提供了两个 &lt;em&gt;环境变量&lt;/em&gt; 配置参数，来分别设置默认的调用命令和 fzf 默认配置参数&lt;/p&gt;
+
+&lt;h3 id=&#34;核心命令-fzf-default-command&#34;&gt;核心命令 FZF_DEFAULT_COMMAND&lt;/h3&gt;
+
+&lt;p&gt;对于使用 fzf 来查找文件的情况，fzf 其实底层是调用的 Unix 系统 &lt;code&gt;find&lt;/code&gt; 命令，如果你觉得 find 不好用也可以使用其它查找文件的命令行工具「我使用 &lt;a href=&#34;https://github.com/sharkdp/fd&#34;&gt;fd&lt;/a&gt;」。注意：对原始命令添加一些参数应该在这个环境变量里面添加&lt;/p&gt;
+
+&lt;p&gt;比如说我们一般都会查找文件 &lt;code&gt;-type f&lt;/code&gt;，通常会忽略一些文件夹/目录 &lt;code&gt;--exclude=...&lt;/code&gt;，下面是我的变量值：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export FZF_DEFAULT_COMMAND=&amp;quot;fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;界面展示-fzf-default-opts&#34;&gt;界面展示 FZF_DEFAULT_OPTS&lt;/h3&gt;
+
+&lt;p&gt;界面展示这些参数在 &lt;code&gt;fzf --help&lt;/code&gt; 中都有，按需配置即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export FZF_DEFAULT_OPTS=&amp;quot;--height 40% --layout=reverse --preview &#39;(highlight -O ansi {} || cat {}) 2&amp;gt; /dev/null | head -500&#39;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;界面配置参数加上后就漂亮多了
+&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34; alt=&#34;fzf-with-preview&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--preview&lt;/code&gt; 表示在右侧显示文件的预览界面，语法高亮的设置使用了 &lt;a href=&#34;http://www.andre-simon.de/doku/highlight/en/highlight.php&#34;&gt;highlight&lt;/a&gt; 如果 highlight 失败则使用最常见的 &lt;code&gt;cat&lt;/code&gt; 命令来查看文件内容&lt;/p&gt;
+
+&lt;p&gt;highlight 安装可能会有个小插曲。highlight 需要手动编译安装，默认安装目录在 &lt;code&gt;/usr/bin&lt;/code&gt;, &lt;code&gt;/usr/share&lt;/code&gt; 下面。然而在 macOS 中由于 &lt;abbr title=&#34;System Integrity Protection&#34;&gt;SIP&lt;/abbr&gt; 保护，用户安装的程序不能在这几个目录下面「即使有 sudo 权限也不行」。我们可以手动更改下 highlight 源代码中 makefile 中的参数即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-make&#34;&gt;# PREFIX = /usr
+PREFIX = /usr/local
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将 &lt;code&gt;PREFIX = /usr&lt;/code&gt; 改成 &lt;code&gt;PREFIX = /usr/local&lt;/code&gt;，然后 &lt;code&gt;make&lt;/code&gt;，&lt;code&gt;sudo make install&lt;/code&gt; 就可以了&lt;/p&gt;
+
+&lt;h3 id=&#34;触发命令行补全-fzf-completion-trigger&#34;&gt;触发命令行补全 FZF_COMPLETION_TRIGGER&lt;/h3&gt;
+
+&lt;p&gt;默认是 &lt;code&gt;**&lt;/code&gt;，一般不用修改&lt;/p&gt;
+
+&lt;h2 id=&#34;vim-fzf-插件&#34;&gt;VIM fzf 插件&lt;/h2&gt;
+
+&lt;p&gt;如果你使用 vim，那么官方提供的插件会让你的 vim 使用更加流畅&lt;/p&gt;
+
+&lt;h3 id=&#34;安装插件&#34;&gt;安装插件&lt;/h3&gt;
+
+&lt;p&gt;如果你本地安装过 fzf 命令行工具了，只需要在 .vimrc 里面添加下面两个插件配置即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Plug &#39;/usr/local/opt/fzf&#39;
+Plug &#39;junegunn/fzf.vim&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：使用了 &lt;a href=&#34;https://github.com/junegunn/vim-plug&#34;&gt;vim-plug&lt;/a&gt; 插件管理&lt;/p&gt;
+
+&lt;p&gt;插件主要对 fzf 集成绑定了一些和 vim 相关的功能，比如：查找当前 Buffer、Tag、Marks。甚至切换 window 更换 vim 主题配色等&lt;/p&gt;
+
+&lt;p&gt;命令模式下敲 &lt;code&gt;Files&lt;/code&gt; 即可选择当前目录下所有文件，&lt;code&gt;Buffers&lt;/code&gt; 可以过滤当前所有 vim buffer 内容&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif&#34; alt=&#34;fzf-vim-plugin&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再配置几个常用快捷键就可以直接取代 CtrlP 插件了 🤔&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ctrl + p 查看文件列表&lt;/li&gt;
+&lt;li&gt;Ctrl + e 查看当前 Buffer，两次 Ctrl + e 快速切换上次打开的 Buffer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;nmap &amp;lt;C-p&amp;gt; :Files&amp;lt;CR&amp;gt;
+nmap &amp;lt;C-e&amp;gt; :Buffers&amp;lt;CR&amp;gt;
+let g:fzf_action = { &#39;ctrl-e&#39;: &#39;edit&#39; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;当然 fzf 还可以在很多其它场景下用来。如果你想使用可视化的列表选择而不是咣咣敲命令，那就自己搭配一些组合来使用吧&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

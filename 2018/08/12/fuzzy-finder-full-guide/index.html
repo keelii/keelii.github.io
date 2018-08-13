@@ -20,7 +20,8 @@
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
     <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
-    <meta name="360-site-verification" content="97274d5ff16511caf615a565d3257ce8">
+    <meta name="msvalidate.01" content="5A15ECDE419A3094963BBE769402AFF3" />
+    <meta name="360-site-verification" content="4b136227b95b65dac3fb4c4648b3f768" />
     
     <script>
     (function(i, s, o, g, r, a, m) {
@@ -117,7 +118,7 @@ $(brew --prefix)/opt/fzf/install
 <h2 id="使用">使用</h2>
 
 <p>命令行下执行 <code>fzf</code> 即可展示当前目录下所有文件列表，可以用键盘上下键或者鼠标点出来选择
-<a href="//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png"><img src="//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png" alt="fzf-normal" /></a></p>
+<a href="https://img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png"><img src="https://img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png" alt="fzf-normal" /></a></p>
 
 <p>或许你会觉得这个查找提示看起来挺漂亮的，但是并没有什么卵用，因为查找出来就没有然后了。其实这也是 Fuzzy finder 最核心的地方，他只是一个通用的下拉查找功能，自己本身并不关心你用它来做什么，通常我们需要组合使用才会有很好的效果</p>
 
@@ -128,7 +129,7 @@ $(brew --prefix)/opt/fzf/install
 <pre><code class="language-bash">vim $(fzf)
 </code></pre>
 
-<p><img src="//img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif" alt="fzf-vim" /></p>
+<p><img src="https://img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif" alt="fzf-vim" /></p>
 
 <h3 id="切换当前工作目录">切换当前工作目录</h3>
 
@@ -145,14 +146,14 @@ $(brew --prefix)/opt/fzf/install
 <li>再把结果以子命令的形式传给 cd</li>
 </ol>
 
-<p><img src="//img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif" alt="fzf-find-cd" /></p>
+<p><img src="https://img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif" alt="fzf-find-cd" /></p>
 
 <h3 id="切换-git-分支">切换 git 分支</h3>
 
 <pre><code class="language-bash">git checkout $(git branch -r | fzf)
 </code></pre>
 
-<p><img src="//img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif" alt="fzf-git-branch" /></p>
+<p><img src="https://img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif" alt="fzf-git-branch" /></p>
 
 <p>不过这样组合使用命令的实在太长了，如果你不使用自动补全的话巧起来很累的。建议把常用的 alias 放在 .zshrc 中管理嘛</p>
 
@@ -160,7 +161,7 @@ $(brew --prefix)/opt/fzf/install
 
 <p>fzf 默认使用 <code>**</code> 来补全 shell 命令，比起默认的 tab 补全，fzf 补全不知道高到哪里去了。cd, vim, kill, ssh, export&hellip; 统统都能补全，好用哭了 🤣</p>
 
-<p><img src="//img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif" alt="fzf-completion" /></p>
+<p><img src="https://img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif" alt="fzf-completion" /></p>
 
 <h2 id="配置">配置</h2>
 
@@ -183,7 +184,7 @@ $(brew --prefix)/opt/fzf/install
 </code></pre>
 
 <p>界面配置参数加上后就漂亮多了
-<a href="//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png"><img src="//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png" alt="fzf-with-preview" /></a></p>
+<a href="https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png"><img src="https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png" alt="fzf-with-preview" /></a></p>
 
 <p><code>--preview</code> 表示在右侧显示文件的预览界面，语法高亮的设置使用了 <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php">highlight</a> 如果 highlight 失败则使用最常见的 <code>cat</code> 命令来查看文件内容</p>
 
@@ -217,7 +218,7 @@ Plug 'junegunn/fzf.vim'
 
 <p>命令模式下敲 <code>Files</code> 即可选择当前目录下所有文件，<code>Buffers</code> 可以过滤当前所有 vim buffer 内容</p>
 
-<p><img src="//img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif" alt="fzf-vim-plugin" /></p>
+<p><img src="https://img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif" alt="fzf-vim-plugin" /></p>
 
 <p>再配置几个常用快捷键就可以直接取代 CtrlP 插件了 🤔</p>
 
@@ -348,7 +349,9 @@ if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
 
 
 
-
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
 
 <!--
 # There are some hotkeys for better experience #

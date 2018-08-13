@@ -44,7 +44,7 @@ $(brew --prefix)/opt/fzf/install
 &lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
 
 &lt;p&gt;命令行下执行 &lt;code&gt;fzf&lt;/code&gt; 即可展示当前目录下所有文件列表，可以用键盘上下键或者鼠标点出来选择
-&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34; alt=&#34;fzf-normal&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34;&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t26002/277/432949068/59208/9725245b/5b6fc71fN03036763.png&#34; alt=&#34;fzf-normal&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;或许你会觉得这个查找提示看起来挺漂亮的，但是并没有什么卵用，因为查找出来就没有然后了。其实这也是 Fuzzy finder 最核心的地方，他只是一个通用的下拉查找功能，自己本身并不关心你用它来做什么，通常我们需要组合使用才会有很好的效果&lt;/p&gt;
 
@@ -55,7 +55,7 @@ $(brew --prefix)/opt/fzf/install
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim $(fzf)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif&#34; alt=&#34;fzf-vim&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t25372/5/461999989/83158/3ce44a5/5b6fc7f2Nd6432499.gif&#34; alt=&#34;fzf-vim&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;切换当前工作目录&#34;&gt;切换当前工作目录&lt;/h3&gt;
 
@@ -72,14 +72,14 @@ $(brew --prefix)/opt/fzf/install
 &lt;li&gt;再把结果以子命令的形式传给 cd&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif&#34; alt=&#34;fzf-find-cd&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t23848/96/1951894215/50884/20a513d7/5b6fcabbNb77c46d5.gif&#34; alt=&#34;fzf-find-cd&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;切换-git-分支&#34;&gt;切换 git 分支&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git checkout $(git branch -r | fzf)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif&#34; alt=&#34;fzf-git-branch&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t23242/262/2000817850/127859/c0955478/5b6fce70N3c3573ae.gif&#34; alt=&#34;fzf-git-branch&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;不过这样组合使用命令的实在太长了，如果你不使用自动补全的话巧起来很累的。建议把常用的 alias 放在 .zshrc 中管理嘛&lt;/p&gt;
 
@@ -87,7 +87,7 @@ $(brew --prefix)/opt/fzf/install
 
 &lt;p&gt;fzf 默认使用 &lt;code&gt;**&lt;/code&gt; 来补全 shell 命令，比起默认的 tab 补全，fzf 补全不知道高到哪里去了。cd, vim, kill, ssh, export&amp;hellip; 统统都能补全，好用哭了 🤣&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif&#34; alt=&#34;fzf-completion&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t24820/280/435378103/490486/3777afba/5b6fedc6N59529380.gif&#34; alt=&#34;fzf-completion&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
 
@@ -110,7 +110,7 @@ $(brew --prefix)/opt/fzf/install
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;界面配置参数加上后就漂亮多了
-&lt;a href=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34;&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34; alt=&#34;fzf-with-preview&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png&#34; alt=&#34;fzf-with-preview&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;--preview&lt;/code&gt; 表示在右侧显示文件的预览界面，语法高亮的设置使用了 &lt;a href=&#34;http://www.andre-simon.de/doku/highlight/en/highlight.php&#34;&gt;highlight&lt;/a&gt; 如果 highlight 失败则使用最常见的 &lt;code&gt;cat&lt;/code&gt; 命令来查看文件内容&lt;/p&gt;
 
@@ -144,7 +144,7 @@ Plug &#39;junegunn/fzf.vim&#39;
 
 &lt;p&gt;命令模式下敲 &lt;code&gt;Files&lt;/code&gt; 即可选择当前目录下所有文件，&lt;code&gt;Buffers&lt;/code&gt; 可以过滤当前所有 vim buffer 内容&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif&#34; alt=&#34;fzf-vim-plugin&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t25240/349/434572567/558564/433c151a/5b6fdfadNfd6ea407.gif&#34; alt=&#34;fzf-vim-plugin&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;再配置几个常用快捷键就可以直接取代 CtrlP 插件了 🤔&lt;/p&gt;
 

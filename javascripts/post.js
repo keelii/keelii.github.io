@@ -27,7 +27,7 @@
     function initTOCFold() {
         var $toc = $('#side-toc');
         var $items = $toc.find('nav>ul>li>ul li')
-        var FOLD_ARR = ['▼', '▲'];
+        var FOLD_ARR = ['▼', '◀'];
 
         $items.each(function() {
             if ($(this).find('ul').length) {

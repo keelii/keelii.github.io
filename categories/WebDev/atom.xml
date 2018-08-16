@@ -1,112 +1,334 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Webdev on Something</title>
-    <link>https://keelii.com/categories/webdev/</link>
-    <description>Recent content in Webdev on Something</description>
+    <title>WebDev on Something</title>
+    <link>https://keelii.com/categories/WebDev/</link>
+    <description>Recent content in WebDev on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Nov 2017 12:51:27 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Oct 2017 17:19:27 +0000</lastBuildDate>
     
-        <atom:link href="https://keelii.com/categories/webdev/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/WebDev/atom.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>又双叕写了一个 host 管理插件</title>
-      <link>https://keelii.com/2017/11/07/yet-another-host-manager-plugin/</link>
-      <pubDate>Tue, 07 Nov 2017 12:51:27 +0000</pubDate>
+      <title>macOS Sierra 开发环境配置指南</title>
+      <link>https://keelii.com/2017/10/07/macos-development-setup-guide/</link>
+      <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
       
-      <guid>https://keelii.com/2017/11/07/yet-another-host-manager-plugin/</guid>
+      <guid>https://keelii.com/2017/10/07/macos-development-setup-guide/</guid>
       <description>
 
-&lt;p&gt;切 host 对于平常开发来说再正常不过了，可是「切 host 难」的问题一直没解决，因为手动修改 host 文件会有很多（系统dns、浏览器）缓存问题。经常听到xx说「我这是好的呀，你 host 有问题吧&amp;hellip;」&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程，主要记录一些常用的配置技巧&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;在 windows 下我一直使用 fiddler 来切换 host，很多人可能不知道这个功能。他的实现本质就是实用代理映射来实现 host 切换。这样的欢最大的优点就是 &lt;strong&gt;无延迟，秒切 host&lt;/strong&gt; 这个体验就非常赞，而且是系统级别的，也就是说别的浏览器里面也适用（前提是浏览器代理设置为系统）&lt;/p&gt;
+&lt;h2 id=&#34;系统设置&#34;&gt;系统设置&lt;/h2&gt;
 
-&lt;p&gt;然后由于最近切换到 mac 开发环境，发现 mac 下面的解决方案都不是很完美，或者说不适合我的要求。无外乎以下几种：&lt;/p&gt;
+&lt;h3 id=&#34;更改计算机名称&#34;&gt;更改计算机名称&lt;/h3&gt;
 
-&lt;h2 id=&#34;物理修改-host-文件&#34;&gt;物理修改 host 文件&lt;/h2&gt;
+&lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
 
-&lt;p&gt;像 iHosts, Switchhosts 这类，但据我所知这种方法都有延迟&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;抓包工具代理切-host&#34;&gt;抓包工具代理切 host&lt;/h2&gt;
-
-&lt;p&gt;比如 mac 下的 Wireshark、Charles，这些工具据说很强大，可是我自己用不惯，而且我是需求也很小，杀鸡焉用牛刀。fiddler for mac 虽然也能跑起来，但是体验太差了，界面卡的要死&lt;/p&gt;
-
-&lt;h2 id=&#34;浏览器插件代理切-host&#34;&gt;浏览器插件代理切 host&lt;/h2&gt;
-
-&lt;p&gt;像 Chrome 下的 Chrome-host-switch、 Switch host plus 等，试用了下效果很理想。美中不足的是体验不好，只有标签没有分组，把标签当分组切的人很蛋疼&lt;/p&gt;
-
-&lt;p&gt;简单看了下 switch host plus 的实现方式，再加上自己之前也写过 chrome 插件就决定自己造个轮子。Chrome 插件基于html、css、javascript 自然很适合前端来做&lt;/p&gt;
-
-&lt;p&gt;由于最近在看 react 相关的东西，刚好拿来练练手。技术选型基本上都是现成的框架拿来用就行了&lt;/p&gt;
+&lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;react &amp;amp; redux 构建整体应用&lt;/li&gt;
-&lt;li&gt;bulma.css 简洁小巧的 CSS 框架&lt;/li&gt;
-&lt;li&gt;localStorage 数据直接写本地存储&lt;/li&gt;
-&lt;li&gt;create react app 构建打包应用&lt;/li&gt;
+&lt;li&gt;设置轻点触控板为鼠标点击&lt;/li&gt;
+&lt;li&gt;设置三指拖动&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;应用截图&#34;&gt;应用截图&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
+&lt;a href=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t11611/80/1444685331/28555/590b5dfa/5a013f0aN19565830.png&#34; alt=&#34;ahm-640x440&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t11845/332/1453803626/635686/c8e4f98/5a013fe8N41db44e3.png&#34; alt=&#34;ahm-1280x800&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;功能&#34;&gt;功能&lt;/h2&gt;
+&lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;秒切 host 无延迟 😎&lt;/li&gt;
-&lt;li&gt;基于 chrome 代理 ❤️&lt;/li&gt;
-&lt;li&gt;兼容 socket 代理 🤔&lt;/li&gt;
-&lt;li&gt;简洁好用，无多余功能 👏&lt;/li&gt;
+&lt;li&gt;开启新 Fidder 窗口时打开 &lt;code&gt;桌面&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;执行搜索时 &lt;code&gt;搜索当前文件夹&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;显示所有文件扩展名&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;其它&#34;&gt;其它&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/awesome-host-manager/pikaoeecieigblebdddckmlegonlogha?hl=zh-CN&#34;&gt;Chrome 应用商店&lt;/a&gt;（建议）&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/keelii/awesome-host-manager/master/awesome-host-manager.crx&#34;&gt;下载 .crx 文件&lt;/a&gt; chrome 中打开 chrome://extensions/ 将.crx 文件托进安装即可&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;系统偏好设置-键盘-输入法-自动切换到文稿输入法&lt;/code&gt; 应用切换的时候会保持原来的输入法不变&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;桌面空白处右键-排序方式-贴紧网格&lt;/code&gt; 右键整理图标的时候就会按网格排列&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+&lt;h2 id=&#34;开发环境设置&#34;&gt;开发环境设置&lt;/h2&gt;
 
-&lt;h4 id=&#34;host-proxy&#34;&gt;Host proxy&lt;/h4&gt;
+&lt;h3 id=&#34;安装-command-line-tools&#34;&gt;安装 Command line tools&lt;/h3&gt;
 
-&lt;p&gt;和 host 文件规则一致&lt;/p&gt;
+&lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;192.168.100.1 your.domain.com your-anther.domain.com
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;socket-proxy&#34;&gt;Socket proxy&lt;/h4&gt;
+&lt;h3 id=&#34;安装-brew&#34;&gt;安装 brew&lt;/h3&gt;
 
-&lt;p&gt;新建分组加入以下规则（按自己实际情况修改）&lt;/p&gt;
+&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可，App Store 我一般用来购买安装一些收费软件&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;SOCKS5 127.0.0.1:1080
-SOCKS 127.0.0.1:1080
+&lt;p&gt;打开命令行执行下面的命令来安装 brew&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;源代码&#34;&gt;源代码&lt;/h2&gt;
+&lt;p&gt;使用下面的命令替换 brew 源为&lt;a href=&#34;https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git&#34;&gt;中科大镜像&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/keelii/awesome-host-manager&#34;&gt;Github&lt;/a&gt;(MIT)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 替换brew.git:
+cd &amp;quot;$(brew --repo)&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+# 替换homebrew-core.git:
+cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走 &lt;em&gt;番习习墙&lt;/em&gt; 代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;socks5 = &amp;quot;127.0.0.1:1080&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装-zsh-oh-my-zsh&#34;&gt;安装 Zsh &amp;amp; oh-my-zsh&lt;/h3&gt;
+
+&lt;p&gt;Zsh 是一种 &lt;a href=&#34;https://zh.wikipedia.org/wiki/Unix_shell&#34;&gt;shell&lt;/a&gt;，功能和 bash, csh 一样，用来和操作系统交互&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 安装 zsh
+brew install zsh
+# 安装 oh-my-zsh 插件
+# 更换默认 shell 为 zsh
+chsh -s /bin/zsh
+sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.iterm2.com/&#34;&gt;下载&lt;/a&gt; 并安装，打开 Preferences 偏好设置&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;General&lt;/code&gt; 关闭 &lt;code&gt;Native full screen windows&lt;/code&gt; 我不使用系统的全屏（因为有过渡动画），是为了使用全局快捷键 &lt;strong&gt;立即&lt;/strong&gt; 调出命令行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 设置透明度 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Keys-Hotkey&lt;/code&gt; 设置全局显示隐藏快捷键 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;最佳实践，启动 iTerm2 后按 &lt;code&gt;⌘+enter&lt;/code&gt; 全屏，然后 &lt;code&gt;⌘+\&lt;/code&gt; 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 &lt;code&gt;⌘+\&lt;/code&gt; 即可&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;brew-常用工具&#34;&gt;brew 常用工具&lt;/h3&gt;
+
+&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xxx&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;htop&#34;&gt;htop&lt;/h4&gt;
+
+&lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
+
+&lt;p&gt;显示文件为树形菜单&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜  keelii.github.io tree . -L 2
+.
+├── config.toml
+├── content
+│   ├── about
+│   └── archives
+├── deploy.sh
+├── public
+│   ├── 2016
+...
+│   └── tags
+└── themes
+    └── octo-enhance
+
+17 directories, 8 files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;httpie&#34;&gt;httpie&lt;/h4&gt;
+
+&lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
+
+&lt;p&gt;安装 vim 添加一些默认的模块和编程语言支持 cscope, lua, python 并且覆盖系统默认的 vim&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install vim --HEAD --with-cscope --with-lua --with-override-system-vim --with-luajit --with-python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装 vim-plug&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;autojump&#34;&gt;autojump&lt;/h4&gt;
+
+&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配。&lt;strong&gt;注意: autojump 只会记录安装后使用 cd 命令进入过的目录&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
+
+&lt;p&gt;npm 的替代品，Production Ready。如果系统中安装过 node，就使用 &lt;code&gt;yarn --without-node&lt;/code&gt; 命令只安装 yarn 工具&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-python-pip&#34;&gt;安装 python pip&lt;/h3&gt;
+
+&lt;p&gt;下载 &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt; 在命令行中使用 python 运行这个文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;更改各种程序语言包源&#34;&gt;更改各种程序语言包源&lt;/h3&gt;
+
+&lt;h4 id=&#34;ruby-gemrc&#34;&gt;ruby - .gemrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
+gem sources -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.gemrc
+---
+:backtrace: false
+:bulk_threshold: 1000
+:sources:
+- https://mirrors.tuna.tsinghua.edu.cn/rubygems/
+:update_sources: true
+:verbose: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;node-yarnrc-npmrc&#34;&gt;node - .yarnrc/.npmrc&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.yarnrc
+registry &amp;quot;https://registry.npm.taobao.org&amp;quot;
+disturl &amp;quot;https://npm.taobao.org/dist&amp;quot;
+electron_mirror &amp;quot;http://cdn.npm.taobao.org/dist/electron/&amp;quot;
+node_inspector_cdnurl &amp;quot;https://npm.taobao.org/mirrors/node-inspector&amp;quot;
+sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;dotfiles-配置文件&#34;&gt;dotfiles 配置文件&lt;/h3&gt;
+
+&lt;p&gt;可以参照我的 &lt;a href=&#34;https://github.com/keelii/dotfiles&#34;&gt;dotfiles&lt;/a&gt; 配置文件&lt;/p&gt;
+
+&lt;h3 id=&#34;其它-gui-应用&#34;&gt;其它 GUI 应用&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt; 程序启动器&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口（付费）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.mowglii.com/itsycal/&#34;&gt;Itsycal&lt;/a&gt; ⇒ 简洁版日历&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snappy-app.com/&#34;&gt;Snappy&lt;/a&gt; ⇒ 屏幕截图、修改分享&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
     <item>
-      <title>前端，改变</title>
-      <link>https://keelii.com/2012/08/18/front-end-makes-change/</link>
-      <pubDate>Sat, 18 Aug 2012 19:20:04 -0700</pubDate>
+      <title>免费 https 证书（Let&#39;s Encrypt）申请与配置</title>
+      <link>https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/</link>
+      <pubDate>Sun, 12 Jun 2016 18:04:47 +0800</pubDate>
       
-      <guid>https://keelii.com/2012/08/18/front-end-makes-change/</guid>
-      <description>&lt;p&gt;部门分享 ⎡前端，改变⎦，一些个人对前端的见解和想法&lt;/p&gt;
+      <guid>https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/</guid>
+      <description>&lt;p&gt;之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。
+&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;前端是一种介于程序和设计之间的契合，拥有程序严谨逻辑的同时也存在设计的感性，前端是设计师的代码实现更是一门艺术。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h2 id=&#34;1-下载-certbot&#34;&gt;1. 下载 certbot&lt;/h2&gt;
 
-&lt;p&gt;&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/mchiGHfKcsWLRG&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&#34;margin-bottom:5px&#34;&gt; &lt;strong&gt; &lt;a href=&#34;//www.slideshare.net/keelii/frontend-makes-change&#34; title=&#34;Front-end makes change&#34; target=&#34;_blank&#34;&gt;Front-end makes change&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&#34;https://www.slideshare.net/keelii&#34; target=&#34;_blank&#34;&gt;keelii&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
-</description>
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/certbot/certbot
+cd certbot
+./certbot-auto --help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解压打开执行就会有相关提示&lt;/p&gt;
+
+&lt;h2 id=&#34;2-生成免费证书&#34;&gt;2. 生成免费证书&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./certbot-auto certonly --webroot --agree-tos -v -t --email 邮箱地址 -w 网站根目录 -d 网站域名
+./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 这里 默认会自动生成到 /&lt;strong&gt;网站根目录&lt;/strong&gt;/.well-known/acme-challenge 文件夹，然后 shell 脚本会对应的访问 &lt;strong&gt;网站域名&lt;/strong&gt;/.well-known/acme-challenge 是否存在来确定你对网站的所属权&lt;/p&gt;
+
+&lt;p&gt;比如：我的域名是 &lt;strong&gt;note.crazy4code.com&lt;/strong&gt; 那我就得保证域名下面的 &lt;strong&gt;.well-known/acme-challenge/&lt;/strong&gt; 目录是可访问的&lt;/p&gt;
+
+&lt;p&gt;如果返回正常就确认了你对这个网站的所有权，就能顺利生成，完成后这个目录会被清空&lt;/p&gt;
+
+&lt;h2 id=&#34;3-获取证书&#34;&gt;3. 获取证书&lt;/h2&gt;
+
+&lt;p&gt;如果上面的步骤正常 shell 脚本会展示如下信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- Congratulations! Your certificate and chain have been saved at
+/etc/letsencrypt/live/网站域名/fullchain.pem
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;4-生成-dhparams&#34;&gt;4. 生成 dhparams&lt;/h2&gt;
+
+&lt;p&gt;使用 openssl 工具生成 dhparams&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;5-配置-nginx&#34;&gt;5. 配置 Nginx&lt;/h2&gt;
+
+&lt;p&gt;打开 nginx server 配置文件加入如下设置：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;listen 443
+
+ssl on;
+ssl_certificate /etc/letsencrypt/live/网站域名/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/网站域名/privkey.pem;
+ssl_dhparam /etc/ssl/certs/dhparams.pem;
+ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+ssl_ciphers HIGH:!aNULL:!MD5;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后重启 nginx 服务就可以了&lt;/p&gt;
+
+&lt;h2 id=&#34;6-强制跳转-https&#34;&gt;6. 强制跳转 https&lt;/h2&gt;
+
+&lt;p&gt;https 默认是监听 443 端口的，没开启 https 访问的话一般默认是 80 端口。如果你确定网站 80 端口上的站点都支持 https 的话加入下面的配件可以自动重定向到 https&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen 80;
+    server_name your.domain.com;
+    return 301 https://$server_name$request_uri;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;7-证书更新&#34;&gt;7. 证书更新&lt;/h2&gt;
+
+&lt;p&gt;免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let&amp;rsquo;s encrypt 旗下还有一个 &lt;a href=&#34;https://letsmonitor.org/&#34;&gt;Let&amp;rsquo;s monitor&lt;/a&gt; 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./certbot-auto renew
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

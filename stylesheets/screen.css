@@ -2365,27 +2365,23 @@ table th {
   padding-bottom: 0.5em;
 }
 /* line 148, ../sass/custom/_styles.scss */
+#TableOfContents > ul {
+  padding-left: 0;
+}
+/* line 151, ../sass/custom/_styles.scss */
 #TableOfContents li {
   border-bottom: none;
   box-shadow: none;
   padding: 0;
 }
-/* line 152, ../sass/custom/_styles.scss */
+/* line 155, ../sass/custom/_styles.scss */
 #TableOfContents li a {
   border-bottom: 1px solid #e0e0e0;
   box-shadow: white 0 1px;
   display: block;
   padding: .5em 0;
 }
-/* line 158, ../sass/custom/_styles.scss */
+/* line 161, ../sass/custom/_styles.scss */
 #TableOfContents li ul {
   padding-left: 1em;
-}
-/* line 162, ../sass/custom/_styles.scss */
-#TableOfContents > ul > li {
-  padding-left: 0;
-}
-/* line 164, ../sass/custom/_styles.scss */
-#TableOfContents > ul > li > ul > li {
-  padding-left: 0;
 }

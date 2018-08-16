@@ -2351,7 +2351,7 @@ table th {
 }
 
 /* line 137, ../sass/custom/_styles.scss */
-#content h2 {
+#content .sidebar h2 {
   font-size: 1.5em;
   margin: 1.5em 0 0;
   padding-bottom: .5em;

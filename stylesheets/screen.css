@@ -2377,11 +2377,15 @@ table th {
   display: block;
   padding: .5em 0;
 }
-/* line 159, ../sass/custom/_styles.scss */
+/* line 158, ../sass/custom/_styles.scss */
+#TableOfContents li ul {
+  padding-left: 1em;
+}
+/* line 162, ../sass/custom/_styles.scss */
 #TableOfContents > ul > li {
   padding-left: 0;
 }
-/* line 161, ../sass/custom/_styles.scss */
+/* line 164, ../sass/custom/_styles.scss */
 #TableOfContents > ul > li > ul > li {
   padding-left: 0;
 }

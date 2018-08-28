@@ -1,0 +1,513 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>VIM 代码片段插件 Ultisnips 使用教程</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.46" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
+
+    
+    <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="https://keelii.com/">Something</a></h1>
+        <h2>__ you don&#39;t know yet</h2>
+    </hgroup>
+</header>
+
+
+<nav role="navigation">
+    <ul class="subscription" data-subscription="rss">
+        <li>
+            
+        </li>
+    </ul>
+
+    <form action="https://www.google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="sitesearch" value="https://keelii.com/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search" />
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.com/">Blog</a> </li>
+        
+        <li><a href="https://keelii.com/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.com/about">About</a> </li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">VIM 代码片段插件 Ultisnips 使用教程</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2018-08-26 17:59:45">
+                            <span class="date">2018-8-26</span>
+                            <span class="time">17:59 PM</span>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<h2 id="安装">安装</h2>
+
+<p><a href="https://github.com/SirVer/ultisnips">Ultisnips</a> 插件安装分两部分，一个是 ultisnips 插件本身，另外一个是代码片段仓库。一般来说把默认的代码片段仓库下载下来按需修改后上传到自己的 github 即可。如果你和我一样也使用 vim-plug 来管理插件的话，添加下面的代码到你的 vimrc 中保存刷新即可</p>
+
+<pre><code class="language-vim">Plug 'SirVer/ultisnips'
+# 你自己的代码仓库 git 地址
+Plug 'keelii/vim-snippets'
+</code></pre>
+
+<p>上面的示例中所有的代码片段都存放在插件安装目录下面的 <code>vim-snippets/UltiSnips</code> 中，文件命名格式为 <code>ft</code>.snippets, <code>ft</code> 就是 vim 中的 <code>filetype</code>，其中有个 <code>all.snippets</code> 是唯一一个所有文件都适用的代码片段</p>
+
+<h2 id="配置">配置</h2>
+
+<p>快捷键设置，我一般使用 tab 来触发代码片段补全，<strong>且不使用 YCM</strong> （官方文档表示使用YCM的话就不能使用tab补全）</p>
+
+<pre><code class="language-vim">let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
+&quot; 使用 tab 切换下一个触发点，shit+tab 上一个触发点
+let g:UltiSnipsJumpForwardTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;S-tab&gt;&quot;
+&quot; 使用 UltiSnipsEdit 命令时垂直分割屏幕
+let g:UltiSnipsEditSplit=&quot;vertical&quot;
+</code></pre>
+
+<h2 id="依赖">依赖</h2>
+
+<p>ultisnips 插件需要你的 vim 支持 python，可以在 vim 命令模式下使用下面的检测你的 vim 版本是否支持 python</p>
+
+<pre><code># 1 表示支持
+:echo has(&quot;python&quot;)
+:echo has(&quot;python3&quot;)
+</code></pre>
+
+<h2 id="定义一个代码片段">定义一个代码片段</h2>
+
+<h3 id="定义格式">定义格式</h3>
+
+<pre><code class="language-vim">snippet 触发字符 [&quot;代码片段说明&quot; [参数]]
+代码片段内容
+endsnippet
+</code></pre>
+
+<h3 id="最小化的一个代码片段">最小化的一个代码片段</h3>
+
+<pre><code>snippet if &quot;if (condition) { ... }&quot;
+if (${1:true}) {
+    $0
+}
+endsnippet
+</code></pre>
+
+<p>这时当你在 vim 中输入 if 敲 tab 就会展开一条 if 语句，第一个触发点是 if 条件表达式，最后一个是 if 语句体</p>
+
+<p><code>${1:true}</code> 表示这是第一个触发点，占位符为 <code>true</code>，如果占位符没有默认值可直接使用 <code>$1</code>, <code>$2</code>, <code>$3</code>&hellip;</p>
+
+<h2 id="可视选择区的内容为占位符">可视选择区的内容为占位符</h2>
+
+<pre><code>snippet if &quot;if (...)&quot;
+if (${1:true}) {
+    ${VISUAL}
+}
+endsnippet
+</code></pre>
+
+<p><code>${VISUAL}</code> 表示在 vim 中使用可视模式下选择的文本，这个在重构代码的时候<strong>非常有用</strong>（后面会有高级用法），上个图感受一下</p>
+
+<p><img src="//img10.360buyimg.com/devfe/jfs/t25252/299/1019207883/36468/bca93de/5b84a8a9N8dd5a8c5.gif" alt="if-with-visual-mode" /></p>
+
+<h2 id="代码片段的参数">代码片段的参数</h2>
+
+<ul>
+<li><code>b</code> 表示触发字符应该在一行的开始</li>
+<li><code>i</code> 表示触发字符可以在单词内（连续展示会使用这个选项）</li>
+<li><code>w</code> 表示触发字符的前后必须是一个字母分界点</li>
+<li><code>r</code> 表示触发字符可以是一个正则表达式</li>
+<li><code>t</code> 表示展开的代码片段中如果有制表符，原样输出，即使你的 vimrc 里面设置了 expandtab</li>
+<li><code>m</code> 表示删除代码片段右边的所有空白字符</li>
+<li><code>e</code> 表示自定义上下文</li>
+<li><code>A</code> 表示自动触发，不需要按 tab，类似于 VIM 中的 abbr</li>
+</ul>
+
+<h2 id="内容解释器">内容解释器</h2>
+
+<p>Ultisnips 定义的代码片段中支持三种不同的语言注入：shell, vimscript, python，在代码片段中用反引号表示</p>
+
+<h2 id="shell-代码">shell 代码</h2>
+
+<p>就是在你的命令行 shell 能执行的代码片段，比如输出当前时间</p>
+
+<pre><code class="language-bash">➜ date
+2018年 8月27日 星期一 18时19分38秒 CST
+</code></pre>
+
+<p>在代码片段中用反引号「`」引用即可</p>
+
+<pre><code class="language-vim">snippet today
+Today is the `date`.
+endsnippet
+</code></pre>
+
+<p>输入 today 按 tab 展开后（格式和上面shell中的不一样，估计是因为 vim 语言设置的问题）：</p>
+
+<pre><code>Today is the Mon Aug 27 18:24:51 CST 2018.
+</code></pre>
+
+<h3 id="vimscript-代码">vimscript 代码</h3>
+
+<p>使用 <code>indent</code> 来输出当前缩进值，使用前缀 <code>!v</code> 表示是 vimscript</p>
+
+<pre><code class="language-vim">snippet indent
+Indent is: `!v indent(&quot;.&quot;)`.
+endsnippet
+</code></pre>
+
+<p><img src="//img12.360buyimg.com/devfe/jfs/t23467/4/2565317844/22166/a39566b/5b84a97fNa6174311.gif" alt="vimscript-indent-size" /></p>
+
+<h3 id="python-代码">python 代码</h3>
+
+<p>在代码片段中解释执行 python 代码是 ultisnips 最强大的功能，以前缀 <code>!p</code> 开始。系统会向 python 中注入一些变量，可以使用 python 代码直接对其进行操作</p>
+
+<ul>
+<li><code>fn</code> - 表示当前文件名</li>
+<li><code>path</code> -  当前文件名的路径</li>
+<li><code>t</code> - 占位符的字典，可以使用 <code>t[1], t[2], t.v</code> 来取占位符内容</li>
+<li><code>snip</code> - <a href="https://github.com/SirVer/ultisnips/blob/6fdc3647f72e0a1f321ea6bd092ecd01f7c187ba/pythonx/UltiSnips/text_objects/_python_code.py#L56">UltiSnips.TextObjects.SnippetUtil</a> 对象的一个实例</li>
+<li><code>match</code> - 正则代码片段时返回的匹配元素（非常强大）</li>
+</ul>
+
+<p>其中最常用的 <code>snip</code> 对象提供了下面一些变量：</p>
+
+<ul>
+<li><code>snip.rv</code> 表示 return value，python 代码执行后处理过的字符串赋给 rv 即可</li>
+<li><code>snip.fn</code> 表示当前文件名</li>
+<li><code>snip.ft</code> 表示当前文件类型</li>
+<li><code>snip.v</code> 表示 VISUAL 模式变量，其中 <code>snip.v.mode</code> 表示模式类型，<code>snip.v.text</code> 表示 VISUAL 模式中选择的字符</li>
+</ul>
+
+<p><img src="//img11.360buyimg.com/devfe/jfs/t27739/311/103185395/173892/d6a786e3/5b84af90Nfa6cd193.gif" alt="python-snippet-var" /></p>
+
+<h2 id="占位符选择">占位符选择</h2>
+
+<p>UltiSnips 支持使用快捷键切换占位符，我使用 <code>&lt;tab&gt;</code> 和 <code>&lt;shift-tab&gt;</code> 来切换 <code>下一个</code> 和 <code>上一个</code> 占位符，占位符切换的作用域为当前代码片段内部（即使占位符已被修改过），当光标移动出去以后就不起作用了</p>
+
+<p><img src="//img12.360buyimg.com/devfe/jfs/t24559/158/2571218888/171431/2459a91d/5b84bf9aN96a7ee7e.gif" alt="mul-placeholder-editing" /></p>
+
+<h2 id="自定义上下文">自定义上下文</h2>
+
+<p>自定义上下文可以通过正则匹配来决定代码片断是否可用，比如判断在指定的 if 语句里面才起作用的代码片断，定义格式如下：</p>
+
+<blockquote>
+<p>snippet 触发字符 &ldquo;描述&rdquo; &ldquo;表达式&rdquo; 参数</p>
+</blockquote>
+
+<p>比如我们定义一个 <strong>只有</strong> 在上一行以 <code>if (DEVELOPMENT) {</code> 开头才可以展开的代码片段</p>
+
+<pre><code>snippet dbg &quot;if (DEVELOPMENT) dbg&quot; &quot;re.match('^if \(DEVELOPMENT\) \{', snip.buffer[snip.line-1])&quot; be
+debugger;
+endsnippet
+</code></pre>
+
+<h2 id="常见用法">常见用法</h2>
+
+<h3 id="行内连续展开">行内连续展开</h3>
+
+<p>这个常见于需要连续展开代码片段的情况，比如，有两个片段，一个打印变量，一个处理 JSON 序列化。这时需要使用参数选项 <code>i</code>n-word</p>
+
+<p><img src="//img11.360buyimg.com/devfe/jfs/t25579/50/1036526670/419976/53521e3b/5b84c7d2Nd6a0cb5e.gif" alt="continue-expand-snippets" /></p>
+
+<h3 id="使用正则代码片段">使用正则代码片段</h3>
+
+<p>通常写代码的时候需要使用 log, print 等来打印上下文中的变量。使用普通片段按 cl 展示 console.log() 然后把变量字符复制进括号，这样操作会比较复杂。使用正则来动态匹配前面的字符可以很好的解决这个问题</p>
+
+<pre><code class="language-vim"># 展开 console.log
+snippet &quot;([^\s]\w+)\.log&quot; &quot;console.log(postfix)&quot; r
+console.log(`!p snip.rv = match.group(1)`)$0
+endsnippet
+# 当前行转换成大写
+snippet &quot;([^\s].*)\.upper&quot; &quot;Uppercase(postfix)&quot; r
+`!p snip.rv = match.group(1).upper()`$0
+endsnippet
+# 上一个单词转换成小写
+snippet &quot;([^\s]\w+)\.lower&quot; &quot;Lowercase(postfix)&quot; r
+`!p snip.rv = match.group(1).lower()`$0
+endsnippet
+</code></pre>
+
+<p>动图演示</p>
+
+<p><img src="//img30.360buyimg.com/devfe/jfs/t25492/223/971280921/61984/701b0ab1/5b84cc6aN6fe8ea04.gif" alt="expand-regexp-snippets" /></p>
+
+<p><strong>注意</strong>：正则代码片段只适用于单行文本处理，如果是多行转换还是得用到下面的 python + VISUAL 代码片段来处理</p>
+
+<h3 id="使用-python-解释器-visual-模式实现代码注释功能">使用 python 解释器 + VISUAL 模式实现代码注释功能</h3>
+
+<p>通常我们需要使用一大堆插件来实现各种代码的注释功能。不过 Ultisnips 提供了 VISUAL 模式可以提取 vim 可视模式中选择的内容到代码片段里面，于是我们就可以结合起来制作一个<strong>具有注释功能的代码片段</strong></p>
+
+<p>流程大概是这样的：</p>
+
+<ol>
+<li>进入 vim 可视模式，选择要注释的内容</li>
+<li>按 tab，清除选择内容</li>
+<li>输入代码片段触发字符，按 tab 完成</li>
+</ol>
+
+<p>由于实现的 python 代码相对复杂一些，主要分成两个方法。单行注释和多行注释，注意 Ultisnips 中可以直接写 python 但是大段的方法建议放在插件目录下面的 pythonx 目录下面，使用的时候在对应的代码片段中的全局 python 代码 <code>global !p</code> 引入即可</p>
+
+<p><strong>单行注释</strong>(pythonx/javascript_snippets.py)：</p>
+
+<pre><code class="language-python">def comment(snip, START=&quot;&quot;, END=&quot;&quot;):
+    lines = snip.v.text.split('\n')[:-1]
+    first_line = lines[0]
+    spaces = ''
+    initial_indent = snip._initial_indent
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != '':
+            first_line = lines[idx]
+            sp = re.findall(r'^\s+', first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    # Uncomment
+    if first_line.strip().startswith(START):
+        result = [line.replace(START, &quot;&quot;, 1).replace(END, &quot;&quot;, 1) if line.strip() else line for line in lines]
+    else:
+        result = [f'{spaces}{START}{line[len(spaces):]}{END}' if line.strip() else line for line in lines ]
+
+    # Remove initial indent
+    if result[0] and initial_indent:
+        result[0] = result[0].replace(initial_indent, '', 1)
+
+    if result:
+        return '\n'.join(result)
+    else:
+        return ''
+</code></pre>
+
+<p><strong>多行注释：</strong></p>
+
+<pre><code class="language-python">def comment_inline(snip, START=&quot;/* &quot;, END=&quot; */&quot;):
+    text = snip.v.text
+    lines = text.split('\n')[:-1]
+    first_line = lines[0]
+    initial_indent = snip._initial_indent
+    spaces = ''
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != '':
+            first_line = lines[idx]
+            sp = re.findall(r'^\s+', first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    if text.strip().startswith(START):
+        result = text.replace(START, '', 1).replace(END, '', 1)
+    else:
+        result = text.replace(spaces, spaces + START, 1).rstrip('\n') + END + '\n'
+
+    if initial_indent:
+        result = result.replace(initial_indent, '', 1)
+
+    return result
+</code></pre>
+
+<p><strong>代码片段定义：</strong></p>
+
+<pre><code class="language-vim">global !p
+from javascript_snippets import (
+	comment, comment_inline
+)
+endglobal
+
+# ...
+
+snippet c &quot;Toggle comment every single line&quot;
+`!p
+snip.rv = comment(snip, START='// ', END='')
+`$0
+endsnippet
+
+snippet ci &quot;Toggle comment inline.&quot;
+`!p
+snip.rv = comment_inline(snip, START=&quot;/* &quot;, END=&quot; */&quot;)
+`$0
+endsnippet
+</code></pre>
+
+<p>动图演示</p>
+
+<p><img src="//img30.360buyimg.com/devfe/jfs/t24175/330/2554434390/319822/5d8cf724/5b850d67N4c475946.gif" alt="python-snippets-to-comment" /></p>
+
+<p>不同的语言可以在对应的片段文件中定义并传入注释符号参数即可，有了这个功能就可以愉快的删除其它的 vim 注释插件了 😀</p>
+</div>
+                <footer>
+                    <p class="meta">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/vim">vim</a>
+                            
+                        </span>
+                        
+                    </p>
+                    <p class="meta">
+                        <span class="span">Last modified •</span>
+                        <time class="entry-date" datetime="2018-08-26 17:59:45">
+                            <span class="date">2018-8-26</span>
+                            <span class="time">17:59 PM</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2018/08/12/fuzzy-finder-full-guide/" title="Previous Post: Fuzzy finder(fzf&#43;vim) 使用全指南">Fuzzy finder(fzf&#43;vim) 使用全指南</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd" style="width: 100%;">
+    <h2>Table  of contents</h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置">配置</a></li>
+<li><a href="#依赖">依赖</a></li>
+<li><a href="#定义一个代码片段">定义一个代码片段</a>
+<ul>
+<li><a href="#定义格式">定义格式</a></li>
+<li><a href="#最小化的一个代码片段">最小化的一个代码片段</a></li>
+</ul></li>
+<li><a href="#可视选择区的内容为占位符">可视选择区的内容为占位符</a></li>
+<li><a href="#代码片段的参数">代码片段的参数</a></li>
+<li><a href="#内容解释器">内容解释器</a></li>
+<li><a href="#shell-代码">shell 代码</a>
+<ul>
+<li><a href="#vimscript-代码">vimscript 代码</a></li>
+<li><a href="#python-代码">python 代码</a></li>
+</ul></li>
+<li><a href="#占位符选择">占位符选择</a></li>
+<li><a href="#自定义上下文">自定义上下文</a></li>
+<li><a href="#常见用法">常见用法</a>
+<ul>
+<li><a href="#行内连续展开">行内连续展开</a></li>
+<li><a href="#使用正则代码片段">使用正则代码片段</a></li>
+<li><a href="#使用-python-解释器-visual-模式实现代码注释功能">使用 python 解释器 + VISUAL 模式实现代码注释功能</a></li>
+</ul></li>
+</ul>
+</nav>
+</section>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2018 - keelii -
+        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
+        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+    </p>
+</footer>
+
+
+<script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<script src="/javascripts/octopress.js"></script>
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script src="/javascripts/post.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+<!--
+# There are some hotkeys for better experience #
+
+[s] for search input
+[t] for scroll to top
+[h] for prev article
+[l] for next article
+[j] for scroll page up 300px
+[k] for scroll page down 300px
+[G] for scroll page bottom
+-->
+
+</body>
+</html>

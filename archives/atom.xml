@@ -6,10 +6,316 @@
     <description>Recent content in Archives on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 12 Aug 2018 19:20:04 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 26 Aug 2018 17:59:45 +0800</lastBuildDate>
     
         <atom:link href="https://keelii.com/archives/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VIM 代码片段插件 ultisnips 使用教程</title>
+      <link>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</link>
+      <pubDate>Sun, 26 Aug 2018 17:59:45 +0800</pubDate>
+      
+      <guid>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</guid>
+      <description>
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/SirVer/ultisnips&#34;&gt;Ultisnips&lt;/a&gt; 插件安装分两部分，一个是 ultisnips 插件本身，另外一个是代码片段仓库。一般来说把默认的代码片段仓库下载下来按需修改后上传到自己的 github 即可。如果你和我一样也使用 vim-plug 来管理插件的话，添加下面的代码到你的 vimrc 中保存刷新即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Plug &#39;SirVer/ultisnips&#39;
+# 你自己的代码仓库 git 地址
+Plug &#39;keelii/vim-snippets&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的示例中所有的代码片段都存放在插件安装目录下面的 &lt;code&gt;vim-snippets/UltiSnips&lt;/code&gt; 中，文件命名格式为 &lt;code&gt;ft&lt;/code&gt;.snippets, &lt;code&gt;ft&lt;/code&gt; 就是 vim 中的 &lt;code&gt;filetype&lt;/code&gt;，其中有个 &lt;code&gt;all.snippets&lt;/code&gt; 是唯一一个所有文件都适用的代码片段&lt;/p&gt;
+
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;快捷键设置，我一般使用 tab 来触发代码片段补全，&lt;strong&gt;且不使用 YCM&lt;/strong&gt; （官方文档表示使用YCM的话就不能使用tab补全）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;let g:UltiSnipsExpandTrigger=&amp;quot;&amp;lt;tab&amp;gt;&amp;quot;
+&amp;quot; 使用 tab 切换下一个触发点，shit+tab 上一个触发点
+let g:UltiSnipsJumpForwardTrigger=&amp;quot;&amp;lt;tab&amp;gt;&amp;quot;
+let g:UltiSnipsJumpBackwardTrigger=&amp;quot;&amp;lt;S-tab&amp;gt;&amp;quot;
+&amp;quot; 使用 UltiSnipsEdit 命令时垂直分割屏幕
+let g:UltiSnipsEditSplit=&amp;quot;vertical&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+
+&lt;p&gt;ultisnips 插件需要你的 vim 支持 python，可以在 vim 命令模式下使用下面的检测你的 vim 版本是否支持 python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 1 表示支持
+:echo has(&amp;quot;python&amp;quot;)
+:echo has(&amp;quot;python3&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;定义一个代码片段&#34;&gt;定义一个代码片段&lt;/h2&gt;
+
+&lt;h3 id=&#34;定义格式&#34;&gt;定义格式&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet 触发字符 [&amp;quot;代码片段说明&amp;quot; [参数]]
+代码片段内容
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;最小化的一个代码片段&#34;&gt;最小化的一个代码片段&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet if &amp;quot;if (condition) { ... }&amp;quot;
+if (${1:true}) {
+    $0
+}
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这时当你在 vim 中输入 if 敲 tab 就会展开一条 if 语句，第一个触发点是 if 条件表达式，最后一个是 if 语句体&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;${1:true}&lt;/code&gt; 表示这是第一个触发点，占位符为 &lt;code&gt;true&lt;/code&gt;，如果占位符没有默认值可直接使用 &lt;code&gt;$1&lt;/code&gt;, &lt;code&gt;$2&lt;/code&gt;, &lt;code&gt;$3&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;可视选择区的内容为占位符&#34;&gt;可视选择区的内容为占位符&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet if &amp;quot;if (...)&amp;quot;
+if (${1:true}) {
+    ${VISUAL}
+}
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;${VISUAL}&lt;/code&gt; 表示在 vim 中使用可视模式下选择的文本，这个在重构代码的时候&lt;strong&gt;非常有用&lt;/strong&gt;（后面会有高级用法），上个图感受一下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t25252/299/1019207883/36468/bca93de/5b84a8a9N8dd5a8c5.gif&#34; alt=&#34;if-with-visual-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;代码片段的参数&#34;&gt;代码片段的参数&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;b&lt;/code&gt; 表示触发字符应该在一行的开始&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt; 表示触发字符可以在单词内（连续展示会使用这个选项）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;w&lt;/code&gt; 表示触发字符的前后必须是一个字母分界点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; 表示触发字符可以是一个正则表达式&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t&lt;/code&gt; 表示展开的代码片段中如果有制表符，原样输出，即使你的 vimrc 里面设置了 expandtab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;m&lt;/code&gt; 表示删除代码片段右边的所有空白字符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;e&lt;/code&gt; 表示自定义上下文&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A&lt;/code&gt; 表示自动触发，不需要按 tab，类似于 VIM 中的 abbr&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;内容解释器&#34;&gt;内容解释器&lt;/h2&gt;
+
+&lt;p&gt;Ultisnips 定义的代码片段中支持三种不同的语言注入：shell, vimscript, python，在代码片段中用反引号表示&lt;/p&gt;
+
+&lt;h2 id=&#34;shell-代码&#34;&gt;shell 代码&lt;/h2&gt;
+
+&lt;p&gt;就是在你的命令行 shell 能执行的代码片段，比如输出当前时间&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜ date
+2018年 8月27日 星期一 18时19分38秒 CST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在代码片段中用反引号「`」引用即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet today
+Today is the `date`.
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输入 today 按 tab 展开后（格式和上面shell中的不一样，估计是因为 vim 语言设置的问题）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Today is the Mon Aug 27 18:24:51 CST 2018.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;vimscript-代码&#34;&gt;vimscript 代码&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;code&gt;indent&lt;/code&gt; 来输出当前缩进值，使用前缀 &lt;code&gt;!v&lt;/code&gt; 表示是 vimscript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet indent
+Indent is: `!v indent(&amp;quot;.&amp;quot;)`.
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t23467/4/2565317844/22166/a39566b/5b84a97fNa6174311.gif&#34; alt=&#34;vimscript-indent-size&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;python-代码&#34;&gt;python 代码&lt;/h3&gt;
+
+&lt;p&gt;在代码片段中解释执行 python 代码是 ultisnips 最强大的功能，以前缀 &lt;code&gt;!p&lt;/code&gt; 开始。系统会向 python 中注入一些变量，可以使用 python 代码直接对其进行操作&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fn&lt;/code&gt; - 表示当前文件名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt; -  当前文件名的路径&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t&lt;/code&gt; - 占位符的字典，可以使用 &lt;code&gt;t[1], t[2], t.v&lt;/code&gt; 来取占位符内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip&lt;/code&gt; - &lt;a href=&#34;https://github.com/SirVer/ultisnips/blob/6fdc3647f72e0a1f321ea6bd092ecd01f7c187ba/pythonx/UltiSnips/text_objects/_python_code.py#L56&#34;&gt;UltiSnips.TextObjects.SnippetUtil&lt;/a&gt; 对象的一个实例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;match&lt;/code&gt; - 正则代码片段时返回的匹配元素（非常强大）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其中最常用的 &lt;code&gt;snip&lt;/code&gt; 对象提供了下面一些变量：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;snip.rv&lt;/code&gt; 表示 return value，python 代码执行后处理过的字符串赋给 rv 即可&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.fn&lt;/code&gt; 表示当前文件名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.ft&lt;/code&gt; 表示当前文件类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.v&lt;/code&gt; 表示 VISUAL 模式变量，其中 &lt;code&gt;snip.v.mode&lt;/code&gt; 表示模式类型，&lt;code&gt;snip.v.text&lt;/code&gt; 表示 VISUAL 模式中选择的字符&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t27739/311/103185395/173892/d6a786e3/5b84af90Nfa6cd193.gif&#34; alt=&#34;python-snippet-var&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;占位符选择&#34;&gt;占位符选择&lt;/h2&gt;
+
+&lt;p&gt;UltiSnips 支持使用快捷键切换占位符，我使用 &lt;code&gt;&amp;lt;tab&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;shift-tab&amp;gt;&lt;/code&gt; 来切换 &lt;code&gt;下一个&lt;/code&gt; 和 &lt;code&gt;上一个&lt;/code&gt; 占位符，占位符切换的作用域为当前代码片段内部（即使占位符已被修改过），当光标移动出去以后就不起作用了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t24559/158/2571218888/171431/2459a91d/5b84bf9aN96a7ee7e.gif&#34; alt=&#34;mul-placeholder-editing&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;自定义上下文&#34;&gt;自定义上下文&lt;/h2&gt;
+
+&lt;p&gt;自定义上下文可以通过正则匹配来决定代码片断是否可用，比如判断在指定的 if 语句里面才起作用的代码片断，定义格式如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;snippet 触发字符 &amp;ldquo;描述&amp;rdquo; &amp;ldquo;表达式&amp;rdquo; 参数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;比如我们定义一个 &lt;strong&gt;只有&lt;/strong&gt; 在上一行以 &lt;code&gt;if (DEVELOPMENT) {&lt;/code&gt; 开头才可以展开的代码片段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet dbg &amp;quot;if (DEVELOPMENT) dbg&amp;quot; &amp;quot;re.match(&#39;^if \(DEVELOPMENT\) \{&#39;, snip.buffer[snip.line-1])&amp;quot; be
+debugger;
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;常见用法&#34;&gt;常见用法&lt;/h2&gt;
+
+&lt;h3 id=&#34;行内连续展开&#34;&gt;行内连续展开&lt;/h3&gt;
+
+&lt;p&gt;这个常见于需要连续展开代码片段的情况，比如，有两个片段，一个打印变量，一个处理 JSON 序列化。这时需要使用参数选项 &lt;code&gt;i&lt;/code&gt;n-word&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t25579/50/1036526670/419976/53521e3b/5b84c7d2Nd6a0cb5e.gif&#34; alt=&#34;continue-expand-snippets&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;使用正则代码片段&#34;&gt;使用正则代码片段&lt;/h3&gt;
+
+&lt;p&gt;通常写代码的时候需要使用 log, print 等来打印上下文中的变量。使用普通片段按 cl 展示 console.log() 然后把变量字符复制进括号，这样操作会比较复杂。使用正则来动态匹配前面的字符可以很好的解决这个问题&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;# 展开 console.log
+snippet &amp;quot;([^\s]\w+)\.log&amp;quot; &amp;quot;console.log(postfix)&amp;quot; r
+console.log(`!p snip.rv = match.group(1)`)$0
+endsnippet
+# 当前行转换成大写
+snippet &amp;quot;([^\s].*)\.upper&amp;quot; &amp;quot;Uppercase(postfix)&amp;quot; r
+`!p snip.rv = match.group(1).upper()`$0
+endsnippet
+# 上一个单词转换成小写
+snippet &amp;quot;([^\s]\w+)\.lower&amp;quot; &amp;quot;Lowercase(postfix)&amp;quot; r
+`!p snip.rv = match.group(1).lower()`$0
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;动图演示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t25492/223/971280921/61984/701b0ab1/5b84cc6aN6fe8ea04.gif&#34; alt=&#34;expand-regexp-snippets&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：正则代码片段只适用于单行文本处理，如果是多行转换还是得用到下面的 python + VISUAL 代码片段来处理&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-python-解释器-visual-模式实现代码注释功能&#34;&gt;使用 python 解释器 + VISUAL 模式实现代码注释功能&lt;/h3&gt;
+
+&lt;p&gt;通常我们需要使用一大堆插件来实现各种代码的注释功能。不过 Ultisnips 提供了 VISUAL 模式可以提取 vim 可视模式中选择的内容到代码片段里面，于是我们就可以结合起来制作一个&lt;strong&gt;具有注释功能的代码片段&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;流程大概是这样的：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;进入 vim 可视模式，选择要注释的内容&lt;/li&gt;
+&lt;li&gt;按 tab，清除选择内容&lt;/li&gt;
+&lt;li&gt;输入代码片段触发字符，按 tab 完成&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;由于实现的 python 代码相对复杂一些，主要分成两个方法。单行注释和多行注释，注意 Ultisnips 中可以直接写 python 但是大段的方法建议放在插件目录下面的 pythonx 目录下面，使用的时候在对应的代码片段中的全局 python 代码 &lt;code&gt;global !p&lt;/code&gt; 引入即可&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;单行注释&lt;/strong&gt;(pythonx/javascript_snippets.py)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def comment(snip, START=&amp;quot;&amp;quot;, END=&amp;quot;&amp;quot;):
+    lines = snip.v.text.split(&#39;\n&#39;)[:-1]
+    first_line = lines[0]
+    spaces = &#39;&#39;
+    initial_indent = snip._initial_indent
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != &#39;&#39;:
+            first_line = lines[idx]
+            sp = re.findall(r&#39;^\s+&#39;, first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    # Uncomment
+    if first_line.strip().startswith(START):
+        result = [line.replace(START, &amp;quot;&amp;quot;, 1).replace(END, &amp;quot;&amp;quot;, 1) if line.strip() else line for line in lines]
+    else:
+        result = [f&#39;{spaces}{START}{line[len(spaces):]}{END}&#39; if line.strip() else line for line in lines ]
+
+    # Remove initial indent
+    if result[0] and initial_indent:
+        result[0] = result[0].replace(initial_indent, &#39;&#39;, 1)
+
+    if result:
+        return &#39;\n&#39;.join(result)
+    else:
+        return &#39;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;多行注释：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def comment_inline(snip, START=&amp;quot;/* &amp;quot;, END=&amp;quot; */&amp;quot;):
+    text = snip.v.text
+    lines = text.split(&#39;\n&#39;)[:-1]
+    first_line = lines[0]
+    initial_indent = snip._initial_indent
+    spaces = &#39;&#39;
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != &#39;&#39;:
+            first_line = lines[idx]
+            sp = re.findall(r&#39;^\s+&#39;, first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    if text.strip().startswith(START):
+        result = text.replace(START, &#39;&#39;, 1).replace(END, &#39;&#39;, 1)
+    else:
+        result = text.replace(spaces, spaces + START, 1).rstrip(&#39;\n&#39;) + END + &#39;\n&#39;
+
+    if initial_indent:
+        result = result.replace(initial_indent, &#39;&#39;, 1)
+
+    return result
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;代码片段定义：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;global !p
+from javascript_snippets import (
+	comment, comment_inline
+)
+endglobal
+
+# ...
+
+snippet c &amp;quot;Toggle comment every single line&amp;quot;
+`!p
+snip.rv = comment(snip, START=&#39;// &#39;, END=&#39;&#39;)
+`$0
+endsnippet
+
+snippet ci &amp;quot;Toggle comment inline.&amp;quot;
+`!p
+snip.rv = comment_inline(snip, START=&amp;quot;/* &amp;quot;, END=&amp;quot; */&amp;quot;)
+`$0
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;动图演示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t24175/330/2554434390/319822/5d8cf724/5b850d67N4c475946.gif&#34; alt=&#34;python-snippets-to-comment&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不同的语言可以在对应的片段文件中定义并传入注释符号参数即可，有了这个功能就可以愉快的删除其它的 vim 注释插件了 😀&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Fuzzy finder(fzf&#43;vim) 使用全指南</title>
@@ -1014,297 +1320,6 @@ if ($invalid_referer) {
     return 403;
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>关系代数的基本运算</title>
-      <link>https://keelii.com/2017/02/19/basic-operations-of-relation-algebra/</link>
-      <pubDate>Sun, 19 Feb 2017 15:10:38 +0800</pubDate>
-      
-      <guid>https://keelii.com/2017/02/19/basic-operations-of-relation-algebra/</guid>
-      <description>
-
-&lt;h2 id=&#34;关系代数运算符&#34;&gt;关系代数运算符&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;集合运算符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;运算符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;th&gt;英文&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;$∪$&lt;/td&gt;
-&lt;td&gt;并&lt;/td&gt;
-&lt;td&gt;Union&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$−$&lt;/td&gt;
-&lt;td&gt;差&lt;/td&gt;
-&lt;td&gt;Difference&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$∩$&lt;/td&gt;
-&lt;td&gt;交&lt;/td&gt;
-&lt;td&gt;Intersection&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$×$&lt;/td&gt;
-&lt;td&gt;笛卡尔积&lt;/td&gt;
-&lt;td&gt;Cartesian Product&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;比较运算符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;运算符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;$&amp;gt;$&lt;/td&gt;
-&lt;td&gt;大于&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$≥$&lt;/td&gt;
-&lt;td&gt;大于等于&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$&amp;lt;$&lt;/td&gt;
-&lt;td&gt;小于&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$≤$&lt;/td&gt;
-&lt;td&gt;小于等于&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$=$&lt;/td&gt;
-&lt;td&gt;等于&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$≠$&lt;/td&gt;
-&lt;td&gt;不等于&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;专门的关系运算符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;运算符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;th&gt;英文&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;$σ$&lt;/td&gt;
-&lt;td&gt;选择&lt;/td&gt;
-&lt;td&gt;Selection&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$π$&lt;/td&gt;
-&lt;td&gt;投影&lt;/td&gt;
-&lt;td&gt;Projection&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$⋈$&lt;/td&gt;
-&lt;td&gt;链接&lt;/td&gt;
-&lt;td&gt;Join&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$÷$&lt;/td&gt;
-&lt;td&gt;除&lt;/td&gt;
-&lt;td&gt;Division&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;逻辑运算符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;运算符&lt;/th&gt;
-&lt;th&gt;含义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;$∧$&lt;/td&gt;
-&lt;td&gt;与&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$∨$&lt;/td&gt;
-&lt;td&gt;或&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;$¬$&lt;/td&gt;
-&lt;td&gt;非&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;5-种基本的关系代数运算&#34;&gt;5 种基本的关系代数运算&lt;/h2&gt;
-
-&lt;h3 id=&#34;并-union&#34;&gt;并（Union）&lt;/h3&gt;
-
-&lt;p&gt;关系 R 与 S 具有相同的关系模式，即 R 与 S 的元数相同（结构相同），R 与 S 的并是属于 R 或者属于 S 的元组构成的集合，记作 R ∪ S，定义如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$R∪S=\{t|t∈R∨t∈S\}$$
-&lt;/div&gt;
-
-&lt;h3 id=&#34;差-difference&#34;&gt;差（Difference）&lt;/h3&gt;
-
-&lt;p&gt;关系 R 与 S 具有相同的关系模式，关系 R 与 S 的差是属于 R 但不属于 S 的元组构成的集合，记作 R − S，定义如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$R−S=\{t|t∈R∨t∉S\}$$
-&lt;/div&gt;
-
-&lt;h3 id=&#34;广义笛卡尔积-extended-cartesian-product&#34;&gt;广义笛卡尔积（Extended Cartesian Product）&lt;/h3&gt;
-
-&lt;p&gt;两个无数分别为 n 目和 m 目的关系 R 和 S 的 笛卡尔积是一个 (n+m) 列的元组的集合。组的前 n 列是关系 R 的一个元组，后 m 列是关系 S 的一个元组，记作 R × S，定义如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$R×S=\{t|t=&lt;(t^n,t^m)∧t^n∈R∧t^m∈S\}$$
-&lt;/div&gt;
-
-&lt;p&gt;$(t^n,t^m)$ 表示元素 $t^n$ 和 $t^m$ 拼接成的一个元组&lt;/p&gt;
-
-&lt;h3 id=&#34;投影-projection&#34;&gt;投影（Projection）&lt;/h3&gt;
-
-&lt;p&gt;投影运算是从关系的垂直方向进行运算，在关系 R 中选出若干属性列 A 组成新的关系，记作 $π_A(R)$，其形式如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$π_A(R)=\{t[A]|t∈R\}$$
-&lt;/div&gt;
-
-&lt;h3 id=&#34;选择-selection&#34;&gt;选择（Selection）&lt;/h3&gt;
-
-&lt;p&gt;选择运算是从关系的水平方向进行运算，是从关系 R 中选择满足给定条件的元组，记作 $σ_F(R)$，其形式如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$σ_F(R)=\{t|t∈R∧F(t)=True\}$$
-&lt;/div&gt;
-
-&lt;h2 id=&#34;实例&#34;&gt;实例&lt;/h2&gt;
-
-&lt;p&gt;设有关系 R、S 如图所示，求 $R∪S$、 $R−S$、 $R×S$、 $π_{A,C}(R)$、 $σ_{A&amp;gt;B}(R)$ 和 $σ_{3&amp;lt;4}(R×S)$&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3967/269/2409299226/5377/e997b909/58a95fceNddd39fd7.png&#34; alt=&#34;关系表RS&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;进行并、差运算后结果如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3949/95/2458170516/5487/1c7f1f38/58a967b1N42db123f.png&#34; alt=&#34;并差&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;进行笛卡尔、 投影、 选择运算后结果如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t3943/109/2403665652/38834/c636281b/58a9685dN20af0b9b.png&#34; alt=&#34;笛卡尔_投影_选择&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;扩展的关系代数运算&#34;&gt;扩展的关系代数运算&lt;/h2&gt;
-
-&lt;h3 id=&#34;交-intersection&#34;&gt;交（Intersection）&lt;/h3&gt;
-
-&lt;p&gt;关系 R 和 S 具有相同的关系模式，交是由属于 R 同时双属于 S 的元组构成的集合，记作 R∩S，形式如下：&lt;/p&gt;
-
-&lt;div&gt;
-$$R∩S=\{t|t∈R∧t∈S\}$$
-&lt;/div&gt;
-
-&lt;h3 id=&#34;链接-join&#34;&gt;链接（Join）&lt;/h3&gt;
-
-&lt;p&gt;注：下面的 θ 链接应该记作：&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3967/158/2461240249/2389/530d7d07/58aa580aNe9908740.png&#34; alt=&#34;theta链接&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;θ-链接&#34;&gt;θ 链接&lt;/h4&gt;
-
-&lt;p&gt;从 R 与 S的笛卡尔积中选取属性间满足一定条件的元组，可由基本的关系运算笛卡尔积和选取运算导出，表示为：&lt;/p&gt;
-
-&lt;div&gt;
-$$R \Join_{XθY} S = σ_{XθY}(R×S)$$
-&lt;/div&gt;
-
-&lt;p&gt;XθY 为链接的条件，θ 是比较运算符，X 和 Y 分别为 R 和 S 上度数相等且可比的属性组&lt;/p&gt;
-
-&lt;p&gt;例如：求 $R \Join_{R.A&amp;lt;S.B} S$，如果为：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t3133/127/6662942086/21071/88c200da/58aa5b1fN3e2316d5.png&#34; alt=&#34;theta链接小于过程&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;等值链接&#34;&gt;等值链接&lt;/h4&gt;
-
-&lt;p&gt;当 θ 为「=」时，称之为等值链接，记为： $R\Join_{X=Y}S$&lt;/p&gt;
-
-&lt;h4 id=&#34;自然链接&#34;&gt;自然链接&lt;/h4&gt;
-
-&lt;p&gt;自然链接是一种特殊的等值链接，它要求两个关系中进行比较的分量必须是 &lt;strong&gt;相同的属性组&lt;/strong&gt;，并且在结果集中将 &lt;strong&gt;重复的属性列&lt;/strong&gt; 去掉&lt;/p&gt;
-
-&lt;p&gt;例如：设有关系 R、S 如图所示，求 $R \Join S$&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3982/212/2472511181/5973/54467e2a/58aa5ffaN970f7e5a.png&#34; alt=&#34;关系RS&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;先求出笛卡尔积 $R×S$，找出比较分量（有相同属性组），即: R.A/S.A 与 R.C/S.C&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3841/5/4275908218/12385/79e83d01/58aa6066Nd003e697.png&#34; alt=&#34;求出笛卡尔积&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;取等值链接 $R.A = S.A$ 且 $R.C = S.C$&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3256/75/6205568741/12327/2b1dc867/58aa60e8N38a84108.png&#34; alt=&#34;找出相同属性的比较分量&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;结果集中去掉重复属性列，注意无论去掉 R.A 或者 S.A 效果都一样，因为他们的值相等，结果集中只会有属性 A、B、C、D&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3217/183/6576493853/4744/ccb96965/58aa612eN043f7425.png&#34; alt=&#34;结果集中找出重复属性列&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最终得出结果&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t3247/65/6676502314/2874/657ddb0c/58aa617eN2457f536.png&#34; alt=&#34;RS自然链接结果&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;除-division&#34;&gt;除（Division）&lt;/h3&gt;
-
-&lt;p&gt;设有以下如图关系，求 $R÷S$&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3151/348/6716540896/7287/dc01ad2e/58aaaf3bN1cae8b1a.png&#34; alt=&#34;关系RS1&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;取关系 R 中有的但 S 中没有的属性组，即：A、B&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3202/137/6722879648/7244/3b47a185/58aaaf81N0b2491b5.png&#34; alt=&#34;关系RS1取属性AB&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;取唯一 A、B 属性组值的象集&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t3871/170/2430481542/5179/be5899c5/58aaafe6N8297b49f.png&#34; alt=&#34;关系RS1取属性AB对应的象集&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;可知关系S存在于 a,b/c,k 象集 中。即 $R÷S$ 得&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t3130/361/6704334588/3366/6b7e0b56/58aab058N3a3c374d.png&#34; alt=&#34;关系RS1除结果&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

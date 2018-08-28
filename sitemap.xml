@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</loc>
+    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2018/08/12/fuzzy-finder-full-guide/</loc>
     <lastmod>2018-08-13T10:50:05+08:00</lastmod>
   </url>
@@ -14,7 +19,7 @@
   
   <url>
     <loc>https://keelii.com/2017/11/07/yet-another-host-manager-plugin/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
   </url>
   
   <url>
@@ -210,7 +215,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2018-08-13T10:50:05+08:00</lastmod>
+    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -228,7 +233,7 @@
   
   <url>
     <loc>https://keelii.com/categories/chrome/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -257,14 +262,14 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/editor/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <loc>https://keelii.com/tags/editor/</loc>
+    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/editor/</loc>
-    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <loc>https://keelii.com/categories/editor/</loc>
+    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -300,7 +305,7 @@
   
   <url>
     <loc>https://keelii.com/tags/host/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -341,14 +346,14 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/javascript/</loc>
-    <lastmod>2018-07-23T14:42:47+08:00</lastmod>
+    <loc>https://keelii.com/tags/javascript/</loc>
+    <lastmod>2018-04-24T18:14:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/javascript/</loc>
-    <lastmod>2018-04-24T18:14:51+08:00</lastmod>
+    <loc>https://keelii.com/categories/javascript/</loc>
+    <lastmod>2018-07-23T14:42:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -377,13 +382,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/mac/</loc>
+    <loc>https://keelii.com/tags/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/mac/</loc>
+    <loc>https://keelii.com/categories/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -462,7 +467,7 @@
   
   <url>
     <loc>https://keelii.com/tags/plugin/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -516,7 +521,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2018-08-13T10:50:05+08:00</lastmod>
+    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -563,6 +568,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/categories/vim/</loc>
+    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/categories/WebDev/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
@@ -570,7 +581,7 @@
   
   <url>
     <loc>https://keelii.com/categories/webdev/</loc>
-    <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   

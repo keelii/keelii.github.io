@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2018/09/03/HTTPie/</loc>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</loc>
     <lastmod>2018-08-26T17:59:45+08:00</lastmod>
   </url>
@@ -215,7 +220,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -312,6 +317,12 @@
   <url>
     <loc>https://keelii.com/tags/html/</loc>
     <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/http/</loc>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -484,6 +495,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/tags/python/</loc>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/tags/RA/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
@@ -509,7 +526,7 @@
   
   <url>
     <loc>https://keelii.com/categories/shell/</loc>
-    <lastmod>2018-08-13T10:50:05+08:00</lastmod>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -521,7 +538,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2018-08-26T17:59:45+08:00</lastmod>
+    <lastmod>2018-09-03T19:10:27+00:00</lastmod>
     <priority>0</priority>
   </url>
   

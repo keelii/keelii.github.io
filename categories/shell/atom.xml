@@ -6,10 +6,1184 @@
     <description>Recent content in Shell on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 12 Aug 2018 19:20:04 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 03 Sep 2018 19:10:27 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.com/categories/shell/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HTTPie 官方文档中文翻译版</title>
+      <link>https://keelii.com/2018/09/03/HTTPie/</link>
+      <pubDate>Mon, 03 Sep 2018 19:10:27 +0000</pubDate>
+      
+      <guid>https://keelii.com/2018/09/03/HTTPie/</guid>
+      <description>
+
+&lt;p&gt;HTTPie 是一个命令行 HTTP 客户端。目标是让 CLI 与 Web services 的交互尽可能的更友好。它提供了一个简单的 &lt;code&gt;http&lt;/code&gt; 命令，可以让我们用简单自然的表述发送任意 HTTP 请求，并且可以输出带代码高亮的结果。HTTPie 可以使用在测试、调试以及通用的与 HTTP 交互场景&lt;/p&gt;
+
+&lt;h2 id=&#34;主要功能特性&#34;&gt;主要功能特性&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;自然而且简单的命令语句&lt;/li&gt;
+&lt;li&gt;格式化且高亮显示输出内容&lt;/li&gt;
+&lt;li&gt;内置 JSON 支持&lt;/li&gt;
+&lt;li&gt;表单和文件上传&lt;/li&gt;
+&lt;li&gt;支持 HTTPS, 代理和授权验证&lt;/li&gt;
+&lt;li&gt;支持多样化的请求数据格式&lt;/li&gt;
+&lt;li&gt;自定义 headers 头&lt;/li&gt;
+&lt;li&gt;持久 sessions 存储&lt;/li&gt;
+&lt;li&gt;类似 &lt;code&gt;wget&lt;/code&gt; 的下载模式&lt;/li&gt;
+&lt;li&gt;兼容 Python 2.6, 2.7 以及 3.x&lt;/li&gt;
+&lt;li&gt;支持 Linux, macOS 和 Windows 操作系统&lt;/li&gt;
+&lt;li&gt;插件支持&lt;/li&gt;
+&lt;li&gt;详细的文档说明&lt;/li&gt;
+&lt;li&gt;完善的测试用例覆盖&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;h3 id=&#34;macos&#34;&gt;macOS&lt;/h3&gt;
+
+&lt;p&gt;在 macOS 系统中推荐使用 &lt;a href=&#34;brew.sh&#34;&gt;Homebrew&lt;/a&gt; 来安装:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install httpie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然 MacPorts 也是可以的:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;port install httpie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;linux&#34;&gt;Linux&lt;/h3&gt;
+
+&lt;p&gt;大多数的 Linux 构建版都提供了包管理组件，可以使用他们来安装：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 基于 Debian Linux 的构建版，比如 Ubuntu
+apt-get install httpie
+
+# 基于 RPM Linux 的构建版
+yum install httpie
+
+# Arch Linux 系统
+pacman -S httpie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;windows-及其它&#34;&gt;Windows 及其它&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;a href=&#34;https://pip.pypa.io/en/latest/installing/&#34;&gt;pip&lt;/a&gt; 是一种通用的（可以使用在 Windows, MacOS, Linux &amp;hellip;）并且提供最新版本安装包的安装方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 确保使用了最新版本的 pip 和 setuptools:
+pip install --upgrade pip setuptools
+
+pip install --upgrade httpie
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;开发版&#34;&gt;开发版&lt;/h3&gt;
+
+&lt;p&gt;最新的开发版本可以直接通过 github 安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Homebrew
+brew install httpie --HEAD
+
+# pip
+pip install --upgrade https://github.com/jkbrzt/httpie/archive/master.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;python-版本&#34;&gt;Python 版本&lt;/h3&gt;
+
+&lt;p&gt;虽然兼容 Python 2.6, 2.7 版本的，但是如果可以的话还是建议使用最新版的 Python 3.x 来安装 HTTPie。这将保证一些比较新的功能（比如：&lt;a href=&#34;#服务器名称指示-sni-server-name-indication&#34;&gt;SNI&lt;/a&gt; ）可以开箱即用。Python 3 在 Homebrew 0.9.4 版本以上已经成为了默认的 Python 版本。可以使用 &lt;code&gt;http --debug&lt;/code&gt; 来查看 HTTPie 使用的 python 版本&lt;/p&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;p&gt;最简单的使用：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http httpie.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用语法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http [flags] [METHOD] URL [ITEM [ITEM]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以使用 &lt;code&gt;http --help&lt;/code&gt; 来查看更多使用方法：&lt;/p&gt;
+
+&lt;h3 id=&#34;例子&#34;&gt;例子&lt;/h3&gt;
+
+&lt;p&gt;自定义 HTTP 方法，HTTP 头和 JSON 数据：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http PUT example.org X-API-Token:123 name=John
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;表单提交：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -f POST example.org hello=World
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用一个输出参数 &lt;code&gt;-v&lt;/code&gt; 来查看请求信息（默认不显示请求信息）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -v example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 &lt;a href=&#34;http://developer.github.com/v3/issues/comments/#create-a-comment&#34;&gt;Github API&lt;/a&gt; 向 issue 发送一条评论（需要授权验证参数）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -a USERNAME POST https://api.github.com/repos/jkbrzt/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过命令行的输入重定向上传文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http example.org &amp;lt; file.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 &lt;code&gt;wget&lt;/code&gt; 风格下载文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --download example.org/file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用命令会话对同一 host 进行请求之间的持久通信：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --session=logged-in -a username:password httpbin.org/get API-Key:123
+http --session=logged-in httpbin.org/headers
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;自定义请求 host 头：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http localhost:8000 Host:example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-方法&#34;&gt;HTTP 方法&lt;/h2&gt;
+
+&lt;p&gt;HTTP 方法的名称在 URL 参数之前：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http DELETE example.org/todos/7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这看起来就像是原生的 HTTP 请求发送的文本一样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-http&#34;&gt;DELETE /todos/7 HTTP/1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;请求-url&#34;&gt;请求 URL&lt;/h2&gt;
+
+&lt;p&gt;HTTPie 唯一必传的一个参数是请求 URL，默认的方案不出意料的是
+&lt;code&gt;http://&lt;/code&gt;，可以在请求的时候缺省 - &lt;code&gt;http example.org&lt;/code&gt; 是没问题的&lt;/p&gt;
+
+&lt;h3 id=&#34;querystring-参数&#34;&gt;Querystring 参数&lt;/h3&gt;
+
+&lt;p&gt;如果需要在命令行手动构建 URLs，你可能会觉得使用 &lt;code&gt;param==value&lt;/code&gt; 添加参数的方式是比较方便的，这样你就不需要担心命令行中转义链接字符串 &lt;code&gt;&amp;amp;&lt;/code&gt; 的问题，当然参数中的特殊字符也将被自动转义（除非已经转义过）。用下面的命令搜索 &lt;code&gt;HTTPie logo&lt;/code&gt; 可以在 google 图片上结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http www.google.com search==&#39;HTTPie logo&#39; tbm==isch
+
+GET /?search=HTTPie+logo&amp;amp;tbm=isch HTTP/1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;localhost-的-url-缩写&#34;&gt;localhost 的 URL 缩写&lt;/h3&gt;
+
+&lt;p&gt;另外，类似 &lt;code&gt;curl&lt;/code&gt; 的 localhost 缩写也是支持的。这表示你可以使用 &lt;code&gt;:3000&lt;/code&gt; 来代替
+&lt;code&gt;http://localhost:3000&lt;/code&gt;, 如果不传入端口号，&lt;code&gt;80&lt;/code&gt; 将会默认被使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http :/foo
+
+GET /foo HTTP/1.1
+Host: localhost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http :3000/bar
+
+GET /bar HTTP/1.1
+Host: localhost:3000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http :
+
+GET / HTTP/1.1
+Host: localhost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;自定义默认的方案&#34;&gt;自定义默认的方案&lt;/h3&gt;
+
+&lt;p&gt;你可以使用 &lt;code&gt;--default-scheme &amp;lt;URL_SCHEME&amp;gt;&lt;/code&gt; 参数来指定非 HTTP 的其它协义&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;alias https=&#39;http --default-scheme=https&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;请求项&#34;&gt;请求项&lt;/h2&gt;
+
+&lt;p&gt;不同的请求项类型提供一种便捷的方法来指定 HTTP 头、简单的 JSON
+、表单数据、文件、URL 参数&lt;/p&gt;
+
+&lt;p&gt;URL 参数后面紧随的是 &lt;code&gt;键/值&lt;/code&gt; 对参数都会被拼装成请求发送。不同类型的 &lt;code&gt;键/值&lt;/code&gt;
+对分割符号分别是：&lt;code&gt;:&lt;/code&gt;, &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;:=&lt;/code&gt;, &lt;code&gt;@&lt;/code&gt;, &lt;code&gt;=@&lt;/code&gt;, &lt;code&gt;:=@&lt;/code&gt;。用 &lt;code&gt;@&lt;/code&gt;
+分割的参数表示文件路径&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;项类型(item type)&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;描述(Description)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;HTTP 头参数&lt;br/&gt; &lt;code&gt;Name:Value&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;任意的 HTTP 头，比如：&lt;code&gt;X-API-Token:123&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;URL 参数&lt;br/&gt; &lt;code&gt;name==value&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;通过分割符 &lt;code&gt;==&lt;/code&gt; 表示一个查询字符串的 &lt;code&gt;键/值&lt;/code&gt; 对&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;数据域&lt;br/&gt; &lt;code&gt;field=value&lt;/code&gt;,&lt;br/&gt; &lt;code&gt;field=@file.txt&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;请求一个默认会被序列化成 JSON 的数据域，或者表单类型 form-encoded&lt;code&gt;(--form, -f)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;纯 JSON 域&lt;br/&gt; &lt;code&gt;field:=json&lt;/code&gt;,&lt;br/&gt; &lt;code&gt;field:=@file.json&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;当需要指定一个或者多数域参数类型 &lt;code&gt;boolean&lt;/code&gt;, &lt;code&gt;number&lt;/code&gt; .. 时非常有用， 比如：meals:=&amp;rsquo;[&amp;ldquo;ham&amp;rdquo;,&amp;ldquo;spam&amp;rdquo;]&amp;rsquo; or pies:=&lt;a href=&#34;注意引号&#34;&gt;1,2,3&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Form 表单文件域&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;仅当传入参数 &lt;code&gt;--form, -f&lt;/code&gt; 时有效，比如 &lt;code&gt;screenshot@~/Pictures/img.png&lt;/code&gt; 文件内容将会被序列化成 &lt;code&gt;multipart/form-data&lt;/code&gt; 发送&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;数据域不是唯一的指定请求数据的方式，&lt;a href=&#34;#重定向输入&#34;&gt;重定向输入&lt;/a&gt;也可以&lt;/p&gt;
+
+&lt;h3 id=&#34;字符转义规则&#34;&gt;字符转义规则&lt;/h3&gt;
+
+&lt;p&gt;可以使用 &lt;code&gt;\&lt;/code&gt; 来转义不应该被用于分割符的情况。比如 &lt;code&gt;foo\==bar&lt;/code&gt;
+会被转义成一个数据键值对（foo= 和 bar）而不是 URL 参数&lt;/p&gt;
+
+&lt;p&gt;通常情况需要使用引号包围值，比如 &lt;code&gt;foo=&#39;bar baz&#39;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果有一个域的名字或者 header 以减号开头，你需要把这些参数放在一个特殊符号 &lt;code&gt;--&lt;/code&gt; &lt;strong&gt;后面&lt;/strong&gt;
+，这样做是为了和 &lt;code&gt;--arguments&lt;/code&gt; 区分开&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http httpbin.org/post  --  -name-starting-with-dash=foo -Unusual-Header:bar
+
+POST /post HTTP/1.1
+-Unusual-Header: bar
+Content-Type: application/json
+
+{
+    &amp;quot;-name-starting-with-dash&amp;quot;: &amp;quot;value&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;json&#34;&gt;JSON&lt;/h2&gt;
+
+&lt;p&gt;JSON 是现代 web services 通用规范，HTTPie 也默认遵循了它的 &lt;strong&gt;不严格的数据类型&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http PUT example.org name=John email=john@example.org
+
+PUT / HTTP/1.1
+Accept: application/json, */*
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Host: example.org
+
+{
+    &amp;quot;name&amp;quot;: &amp;quot;John&amp;quot;,
+    &amp;quot;email&amp;quot;: &amp;quot;john@example.org&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;默认行为&#34;&gt;默认行为&lt;/h3&gt;
+
+&lt;p&gt;如果你的命令包含了一些请求项数据，它们将默认被序列化成 JSON 对象。HTTPie
+会默认自动添加下面两个 header 头，当然这两个头也可以重新传入&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Content-Type&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;&lt;code&gt;application/json&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Accept&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;application/json, */*&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;明确的-json&#34;&gt;明确的 JSON&lt;/h3&gt;
+
+&lt;p&gt;你可以使用命令行参数 &lt;code&gt;--json, -j&lt;/code&gt; 明确地设置 &lt;code&gt;Accept&lt;/code&gt; 为 &lt;code&gt;application/json&lt;/code&gt;
+而无需在意发送的数据是什么（这是个快捷方式，也可以使用普通的 header 注解：&lt;code&gt;http
+url Accept:&#39;application/json, */*&#39;&lt;/code&gt;），另外，HTTPie 会试着检测 JSON 响应，即使
+&lt;code&gt;Content-Type&lt;/code&gt; 是不正常的 &lt;code&gt;text/plain&lt;/code&gt; 或者未知类型&lt;/p&gt;
+
+&lt;h3 id=&#34;非字符串的-json-域&#34;&gt;非字符串的 JSON 域&lt;/h3&gt;
+
+&lt;p&gt;非字符串类型的 JSON 域使用 &lt;code&gt;:=&lt;/code&gt; 分割，这可以允许你嵌入原生纯 JSON
+到结果对象，文本和原生的纯 JSNO 文件也可以使用 &lt;code&gt;=@&lt;/code&gt; 和 &lt;code&gt;:=G&lt;/code&gt; 嵌入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http PUT api.example.com/person/1 \
+    name=John \
+    age:=29 married:=false hobbies:=&#39;[&amp;quot;http&amp;quot;, &amp;quot;pies&amp;quot;]&#39; \  # Raw JSON
+    description=@about-john.txt \   # Embed text file
+    bookmarks:=@bookmarks.json      # Embed JSON file
+
+PUT /person/1 HTTP/1.1
+Accept: application/json, */*
+Content-Type: application/json
+Host: api.example.com
+
+{
+    &amp;quot;age&amp;quot;: 29,
+    &amp;quot;hobbies&amp;quot;: [
+        &amp;quot;http&amp;quot;,
+        &amp;quot;pies&amp;quot;
+    ],
+    &amp;quot;description&amp;quot;: &amp;quot;John is a nice guy who likes pies.&amp;quot;,
+    &amp;quot;married&amp;quot;: false,
+    &amp;quot;name&amp;quot;: &amp;quot;John&amp;quot;,
+    &amp;quot;bookmarks&amp;quot;: {
+        &amp;quot;HTTPie&amp;quot;: &amp;quot;http://httpie.org&amp;quot;,
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过请注意，当发送复杂数据的时候，这个例子使用的语法会显得很笨重。在这种情况下 &lt;a href=&#34;#重定向输入&#34;&gt;重定向输入&lt;/a&gt; 将会更合适：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http POST api.example.com/person/1 &amp;lt; person.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;表单&#34;&gt;表单&lt;/h2&gt;
+
+&lt;p&gt;提交表单和发送 JSON 请求很相似，通常情况下唯一的不同是添加额外的 &lt;code&gt;--form, -f&lt;/code&gt;
+参数，这将确保数据域和 &lt;code&gt;Content-Type&lt;/code&gt; 被设置成 &lt;code&gt;application/x-www-form-urlencoded; charset=utf-8&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;普通的表单&#34;&gt;普通的表单&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --form POST api.example.org/person/1 name=&#39;John Smith&#39;
+
+POST /person/1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+
+name=John+Smith
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;文件上传表单&#34;&gt;文件上传表单&lt;/h3&gt;
+
+&lt;p&gt;如果有一个文件域，序列化方式和 content type 会是 &lt;code&gt;multipart/form-data&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -f POST example.com/jobs name=&#39;John Smith&#39; cv@~/Documents/cv.pdf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的请求和下面的 HTML 表单发送请求是一样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;form enctype=&amp;quot;multipart/form-data&amp;quot; method=&amp;quot;post&amp;quot; action=&amp;quot;http://example.com/jobs&amp;quot;&amp;gt;
+    &amp;lt;input type=&amp;quot;text&amp;quot; name=&amp;quot;name&amp;quot; /&amp;gt;
+    &amp;lt;input type=&amp;quot;file&amp;quot; name=&amp;quot;cv&amp;quot; /&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意 &lt;code&gt;@&lt;/code&gt; 用来模拟文件上传域，而 &lt;code&gt;=@&lt;/code&gt;
+是把文件内容以文本的方式嵌入到数据域的值里面&lt;/p&gt;
+
+&lt;h2 id=&#34;http-头&#34;&gt;HTTP 头&lt;/h2&gt;
+
+&lt;p&gt;可以使用 &lt;code&gt;Header:Value&lt;/code&gt; 注解的形式来添加自定义头信息&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http example.org  User-Agent:Bacon/1.0  &#39;Cookie:valued-visitor=yes;foo=bar&#39;  \
+    X-Foo:Bar  Referer:http://httpie.org/
+
+GET / HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Cookie: valued-visitor=yes;foo=bar
+Host: example.org
+Referer: http://httpie.org/
+User-Agent: Bacon/1.0
+X-Foo: Bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;默认的请求头&#34;&gt;默认的请求头&lt;/h3&gt;
+
+&lt;p&gt;有几个默认的请求头是 HTTPie 设置的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-http&#34;&gt;GET / HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: HTTPie/&amp;lt;version&amp;gt;
+Host: &amp;lt;taken-from-URL&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;空头和重新设置默认头&#34;&gt;空头和重新设置默认头&lt;/h3&gt;
+
+&lt;p&gt;可以使用 &lt;code&gt;Header:&lt;/code&gt; 来取消上面的几个默认头信息&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http httpbin.org/headers Accept: User-Agent:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;请求中的 &lt;code&gt;Accept&lt;/code&gt; 和 &lt;code&gt;User-Agent&lt;/code&gt; 头都会被移除&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code&gt;Header;&lt;/code&gt; 表示添加一个为空的头信息，注意须使用引号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -v httpbin.org/headers &#39;Host;&#39;
+
+GET /headers HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host:
+User-Agent: HTTPie/0.9.9
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;授权验证&#34;&gt;授权验证&lt;/h2&gt;
+
+&lt;p&gt;目前支持的验证方案有基础和摘要两种（查看更多 &lt;a href=&#34;#授权插件&#34;&gt;授权插件&lt;/a&gt;），有两种标识来控制验证：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;--auth, -a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;把 &lt;code&gt;用户名:密码&lt;/code&gt; 做为键值对参数传入，如果只指定用户名可以使用 &lt;code&gt;-a 用户名&lt;/code&gt;，密码在接下来的提示符中输入，空密码使用 &lt;code&gt;username:&lt;/code&gt;，&lt;code&gt;username:password@hostname&lt;/code&gt; 格式的 URL 语法也是支持的，证书通过 &lt;code&gt;-a&lt;/code&gt; 参数传入且具有更高的优先级&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;--auth-type, -A&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;指定指定身份验证机制。&lt;code&gt;basic&lt;/code&gt;(默认) 和 &lt;code&gt;digest&lt;/code&gt; 两种&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;basic-授权&#34;&gt;Basic 授权&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -a username:password example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;digest-授权&#34;&gt;Digest 授权&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -A digest -a username:password example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;密码提示&#34;&gt;密码提示&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -a username example.org&amp;lt;Paste&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;netrc&#34;&gt;.netrc&lt;/h3&gt;
+
+&lt;p&gt;从你的 &lt;code&gt;~/.netrc&lt;/code&gt; 文件授权也可以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.netrc
+machine httpbin.org
+login httpie
+password test
+
+http httpbin.org/basic-auth/httpie/test
+HTTP/1.1 200 OK
+[...]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;授权插件&#34;&gt;授权插件&lt;/h3&gt;
+
+&lt;p&gt;授权机制可以使用安装插件的方式来实现，可以在 Python Package 上面找到更多相关插件&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pd/httpie-api-auth&#34;&gt;httpie-api-auth&lt;/a&gt;: ApiAuth&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/httpie/httpie-aws-auth&#34;&gt;httpie-aws-auth&lt;/a&gt;: AWS / Amazon S3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/akamai-open/httpie-edgegrid&#34;&gt;httpie-edgegrid&lt;/a&gt;: EdgeGrid&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/guardian/httpie-hmac-auth&#34;&gt;httpie-hmac-auth&lt;/a&gt;: HMAC&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/teracyhq/httpie-jwt-auth&#34;&gt;httpie-jwt-auth&lt;/a&gt;: JWTAuth (JSON Web Tokens)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ndzou/httpie-negotiate&#34;&gt;httpie-negotiate&lt;/a&gt;: SPNEGO (GSS Negotiate)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/httpie/httpie-ntlm&#34;&gt;httpie-ntlm&lt;/a&gt;: NTLM (NT LAN Manager)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/httpie/httpie-oauth&#34;&gt;httpie-oauth&lt;/a&gt;: OAuth&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/mozilla-services/requests-hawk&#34;&gt;requests-hawk&lt;/a&gt;: Hawk&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;http-重定向&#34;&gt;HTTP 重定向&lt;/h2&gt;
+
+&lt;p&gt;HTTP 重定向默认不会自动跳转，请求发出后命令行只会显示 &lt;strong&gt;第一次&lt;/strong&gt; 收到的响应&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http httpbin.org/redirect/3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;按-header-头中的-location-字段值跳转&#34;&gt;按 header 头中的 location 字段值跳转&lt;/h3&gt;
+
+&lt;p&gt;指定 &lt;code&gt;--follow, -F&lt;/code&gt; 参数让 HTTPie 自动跟随 &lt;code&gt;30x&lt;/code&gt; 响应头中的 &lt;code&gt;location&lt;/code&gt;
+字段值进行跳转，并且显示最终的响应内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --follow httpbin.org/redirect/3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;显示中间的跳转响应&#34;&gt;显示中间的跳转响应&lt;/h3&gt;
+
+&lt;p&gt;如果你也想看到更多的跳转信息，可以指定 &lt;code&gt;--all&lt;/code&gt; 参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --follow --all httpbin.org/redirect/3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;限制重定向最大次数&#34;&gt;限制重定向最大次数&lt;/h3&gt;
+
+&lt;p&gt;改变默认最大 &lt;code&gt;30&lt;/code&gt; 次重定向值可以使用 &lt;code&gt;--max-redirects=&amp;lt;limit&amp;gt;&lt;/code&gt; 参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --follow --all --max-redirects=5 httpbin.org/redirect/3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;代理&#34;&gt;代理&lt;/h2&gt;
+
+&lt;p&gt;你可以通过添加参数 &lt;code&gt;--proxy&lt;/code&gt; 来指定各自协义（为了防止跨协义的重定向，协义被包含在了参数值中）的代理服务器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --proxy=http:http://10.10.1.10:3128 --proxy=https:https://10.10.1.10:1080 example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 basic 授权&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --proxy=http:http://user:pass@10.10.1.10:3128 example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;环境变量&#34;&gt;环境变量&lt;/h3&gt;
+
+&lt;p&gt;也可以通过设置 &lt;code&gt;HTTP_PROXY&lt;/code&gt; 和 &lt;code&gt;HTTPS_PROXY&lt;/code&gt; 环境变量来配置代理，底层的 request
+库也将使用这些代理配置，如果你想指定某些 host 不使用代理，可以通过添加 &lt;code&gt;NO_PROXY&lt;/code&gt; 参数来实现&lt;/p&gt;
+
+&lt;p&gt;在你的 &lt;code&gt;~/.bash_profile&lt;/code&gt; 文件中（zsh 则在 &lt;code&gt;~/.zshrc&lt;/code&gt; 中）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export HTTP_PROXY=http://10.10.1.10:3128
+export HTTPS_PROXY=https://10.10.1.10:1080
+export NO_PROXY=localhost,example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;socks&#34;&gt;Socks&lt;/h3&gt;
+
+&lt;p&gt;要启用 socks 代理支持请使用 pip 安装 &lt;code&gt;requests[socks]&lt;/code&gt; 库&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install -U requests[socks]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用法与其它类型的代理相同：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --proxy=http:socks5://user:pass@host:port --proxy=https:socks5://user:pass@host:port example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;https&#34;&gt;HTTPS&lt;/h2&gt;
+
+&lt;h3 id=&#34;服务器-ssl-证书验证&#34;&gt;服务器 SSL 证书验证&lt;/h3&gt;
+
+&lt;p&gt;使用参数 &lt;code&gt;--verify=no&lt;/code&gt; 可以跳过主机 SSL 验证（默认：&lt;code&gt;yes&lt;/code&gt;）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --verify=no https://example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;自定义-ca-包&#34;&gt;自定义 CA 包&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;code&gt;--verify=&amp;lt;CA_BUNDLE_PATH&amp;gt;&lt;/code&gt; 指定 CA 认证包路径&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --cert=client.pem https://example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;客户端-ssl-证书&#34;&gt;客户端 SSL 证书&lt;/h3&gt;
+
+&lt;p&gt;使用客户端 SSL 证书进行 SSL 通信，可以用 &lt;code&gt;--cert&lt;/code&gt; 参数指定证书文件路径&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --cert=client.pem https://example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果证书中不包含私钥，可以通过 &lt;code&gt;--cert-key&lt;/code&gt; 参数指定密钥文件路径&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --cert=client.crt --cert-key=client.key https://example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ssl-版本&#34;&gt;SSL 版本&lt;/h3&gt;
+
+&lt;p&gt;参数 &lt;code&gt;--ssl=&amp;lt;PROTOCOL&amp;gt;&lt;/code&gt; 用来指定你想使用的 SSL 协义版本，默认是 &lt;code&gt;SSL
+v2.3&lt;/code&gt;。这将会协商服务端和你安装的 OpenSSL 支持的最高 SSL
+协议版本。可用的版本有： &lt;code&gt;ssl2.3&lt;/code&gt;, &lt;code&gt;ssl3&lt;/code&gt;, &lt;code&gt;tls1&lt;/code&gt;, &lt;code&gt;tls1.1&lt;/code&gt;, &lt;code&gt;tls1.2&lt;/code&gt;
+（实际上可用的协义可能有很多种，这由你安装的 OpenSSL 决定）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 指定容易受到攻击的 SSL v3 协义与老服务器进行通信
+http --ssl=ssl3 https://vulnerable.example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;服务器名称指示-sni-server-name-indication&#34;&gt;服务器名称指示 SNI(Server Name Indication)&lt;/h3&gt;
+
+&lt;p&gt;如果你的 HTTPie 版本（可以使用 &lt;code&gt;http --debug&lt;/code&gt; 查看版本）小于 2.7.9，又需要使用
+SNI 与服务器会话。那么你需要安装额外的依赖&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install --upgrade requests[security]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用下面的命令测试 SNI 支持&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http https://sni.velox.ch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;输出参数&#34;&gt;输出参数&lt;/h2&gt;
+
+&lt;p&gt;HTTPie 默认只输出最终响应信息并且打印（header,
+body同样），你可以通过下面一些参数控制打印内容：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;命令行参数&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&amp;ndash;headers, -h&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;仅打印响应头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&amp;ndash;body, -b&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;仅打印响应体&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&amp;ndash;verbose, -v&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;打印所有的 HTTP 请求来回内容，这将默认开启 &lt;code&gt;--all&lt;/code&gt; 参数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;使用 &lt;code&gt;--verbose&lt;/code&gt; 参数来调试请求或生成文档时是非常有用的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --verbose PUT httpbin.org/put hello=world
+PUT /put HTTP/1.1
+Accept: application/json, */*
+Accept-Encoding: gzip, deflate
+Content-Type: application/json
+Host: httpbin.org
+User-Agent: HTTPie/0.2.7dev
+
+{
+    &amp;quot;hello&amp;quot;: &amp;quot;world&amp;quot;
+}
+
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 477
+Content-Type: application/json
+Date: Sun, 05 Aug 2012 00:25:23 GMT
+Server: gunicorn/0.13.4
+
+{
+    […]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;哪部分的-http-请求内容应该打印出来&#34;&gt;哪部分的 HTTP 请求内容应该打印出来&lt;/h3&gt;
+
+&lt;p&gt;所有的 HTTP 输出选项都属于更强大的 &lt;code&gt;--print, -p&lt;/code&gt; 参数的快捷方式。&lt;code&gt;--print, -p&lt;/code&gt;
+ 接受一个字符串，字符串的每个字母都表示下面的 HTTP 某一部分&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;字符&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;代表&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;H&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;请求头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;B&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;请求体&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;h&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;响应头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;b&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;响应体&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;打印请求头和响应头：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --print=Hh PUT httpbin.org/put hello=world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;查看中间的请求-响应&#34;&gt;查看中间的请求/响应&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;code&gt;--all&lt;/code&gt; 参数可以查看 HTTP 通信中的所有信息，中间的 HTTP
+通信包括跟随重定向（使用参数&lt;code&gt;--follow&lt;/code&gt;）和使用 HTTP
+摘要授权时第一次未授权的请求（使用参数 &lt;code&gt;--auth=diggest&lt;/code&gt;）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 包括最终响应之前的所有响应信息
+http --all --follow httpbin.org/redirect/3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;中间请求/响应默认会使用 &lt;code&gt;--print, -p&lt;/code&gt; 参数指定的值格式化，可以使用 &lt;code&gt;--history-print, -P&lt;/code&gt; 指定，
+参数和 &lt;code&gt;--print, -p&lt;/code&gt; 是一样的。但是这只实用于 &lt;strong&gt;中间请求&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 中间请求/响应信息使用 H 格式化，最终请求/响应信息使用 Hh 格式化:
+http -A digest -a foo:bar --all -p Hh -P H httpbin.org/digest-auth/auth/foo/bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;条件化的-body-内容下载&#34;&gt;条件化的 body 内容下载&lt;/h3&gt;
+
+&lt;p&gt;做为一个优化项，响应体在仅作为输出一部分时才会被下载，这和 &lt;code&gt;HEAD&lt;/code&gt;
+类型的请求类似（除了 HEAD 可以使用在任何 HTTP 请求中）&lt;/p&gt;
+
+&lt;p&gt;比如有一个 API 更新后会返回整个资源，但是你只对更新后响应头中的状态码感兴趣：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --headers PATCH example.org/Really-Huge-Resource name=&#39;New Name&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于我们在上面设置了只打印头信息，当响应头接收完成的时候服务器连接就会被关闭，
+带宽和时间不会浪费在下载响应体，你可以不必在意。响应头总是会被下载的无论它是不是输出部分&lt;/p&gt;
+
+&lt;h2 id=&#34;重定向输入&#34;&gt;重定向输入&lt;/h2&gt;
+
+&lt;p&gt;直接从 &lt;code&gt;stdin&lt;/code&gt; （标准输入）管道传入请求数据是大部分人认为比较好的方法。
+这些数据被缓冲而且不需要更多的操作就可以做为请求体被使用，使用管道有下面几个好用的方法：&lt;/p&gt;
+
+&lt;p&gt;从一个文件重新定向&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http PUT example.com/person/1 X-API-Token:123 &amp;lt; person.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者从其它程序的输出&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep &#39;401 Unauthorized&#39; /var/log/httpd/error_log | http POST example.org/intruders
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然也可以使用 &lt;code&gt;echo&lt;/code&gt; 命令来传简单数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &#39;{&amp;quot;name&amp;quot;: &amp;quot;John&amp;quot;}&#39; | http PATCH example.com/person/1 X-API-Token:123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;甚至可以使用 web services&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http GET https://api.github.com/repos/jkbrzt/httpie | http POST httpbin.org/post
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以使用 &lt;code&gt;cat&lt;/code&gt; 命令来输入多行文本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat | http POST example.com
+&amp;lt;paste&amp;gt;
+^D
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat | http POST example.com/todos Content-Type:text/plain
+- buy milk
+- call parents
+^D
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在 macOS 中可以使用 &lt;code&gt;pbpaste&lt;/code&gt; 命令把剪贴板中的内容做为数据发送&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pbpaste | http PUT example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过 &lt;code&gt;stdin&lt;/code&gt; 传递数据的方式 &lt;strong&gt;不能&lt;/strong&gt; 和指定数据域的方式混合使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &#39;data&#39; | http POST example.org more=data   # 不可以
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;从一个文件中取请求数据&#34;&gt;从一个文件中取请求数据&lt;/h3&gt;
+
+&lt;p&gt;指定文件路径（&lt;code&gt;@/path/to/file&lt;/code&gt;）方式可以替代上面使用 &lt;code&gt;stdin&lt;/code&gt; 的方式&lt;/p&gt;
+
+&lt;p&gt;这个方法有个优点，&lt;code&gt;Content-Type&lt;/code&gt;
+可以根据提供的文件扩展名自动设置成对应的。比如下面的请求会被设置头 &lt;code&gt;Content-Type: application/xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http PUT httpbin.org/put @/data/file.xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;命令行输出&#34;&gt;命令行输出&lt;/h2&gt;
+
+&lt;p&gt;HTTPie 默认会做一些事情，目的是为了让命令行输出内容有更高的可读性&lt;/p&gt;
+
+&lt;h3 id=&#34;颜色和格式化&#34;&gt;颜色和格式化&lt;/h3&gt;
+
+&lt;p&gt;语法高亮会应用在 HTTP 请求的 headers 和 body 里面。如果你不喜欢默认的配色方案，可以使用
+&lt;code&gt;--style&lt;/code&gt; 参数自定义（使用&lt;code&gt;http --help&lt;/code&gt;命令查看更多选项）&lt;/p&gt;
+
+&lt;p&gt;还有下面几个格式化规则会被使用：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTTP 头会按名称排序&lt;/li&gt;
+&lt;li&gt;JSON 数据会有缩进，并且按 key 名排序，unicode 序列会被转换成实际字符&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下面这些参数可以用在处理输出结果中：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;命令行参数&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;ndash;pretty=all&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;应用颜色和格式化，默认&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;ndash;pretty=colors&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;仅应用颜色&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;ndash;pretty=format&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;仅应用格式化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;ndash;pretty=none&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;不使用颜色和格式化，重定向时默认使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;二进制数据&#34;&gt;二进制数据&lt;/h3&gt;
+
+&lt;p&gt;二进制数据在命令行中会被禁止，这会使处理响应返回的二进制数据变得更安全，重定向时也禁止二进制数据，但是会被装饰输出。一旦当我们知道响应体是二进制数据时，连接会关闭&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http example.org/Movie.mov
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你几乎可以立即看见下面的提示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Encoding: gzip
+Content-Type: video/quicktime
+Transfer-Encoding: chunked
+
++-----------------------------------------+
+| NOTE: binary data not shown in terminal |
++-----------------------------------------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;重定向输出&#34;&gt;重定向输出&lt;/h2&gt;
+
+&lt;p&gt;与命令行输出相比，重定向输出使用了不同的默认值，不同之处在于：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;格式化和种颜色默认不会使用（除非&lt;code&gt;--pretty&lt;/code&gt;被指定）&lt;/li&gt;
+&lt;li&gt;只输出响应体（除非指定了输出参数）&lt;/li&gt;
+&lt;li&gt;二进制结果不会被禁止&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;原因是为了把 HTTPie 的结果直接 piping
+到其它程序，并且使下载文件不需要额外的参数标识。多数情况下输出重定向时只有响应体有意义&lt;/p&gt;
+
+&lt;p&gt;下载一个文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http example.org/Movie.mov &amp;gt; Movie.mov
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下载 Octocat 图片，使用 ImageMagick 修改大小，上传到其它地方：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http octodex.github.com/images/original.jpg | convert - -resize 25% -  | http example.org/Octocats
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;强制使用格式化与颜色，在 &lt;code&gt;less&lt;/code&gt; 的分页中显示请求和响应&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --pretty=all --verbose example.org | less -R
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;-R&lt;/code&gt; 标识告诉 &lt;code&gt;less&lt;/code&gt; 命令解析 HTTPie 输出中的颜色序列&lt;/p&gt;
+
+&lt;p&gt;你可以使用下面的 bash 函数代码建立一个调用 HTTPie
+分页格式化且高亮输出的快捷方式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;function httpless {
+    # `httpless example.org&#39;
+    http --pretty=all --print=hb &amp;quot;$@&amp;quot; | less -R;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;下载模式&#34;&gt;下载模式&lt;/h2&gt;
+
+&lt;p&gt;HTTPie 具有下载模式，这和 &lt;code&gt;wget&lt;/code&gt; 命令类似&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code&gt;--download, -d&lt;/code&gt; 标识启用，响应头会打印到命令行，下载响应体的进度条也会显示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --download https://github.com/jkbrzt/httpie/archive/master.tar.gz
+HTTP/1.1 200 OK
+Content-Disposition: attachment; filename=httpie-master.tar.gz
+Content-Length: 257336
+Content-Type: application/x-gzip
+
+Downloading 251.30 kB to &amp;quot;httpie-master.tar.gz&amp;quot;
+Done. 251.30 kB in 2.73862s (91.76 kB/s)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;下载文件的文件名&#34;&gt;下载文件的文件名&lt;/h3&gt;
+
+&lt;p&gt;如果没有指定参数 &lt;code&gt;--output, -o&lt;/code&gt;，文件名将由 &lt;code&gt;Content-Disposition&lt;/code&gt; 决定，或者通过
+URL 及其 &lt;code&gt;Content-Type&lt;/code&gt;，如果名字已占用，HTTPie 会添加唯一后缀&lt;/p&gt;
+
+&lt;h3 id=&#34;下载的同时-piping&#34;&gt;下载的同时 piping&lt;/h3&gt;
+
+&lt;p&gt;即使响应头和进度状态显示在命令行中，你仍然可以将响应重定向到其它的程序&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -d https://github.com/jkbrzt/httpie/archive/master.tar.gz |  tar zxf -
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;恢复下载&#34;&gt;恢复下载&lt;/h3&gt;
+
+&lt;p&gt;如果指定 &lt;code&gt;--output, -o&lt;/code&gt;，你可以 &lt;code&gt;--continue, -c&lt;/code&gt;
+恢复部分下载。不过仅当服务器支持 &lt;code&gt;Range&lt;/code&gt; 请求而且响应返回 &lt;code&gt;206 Partial Content&lt;/code&gt;
+才可以，如果服务器不支持这个功能，那就只会下载整个文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -dco file.zip example.org/file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;其它注意事项&#34;&gt;其它注意事项&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--download&lt;/code&gt; 仅更改响应正文的处理方式&lt;/li&gt;
+&lt;li&gt;仍然可以使用自定义 header 头、使用 session 会话，&lt;code&gt;--verbose, -v&lt;/code&gt; 等&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--download&lt;/code&gt; 意味着启用 &lt;code&gt;--follow&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果文件没有被完全下载完，HTTPie 将会返回错误状态码 &lt;code&gt;1&lt;/code&gt; 并退出&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Accept-Encoding&lt;/code&gt; 不能和 &lt;code&gt;--download&lt;/code&gt; 一起使用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;流式响应&#34;&gt;流式响应&lt;/h2&gt;
+
+&lt;p&gt;响应体会被以块的形式下载和打印，这使程序在不使用大量内存情况下进行流式传输和下载，然而如果使用颜色和格式化参数，&lt;strong&gt;整个&lt;/strong&gt; 响应体会被缓冲，然后立即处理&lt;/p&gt;
+
+&lt;h3 id=&#34;禁用缓冲&#34;&gt;禁用缓冲&lt;/h3&gt;
+
+&lt;p&gt;可以使用 &lt;code&gt;--stream, -S&lt;/code&gt; 进行下面的操作：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;输出内容以更小的块更新，不需要任何缓冲，这使得 HTTPie 表现的像 &lt;code&gt;tail -f&lt;/code&gt; 命令一样&lt;/li&gt;
+&lt;li&gt;即使输出被美化，流也会启用：它将应用于响应的每一行并立即更新。这样就可以为持续时间长的请求提供一个漂亮的输出，例如一个 Twitter 的流 API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;示例&#34;&gt;示例&lt;/h3&gt;
+
+&lt;p&gt;修饰过的流响应&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --stream -f -a YOUR-TWITTER-NAME https://stream.twitter.com/1/statuses/filter.json track=&#39;Justin Bieber&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;像 &lt;code&gt;tail -f&lt;/code&gt; 一样小块的流输出&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --stream -f -a YOUR-TWITTER-NAME https://stream.twitter.com/1/statuses/filter.json track=Apple \
+| while read tweet; do echo &amp;quot;$tweet&amp;quot; | http POST example.org/tweets ; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;会话&#34;&gt;会话&lt;/h2&gt;
+
+&lt;p&gt;默认情况下，同一个 host 每个 HTTPie 发出的请求完全独立&lt;/p&gt;
+
+&lt;p&gt;然而，HTTPie 支持使用 &lt;code&gt;--session=SESSION_NAME_OR_PATH&lt;/code&gt;
+参数进行持久会话。在同一个 host 的会话中，自定义 header(除了以&lt;code&gt;Content-&lt;/code&gt; 和 &lt;code&gt;If-&lt;/code&gt; 开头)、authorization、cookies(手动指定或者服务器发送) 会持续保存&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 创建一个新会话
+http --session=/tmp/session.json example.org API-Token:123
+
+# 复制用已存在的会话 API-Token 会自动设置
+http --session=/tmp/session.json example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所有的会话数据都会被存储成纯文本，这表示会话文件可以使用编辑器手动添加或者修改——其实就是 JSON 数据&lt;/p&gt;
+
+&lt;h3 id=&#34;具名会话&#34;&gt;具名会话&lt;/h3&gt;
+
+&lt;p&gt;每个 host 都可以建一个或者多个会话，比如：下面的命令将为 host 是 &lt;code&gt;example.org&lt;/code&gt; 的请求建一个名为 &lt;code&gt;name1&lt;/code&gt; 的会话：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --session=user1 -a user1:password example.org X-Foo:Bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从现在起，你就通过名字来选择会话，当你选择使用一个会话时，之前用过的授权、HTTP
+头都会被自动添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --session=user1 example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建或者重用不同的会话，只需要指定不同的名字即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --session=user2 -a user2:password example.org X-Bar:Foo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;具名会话将被以 JSON 的数据格式存储在 &lt;code&gt;~/.httpie/sessions/&amp;lt;host&amp;gt;/&amp;lt;name&amp;gt;.json&lt;/code&gt;
+下面（windows下则是 &lt;code&gt;%APPDATA%\httpie\sessions\&amp;lt;host&amp;gt;\&amp;lt;name&amp;gt;.json&lt;/code&gt;）&lt;/p&gt;
+
+&lt;h3 id=&#34;匿名会话&#34;&gt;匿名会话&lt;/h3&gt;
+
+&lt;p&gt;不同与具名会话，你也可以直接使用一个文件路径来指定会话文件的存储地址，这也可以在不同的 host 间复用会话：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http --session=/tmp/session.json example.org
+http --session=/tmp/session.json admin.example.org
+http --session=~/.httpie/sessions/another.example.org/test.json example.org
+http --session-read-only=/tmp/session.json example.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;只读会话&#34;&gt;只读会话&lt;/h3&gt;
+
+&lt;p&gt;如果复用一个会话又不想更新会话信息，可以通过指定 &lt;code&gt;--session-read-only=SESSION_NAME_OR_PATH&lt;/code&gt; 来实现&lt;/p&gt;
+
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;HTTPie 使用了一个简单的 JSON 配置文件&lt;/p&gt;
+
+&lt;h3 id=&#34;配置文件路径&#34;&gt;配置文件路径&lt;/h3&gt;
+
+&lt;p&gt;默认的配置文件路径在 &lt;code&gt;~/.httpie/config.json&lt;/code&gt; （window 在 &lt;code&gt;%APPDATA%\httpie\config.json&lt;/code&gt;），配置文件的路径也可以通过修改环境变量 &lt;code&gt;HTTPIE_CONFIG_DIR&lt;/code&gt; 来更改，可以使用 &lt;code&gt;http --debug&lt;/code&gt; 命令查看当前配置文件路径&lt;/p&gt;
+
+&lt;h3 id=&#34;可配置的参数&#34;&gt;可配置的参数&lt;/h3&gt;
+
+&lt;p&gt;JSON 配置文件包含以下的键：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;default_options&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;参数默认值数组（默认为空），数组里面的参数会被应用于每次 HTTPie 的调用&lt;/p&gt;
+
+&lt;p&gt;比如说，你可以使用这个选项改变默认的样式和输出参数：&lt;code&gt;&amp;quot;default_options&amp;quot;: [&amp;quot;--style=fruity&amp;quot;, &amp;quot;--body&amp;quot;]&lt;/code&gt; ，另外一个常用的默认参数是 &lt;code&gt;&amp;quot;--session=default&amp;quot;&lt;/code&gt;，这会让 HTTPie 总是使用会话（名称为default）。也可以使用 &lt;code&gt;--form&lt;/code&gt; 改变默认 &lt;strong&gt;不严格的&lt;/strong&gt; JSON 类型为 form 类型&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;__meta__&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;HTTPie 自动存储了一些它自己的元数据，不要动它&lt;/p&gt;
+
+&lt;h3 id=&#34;取消之前指定的参数&#34;&gt;取消之前指定的参数&lt;/h3&gt;
+
+&lt;p&gt;配置文件中的参数和其它任何指定参数的方法，都可以使用 &lt;code&gt;--no-OPTION&lt;/code&gt;
+参数来取消，比如：&lt;code&gt;--no-style&lt;/code&gt; 或者 &lt;code&gt;--no-session&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;脚本&#34;&gt;脚本&lt;/h2&gt;
+
+&lt;p&gt;当你在 shell 脚本中使用 HTTPie 的时候，&lt;code&gt;--check-status&lt;/code&gt;
+标识会比较好用。这个标识将告知 HTTPie 如果响应状态码是 &lt;code&gt;3xx&lt;/code&gt;, &lt;code&gt;4xx&lt;/code&gt;, &lt;code&gt;5xx&lt;/code&gt;
+时程序将退出并显示对应的错误码 &lt;code&gt;3&lt;/code&gt;（除非 &lt;code&gt;--follow&lt;/code&gt; 参数被指定）, &lt;code&gt;4&lt;/code&gt;, &lt;code&gt;5&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+if http --check-status --ignore-stdin --timeout=2.5 HEAD example.org/health &amp;amp;&amp;gt; /dev/null; then
+    echo &#39;OK!&#39;
+else
+    case $? in
+        2) echo &#39;Request timed out!&#39; ;;
+        3) echo &#39;Unexpected HTTP 3xx Redirection!&#39; ;;
+        4) echo &#39;HTTP 4xx Client Error!&#39; ;;
+        5) echo &#39;HTTP 5xx Server Error!&#39; ;;
+        6) echo &#39;Exceeded --max-redirects=&amp;lt;n&amp;gt; redirects!&#39; ;;
+        *) echo &#39;Other Error!&#39; ;;
+    esac
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;最佳实践&#34;&gt;最佳实践&lt;/h2&gt;
+
+&lt;p&gt;在非交互式调用的情况下通常不希望使用 &lt;code&gt;stdin&lt;/code&gt; 的默认行为，可以使用 &lt;code&gt;--ignore-stdin&lt;/code&gt; 参数来禁止它&lt;/p&gt;
+
+&lt;p&gt;如果没有这个选项，HTTPie 可能会挂起，这是一个常见的问题。发生的场景可能是——例如从定时任务中调用HTTPie时，&lt;code&gt;stdin&lt;/code&gt; 未连接到终端。因此，重定向输入的规则适用，即 HTTPie 开始读取它，希望请求体将被传递。由于没有数据也没有 EOF，它会被卡住。因此，除非你将一些数据传递给 HTTPie，否则应在脚本中使用此标志&lt;/p&gt;
+
+&lt;p&gt;当然使用 &lt;code&gt;--timeout&lt;/code&gt; 参数手动设置（默认 30 秒）延迟时间是个比较好的做法&lt;/p&gt;
+
+&lt;h2 id=&#34;元信息&#34;&gt;元信息&lt;/h2&gt;
+
+&lt;h3 id=&#34;接口设计&#34;&gt;接口设计&lt;/h3&gt;
+
+&lt;p&gt;命令行参数的设计与通过网络发送 HTTP 请求的过程密切相关。这使得 HTTPie
+的命令更容易记忆和阅读。有时你甚至可以把原生的 HTTP
+请求串连到一行就很自然的形成了 HTTPie 的命令行参数。例如 对比下面这个原生 HTTP
+请求：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;POST /collection HTTP/1.1
+X-API-Key: 123
+User-Agent: Bacon/1.0
+Content-Type: application/x-www-form-urlencoded
+
+name=value&amp;amp;name2=value2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和使用 HTTPie 命令发送同样的参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;http -f POST example.org/collection \
+  X-API-Key:123 \
+  User-Agent:Bacon/1.0 \
+  name=value \
+  name2=value2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意他们两者的顺序和参数都非常相似，并且只有一小部分命令用于控制 HTTPie（&lt;code&gt;-f&lt;/code&gt; 表示让 HTTPie 发送一个 from 请求），并且不直接对应于请求的任何部分&lt;/p&gt;
+
+&lt;p&gt;两种模式：&lt;code&gt;--pretty=all&lt;/code&gt;（命令行中默认）、&lt;code&gt;--pretty=none&lt;/code&gt;（重定向输出时默认），对交互式使用和脚本调用都比较友好，HTTPie 在这过程中作为通用的 HTTP 客户端&lt;/p&gt;
+
+&lt;p&gt;由于 HTTPie 还在频繁的开发中，现有的一些命令行参数在最终版 &lt;code&gt;1.0&lt;/code&gt;
+发布之前可能会有一些微小的调整。这些调整都会在&lt;a href=&#34;#变更日志&#34;&gt;变更日志&lt;/a&gt; 里面记录&lt;/p&gt;
+
+&lt;h3 id=&#34;用户支持&#34;&gt;用户支持&lt;/h3&gt;
+
+&lt;p&gt;你可以通过下面的一些途径找到帮助支持&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jkbr/httpie/issues&#34;&gt;GitHub issues&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gitter.im/jkbrzt/httpie&#34;&gt;Our Gitter chat room&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/&#34;&gt;StackOverflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Twitter &lt;a href=&#34;https://twitter.com/clihttp&#34;&gt;@clihttp&lt;/a&gt;，也可以直接 &lt;a href=&#34;https://twitter.com/jkbrzt&#34;&gt;@jkbrzt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;相关项目&#34;&gt;相关项目&lt;/h3&gt;
+
+&lt;h4 id=&#34;依赖&#34;&gt;依赖&lt;/h4&gt;
+
+&lt;p&gt;HTTPie 底层使用了两个特别棒的库：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://python-requests.org/&#34;&gt;Requests&lt;/a&gt; — Python HTTP 库
+&lt;a href=&#34;http://pygments.org/&#34;&gt;Pygments&lt;/a&gt; — Python 代码高亮&lt;/p&gt;
+
+&lt;h4 id=&#34;httpie-的朋友&#34;&gt;HTTPie 的朋友&lt;/h4&gt;
+
+&lt;p&gt;HTTPie 可以和下面两个好友愉快地玩耍：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://stedolan.github.io/jq/&#34;&gt;jq&lt;/a&gt;
+&lt;a href=&#34;https://github.com/eliangcs/http-prompt&#34;&gt;http-prompt&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;贡献&#34;&gt;贡献&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jakubroztocil/httpie/blob/master/CONTRIBUTING.rst&#34;&gt;CONTRIBUTING.rst&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;变更日志&#34;&gt;变更日志&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jkbrzt/httpie/blob/master/CHANGELOG.rst&#34;&gt;CHANGELOG&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;插图&#34;&gt;插图&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/claudiatd/httpie-artwork&#34;&gt;claudiatd/httpie-artwork&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;许可证&#34;&gt;许可证&lt;/h3&gt;
+
+&lt;p&gt;BSD-3-Clause: &lt;a href=&#34;https://github.com/jkbrzt/httpie/blob/master/LICENSE&#34;&gt;LICENSE&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;作者&#34;&gt;作者&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://roztocil.co/&#34;&gt;Jakub Roztocil&lt;/a&gt; (&lt;a href=&#34;https://twitter.com/jkbrzt&#34;&gt;@jkbrzt&lt;/a&gt;)
+创造了 HTTPie，还有一些 &lt;a href=&#34;https://github.com/jkbrzt/httpie/contributors&#34;&gt;优秀的人&lt;/a&gt; 也贡献力量&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Fuzzy finder(fzf&#43;vim) 使用全指南</title>

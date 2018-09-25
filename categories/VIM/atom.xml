@@ -1,448 +1,320 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>VIM on Something</title>
-    <link>https://keelii.com/categories/VIM/</link>
-    <description>Recent content in VIM on Something</description>
+    <title>Vim on Something</title>
+    <link>https://keelii.com/categories/vim/</link>
+    <description>Recent content in Vim on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 14 Jun 2016 10:39:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Aug 2018 17:59:45 +0800</lastBuildDate>
     
-        <atom:link href="https://keelii.com/categories/VIM/atom.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://keelii.com/categories/vim/atom.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</title>
-      <link>https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/</link>
-      <pubDate>Tue, 14 Jun 2016 10:39:40 +0800</pubDate>
-      
-      <guid>https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/</guid>
-      <description>&lt;p&gt;vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
-官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等
-&lt;/p&gt;
-
-&lt;p&gt;需要下载的链接都在这里了：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://nuwen.net/files/mingw/mingw-14.0.exe&#34;&gt;MinGW-14.0(Distro)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Tools%20Executables/lua-5.2.4_Win64_bin.zip&#34;&gt;lua-5.2.4_Win64_bin&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://tenet.dl.sourceforge.net/project/luabinaries/5.2.4/Windows%20Libraries/Dynamic/lua-5.2.4_Win64_dllw4_lib.zip&#34;&gt;lua-5.2.4_Win64_dllw4_lib&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/vim/vim&#34;&gt;Vim&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;我自己的电脑环境配置是：&lt;strong&gt;Windows 7 SP1 64bit 企业版&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;mingw&#34;&gt;MinGW&lt;/h2&gt;
-
-&lt;p&gt;官方的 MinGW 安装了需要自己手动选择工具再安装到系统，有个简单的办法，直接使用上页的链接下载打好包的 Distro 版本，下载完就解压到任意目录即可，我放在了 C:\MinGW&lt;/p&gt;
-
-&lt;h2 id=&#34;lua&#34;&gt;Lua&lt;/h2&gt;
-
-&lt;p&gt;下载上面链接中 Windows 64bit 中的编译好的二进制文件 和 库文件，放在一个目录，比如我放在 C:\lua, 如图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16029645/de798c1c-321c-11e6-8ad5-39b852159e0e.png&#34; alt=&#34;lua dir&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;vim&#34;&gt;Vim&lt;/h2&gt;
-
-&lt;p&gt;去 vim 官方 github 仓库下载最新源代码，解压到任意目录。进入源码 src 目录，打开 os_mswin.c 注释掉下面的代码，这样 vim 就可以支持非等宽字体了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#ifndef FEAT_PROPORTIONAL_FONTS
-    /* Ignore non-monospace fonts without further ado */
-    /*
-    * hzmangel: I need non-monospace fonts!
-    if ((ntm-&amp;gt;tmPitchAndFamily &amp;amp; 1) != 0)
-    return 1;
-    */
-#endif
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;编译源文件&#34;&gt;编译源文件&lt;/h2&gt;
-
-&lt;p&gt;打开 MinGW 命令窗口 (&lt;strong&gt;C:\MinGW\open_distro_window.bat&lt;/strong&gt;)，cd 到 vim 源代码的 src 目录，执行以下命令：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -f Make_ming.mak GUI=yes FEATURES=HUGE MBYTE=yes IME=yes GIME=yes DYNAMIC_IME=yes OLE=yes PYTHON=&amp;quot;C:\Python27&amp;quot; DYNAMIC_PYTHON=yes PYTHON_VER=27 CSCOPE=yes DEBUG=no LUA=&amp;quot;C:\Lua&amp;quot; DYNAMIC_LUA=yes LUA_VER=52 USERNAME=keelii USERDOMAIN=keeliizhou@gmail.com ARCH=x86-64 gvim.exe
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意：我系统之前安装过 python27 到 C 盘，你可以根据自己的情况选择。关于 lua 的两个参数要写对：lua 安装目录 &lt;strong&gt;LUA=&amp;ldquo;C:\Lua&amp;rdquo;&lt;/strong&gt; 和 lua 版本 &lt;strong&gt;LUA_VER=52&lt;/strong&gt;，其它编译语言也大同小异&lt;/p&gt;
-
-&lt;p&gt;如果编译成功的话不会有错误提示，并在当前目录生成 gvim.exe, 这个 exe 就是我们需要的带有 lua 支持的 vim 可执行文件，把这个文件和 &lt;strong&gt;C:\lua\lua.dll&lt;/strong&gt; 复制到你的 vim runtime文件夹，这时候就可以把 runtime 重命名一个放到其它你想要的目录，点击 gvim.exe 就可以了&lt;/p&gt;
-
-&lt;p&gt;第一次执行 vim 需要先注册一下，出现弹窗口点确定就行了。&lt;/p&gt;
-
-&lt;p&gt;进入命令模式，输出 echo has(&amp;lsquo;lua&amp;rsquo;) 来验证下是否已开启 lua 支持，如果显示 1 就说明 OK 了&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16029743/d6340b12-321d-11e6-8eec-e7d13156d12a.png&#34; alt=&#34;echo has lua&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16029744/d666cd68-321d-11e6-95a0-0ac09dffef1a.png&#34; alt=&#34;has lua support&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;编译问题更新&#34;&gt;编译问题更新&lt;/h2&gt;
-
-&lt;p&gt;发现编译完直接使用会有 「找不到 VIMRUN.EXE」提示，解决方法：从官方安装版的 vim 根目录把 vimrun.exe 复制到你的 runtime 文件夹下即可&lt;/p&gt;
-
-&lt;p&gt;知友 @fantiq 反馈某些情况下会报下面的错误，原因可能是 MinGW 下的 mkdir 命令有问题，无法创建目录，手动执行&lt;code&gt;mkdir gobjx86-64&lt;/code&gt; 就可以解决了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p gobjx86-64
-process_begin: CreateProcess(NULL, mkdir -p gobjx86-64, ...) failed.
-make (e=2): 系统找不到指定的文件。
-make: *** [Make_cyg_ming.mak:860: gobjx86-64] Error 2
-&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
     
     <item>
-      <title>可能是 Windows 下最漂亮的 Gvim 配置了</title>
-      <link>https://keelii.com/2016/06/13/awsome-window-vimrc/</link>
-      <pubDate>Mon, 13 Jun 2016 21:25:57 +0800</pubDate>
+      <title>VIM 代码片段插件 ultisnips 使用教程</title>
+      <link>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</link>
+      <pubDate>Sun, 26 Aug 2018 17:59:45 +0800</pubDate>
       
-      <guid>https://keelii.com/2016/06/13/awsome-window-vimrc/</guid>
-      <description>&lt;p&gt;一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim&lt;/p&gt;
+      <guid>https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/</guid>
+      <description>
 
-&lt;p&gt;不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
 
-&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/SirVer/ultisnips&#34;&gt;Ultisnips&lt;/a&gt; 插件安装分两部分，一个是 ultisnips 插件本身，另外一个是代码片段仓库。一般来说把默认的代码片段仓库下载下来按需修改后上传到自己的 github 即可。如果你和我一样也使用 vim-plug 来管理插件的话，添加下面的代码到你的 vimrc 中保存刷新即可&lt;/p&gt;
 
-&lt;p&gt;先说明下开发环境：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;Plug &#39;SirVer/ultisnips&#39;
+# 你自己的代码仓库 git 地址
+Plug &#39;keelii/vim-snippets&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的示例中所有的代码片段都存放在插件安装目录下面的 &lt;code&gt;vim-snippets/UltiSnips&lt;/code&gt; 中，文件命名格式为 &lt;code&gt;ft&lt;/code&gt;.snippets, &lt;code&gt;ft&lt;/code&gt; 就是 vim 中的 &lt;code&gt;filetype&lt;/code&gt;，其中有个 &lt;code&gt;all.snippets&lt;/code&gt; 是唯一一个所有文件都适用的代码片段&lt;/p&gt;
+
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;快捷键设置，我一般使用 tab 来触发代码片段补全，&lt;strong&gt;且不使用 YCM&lt;/strong&gt; （官方文档表示使用YCM的话就不能使用tab补全）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;let g:UltiSnipsExpandTrigger=&amp;quot;&amp;lt;tab&amp;gt;&amp;quot;
+&amp;quot; 使用 tab 切换下一个触发点，shit+tab 上一个触发点
+let g:UltiSnipsJumpForwardTrigger=&amp;quot;&amp;lt;tab&amp;gt;&amp;quot;
+let g:UltiSnipsJumpBackwardTrigger=&amp;quot;&amp;lt;S-tab&amp;gt;&amp;quot;
+&amp;quot; 使用 UltiSnipsEdit 命令时垂直分割屏幕
+let g:UltiSnipsEditSplit=&amp;quot;vertical&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+
+&lt;p&gt;ultisnips 插件需要你的 vim 支持 python，可以在 vim 命令模式下使用下面的检测你的 vim 版本是否支持 python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 1 表示支持
+:echo has(&amp;quot;python&amp;quot;)
+:echo has(&amp;quot;python3&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;定义一个代码片段&#34;&gt;定义一个代码片段&lt;/h2&gt;
+
+&lt;h3 id=&#34;定义格式&#34;&gt;定义格式&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet 触发字符 [&amp;quot;代码片段说明&amp;quot; [参数]]
+代码片段内容
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;最小化的一个代码片段&#34;&gt;最小化的一个代码片段&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet if &amp;quot;if (condition) { ... }&amp;quot;
+if (${1:true}) {
+    $0
+}
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这时当你在 vim 中输入 if 敲 tab 就会展开一条 if 语句，第一个触发点是 if 条件表达式，最后一个是 if 语句体&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;${1:true}&lt;/code&gt; 表示这是第一个触发点，占位符为 &lt;code&gt;true&lt;/code&gt;，如果占位符没有默认值可直接使用 &lt;code&gt;$1&lt;/code&gt;, &lt;code&gt;$2&lt;/code&gt;, &lt;code&gt;$3&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;可视选择区的内容为占位符&#34;&gt;可视选择区的内容为占位符&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet if &amp;quot;if (...)&amp;quot;
+if (${1:true}) {
+    ${VISUAL}
+}
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;${VISUAL}&lt;/code&gt; 表示在 vim 中使用可视模式下选择的文本，这个在重构代码的时候&lt;strong&gt;非常有用&lt;/strong&gt;（后面会有高级用法），上个图感受一下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t25252/299/1019207883/36468/bca93de/5b84a8a9N8dd5a8c5.gif&#34; alt=&#34;if-with-visual-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;代码片段的参数&#34;&gt;代码片段的参数&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;ThinkPad T450 (公司标配)&lt;/li&gt;
-&lt;li&gt;Windows 7 SP1 64bit 企业版&lt;/li&gt;
-&lt;li&gt;编程语言 JavasSript, HTML, CSS, NodeJS, Python&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;b&lt;/code&gt; 表示触发字符应该在一行的开始&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt; 表示触发字符可以在单词内（连续展示会使用这个选项）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;w&lt;/code&gt; 表示触发字符的前后必须是一个字母分界点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; 表示触发字符可以是一个正则表达式&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t&lt;/code&gt; 表示展开的代码片段中如果有制表符，原样输出，即使你的 vimrc 里面设置了 expandtab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;m&lt;/code&gt; 表示删除代码片段右边的所有空白字符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;e&lt;/code&gt; 表示自定义上下文&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A&lt;/code&gt; 表示自动触发，不需要按 tab，类似于 VIM 中的 abbr&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;h2 id=&#34;内容解释器&#34;&gt;内容解释器&lt;/h2&gt;
 
-&lt;p&gt;本文旨在配置和使用 vim，并不适合太初级的 vim 用户，本文作者也不是 vim 死忠粉，经常混用 Webstrom 和 vim&lt;/p&gt;
+&lt;p&gt;Ultisnips 定义的代码片段中支持三种不同的语言注入：shell, vimscript, python，在代码片段中用反引号表示&lt;/p&gt;
 
-&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;
+&lt;h2 id=&#34;shell-代码&#34;&gt;shell 代码&lt;/h2&gt;
 
-&lt;p&gt;开始之前我们先看一眼 Windows 上安装 Gvim 的默认界面，我们将从这里开始一步步的学习和配置&lt;/p&gt;
+&lt;p&gt;就是在你的命令行 shell 能执行的代码片段，比如输出当前时间&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011259/36c5df9e-31b7-11e6-8db5-ad09584ed39b.png&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011259/36c5df9e-31b7-11e6-8db5-ad09584ed39b.png&#34; alt=&#34;gvim-default&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜ date
+2018年 8月27日 星期一 18时19分38秒 CST
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;配置-vimrc&#34;&gt;配置 _vimrc&lt;/h2&gt;
+&lt;p&gt;在代码片段中用反引号「`」引用即可&lt;/p&gt;
 
-&lt;p&gt;由于 vimrc 里面会有很多的配置项，为了避免混乱，我大概按自己的使用习惯分成了几个小组：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet today
+Today is the `date`.
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输入 today 按 tab 展开后（格式和上面shell中的不一样，估计是因为 vim 语言设置的问题）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Today is the Mon Aug 27 18:24:51 CST 2018.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;vimscript-代码&#34;&gt;vimscript 代码&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;code&gt;indent&lt;/code&gt; 来输出当前缩进值，使用前缀 &lt;code&gt;!v&lt;/code&gt; 表示是 vimscript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;snippet indent
+Indent is: `!v indent(&amp;quot;.&amp;quot;)`.
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t23467/4/2565317844/22166/a39566b/5b84a97fNa6174311.gif&#34; alt=&#34;vimscript-indent-size&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;python-代码&#34;&gt;python 代码&lt;/h3&gt;
+
+&lt;p&gt;在代码片段中解释执行 python 代码是 ultisnips 最强大的功能，以前缀 &lt;code&gt;!p&lt;/code&gt; 开始。系统会向 python 中注入一些变量，可以使用 python 代码直接对其进行操作&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Startup         - 编辑器启动时需要添加的一些配置&lt;/li&gt;
-&lt;li&gt;General         - 通用配置&lt;/li&gt;
-&lt;li&gt;Lang &amp;amp; Encoding - 语言和编码&lt;/li&gt;
-&lt;li&gt;GUI             - 界面&lt;/li&gt;
-&lt;li&gt;Format          - 基本的代码格式&lt;/li&gt;
-&lt;li&gt;Keymap          - 通用的快捷键&lt;/li&gt;
-&lt;li&gt;Plugin          - 插件相关（包括和当前插件相关的配置和快捷键等）&lt;/li&gt;
-&lt;li&gt;Function        - vimrc 里面用到的常用方法&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fn&lt;/code&gt; - 表示当前文件名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt; -  当前文件名的路径&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;t&lt;/code&gt; - 占位符的字典，可以使用 &lt;code&gt;t[1], t[2], t.v&lt;/code&gt; 来取占位符内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip&lt;/code&gt; - &lt;a href=&#34;https://github.com/SirVer/ultisnips/blob/6fdc3647f72e0a1f321ea6bd092ecd01f7c187ba/pythonx/UltiSnips/text_objects/_python_code.py#L56&#34;&gt;UltiSnips.TextObjects.SnippetUtil&lt;/a&gt; 对象的一个实例&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;match&lt;/code&gt; - 正则代码片段时返回的匹配元素（非常强大）&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;startup&#34;&gt;Startup&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Startup {{{
-filetype indent plugin on
-
-
-&amp;quot; vim 文件折叠方式为 marker
-augroup ft_vim
-    au!
-
-    au FileType vim setlocal foldmethod=marker
-augroup END
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;设置 vim 相关文件打开后默认折叠方式为 marker，约定俗成的用三个花括号注释包裹起来，这样在你打开配置文件的时候 vim 就会帮你折叠起来，配置文件看起来就简洁多了，如图:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011261/372e3f3a-31b7-11e6-8e3f-16a8aa9c4fe2.png&#34; alt=&#34;vim-fold-config&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;general&#34;&gt;General&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; General {{{
-set nocompatible
-set nobackup
-set noswapfile
-set history=1024
-set autochdir
-set whichwrap=b,s,&amp;lt;,&amp;gt;,[,]
-set nobomb
-set backspace=indent,eol,start whichwrap+=&amp;lt;,&amp;gt;,[,]
-&amp;quot; Vim 的默认寄存器和系统剪贴板共享
-set clipboard+=unnamed
-&amp;quot; 设置 alt 键不映射到菜单栏
-set winaltkeys=no
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;基本上一眼就能看出来这是些啥玩意，不过后面两项目我个人感觉比较好用：&lt;/p&gt;
-
-&lt;p&gt;clipboard+=unnamed 比如你在其它地方 copy 了一段文字回到 vim 里面可以粘贴进来&lt;/p&gt;
-
-&lt;p&gt;winaltkeys=no 一般 windows 下应用程序的 alt 是用来定位菜单栏目的快捷键，我们需要禁用它，因为我们后面很多设置都需要使用 alt，需要使用 alt 来定位菜单的情况很少&lt;/p&gt;
-
-&lt;h3 id=&#34;lang-encoding&#34;&gt;Lang &amp;amp; Encoding&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Lang &amp;amp; Encoding {{{
-set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
-set encoding=utf-8
-set langmenu=zh_CN
-let $LANG = &#39;en_US.UTF-8&#39;
-&amp;quot;language messages zh_CN.UTF-8
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;vim 里面设置编码的地方很多，上面这些配置可以保证不会出现乱码，像文件菜单、vim默认语言建议设置成 en_US&lt;/p&gt;
-
-&lt;h3 id=&#34;gui&#34;&gt;GUI&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; GUI {{{
-colorscheme Tomorrow-Night
-
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-set cursorline
-set hlsearch
-set number
-&amp;quot; 窗口大小
-set lines=35 columns=140
-&amp;quot; 分割出来的窗口位于当前窗口下边/右边
-set splitbelow
-set splitright
-&amp;quot;不显示工具/菜单栏
-set guioptions-=T
-set guioptions-=m
-set guioptions-=L
-set guioptions-=r
-set guioptions-=b
-&amp;quot; 使用内置 tab 样式而不是 gui
-set guioptions-=e
-set nolist
-&amp;quot; set listchars=tab:▶\ ,eol:¬,trail:·,extends:&amp;gt;,precedes:&amp;lt;
-set guifont=Inconsolata:h12:cANSI
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;编辑器配色建议使用 Tomorrow-Night，下载文件 copy 到 colors 目录即可&lt;/p&gt;
-
-&lt;p&gt;从上面的设置可以看出来，为了得到一个简洁漂亮的界面，我们去掉了菜单栏、各种滚动条、使用 vim 内置 tab 而不是 gvim 系统的 tab 样式，注意很多开发者喜欢显示不可见字符，比如：tab 制表符、换行符号、尾空格等。&lt;/p&gt;
-
-&lt;p&gt;我自己并不喜欢这样，因为这样只会使界面看起来更零乱，尤其是某插件纵向标尺&lt;/p&gt;
-
-&lt;p&gt;字体方面个人推荐 Inconsolata 这个在我看来是 Windows 平台最漂亮的等宽字体了&lt;/p&gt;
-
-&lt;p&gt;此时你的编辑器应该好看了很多：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011263/373facd4-31b7-11e6-8311-9b0c09d2425f.png&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011263/373facd4-31b7-11e6-8311-9b0c09d2425f.png&#34; alt=&#34;more-beauty-vim&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;format&#34;&gt;Format&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Format {{{
-set autoindent
-set smartindent
-set tabstop=4
-set expandtab
-set softtabstop=4
-set foldmethod=indent
-syntax on
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个设置容易引起争议，我自己是这么个设置，大家按个人喜好就行了，反正我是不建议使用 tab 的，对代码格式有强迫症的人一般都会设置 foldmethod=indent&lt;/p&gt;
-
-&lt;h3 id=&#34;keymap&#34;&gt;Keymap&lt;/h3&gt;
-
-&lt;p&gt;可以说快捷键是每个编辑器必备的功能，科学的设置快捷键能很大程度的提高效率。快捷键的设置要遵循一个规则：尽量不要修改系统默认配置的快捷键，非要设置的话选择好相应的模式&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Keymap {{{
-let mapleader=&amp;quot;,&amp;quot;
-
-nmap &amp;lt;leader&amp;gt;s :source $VIM/_vimrc&amp;lt;cr&amp;gt;
-nmap &amp;lt;leader&amp;gt;e :e $VIM/_vimrc&amp;lt;cr&amp;gt;
-
-map &amp;lt;leader&amp;gt;tn :tabnew&amp;lt;cr&amp;gt;
-map &amp;lt;leader&amp;gt;tc :tabclose&amp;lt;cr&amp;gt;
-map &amp;lt;leader&amp;gt;th :tabp&amp;lt;cr&amp;gt;
-map &amp;lt;leader&amp;gt;tl :tabn&amp;lt;cr&amp;gt;
-
-&amp;quot; 移动分割窗口
-nmap &amp;lt;C-j&amp;gt; &amp;lt;C-W&amp;gt;j
-nmap &amp;lt;C-k&amp;gt; &amp;lt;C-W&amp;gt;k
-nmap &amp;lt;C-h&amp;gt; &amp;lt;C-W&amp;gt;h
-nmap &amp;lt;C-l&amp;gt; &amp;lt;C-W&amp;gt;l
-
-&amp;quot; 正常模式下 alt+j,k,h,l 调整分割窗口大小
-nnoremap &amp;lt;M-j&amp;gt; :resize +5&amp;lt;cr&amp;gt;
-nnoremap &amp;lt;M-k&amp;gt; :resize -5&amp;lt;cr&amp;gt;
-nnoremap &amp;lt;M-h&amp;gt; :vertical resize -5&amp;lt;cr&amp;gt;
-nnoremap &amp;lt;M-l&amp;gt; :vertical resize +5&amp;lt;cr&amp;gt;
-
-&amp;quot; 插入模式移动光标 alt + 方向键
-inoremap &amp;lt;M-j&amp;gt; &amp;lt;Down&amp;gt;
-inoremap &amp;lt;M-k&amp;gt; &amp;lt;Up&amp;gt;
-inoremap &amp;lt;M-h&amp;gt; &amp;lt;left&amp;gt;
-inoremap &amp;lt;M-l&amp;gt; &amp;lt;Right&amp;gt;
-
-&amp;quot; IDE like delete
-inoremap &amp;lt;C-BS&amp;gt; &amp;lt;Esc&amp;gt;bdei
-
-nnoremap vv ^vg_
-&amp;quot; 转换当前行为大写
-inoremap &amp;lt;C-u&amp;gt; &amp;lt;esc&amp;gt;mzgUiw`za
-&amp;quot; 命令模式下的行首尾
-cnoremap &amp;lt;C-a&amp;gt; &amp;lt;home&amp;gt;
-cnoremap &amp;lt;C-e&amp;gt; &amp;lt;end&amp;gt;
-
-nnoremap &amp;lt;F2&amp;gt; :setlocal number!&amp;lt;cr&amp;gt;
-nnoremap &amp;lt;leader&amp;gt;w :set wrap!&amp;lt;cr&amp;gt;
-
-imap &amp;lt;C-v&amp;gt; &amp;quot;+gP
-vmap &amp;lt;C-c&amp;gt; &amp;quot;+y
-vnoremap &amp;lt;BS&amp;gt; d
-vnoremap &amp;lt;C-C&amp;gt; &amp;quot;+y
-vnoremap &amp;lt;C-Insert&amp;gt; &amp;quot;+y
-imap &amp;lt;C-V&amp;gt;		&amp;quot;+gP
-map &amp;lt;S-Insert&amp;gt;		&amp;quot;+gP
-cmap &amp;lt;C-V&amp;gt;		&amp;lt;C-R&amp;gt;+
-cmap &amp;lt;S-Insert&amp;gt;		&amp;lt;C-R&amp;gt;+
-
-exe &#39;inoremap &amp;lt;script&amp;gt; &amp;lt;C-V&amp;gt;&#39; paste#paste_cmd[&#39;i&#39;]
-exe &#39;vnoremap &amp;lt;script&amp;gt; &amp;lt;C-V&amp;gt;&#39; paste#paste_cmd[&#39;v&#39;]
-
-&amp;quot; 打开当前目录 windows
-map &amp;lt;leader&amp;gt;ex :!start explorer %:p:h&amp;lt;CR&amp;gt;
-
-&amp;quot; 打开当前目录CMD
-map &amp;lt;leader&amp;gt;cmd :!start&amp;lt;cr&amp;gt;
-&amp;quot; 打印当前时间
-map &amp;lt;F3&amp;gt; a&amp;lt;C-R&amp;gt;=strftime(&amp;quot;%Y-%m-%d %a %I:%M %p&amp;quot;)&amp;lt;CR&amp;gt;&amp;lt;Esc&amp;gt;
-
-&amp;quot; 复制当前文件/路径到剪贴板
-nmap ,fn :let @*=substitute(expand(&amp;quot;%&amp;quot;), &amp;quot;/&amp;quot;, &amp;quot;\\&amp;quot;, &amp;quot;g&amp;quot;)&amp;lt;CR&amp;gt;
-nmap ,fp :let @*=substitute(expand(&amp;quot;%:p&amp;quot;), &amp;quot;/&amp;quot;, &amp;quot;\\&amp;quot;, &amp;quot;g&amp;quot;)&amp;lt;CR&amp;gt;
-
-&amp;quot; 设置切换Buffer快捷键&amp;quot;
-nnoremap &amp;lt;C-left&amp;gt; :bn&amp;lt;CR&amp;gt;
-nnoremap &amp;lt;C-right&amp;gt; :bp&amp;lt;CR&amp;gt;
-
-&amp;quot; }}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;首页我们设置了 leaderkey 为逗号「,」，不要问为什么约定的就是它。别设置成空格就行了&lt;/p&gt;
-
-&lt;p&gt;注意「,e」和「,s」分别用编辑配置文件，刷新配置文件，后面的路径要按你自己的情况去写，我默认使用了 vim 安装目录里面的 vimrc&lt;/p&gt;
-
-&lt;p&gt;分屏编辑操作的时候经常要在不同的屏之间跳来跳去 「Ctrl + vim方向」设置跳转方便顺滑的切换，顺便说下我个人的习惯是在当前tab下编辑一个项目的文件，如果要临时维护其它项目就新开tab，每个tab单独编辑一个项目文件&lt;/p&gt;
-
-&lt;p&gt;后面还设置了一些和 Windows 默认编辑操作兼容的快捷键，比如：复制，粘贴&lt;/p&gt;
-
-&lt;p&gt;注意有个细节，因为 vim 里面多行操作快捷键是 Ctrl + v 和 windows 粘贴冲突了，一个机智的做法是仅仅在 vim 插件模式设置 Ctrl 为粘贴，正常模式 Ctril + v 进入多选模式，两全其美&lt;/p&gt;
-
-&lt;p&gt;插入模式下要移动光标 还得 ESC 一下进入插入模式，这样太麻烦了，使用 「alt + vim方向」就简单多了&lt;/p&gt;
-
-&lt;h3 id=&#34;plugin&#34;&gt;Plugin&lt;/h3&gt;
-
-&lt;p&gt;插件方面根据我自己的工作内容和个人喜好，选择了以下几个，全部使用 vundle 来管理：&lt;/p&gt;
+&lt;p&gt;其中最常用的 &lt;code&gt;snip&lt;/code&gt; 对象提供了下面一些变量：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;NERDTree&lt;/li&gt;
-&lt;li&gt;Vim-multiple-cursors&lt;/li&gt;
-&lt;li&gt;Tabular&lt;/li&gt;
-&lt;li&gt;Airline&lt;/li&gt;
-&lt;li&gt;Ctrlp&lt;/li&gt;
-&lt;li&gt;NERDCommenter&lt;/li&gt;
-&lt;li&gt;Emmet&lt;/li&gt;
-&lt;li&gt;SnipMate&lt;/li&gt;
-&lt;li&gt;Fugitive&lt;/li&gt;
-&lt;li&gt;Neocomplete&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.rv&lt;/code&gt; 表示 return value，python 代码执行后处理过的字符串赋给 rv 即可&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.fn&lt;/code&gt; 表示当前文件名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.ft&lt;/code&gt; 表示当前文件类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;snip.v&lt;/code&gt; 表示 VISUAL 模式变量，其中 &lt;code&gt;snip.v.mode&lt;/code&gt; 表示模式类型，&lt;code&gt;snip.v.text&lt;/code&gt; 表示 VISUAL 模式中选择的字符&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;具体配置我就不帖代码了，可以上git上参观，下面大概解释下每个插件的用途&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t27739/311/103185395/173892/d6a786e3/5b84af90Nfa6cd193.gif&#34; alt=&#34;python-snippet-var&#34; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;nerdtree&#34;&gt;NERDTree&lt;/h4&gt;
+&lt;h2 id=&#34;占位符选择&#34;&gt;占位符选择&lt;/h2&gt;
 
-&lt;p&gt;文件目录树管理，我一般设置成打开 vim 就启动&lt;/p&gt;
+&lt;p&gt;UltiSnips 支持使用快捷键切换占位符，我使用 &lt;code&gt;&amp;lt;tab&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;shift-tab&amp;gt;&lt;/code&gt; 来切换 &lt;code&gt;下一个&lt;/code&gt; 和 &lt;code&gt;上一个&lt;/code&gt; 占位符，占位符切换的作用域为当前代码片段内部（即使占位符已被修改过），当光标移动出去以后就不起作用了&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;if exists(&#39;g:NERDTreeWinPos&#39;)
-    autocmd vimenter * NERDTree D:\repo
-endif
+&lt;p&gt;&lt;img src=&#34;//img12.360buyimg.com/devfe/jfs/t24559/158/2571218888/171431/2459a91d/5b84bf9aN96a7ee7e.gif&#34; alt=&#34;mul-placeholder-editing&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;自定义上下文&#34;&gt;自定义上下文&lt;/h2&gt;
+
+&lt;p&gt;自定义上下文可以通过正则匹配来决定代码片断是否可用，比如判断在指定的 if 语句里面才起作用的代码片断，定义格式如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;snippet 触发字符 &amp;ldquo;描述&amp;rdquo; &amp;ldquo;表达式&amp;rdquo; 参数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;比如我们定义一个 &lt;strong&gt;只有&lt;/strong&gt; 在上一行以 &lt;code&gt;if (DEVELOPMENT) {&lt;/code&gt; 开头才可以展开的代码片段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;snippet dbg &amp;quot;if (DEVELOPMENT) dbg&amp;quot; &amp;quot;re.match(&#39;^if \(DEVELOPMENT\) \{&#39;, snip.buffer[snip.line-1])&amp;quot; be
+debugger;
+endsnippet
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;vim-multiple-cursors&#34;&gt;Vim-multiple-cursors&lt;/h4&gt;
+&lt;h2 id=&#34;常见用法&#34;&gt;常见用法&lt;/h2&gt;
 
-&lt;p&gt;类似 sublime 多选，进入 visual 模式选择文本 &lt;code&gt;Ctrl+shif+n&lt;/code&gt; 即可一直选择下一个匹配文本&lt;/p&gt;
+&lt;h3 id=&#34;行内连续展开&#34;&gt;行内连续展开&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16074299/684f368a-331c-11e6-86f0-d2a860d6416a.gif&#34; alt=&#34;mul-cur&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;这个常见于需要连续展开代码片段的情况，比如，有两个片段，一个打印变量，一个处理 JSON 序列化。这时需要使用参数选项 &lt;code&gt;i&lt;/code&gt;n-word&lt;/p&gt;
 
-&lt;h4 id=&#34;tabular&#34;&gt;Tabular&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;//img11.360buyimg.com/devfe/jfs/t25579/50/1036526670/419976/53521e3b/5b84c7d2Nd6a0cb5e.gif&#34; alt=&#34;continue-expand-snippets&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;对齐插件，文章末尾 gif 图里面有展示，visual 模式下选择要对齐的多行文本，进入命令模式 &lt;code&gt;:Tabularize /对齐符号&amp;lt;cr&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;使用正则代码片段&#34;&gt;使用正则代码片段&lt;/h3&gt;
 
-&lt;h4 id=&#34;airline&#34;&gt;Airline&lt;/h4&gt;
+&lt;p&gt;通常写代码的时候需要使用 log, print 等来打印上下文中的变量。使用普通片段按 cl 展示 console.log() 然后把变量字符复制进括号，这样操作会比较复杂。使用正则来动态匹配前面的字符可以很好的解决这个问题&lt;/p&gt;
 
-&lt;p&gt;状态栏美化插件，准备弃用了&lt;/p&gt;
-
-&lt;h4 id=&#34;ctrlp&#34;&gt;Ctrlp&lt;/h4&gt;
-
-&lt;p&gt;类似IDE里面的最近打开的文件，用于快速定位文件/Buffer&lt;/p&gt;
-
-&lt;h4 id=&#34;nerdcommenter&#34;&gt;NERDCommenter&lt;/h4&gt;
-
-&lt;p&gt;注释插件，默认是快捷键是 &amp;lt;leader&amp;gt; c &amp;lt;SPACE&amp;gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;emmet&#34;&gt;Emmet&lt;/h4&gt;
-
-&lt;p&gt;用来快速写 HTML&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16074297/684c9196-331c-11e6-95de-56951d43c5b2.gif&#34; alt=&#34;emmet&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;snipmate&#34;&gt;SnipMate&lt;/h4&gt;
-
-&lt;p&gt;代码片段管理, 这个插件很早之前的那个版本不维护了，现在最新版的非常强大，不过有另外两个依赖，默认是没有任何内置的 snippet 的，如果需要样版，可以安装 &lt;a href=&#34;https://github.com/honza/vim-snippets&#34;&gt;这个插件&lt;/a&gt; 需要自定义的话手动更改 snippets 目录下的文件即可（其实就是个git仓库，你可以换成自己的）&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16074298/684d7cd2-331c-11e6-8c61-83dabbc4849e.gif&#34; alt=&#34;snipmate&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;fugitive&#34;&gt;Fugitive&lt;/h4&gt;
-
-&lt;p&gt;Git 命令增强工具，在 vim 使用 git，状态栏的分类名称就是调用的这个插件的方法 &lt;code&gt;fugitive#head()&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;neocomplete&#34;&gt;Neocomplete&lt;/h4&gt;
-
-&lt;p&gt;自动补全插件，这个代码实例插件是需要 lua 支持的，可能你需要手动编译一个带 lua 支持版本的 gvim，&lt;a href=&#34;https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/&#34;&gt;下篇文章&lt;/a&gt; 我将记录下自己在 Windows 上编译安装的过程&lt;/p&gt;
-
-&lt;p&gt;什么？你说为啥不装 YouCompleteMe，官方作者都不支持的插件就别折腾了吧，Neocomplete 这个实例插件对于我的情况来说已经够用了&lt;/p&gt;
-
-&lt;h3 id=&#34;function&#34;&gt;Function&lt;/h3&gt;
-
-&lt;p&gt;常用方法这里我只有一个，移除尾空格&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot; Function {{{
-&amp;quot; Remove trailing whitespace when writing a buffer, but not for diff files.
-&amp;quot; From: Vigil
-&amp;quot; @see http://blog.bs2.to/post/EdwardLee/17961
-function! RemoveTrailingWhitespace()
-    if &amp;amp;ft != &amp;quot;diff&amp;quot;
-        let b:curcol = col(&amp;quot;.&amp;quot;)
-        let b:curline = line(&amp;quot;.&amp;quot;)
-        silent! %s/\s\+$//
-        silent! %s/\(\s*\n\)\+\%$//
-        call cursor(b:curline, b:curcol)
-    endif
-endfunction
-autocmd BufWritePre * call RemoveTrailingWhitespace()
-&amp;quot; }}}
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;# 展开 console.log
+snippet &amp;quot;([^\s]\w+)\.log&amp;quot; &amp;quot;console.log(postfix)&amp;quot; r
+console.log(`!p snip.rv = match.group(1)`)$0
+endsnippet
+# 当前行转换成大写
+snippet &amp;quot;([^\s].*)\.upper&amp;quot; &amp;quot;Uppercase(postfix)&amp;quot; r
+`!p snip.rv = match.group(1).upper()`$0
+endsnippet
+# 上一个单词转换成小写
+snippet &amp;quot;([^\s]\w+)\.lower&amp;quot; &amp;quot;Lowercase(postfix)&amp;quot; r
+`!p snip.rv = match.group(1).lower()`$0
+endsnippet
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;No picture U say a &amp;hellip; ?&lt;/p&gt;
+&lt;p&gt;动图演示&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011262/373cd644-31b7-11e6-8a62-f03f32cf5167.png&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011262/373cd644-31b7-11e6-8a62-f03f32cf5167.png&#34; alt=&#34;complete-vimrc&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t25492/223/971280921/61984/701b0ab1/5b84cc6aN6fe8ea04.gif&#34; alt=&#34;expand-regexp-snippets&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这个是动图，不动戳大&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：正则代码片段只适用于单行文本处理，如果是多行转换还是得用到下面的 python + VISUAL 代码片段来处理&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://cloud.githubusercontent.com/assets/458894/16011260/372e0722-31b7-11e6-887a-226747eec42f.gif&#34;&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/458894/16011260/372e0722-31b7-11e6-887a-226747eec42f.gif&#34; alt=&#34;gif-show-vim&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;使用-python-解释器-visual-模式实现代码注释功能&#34;&gt;使用 python 解释器 + VISUAL 模式实现代码注释功能&lt;/h3&gt;
 
-&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+&lt;p&gt;通常我们需要使用一大堆插件来实现各种代码的注释功能。不过 Ultisnips 提供了 VISUAL 模式可以提取 vim 可视模式中选择的内容到代码片段里面，于是我们就可以结合起来制作一个&lt;strong&gt;具有注释功能的代码片段&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;还有一点没说明，vimrc 里面的一些 windows 独有的设置我并没有加一些判断来兼容其它平台，这个是个人喜好而已，我会单独分开维护不同平台的配置文件，而不是全部放在一起各种逻辑判断&lt;/p&gt;
+&lt;p&gt;流程大概是这样的：&lt;/p&gt;
 
-&lt;h2 id=&#34;引用&#34;&gt;引用&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;进入 vim 可视模式，选择要注释的内容&lt;/li&gt;
+&lt;li&gt;按 tab，清除选择内容&lt;/li&gt;
+&lt;li&gt;输入代码片段触发字符，按 tab 完成&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://gist.github.com/keelii/1aab5f9aa5b47afa651c7fc84b8e9875&#34;&gt;完整配置文件&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;由于实现的 python 代码相对复杂一些，主要分成两个方法。单行注释和多行注释，注意 Ultisnips 中可以直接写 python 但是大段的方法建议放在插件目录下面的 pythonx 目录下面，使用的时候在对应的代码片段中的全局 python 代码 &lt;code&gt;global !p&lt;/code&gt; 引入即可&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;单行注释&lt;/strong&gt;(pythonx/javascript_snippets.py)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def comment(snip, START=&amp;quot;&amp;quot;, END=&amp;quot;&amp;quot;):
+    lines = snip.v.text.split(&#39;\n&#39;)[:-1]
+    first_line = lines[0]
+    spaces = &#39;&#39;
+    initial_indent = snip._initial_indent
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != &#39;&#39;:
+            first_line = lines[idx]
+            sp = re.findall(r&#39;^\s+&#39;, first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    # Uncomment
+    if first_line.strip().startswith(START):
+        result = [line.replace(START, &amp;quot;&amp;quot;, 1).replace(END, &amp;quot;&amp;quot;, 1) if line.strip() else line for line in lines]
+    else:
+        result = [f&#39;{spaces}{START}{line[len(spaces):]}{END}&#39; if line.strip() else line for line in lines ]
+
+    # Remove initial indent
+    if result[0] and initial_indent:
+        result[0] = result[0].replace(initial_indent, &#39;&#39;, 1)
+
+    if result:
+        return &#39;\n&#39;.join(result)
+    else:
+        return &#39;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;多行注释：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def comment_inline(snip, START=&amp;quot;/* &amp;quot;, END=&amp;quot; */&amp;quot;):
+    text = snip.v.text
+    lines = text.split(&#39;\n&#39;)[:-1]
+    first_line = lines[0]
+    initial_indent = snip._initial_indent
+    spaces = &#39;&#39;
+
+    # Get the first non-empty line
+    for idx, l in enumerate(lines):
+        if l.strip() != &#39;&#39;:
+            first_line = lines[idx]
+            sp = re.findall(r&#39;^\s+&#39;, first_line)
+            if len(sp):
+                spaces = sp[0]
+            break            
+
+    if text.strip().startswith(START):
+        result = text.replace(START, &#39;&#39;, 1).replace(END, &#39;&#39;, 1)
+    else:
+        result = text.replace(spaces, spaces + START, 1).rstrip(&#39;\n&#39;) + END + &#39;\n&#39;
+
+    if initial_indent:
+        result = result.replace(initial_indent, &#39;&#39;, 1)
+
+    return result
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;代码片段定义：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;global !p
+from javascript_snippets import (
+	comment, comment_inline
+)
+endglobal
+
+# ...
+
+snippet c &amp;quot;Toggle comment every single line&amp;quot;
+`!p
+snip.rv = comment(snip, START=&#39;// &#39;, END=&#39;&#39;)
+`$0
+endsnippet
+
+snippet ci &amp;quot;Toggle comment inline.&amp;quot;
+`!p
+snip.rv = comment_inline(snip, START=&amp;quot;/* &amp;quot;, END=&amp;quot; */&amp;quot;)
+`$0
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;动图演示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t24175/330/2554434390/319822/5d8cf724/5b850d67N4c475946.gif&#34; alt=&#34;python-snippets-to-comment&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不同的语言可以在对应的片段文件中定义并传入注释符号参数即可，有了这个功能就可以愉快的删除其它的 vim 注释插件了 😀&lt;/p&gt;
+</description>
     </item>
     
   </channel>

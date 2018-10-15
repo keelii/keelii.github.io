@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Oct 2017 17:10:27 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Oct 2018 19:10:27 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.com/tags/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android</title>
+      <link>https://keelii.com/tags/android/</link>
+      <pubDate>Mon, 15 Oct 2018 19:10:27 +0000</pubDate>
+      
+      <guid>https://keelii.com/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Apple</title>
+      <link>https://keelii.com/tags/apple/</link>
+      <pubDate>Mon, 15 Oct 2018 19:10:27 +0000</pubDate>
+      
+      <guid>https://keelii.com/tags/apple/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Command</title>
@@ -80,24 +98,6 @@
       <pubDate>Mon, 13 Jun 2016 21:25:57 +0800</pubDate>
       
       <guid>https://keelii.com/tags/gVim/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Host</title>
-      <link>https://keelii.com/tags/host/</link>
-      <pubDate>Tue, 07 Nov 2017 12:51:27 +0000</pubDate>
-      
-      <guid>https://keelii.com/tags/host/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Html</title>
-      <link>https://keelii.com/tags/html/</link>
-      <pubDate>Sun, 31 Jul 2016 10:48:57 +0800</pubDate>
-      
-      <guid>https://keelii.com/tags/html/</guid>
       <description></description>
     </item>
     

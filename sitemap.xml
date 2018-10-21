@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2018/10/21/rock-and-roll-in-the-it-crowd/</loc>
+    <lastmod>2018-10-21T16:08:07+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2018/10/15/ios-vs-android/</loc>
     <lastmod>2018-10-15T13:26:38+08:00</lastmod>
   </url>
@@ -242,7 +247,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2018-10-15T13:26:38+08:00</lastmod>
+    <lastmod>2018-10-21T16:08:07+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -267,6 +272,12 @@
   <url>
     <loc>https://keelii.com/tags/command/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/concept/</loc>
+    <lastmod>2018-10-21T16:08:07+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -590,7 +601,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2018-10-15T13:26:38+08:00</lastmod>
+    <lastmod>2018-10-21T16:08:07+08:00</lastmod>
     <priority>0</priority>
   </url>
   

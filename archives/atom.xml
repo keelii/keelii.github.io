@@ -6,10 +6,40 @@
     <description>Recent content in Archives on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 21 Oct 2018 19:10:25 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Oct 2018 19:10:24 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.com/archives/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>谈谈技术驱动与尊重技术</title>
+      <link>https://keelii.com/2018/10/27/technology-driven-and-respect/</link>
+      <pubDate>Sat, 27 Oct 2018 19:10:24 +0000</pubDate>
+      
+      <guid>https://keelii.com/2018/10/27/technology-driven-and-respect/</guid>
+      <description>&lt;p&gt;很多从事 IT 互联网公司工作的人（尤其是程序员）会常常提到「技术驱动与技术重视」的问题，大部分人在面临职业选择的时候也优先选择那些所谓的「技术驱动」型的公司。因为在这种公司里面技术氛围好，对自己的职业发展有帮助。&lt;/p&gt;
+
+&lt;p&gt;这种想法肯定是无可厚非的。本文试着从大环境与自我两方面聊一下这个话题&lt;/p&gt;
+
+&lt;p&gt;*首先*。在大家聊到这个话题时往往都 &lt;em&gt;出奇一致&lt;/em&gt; 的认为国内没有技术驱动型公司。因为大众对技术的认识很少，很多人对于程序员的第一印象是「修电脑」。&lt;/p&gt;
+
+&lt;p&gt;当然你可能会觉得「不会呀，我周围都是一些非常专业的同事，我也在一家很重视技术的公司工作，我的工作内容大家都认可」，这么认为当然也是对的，但是我想说是的大众的意识问题。&lt;/p&gt;
+
+&lt;p&gt;为什么大家会有这种「偏见」，在我看来根本原因就是一种 &lt;strong&gt;普世的价值观对于偏才的误解&lt;/strong&gt;。因为大众喜欢看到一个十全十美的东西。儒家的思想提倡自我的实现，君子应该如何如何…，君子应该是上知天闻下知地理，既洞明学问，又练达人情。但事实上并非如此。诸葛亮就是一个很好的例子，大众认可的是他小说中的角色，一个样样精通的人，政治、军事、管理各个领域都很精通，但事实上诸葛亮除了人长得帅气，有政治才能以外并没有别的什么长处&lt;/p&gt;
+
+&lt;p&gt;大家喜欢全才而不是偏才，这也是《论语》中讲「君子不器」的道理。就是说君子不能像固定的器具/东西一样只有一个功能。上学的时候老师会告诉你不能偏科，学校会要求你德智体美劳全面发展。这是一种美好的愿望，但是真的有几个人会成为大家眼里的完人呢。我始终认为每个人都是不一样的，与其要求成为大众一致认为的完美，不如让自己成就真实的自我。&lt;/p&gt;
+
+&lt;p&gt;再回到现在，为什么人们开始崇尚「工匠精神」，科技发展飞速的今天，大家才意识到技术的重要性，才意识到「科学技术是第一生产力」，只有掌握了核心技术才有能力去创造更多的价值，然而任何一样好的技术，一定是经过了几代人的努力长时间的积累实践才最终产业化。我们现在社会缺乏的恰恰是这种持之以恒的精神。&lt;/p&gt;
+
+&lt;p&gt;在我看来工匠精神就是那种对做事要求特别专业、极致，实现自我价值的同时影响别人的一类人，这类人（比如说程序员）他们在用大量的时间去学习了专业知识，但是却疏于交际、不善言谈、或者说除了专业知识其他能力很弱。如果周围的环境能给予足够的理解于支持，比如说刚刚过去的程序员节就是个很好的例子，我觉得那个时候才会出现真正的技术驱动&lt;/p&gt;
+
+&lt;p&gt;*其次*。上面讲的都是大环境，事实上通常是无法改变的，那么程序员是不是应该自己反思下如何提升自己来获得外界的支持于尊重。很多时候大家在要一样东西时会觉得「本来就是这样」，程序员就应该被放在一个被尊重的地方，一个认可技术的公司。但是这种尊重与认可怎么可能凭空而来呢，所谓的尊重应该是通过自己的专业能力换来的。别人眼中的你也是自己塑造出来的才对。要想大家重视技术，首先自己得重视技术，能用技术做到别人做不到的事情，这才是技术的价值。如果你自己写代码不追求极致，得过且过那就必然会成为被淘汰的对象&lt;/p&gt;
+
+&lt;p&gt;可能会有很多人认为写代码对于自己来说只是为了赚钱生活，并不追求极致。这当然也是非常合理且正常的，因为并不是每个人的工作都是自己选择的、喜欢的。但是我比较认同的是一种做事情的态度。环顾你周围的那些优秀的人，你会发现他们无论做什么事都会做的像模像样，即使他们做一些非擅长领域的事情，也可以做的非常优秀甚至出彩。&lt;/p&gt;
+
+&lt;p&gt;所以说编程对于大家来说 for fun 还是 for 饭并不重要，重要的是大家的态度&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>《IT 狂人》中的摇滚精神</title>
@@ -23,17 +53,17 @@
 
 &lt;p&gt;如果你同时看过这两部剧的话你会发现他们之间有很大的差别，美式幽默和英式的幽默完全不是一个风格。英式幽默特别夸张、无理头，甚至讽刺、搞怪。他会用一些你很难想象的非常夸张的表现手法，比如在第一季中的「火焰屏保」&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t1/3755/16/10751/846454/5bcc3e51E9179c795/3e57d0b0706e52ab.png&#34; alt=&#34;it-crowed-火焰屏保&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t1/3755/16/10751/846454/5bcc3e51E9179c795/3e57d0b0706e52ab.png&#34; alt=&#34;it-crowed-火焰屏保&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;一本正经的胡说八道，却让人笑到抽&lt;/p&gt;
 
 &lt;p&gt;还有 &lt;strong&gt;灭火器着火&lt;/strong&gt;。我从来没见过甚至听过有比灭火器着火更离谱且搞笑的事情了吧&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t1/3296/27/10678/875307/5bcc3eafEf75c2af6/a6fa72572495df69.png&#34; alt=&#34;it-crowed-灭火器着火&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3296/27/10678/875307/5bcc3eafEf75c2af6/a6fa72572495df69.png&#34; alt=&#34;it-crowed-灭火器着火&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这还不算，镜头一转&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t1/9182/24/944/574450/5bcc3f27E12b1667d/fcb6c97d159f403d.png&#34; alt=&#34;it-crowed-灭火器made-in-britain&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t1/9182/24/944/574450/5bcc3f27E12b1667d/fcb6c97d159f403d.png&#34; alt=&#34;it-crowed-灭火器made-in-britain&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;「Made in Britain - 英国制造」，这算是把自己国家完整的黑了一把&lt;/p&gt;
 
@@ -59,7 +89,7 @@
 
 &lt;p&gt;其实最令我印象深刻的是 2013 特别篇中的「The Internet」，这一节中可以说完美的体现了导演对于程序员心理理解，再加上旁观者傻白甜的举动行成了鲜明的对比。当 Moss 对珍说「This, Jan is The Internet - 珍，这就是 Internet」的时候程序员估计会笑喷了吧&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t1/3872/18/10568/253979/5bcc3f95E69534c32/897afbf3f66a4e07.jpg&#34; alt=&#34;it-crowed-this-is-the-interinet&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3872/18/10568/253979/5bcc3f95E69534c32/897afbf3f66a4e07.jpg&#34; alt=&#34;it-crowed-this-is-the-interinet&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这一集是真正意义上的完完全全从程序员的视角拍摄的一集，看过之后你会有一种这集就是为自己拍的的感觉。这种感觉是在其它剧或者电影里面没有的。一开始看似无理头的搞怪，最后逐渐发酵 Jen 居然拿到公司去给一大帮人讲这个盒子上的东西就是整个 Internet，荒唐的是居然大家都信了！再到最后的 Internet 被摔整个「闹剧」结束。整集看下来过瘾的同时也无比的感叹导演对剧本的精准设计和演员出色的演技。反观国内大多数人对程序员的认知还在「牛仔裤、格子衬衫」的阶段吧&lt;/p&gt;
 
@@ -97,7 +127,7 @@
 
 &lt;p&gt;Android 零乱的原因还有一点就是用户的需求总是多样的，而 Andoird 本身的使命就是满足他们。比如就会有人看到 iPhone 的刘海觉得很别致，自己可能换不了 iPhone，然后就会理所当然的认为 Android 也应该有，因为这是 潮流&lt;/p&gt;
 
-&lt;p&gt;既然提到了 iPhone，那也应该聊下 Google 的 Pixel。Pixel 最近刚出 3 系统，刘海居然是默认的设置，大家已经有很多吐槽了。自然不必多讲。事实上 Pixel 系列手机让我看到了很多的闪光点，Google 现在似乎也慢慢明白了自己做手机的方向，在 Pixel 3 的发布会上多次提到了 End-to-End 的摄像头的概念，它可以从一张照片里面分析出里面的建筑、人物，进而知道和人物相关的东西，比如它的年龄、性别、穿着。有了这些信息后他就可以做一些真正有用的推荐。如果你是 Google 的重度用户的话你会发现近两年 Google 的一些新的技术/软件正在成体系的发展，这是在苹果系统上看不到的。举个例子，iOS 的 Siri 和 Google 的 Assistant。一方面 Google Assistant 的智能程度好过 Siri 几条街，一方面你会觉得 Google Assistant 真的可以做到一些有用的事情而不只是一个玩具。比如 接到来电识别出来是骚扰电话，assistant 就可以帮你「礼貌」回绝了&lt;/p&gt;
+&lt;p&gt;既然提到了 iPhone，那也应该聊下 Google 的 Pixel。Pixel 最近刚出 3 系列，刘海居然是默认的设置，大家已经有很多吐槽了。自然不必多讲。事实上 Pixel 系列手机让我看到了很多的闪光点，Google 现在似乎也慢慢明白了自己做手机的方向，在 Pixel 3 的发布会上多次提到了 End-to-End 的摄像头的概念，它可以从一张照片里面分析出里面的建筑、人物，进而知道和人物相关的东西，比如它的年龄、性别、穿着。有了这些信息后他就可以做一些真正有用的推荐。如果你是 Google 的重度用户的话你会发现近两年 Google 的一些新的技术/软件正在成体系的发展，这是在苹果系统上看不到的。举个例子，iOS 的 Siri 和 Google 的 Assistant。一方面 Google Assistant 的智能程度好过 Siri 几条街，一方面你会觉得 Google Assistant 真的可以做到一些有用的事情而不只是一个玩具。比如 接到来电识别出来是骚扰电话，assistant 就可以帮你「礼貌」回绝了&lt;/p&gt;
 
 &lt;p&gt;Google 做 Android 手机可以很好的解决 Android 的一些问题，但是由于 Google 本身是一家技术基因的公司，它所有的软件都会以功能为主。设计和用户体验不会是它的强项，这就使得 Google 做的手机用起来总是有一种不爽的感觉。比如就滚动这个操作，iOS 的交互处理的非常好，不仅仅界面操作流畅，而且响应快，该停的时候立即停下来。反观 Android，虽然流畅度上可能很多用户已经体会不出来与 iOS 之间的差异了，但是使用 Android 总让你感觉该顺滑的时候顺滑，不该顺滑的时候也很「顺滑」。还有 Pixel 3 上展示的和 iPhone 对比夜间成像的问题，Pixel 可以做到把夜晚照得和白天一样，大多数情况下是有好处的，但是假如用户就想拍张夜晚的照片那就比较尴尬了吧&lt;/p&gt;
 
@@ -3576,245 +3606,6 @@ function parseDependencies(code) {
 &lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;seajs 3.x 版本以后 &lt;a href=&#34;https://github.com/seajs/seajs/blob/3.0.0/src/util-deps.js&#34;&gt;util-deps.js&lt;/a&gt; 引入了一个依赖解析器方法，直接用这个替代原来的即可。至于为什么那个正则对于压缩后的代码没起作用我暂还没详细研究，不过感觉像获取模块依赖关系这种静态分析任务还是用解析器靠谱点，正则有太多的不确定性，虽然它能节省很多代码&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>macOS Sierra 开发环境配置指南</title>
-      <link>https://keelii.com/2017/10/07/macos-development-setup-guide/</link>
-      <pubDate>Sat, 07 Oct 2017 17:19:27 +0000</pubDate>
-      
-      <guid>https://keelii.com/2017/10/07/macos-development-setup-guide/</guid>
-      <description>
-
-&lt;blockquote&gt;
-&lt;p&gt;本文来自于我自己配置两台 macOS 开发环境的过程，主要记录一些常用的配置技巧&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;系统设置&#34;&gt;系统设置&lt;/h2&gt;
-
-&lt;h3 id=&#34;更改计算机名称&#34;&gt;更改计算机名称&lt;/h3&gt;
-
-&lt;p&gt;macOS 默认的计算机名称「xx的xx」，我一般会把这个名字改成英文，在命令行中看起来会漂亮一点。修改 &lt;code&gt;系统设置-共享-电脑名称&lt;/code&gt; 即可&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t9919/194/838196844/87087/80259170/59d8e3f4N4277172a.png&#34; alt=&#34;computer-name&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;触控板&#34;&gt;触控板&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;设置轻点触控板为鼠标点击&lt;/li&gt;
-&lt;li&gt;设置三指拖动&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10129/124/847447368/253995/96574062/59d8e534Nc3e40d9f.png&#34; alt=&#34;tap-click&#34; /&gt;&lt;/a&gt;
-&lt;a href=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34;&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t10396/219/830021333/98488/bcc6e984/59d8e43cN04d84771.png&#34; alt=&#34;drag-drop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;finder&#34;&gt;Finder&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;开启新 Fidder 窗口时打开 &lt;code&gt;桌面&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;执行搜索时 &lt;code&gt;搜索当前文件夹&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;显示所有文件扩展名&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t9571/278/833569016/71935/221e5956/59d8e45dN67661921.png&#34; alt=&#34;finder&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;其它&#34;&gt;其它&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;系统偏好设置-键盘-输入法-自动切换到文稿输入法&lt;/code&gt; 应用切换的时候会保持原来的输入法不变&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;桌面空白处右键-排序方式-贴紧网格&lt;/code&gt; 右键整理图标的时候就会按网格排列&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;开发环境设置&#34;&gt;开发环境设置&lt;/h2&gt;
-
-&lt;h3 id=&#34;安装-command-line-tools&#34;&gt;安装 Command line tools&lt;/h3&gt;
-
-&lt;p&gt;方便后续编译安装其它应用&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9601/44/840280004/58067/a2e0aa5e/59d8e496N2cdf9cca.png&#34; alt=&#34;xcode-select&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;xcode-select --install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;安装-brew&#34;&gt;安装 brew&lt;/h3&gt;
-
-&lt;p&gt;一般命令行的工具，或者开发环境包都用 &lt;a href=&#34;https://brew.sh/&#34;&gt;brew&lt;/a&gt; 来安装。GUI 的应用直接去网站下载安装包即可，App Store 我一般用来购买安装一些收费软件&lt;/p&gt;
-
-&lt;p&gt;打开命令行执行下面的命令来安装 brew&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;使用下面的命令替换 brew 源为&lt;a href=&#34;https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git&#34;&gt;中科大镜像&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 替换brew.git:
-cd &amp;quot;$(brew --repo)&amp;quot;
-git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
-
-# 替换homebrew-core.git:
-cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
-git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走 &lt;em&gt;番习习墙&lt;/em&gt; 代理，我一般在配置文件中设置 &lt;code&gt;vim ~/.curlrc&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;socks5 = &amp;quot;127.0.0.1:1080&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;安装-zsh-oh-my-zsh&#34;&gt;安装 Zsh &amp;amp; oh-my-zsh&lt;/h3&gt;
-
-&lt;p&gt;Zsh 是一种 &lt;a href=&#34;https://zh.wikipedia.org/wiki/Unix_shell&#34;&gt;shell&lt;/a&gt;，功能和 bash, csh 一样，用来和操作系统交互&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 安装 zsh
-brew install zsh
-# 安装 oh-my-zsh 插件
-# 更换默认 shell 为 zsh
-chsh -s /bin/zsh
-sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装成功的话会有下面的提示&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png&#34; alt=&#34;ohmyzsh&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;安装自动补全提示插件 &lt;a href=&#34;https://github.com/zsh-users/zsh-autosuggestions&#34;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34;&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t10564/347/828202786/16788/8bd58613/59d8e50cN2ef8aa62.gif&#34; alt=&#34;zsh-autosuggestions&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;安装-配置-iterm2&#34;&gt;安装/配置 iTerm2&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.iterm2.com/&#34;&gt;下载&lt;/a&gt; 并安装，打开 Preferences 偏好设置&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;General&lt;/code&gt; 关闭 &lt;code&gt;Native full screen windows&lt;/code&gt; 我不使用系统的全屏（因为有过渡动画），是为了使用全局快捷键 &lt;strong&gt;立即&lt;/strong&gt; 调出命令行&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Profiles-Window-Transparency&lt;/code&gt; 设置透明度 10%~20% 即可，太高会和桌面背景冲突。如果需要临时禁用透明度可以使用快捷键 &lt;code&gt;⌘+u&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Keys-Hotkey&lt;/code&gt; 设置全局显示隐藏快捷键 系统级别的快捷键设置为 &lt;code&gt;⌘+\&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;最佳实践，启动 iTerm2 后按 &lt;code&gt;⌘+enter&lt;/code&gt; 全屏，然后 &lt;code&gt;⌘+\&lt;/code&gt; 隐藏它，这时候就可以做别的事情去了。任何时间想再用 iTerm2 只需要按 &lt;code&gt;⌘+\&lt;/code&gt; 即可&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;brew-常用工具&#34;&gt;brew 常用工具&lt;/h3&gt;
-
-&lt;p&gt;下面这些都是用 brew 安装的，即 &lt;code&gt;brew install xxx&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;htop&#34;&gt;htop&lt;/h4&gt;
-
-&lt;p&gt;用来查看当前运行的程序，top 命令的升级版&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34;&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t10783/119/847515894/438295/9e4709ce/59d8e566N62c288f9.png&#34; alt=&#34;htop&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;tree&#34;&gt;tree&lt;/h4&gt;
-
-&lt;p&gt;显示文件为树形菜单&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;➜  keelii.github.io tree . -L 2
-.
-├── config.toml
-├── content
-│   ├── about
-│   └── archives
-├── deploy.sh
-├── public
-│   ├── 2016
-...
-│   └── tags
-└── themes
-    └── octo-enhance
-
-17 directories, 8 files
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;httpie&#34;&gt;httpie&lt;/h4&gt;
-
-&lt;p&gt;使用比 curl 简单多了，而且还有一些代码高亮的效果&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34;&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t9175/233/2384082355/52554/472f733/59d8e58fN956a159a.png&#34; alt=&#34;httpie&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;vim&#34;&gt;vim&lt;/h4&gt;
-
-&lt;p&gt;安装 vim 添加一些默认的模块和编程语言支持 cscope, lua, python 并且覆盖系统默认的 vim&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install vim --HEAD --with-cscope --with-lua --with-override-system-vim --with-luajit --with-python
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装 vim-plug&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;autojump&#34;&gt;autojump&lt;/h4&gt;
-
-&lt;p&gt;方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配。&lt;strong&gt;注意: autojump 只会记录安装后使用 cd 命令进入过的目录&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34;&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif&#34; alt=&#34;autojump&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;yarn&#34;&gt;yarn&lt;/h4&gt;
-
-&lt;p&gt;npm 的替代品，Production Ready。如果系统中安装过 node，就使用 &lt;code&gt;yarn --without-node&lt;/code&gt; 命令只安装 yarn 工具&lt;/p&gt;
-
-&lt;h3 id=&#34;安装-python-pip&#34;&gt;安装 python pip&lt;/h3&gt;
-
-&lt;p&gt;下载 &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt; 在命令行中使用 python 运行这个文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo python get-pip.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;更改各种程序语言包源&#34;&gt;更改各种程序语言包源&lt;/h3&gt;
-
-&lt;h4 id=&#34;ruby-gemrc&#34;&gt;ruby - .gemrc&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
-gem sources -l
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.gemrc
----
-:backtrace: false
-:bulk_threshold: 1000
-:sources:
-- https://mirrors.tuna.tsinghua.edu.cn/rubygems/
-:update_sources: true
-:verbose: true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;node-yarnrc-npmrc&#34;&gt;node - .yarnrc/.npmrc&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat ~/.yarnrc
-registry &amp;quot;https://registry.npm.taobao.org&amp;quot;
-disturl &amp;quot;https://npm.taobao.org/dist&amp;quot;
-electron_mirror &amp;quot;http://cdn.npm.taobao.org/dist/electron/&amp;quot;
-node_inspector_cdnurl &amp;quot;https://npm.taobao.org/mirrors/node-inspector&amp;quot;
-sass_binary_site &amp;quot;http://cdn.npm.taobao.org/dist/node-sass&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;dotfiles-配置文件&#34;&gt;dotfiles 配置文件&lt;/h3&gt;
-
-&lt;p&gt;可以参照我的 &lt;a href=&#34;https://github.com/keelii/dotfiles&#34;&gt;dotfiles&lt;/a&gt; 配置文件&lt;/p&gt;
-
-&lt;h3 id=&#34;其它-gui-应用&#34;&gt;其它 GUI 应用&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt; 程序启动器&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://theunarchiver.com/&#34;&gt;The Unarchiver&lt;/a&gt; ⇒ 解压工具&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/magnet/id441258766?mt=12&#34;&gt;Magent&lt;/a&gt; ⇒ 排列窗口（付费）&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.mowglii.com/itsycal/&#34;&gt;Itsycal&lt;/a&gt; ⇒ 简洁版日历&lt;/li&gt;
-&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snip.qq.com/&#34;&gt;Snip&lt;/a&gt; ⇒ 屏幕截图&lt;/del&gt;&lt;/li&gt;
-&lt;li&gt;&lt;del&gt;&lt;a href=&#34;http://snappy-app.com/&#34;&gt;Snappy&lt;/a&gt; ⇒ 屏幕截图、修改分享&lt;/del&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.snipaste.com/&#34;&gt;Snipaste&lt;/a&gt; ⇒ 更好用的屏幕截图&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://pasteapp.me/&#34;&gt;Paste&lt;/a&gt; 剪贴板管理工具（付费）&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 正确的使用 markdown 写文档笔记等&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pqrs.org/osx/karabiner/&#34;&gt;Karabiner-Elements&lt;/a&gt; ⇒ 改键器, 改键方案参照&lt;a href=&#34;https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/&#34;&gt;上篇&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://freemacsoft.net/appcleaner/&#34;&gt;AppCleaner 2&lt;/a&gt; ⇒ 卸载应用&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.cockos.com/licecap/&#34;&gt;licecap for mac&lt;/a&gt; ⇒ 录制 gif 图片&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://zipzapmac.com/go2shell&#34;&gt;Go2shell&lt;/a&gt; ⇒ Finder 当前目录打开命令行&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     

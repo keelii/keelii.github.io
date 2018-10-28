@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Concept on Something</title>
+    <title>concept on Something</title>
     <link>https://keelii.com/categories/concept/</link>
-    <description>Recent content in Concept on Something</description>
+    <description>Recent content in concept on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 21 Oct 2018 19:10:25 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Oct 2018 19:10:24 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.com/categories/concept/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>谈谈技术驱动与尊重技术</title>
+      <link>https://keelii.com/2018/10/27/technology-driven-and-respect/</link>
+      <pubDate>Sat, 27 Oct 2018 19:10:24 +0000</pubDate>
+      
+      <guid>https://keelii.com/2018/10/27/technology-driven-and-respect/</guid>
+      <description>&lt;p&gt;很多从事 IT 互联网公司工作的人（尤其是程序员）会常常提到「技术驱动与技术重视」的问题，大部分人在面临职业选择的时候也优先选择那些所谓的「技术驱动」型的公司。因为在这种公司里面技术氛围好，对自己的职业发展有帮助。&lt;/p&gt;
+
+&lt;p&gt;这种想法肯定是无可厚非的。本文试着从大环境与自我两方面聊一下这个话题&lt;/p&gt;
+
+&lt;p&gt;*首先*。在大家聊到这个话题时往往都 &lt;em&gt;出奇一致&lt;/em&gt; 的认为国内没有技术驱动型公司。因为大众对技术的认识很少，很多人对于程序员的第一印象是「修电脑」。&lt;/p&gt;
+
+&lt;p&gt;当然你可能会觉得「不会呀，我周围都是一些非常专业的同事，我也在一家很重视技术的公司工作，我的工作内容大家都认可」，这么认为当然也是对的，但是我想说是的大众的意识问题。&lt;/p&gt;
+
+&lt;p&gt;为什么大家会有这种「偏见」，在我看来根本原因就是一种 &lt;strong&gt;普世的价值观对于偏才的误解&lt;/strong&gt;。因为大众喜欢看到一个十全十美的东西。儒家的思想提倡自我的实现，君子应该如何如何…，君子应该是上知天闻下知地理，既洞明学问，又练达人情。但事实上并非如此。诸葛亮就是一个很好的例子，大众认可的是他小说中的角色，一个样样精通的人，政治、军事、管理各个领域都很精通，但事实上诸葛亮除了人长得帅气，有政治才能以外并没有别的什么长处&lt;/p&gt;
+
+&lt;p&gt;大家喜欢全才而不是偏才，这也是《论语》中讲「君子不器」的道理。就是说君子不能像固定的器具/东西一样只有一个功能。上学的时候老师会告诉你不能偏科，学校会要求你德智体美劳全面发展。这是一种美好的愿望，但是真的有几个人会成为大家眼里的完人呢。我始终认为每个人都是不一样的，与其要求成为大众一致认为的完美，不如让自己成就真实的自我。&lt;/p&gt;
+
+&lt;p&gt;再回到现在，为什么人们开始崇尚「工匠精神」，科技发展飞速的今天，大家才意识到技术的重要性，才意识到「科学技术是第一生产力」，只有掌握了核心技术才有能力去创造更多的价值，然而任何一样好的技术，一定是经过了几代人的努力长时间的积累实践才最终产业化。我们现在社会缺乏的恰恰是这种持之以恒的精神。&lt;/p&gt;
+
+&lt;p&gt;在我看来工匠精神就是那种对做事要求特别专业、极致，实现自我价值的同时影响别人的一类人，这类人（比如说程序员）他们在用大量的时间去学习了专业知识，但是却疏于交际、不善言谈、或者说除了专业知识其他能力很弱。如果周围的环境能给予足够的理解于支持，比如说刚刚过去的程序员节就是个很好的例子，我觉得那个时候才会出现真正的技术驱动&lt;/p&gt;
+
+&lt;p&gt;*其次*。上面讲的都是大环境，事实上通常是无法改变的，那么程序员是不是应该自己反思下如何提升自己来获得外界的支持于尊重。很多时候大家在要一样东西时会觉得「本来就是这样」，程序员就应该被放在一个被尊重的地方，一个认可技术的公司。但是这种尊重与认可怎么可能凭空而来呢，所谓的尊重应该是通过自己的专业能力换来的。别人眼中的你也是自己塑造出来的才对。要想大家重视技术，首先自己得重视技术，能用技术做到别人做不到的事情，这才是技术的价值。如果你自己写代码不追求极致，得过且过那就必然会成为被淘汰的对象&lt;/p&gt;
+
+&lt;p&gt;可能会有很多人认为写代码对于自己来说只是为了赚钱生活，并不追求极致。这当然也是非常合理且正常的，因为并不是每个人的工作都是自己选择的、喜欢的。但是我比较认同的是一种做事情的态度。环顾你周围的那些优秀的人，你会发现他们无论做什么事都会做的像模像样，即使他们做一些非擅长领域的事情，也可以做的非常优秀甚至出彩。&lt;/p&gt;
+
+&lt;p&gt;所以说编程对于大家来说 for fun 还是 for 饭并不重要，重要的是大家的态度&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>《IT 狂人》中的摇滚精神</title>
@@ -23,17 +53,17 @@
 
 &lt;p&gt;如果你同时看过这两部剧的话你会发现他们之间有很大的差别，美式幽默和英式的幽默完全不是一个风格。英式幽默特别夸张、无理头，甚至讽刺、搞怪。他会用一些你很难想象的非常夸张的表现手法，比如在第一季中的「火焰屏保」&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img10.360buyimg.com/devfe/jfs/t1/3755/16/10751/846454/5bcc3e51E9179c795/3e57d0b0706e52ab.png&#34; alt=&#34;it-crowed-火焰屏保&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t1/3755/16/10751/846454/5bcc3e51E9179c795/3e57d0b0706e52ab.png&#34; alt=&#34;it-crowed-火焰屏保&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;一本正经的胡说八道，却让人笑到抽&lt;/p&gt;
 
 &lt;p&gt;还有 &lt;strong&gt;灭火器着火&lt;/strong&gt;。我从来没见过甚至听过有比灭火器着火更离谱且搞笑的事情了吧&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t1/3296/27/10678/875307/5bcc3eafEf75c2af6/a6fa72572495df69.png&#34; alt=&#34;it-crowed-灭火器着火&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3296/27/10678/875307/5bcc3eafEf75c2af6/a6fa72572495df69.png&#34; alt=&#34;it-crowed-灭火器着火&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这还不算，镜头一转&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img13.360buyimg.com/devfe/jfs/t1/9182/24/944/574450/5bcc3f27E12b1667d/fcb6c97d159f403d.png&#34; alt=&#34;it-crowed-灭火器made-in-britain&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t1/9182/24/944/574450/5bcc3f27E12b1667d/fcb6c97d159f403d.png&#34; alt=&#34;it-crowed-灭火器made-in-britain&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;「Made in Britain - 英国制造」，这算是把自己国家完整的黑了一把&lt;/p&gt;
 
@@ -59,7 +89,7 @@
 
 &lt;p&gt;其实最令我印象深刻的是 2013 特别篇中的「The Internet」，这一节中可以说完美的体现了导演对于程序员心理理解，再加上旁观者傻白甜的举动行成了鲜明的对比。当 Moss 对珍说「This, Jan is The Internet - 珍，这就是 Internet」的时候程序员估计会笑喷了吧&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;//img30.360buyimg.com/devfe/jfs/t1/3872/18/10568/253979/5bcc3f95E69534c32/897afbf3f66a4e07.jpg&#34; alt=&#34;it-crowed-this-is-the-interinet&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3872/18/10568/253979/5bcc3f95E69534c32/897afbf3f66a4e07.jpg&#34; alt=&#34;it-crowed-this-is-the-interinet&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这一集是真正意义上的完完全全从程序员的视角拍摄的一集，看过之后你会有一种这集就是为自己拍的的感觉。这种感觉是在其它剧或者电影里面没有的。一开始看似无理头的搞怪，最后逐渐发酵 Jen 居然拿到公司去给一大帮人讲这个盒子上的东西就是整个 Internet，荒唐的是居然大家都信了！再到最后的 Internet 被摔整个「闹剧」结束。整集看下来过瘾的同时也无比的感叹导演对剧本的精准设计和演员出色的演技。反观国内大多数人对程序员的认知还在「牛仔裤、格子衬衫」的阶段吧&lt;/p&gt;
 

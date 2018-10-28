@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Editor on Something</title>
+    <title>editor on Something</title>
     <link>https://keelii.com/tags/editor/</link>
-    <description>Recent content in Editor on Something</description>
+    <description>Recent content in editor on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 14 Jun 2016 10:39:40 +0800</lastBuildDate>

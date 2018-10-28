@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GVim on Something</title>
+    <title>gVim on Something</title>
     <link>https://keelii.com/tags/gVim/</link>
-    <description>Recent content in GVim on Something</description>
+    <description>Recent content in gVim on Something</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 13 Jun 2016 21:25:57 +0800</lastBuildDate>

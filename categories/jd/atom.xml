@@ -632,7 +632,7 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_04-14-43___item-version.png&#34; alt=&#34;item version&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t1/6443/10/4580/19685/5bd9aa42E9e1ec871/780ffde00be9b417.jpg&#34; alt=&#34;item version&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;首先。由于详情页大量（sku上亿）、高并发（日 pv 约 5000 万）等特性，在很长的一段时间里，单品页面都是后端程序生成静态页面使用 CDN 来解决大量、高并发的问题&lt;/p&gt;
 
@@ -640,7 +640,7 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;p&gt;基于上面两个原因，注定了单品页是一种重多系统业务逻辑展示型页面。重前端页面。我大概汇总了一下页面上异步接口，总共约有 30 个，页首屏的接口特别重要，接口之间几乎都有耦合关系&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_06-17-42___async-service.png&#34;&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_06-17-42___async-service.png&#34; alt=&#34;item-async-service&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img12.360buyimg.com/devfe/jfs/t1/8281/14/4115/69497/5bd9aa60E87106dd1/3d5858a0206a115b.jpg&#34;&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t1/8281/14/4115/69497/5bd9aa60E87106dd1/3d5858a0206a115b.jpg&#34; alt=&#34;item-async-service&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;前端的发展历程&#34;&gt;前端的发展历程&lt;/h2&gt;
 
@@ -672,13 +672,13 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;h3 id=&#34;概览&#34;&gt;概览&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_09-34-48___first-screen-normal-module.png&#34;&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_09-34-48___first-screen-normal-module.png&#34; alt=&#34;first-screen-normal-module&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img30.360buyimg.com/devfe/jfs/t1/5384/14/13893/295474/5bd9aa81E87858c06/afbb4167b5339166.jpg&#34;&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/5384/14/13893/295474/5bd9aa81E87858c06/afbb4167b5339166.jpg&#34; alt=&#34;first-screen-normal-module&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;上图可以看出，基本上最核心的模块都在首屏。每个模块都有单独的一/多个脚本。代码行数（LOC）由 230+ ~ 1200+ 不等。通常来说代码行数越多代码复杂性就越高，逻辑越复杂。很难想象「购买方式」这种只有一行属性选择功能的代码行数却 &lt;strong&gt;高达 1200 多行&lt;/strong&gt;。其主要原因就在于购买方式所在的系统和其它首屏核心系统（库存、促销、地址选择、白条）都有逻辑上的耦合&lt;/p&gt;
 
 &lt;p&gt;看着不错，然而在一个前端工程师眼里至少应该是这样的（我只取了一些典型的模块，并不是全部）：&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_10-25-02___first-screen-in-fe-eye.png&#34;&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_10-25-02___first-screen-in-fe-eye.png&#34; alt=&#34;first-screen-in-fe-eye&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://img20.360buyimg.com/devfe/jfs/t1/7252/24/4264/274354/5bd9aa96E7dc77552/e373aa42595c2369.jpg&#34;&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/7252/24/4264/274354/5bd9aa96E7dc77552/e373aa42595c2369.jpg&#34; alt=&#34;first-screen-in-fe-eye&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;这就可以解释为什么有的时候只是加一个很小的东西我们都为考虑再三然后通过 AB 测试提取相关数据，最后后再进行决策。单品页的首屏可以说是寸土寸金&lt;/p&gt;
 
@@ -708,13 +708,13 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;p&gt;项目的整体树形结构是这样的：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_11-09-56___project-structure.png&#34; alt=&#34;project-structure&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/7397/9/4122/26098/5bd9aaabEde2cd164/d18c6470430c847d.jpg&#34; alt=&#34;project-structure&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;模块内部结构&#34;&gt;模块内部结构&lt;/h3&gt;
 
 &lt;p&gt;比如下面这个大图预览的功能，我全部放在一个文件夹里面维护，但是逻辑上的 JavaScript 模块是分离的，只是说文件夹（preview）就代表页面上的某一部分功能集合&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_10-45-41___module-structure.png&#34; alt=&#34;module-structure&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t1/6850/35/4456/47415/5bd9aab9Edfb82387/85571d5b35950d3c.jpg&#34; alt=&#34;module-structure&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;注意文件夹的命名有一定的规则：&lt;/p&gt;
 
@@ -805,15 +805,15 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;p&gt;早期由于年轻笃信将所有的 icon 拼在一张图上才是完美的（图 1）&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-08-04_01-42-51___640.png&#34; alt=&#34;first-sprite&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t1/5086/32/14021/18074/5bd9aac5Ebc40c4af/49594049c31b25fc.jpg&#34; alt=&#34;first-sprite&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;后来维护起来实在不方便，就把按钮全部单独接合起来。注意，当时的按钮都是图片，设计方面要求的很严格。加入购物车按钮做的也非常漂亮（图 2）&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-08-04_01-42-50___640_1.png&#34; alt=&#34;button-sprite&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t1/2093/9/14007/27625/5bd9aad6E57d81cc9/86c3e1eeec27378b.jpg&#34; alt=&#34;button-sprite&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;然后这些都不是最典型的，下面这个 promise icon 才是 （图 3）&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-08-04_01-42-50___640_2.png&#34; alt=&#34;promise-sprite&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t1/756/9/14108/8098/5bd9aae4Eeacfb483/e40340bb0624153a.jpg&#34; alt=&#34;promise-sprite&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;从图里面可以看到，这个功能在第一个版本的时候只有 7 个 icon，后来不断增加，最多的时候达到 77 个。以至于当时每周都会添加两个的频率&lt;/p&gt;
 
@@ -839,11 +839,11 @@ errorTracker.log(&#39;日志信息&#39;)
 
 &lt;p&gt;举个例子吧，下面这个进度条表示预约的人数，它是接口异步加载完才展示的。如果加载完就立即设置进度条宽度会显得生硬无趣，但是如果加上一点动画效果的话就好多了。然而问题又来了，如果加上动画那么逻辑上这个进度条应该是一点点的增加，对应的人数也应该是逐个增加。于是我就做了个优化，让人数在这段时间内均匀的增加。这个细节并不是很容易被人发现，但是这种设计会让用户感觉很用心而且有意思&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_13-31-29___pingou-count.gif&#34; alt=&#34;pingou&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/5613/35/13921/17298/5bd9ab70Efe5844f3/aefc91f515f3624b.gif&#34; alt=&#34;pingou&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;javascript&#34;&gt;JavaScript&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-07-31_14-07-24___item-javascript-exec-sequence.png&#34; alt=&#34;javascript-exec-sequence&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t1/5921/29/14048/22753/5bd9ab91E234a6510/34f54c051c998885.png&#34; alt=&#34;javascript-exec-sequence&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;单品页的脚本加载/执行顺序：&lt;/p&gt;
 

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2018/11/04/why-youtube-ad-better/</loc>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2018/10/27/technology-driven-and-respect/</loc>
     <lastmod>2018-10-28T21:42:31+08:00</lastmod>
   </url>
@@ -119,7 +124,7 @@
   
   <url>
     <loc>https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/</loc>
-    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
   </url>
   
   <url>
@@ -234,7 +239,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2018-10-28T21:42:31+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -299,7 +304,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2018-10-28T21:42:31+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -318,6 +323,12 @@
   <url>
     <loc>https://keelii.com/categories/WebDev/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/ad/</loc>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -359,13 +370,13 @@
   
   <url>
     <loc>https://keelii.com/categories/concept/</loc>
-    <lastmod>2018-10-28T21:42:31+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/tags/css/</loc>
-    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -431,7 +442,7 @@
   
   <url>
     <loc>https://keelii.com/tags/html/</loc>
-    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -461,7 +472,7 @@
   
   <url>
     <loc>https://keelii.com/tags/item/</loc>
-    <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -658,6 +669,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/tags/video/</loc>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/categories/vim/</loc>
     <lastmod>2018-09-25T09:33:33+08:00</lastmod>
     <priority>0</priority>
@@ -678,6 +695,12 @@
   <url>
     <loc>https://keelii.com/tags/win/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/youtube/</loc>
+    <lastmod>2018-11-04T16:21:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   

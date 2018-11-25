@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>MacOS 单独设置 Command(⌘) 键点击功能</title>
+    <title>Wechat</title>
     <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
@@ -13,13 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 
-    <link rel="canonical" href="https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/">
+    <link rel="canonical" href="https://keelii.com/tags/wechat/">
     <link href="https://keelii.com/favicon.ico" rel="icon">
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
 
     
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
-    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -46,6 +45,8 @@
     <ul class="subscription" data-subscription="rss">
         <li>
             
+            <a href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
+            
         </li>
     </ul>
 
@@ -70,142 +71,38 @@
 
 <div id="main">
     <div id="content">
-        <div style="padding-top:0;">
-            <article class="hentry" role="article">
+        <div>
+            <article role="article">
                 <header>
-                    <h1 class="entry-title">macOS 单独设置 command(⌘) 键点击功能</h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2017-10-03 17:10:27">
-                            <span class="date">2017-10-3</span>
-                            <span class="time">17:10 PM</span>
-                        </time>
-                    </p>
+                    
+                    <h1>Tag: wechat</h1>
+                    
                 </header>
-
-                <div class="entry-content"><p>由于最近全面切换工作环境到 Mac 上，快捷键基本上成了适应期的最大问题</p>
-
-<p>传统意义上像 <code>Ctrl, Alt, Shift, Win, Option, Command</code> 都属于 <code>修饰键</code>，只能和其它键配合使用才可以（Ctrl+c,Ctrl+v），单独敲击并没有效果</p>
-
-<p>但是 Win 键在 Windows 中被赋予了更多的功能，下面这几个系统级别的快捷键用起来是非常方便的：</p>
-
-<ul>
-<li><code>Win + E</code> ⇒ 打开资源管理器</li>
-<li><code>Win + D</code> ⇒ 显示桌面</li>
-<li><code>Win + L</code> ⇒ 锁定计算机</li>
-</ul>
-
-<p>之前使用过 Windows 和 Ubuntu gnome，特别方便的一点就是 super(Win) 键 <strong>不仅</strong> 可以做为修饰键和其它键组合使用，而且还可以响应 <strong>单独的</strong> 点击事件，Windows 中点击 Win 键会全局呼出 <em>开始菜单</em> 方便我们 <em>查找/打开</em> 应用。这样的话单独点击相当于可以少按一个按键，切找应用什么的非常快</p>
-
-<p>Mac 中我通常使用 Spotlight 来快速切换程序。用惯了 Mac 的人会觉得 command 键位非常舒服好按（键位原因），这时候我希望尽可能把常用的键组织到 command 上又 <strong>不影响</strong> 原来的组合键，比如我有下面两个最常使用的快捷键：</p>
-
-<ul>
-<li><code>⌘</code> ⇒ 呼出 Spotlight</li>
-<li><code>⌘ + Space</code> ⇒ 切换输入法</li>
-</ul>
-
-<p>然而 Mac 系统中并不允许我们这么做 🤔，于是我使用了一个改键器 <a href="https://pqrs.org/osx/karabiner/">Karabiner</a> 😎</p>
-
-<p><a href="https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png"><img src="https://img20.360buyimg.com/devfe/jfs/t9160/329/2610957899/117091/8481138f/59d34e67Nb3bd2a2d.png" alt="mac-karabiner" /></a></p>
-
-<p>我的配置方法是使用 <code>Complex Modifications</code> 因为它允许我把修饰键改成其它按钮功能。在这里我将其改为一个没用的键位（f13 - PrtSc），因为 Spotlight 不接受单独的修饰键，所以只能这样区线救国了</p>
-
-<p>然后在系统偏好设置 - 键盘 - 快捷键 中将 Spotlight 设置成 F13</p>
-
-<p><a href="https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png"><img src="https://img12.360buyimg.com/devfe/jfs/t9769/96/578527884/124966/ff1a2f04/59d34fbeN5b1e4775.png" alt="mac-spotlight" /></a></p>
-
-<p>注意：默认的 Complex Modifications 里面是空的，需要你手动导入一个叫 <a href="https://pqrs.org/osx/karabiner/complex_modifications/#modifier_keys">Tapping modifier-keys produces a f-key.</a>。然后我们 <code>enable</code> 这条：<strong>Press left_command alone produces F14</strong>，噫~我们是要 map 成 F13 这里默认的是 F14，怎么改下呢。改配置文件吧，打开下面这个文件：</p>
-
-<pre><code class="language-bash">vim ~/.config/karabiner/karabiner.json
-</code></pre>
-
-<p>将里面的 F14 改成 F13 即可：</p>
-
-<pre><code class="language-json">// ...
-&quot;complex_modifications&quot;: {
-    &quot;parameters&quot;: {
-        &quot;basic.to_if_alone_timeout_milliseconds&quot;: 600
-    },
-    &quot;rules&quot;: [
-        {
-            &quot;description&quot;: &quot;Press left_command alone produces F14&quot;,
-            &quot;manipulators&quot;: [
-                {
-                    &quot;from&quot;: {
-                        &quot;key_code&quot;: &quot;left_command&quot;,
-                        &quot;modifiers&quot;: { &quot;optional&quot;: [ &quot;any&quot; ] }
-                    },
-                    &quot;to&quot;: [ { &quot;key_code&quot;: &quot;left_command&quot; } ],
-                    &quot;to_if_alone&quot;: [ { &quot;key_code&quot;: &quot;f14&quot; } ],
-                    &quot;type&quot;: &quot;basic&quot;
-                }
-            ]
-        }
-    ]
-}
-</code></pre>
-
-<p>这样基本上的完成我的需求了，打开应用只需要按一次 ⌘ 即可呼出 Spotlight，像打开 Google Chrome 只需要两个键即可 <code>⌘ g</code>、Webstorm <code>⌘ w</code>、Firefox <code>⌘ f</code> &hellip;</p>
-
-<blockquote>
-<p>备注：我用的机器是 Mac mini 主机 + filco 87 键盘</p>
-</blockquote>
-</div>
-                <footer>
-                    <p class="meta">
-                        <span class="byline author vcard">Posted</span>
-                        
-                        <span class="span">on</span>
-                        <span class="categories">
-                            
-                            
-                            <a class="category 0|1" href="https://keelii.com/categories/mac">mac</a>
-                            
-                        </span>
-                        
-                    </p>
-                    <p class="meta">
-                        <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2017-12-10 13:44:22">
-                            <span class="date">2017-12-10</span>
-                            <span class="time">13:44 PM</span>
-                        </time>
-                    </p>
-                    <p class="meta">
-                        
-                        <span class="basic-alignment left">
-                            &laquo; <a href="https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/" title="Previous Post: jQuery data 方法的一个小特技">jQuery data 方法的一个小特技</a>
-                        </span>
-                        
-
-                        
-                        <span class="basic-alignment right">
-                            <a href="https://keelii.com/2017/10/07/macos-development-setup-guide/" title="Nextious Post: macOS Sierra 开发环境配置指南">macOS Sierra 开发环境配置指南</a> &raquo;
-                        </span>
-                        
-                    </p>
-                </footer>
+                <div id="blog-archives">
+                    
+                        <h2>2018</h2>
+                        <article>
+                            <h1><a href="https://keelii.com/2018/11/25/why-some-wechat-article-become-modern-opium/">为什么一些高赞公众号文章成为现代鸦片</a></h1>
+                            <time class="entry-date" datetime="2018-11-25 19:10:24">
+                                <span class="date">Nov</span>
+                                <span class="time">25</span>
+                            </time>
+                            <footer>
+                                <div class="categories">
+                                    posted in
+                                    
+                                    <a class="category" href="/categories/concept">concept</a>
+                                    
+                                </div>
+                            </footer>
+                        </article>
+                    
+                </div>
             </article>
-            <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread"></div>
-    <script>
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = '//keelii-blog.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
         </div>
-
         <aside class="sidebar">
     
-        
-    <section>
+        <section>
     <p style="text-align:center"><img width="200" height="200" src="//img10.360buyimg.com/devfe/jfs/t1/2176/40/10914/39038/5bcc43aaEcc0d75c0/e0e19b8edc123beb.jpg" alt="qrcode_for_gh_f2ea7d4767c1_430" /></p> 
     <p><strong>肆零玖陆</strong> - <em>编程有两种「一种是 for 饭，另一种还是 for fun」</em></p>
 </section>
@@ -352,9 +249,6 @@
     <a href="https://www.vultr.com/?ref=6805146"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
 </section>
 
-
-
-
     
 </aside>
 
@@ -372,15 +266,6 @@
 
 <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 <script src="/javascripts/octopress.js"></script>
-
-
-
-<script src="/javascripts/highlight.pack.js"></script>
-<script src="/javascripts/post.js"></script>
-<script>
-if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
-</script>
-
 
 
 <script>

@@ -23,26 +23,26 @@
 
 &lt;h2 id=&#34;简介-introduction&#34;&gt;简介 Introduction&lt;/h2&gt;
 
-&lt;p&gt;ProseMirror 提供了一组工具和设计概念用来构建富文本编辑器，UI 的使用源于 WYSIWYG 的一些灵感，ProseMirror 试着屏蔽一些样式编辑的一些痛点&lt;/p&gt;
+&lt;p&gt;ProseMirror 提供了一组工具和设计概念用来构建富文本编辑器，UI 的使用源于 WYSIWYG 的一些灵感，ProseMirror 试着屏蔽一些排版中的痛点&lt;/p&gt;
 
-&lt;p&gt;ProseMirror 的主要原则是：你的代码对于文档及其事件变更有完整的控制权。这个 &lt;strong&gt;文档&lt;/strong&gt; 并不是原生的 HTML，而是一个自定义的数据结构，这个数据结构包含了通过了你明确允许应该被包含的元素，它们的关系也由你指定。所有的更新都会一个你可以查看并做出响应的地方进行&lt;/p&gt;
+&lt;p&gt;ProseMirror 的主要原则是：*你的代码对于&lt;strong&gt;文档&lt;/strong&gt;及其事件变更有完整的控制权*。这个 &lt;strong&gt;文档&lt;/strong&gt; 并不是原生的 HTML 文档，而是一个自定义的数据结构，这个数据结构包含了通过你明确允许应该被包含的元素，它们的关系也由你指定。所有的更新都会在一个你可以查看并做出响应的地方进行&lt;/p&gt;
 
-&lt;p&gt;核心的代码库并不是一个容易拿来就用的组合 — 我们会优先考虑模块化和可自定义化胜过简单化，希望将来有用户会基于 ProseMirror 分发一个拿来就能用的版本。因此，ProseMirror 更像是乐高积木而不是火柴盒拼的车&lt;/p&gt;
+&lt;p&gt;核心的代码库并不是一个容易拿来就用的组合 — 我们会优先考虑 &lt;strong&gt;模块化&lt;/strong&gt; 和 &lt;strong&gt;可自定义&lt;/strong&gt; 化胜过简单化，希望将来有用户会基于 ProseMirror 分发一个拿来就用的版本。因此，ProseMirror 更像是乐高积木而不是火柴盒拼的成的玩具车&lt;/p&gt;
 
-&lt;p&gt;总共有四个核心模块，任何编辑都需要用到它们，还有很多核心团队维护的扩展模块，它们的状态类似于三方模块 — 它们提供有用的功能，但是你可以删除或者替换成其它实现了相同功能的模块&lt;/p&gt;
+&lt;p&gt;总共有四个核心模块，任何编辑行为都需要用到它们，还有很多核心团队维护的扩展模块，类似于三方模块 — 它们提供有用的功能，但是你可以删除或者替换成其它实现了相同功能的模块&lt;/p&gt;
 
 &lt;p&gt;核心模块分别是：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;prosemirror-model 定义了编辑器的文档模型，数据结构用来描述编辑器的内容&lt;/li&gt;
-&lt;li&gt;prosemirror-state 提供了整个编辑器状态的数据结构，包括选区和维护状态变化的事务系统&lt;/li&gt;
-&lt;li&gt;prosemirror-view 实现一个用户接口组件，用来在浏览器中把编辑器的状态展示成可编辑元素，并且与其进行交互&lt;/li&gt;
-&lt;li&gt;prosemirror-transform 包含了一种可以记录/重放文档修改历史的功能组件，这是 &lt;code&gt;state&lt;/code&gt; 模块中事务的基础，而且这还使得编辑器的恢复历史和协作编辑功能成为可能&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prosemirror-model&lt;/code&gt; 定义了编辑器的文档模型，数据结构用来描述编辑器的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prosemirror-state&lt;/code&gt; 提供了整个编辑器状态的数据结构，包括选区和维护状态变化的事务系统&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prosemirror-view&lt;/code&gt; 实现一个用户界面组件，用来在浏览器中把编辑器的状态展示成可编辑元素，并且与其进行交互&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;prosemirror-transform&lt;/code&gt; 包含了一种可以记录/重放文档修改历史的功能组件，这是 &lt;code&gt;state&lt;/code&gt; 模块中事务的基础，而且这还使得编辑器的恢复历史和协作编辑功能成为可能&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;此外，还有一些诸如 基础的编辑命令、快捷键绑定、恢复历史、输入宏、协作编辑，简单的文档骨架 的模块。&lt;a href=&#34;https://github.com/prosemirror/&#34; title=&#34;Prosemirror org&#34;&gt;Github prosemirror 组织&lt;/a&gt; 代码库中还有更多&lt;/p&gt;
 
-&lt;p&gt;事实上 ProseMirror 并没有分发一个独立的浏览器可以加载的脚本，这表示你可能需要一些模块 bunder 来配合使用它。模块 Bunder 就是一个工具，用来自动化的查找你脚本的依赖，合并到一个单独文件中，使你能容易的在 web 面页中使用。你可以阅读更多关于 bundling 的东西，比如：&lt;a href=&#34;https://medium.freecodecamp.org/javascript-modules-part-2-module-bundling-5020383cf306&#34; title=&#34;JavaScript Modules Part 2: Module Bundling&#34;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;事实上 ProseMirror 并没有分发一个独立的浏览器可以加载的脚本，这表示你可能需要一些模块 bunder 来配合使用它。模块 Bunder 就是一个工具，用来自动化查找你的脚本依赖，然后合并到一个单独文件中，使你能很容易的在 web 面页中使用。你可以阅读更多关于 bundling 的东西，比如：&lt;a href=&#34;https://medium.freecodecamp.org/javascript-modules-part-2-module-bundling-5020383cf306&#34; title=&#34;JavaScript Modules Part 2: Module Bundling&#34;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;我的第一个编辑器-my-first-editor&#34;&gt;我的第一个编辑器 My first editor&lt;/h3&gt;
 
@@ -56,17 +56,17 @@ let state = EditorState.create({schema})
 let view = new EditorView(document.body, {state})
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;ProseMirror 需要你为文档指定一个自己觉得合适的骨架，所以上面的代码第一件事情就是引入一个有基础骨架的模块&lt;/p&gt;
+&lt;p&gt;ProseMirror 需要你为文档指定一个自己觉得合适的骨架（schema），所以上面的代码第一件事情就是引入一个基础骨架模块&lt;/p&gt;
 
-&lt;p&gt;接着这个骨架被用来创建一个状态，它将按骨架的定义生成一个空的文档，光标会在文档最开始的地方。最后创建了一个与状态关联的视图，并且插入到 &lt;code&gt;document.body&lt;/code&gt;。这将把状态的文档渲染成一个可编辑的 DOM 节点，并且一旦用户输入内容就会生成一个状态事务&lt;/p&gt;
+&lt;p&gt;接着这个骨架被用来创建一个状态，它将按骨架的定义生成一个空的文档，光标会在文档最开始的地方。最后创建了一个与状态关联的视图，并且插入到 &lt;code&gt;document.body&lt;/code&gt;。这将会把状态的文档渲染成一个可编辑的 DOM 节点，并且一旦用户输入内容就会生成一个状态事务（transactions）&lt;/p&gt;
 
-&lt;p&gt;这个编辑器还没什么用处。比如说当你按下回车键时没有任何反应，因为核心库并不关心回车键应该用来做什么。我们马上就会谈到这一点&lt;/p&gt;
+&lt;p&gt;现在这个编辑器还没什么用处。比如说当你按下回车键时没有任何反应，因为核心库并不关心回车键应该用来做什么。我们马上就会谈到这一点&lt;/p&gt;
 
 &lt;h3 id=&#34;事务-transactions&#34;&gt;事务 Transactions&lt;/h3&gt;
 
 &lt;p&gt;当用户输入或者与视图交互时，将会生成「状态事务」。这意味着它不仅仅是只修改文档并以这种方式隐式更新其状态。相反，每次更改都会触发一个事务的创建，该事务描述对状态所做的更改，而且它可以被应用于创建一个新状态，随后用这个新状态来更新视图&lt;/p&gt;
 
-&lt;p&gt;这些过程都会默认地在后台处理，但是你可以写一个插件来挂载进去，或者通过配置视图的参数。例如，下面的代码添加了一个 &lt;code&gt;dispatchTransaction&lt;/code&gt; 属性，每当创建一个事务时都会调用它&lt;/p&gt;
+&lt;p&gt;这些过程都会默认地在后台处理，但是你可以写一个插件来挂载进去，或者通过配置视图的参数。例如，下面的代码添加了一个 &lt;code&gt;dispatchTransaction&lt;/code&gt; 属性（props），每当创建一个事务时都会调用它&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// (省略了导入代码库)
 
@@ -86,9 +86,9 @@ let view = new EditorView(document.body, {
 
 &lt;h3 id=&#34;插件-plugins&#34;&gt;插件 Plugins&lt;/h3&gt;
 
-&lt;p&gt;插件用于以各种方式扩展编辑器和编辑器状态的状态，有的会非常简单，比如 快捷键 插件-为键盘输入绑定具体动作；有的会比较复杂，比如 编辑历史 插件-通过观察事务并逆序存储来实现撤销历史记录，以防用户想要撤消它们&lt;/p&gt;
+&lt;p&gt;插件用于以各种方式扩展编辑器和编辑器状态的状态，有的会非常简单，比如 快捷键 插件 — 为键盘输入绑定具体动作；有的会比较复杂，比如 编辑历史 插件 — 通过观察事务并逆序存储来实现撤销历史记录，以防用户想要撤消它们&lt;/p&gt;
 
-&lt;p&gt;让我们为编辑器添加这两个插件来获取撤消/重做的功能：&lt;/p&gt;
+&lt;p&gt;让我们为编辑器添加这两个插件来获取撤消（undo）/重做（redo）的功能：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// (Omitted repeated imports)
 import {undo, redo, history} from &amp;quot;prosemirror-history&amp;quot;
@@ -110,7 +110,7 @@ let view = new EditorView(document.body, {state})
 
 &lt;p&gt;上面示例代码中的 &lt;code&gt;undo&lt;/code&gt; 和 &lt;code&gt;redo&lt;/code&gt; 变量值是绑定到指定键位的一种叫做 *命令* 的特殊值。大多数编辑动作都是作为可绑定到键的命令编写的，它可以用来挂载到菜单栏，或者直接暴露给用户&lt;/p&gt;
 
-&lt;p&gt;prosemirror-commands 包提供了许多基本的编辑命令，其中一些是你可以需要用到的基本的快捷键，比如 回车，删除编辑器中指定的内容&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;prosemirror-commands&lt;/code&gt; 包提供了许多基本的编辑命令，其中一些是你可以需要用到的基本的快捷键，比如 回车，删除编辑器中指定的内容&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// (Omitted repeated imports)
 import {baseKeymap} from &amp;quot;prosemirror-commands&amp;quot;
@@ -128,15 +128,15 @@ let view = new EditorView(document.body, {state})
 
 &lt;p&gt;现在，你已经有了一个算得上可以使用的编辑器了&lt;/p&gt;
 
-&lt;p&gt;添加菜单，额外的为特定骨架指定的快捷键绑定 等等，你可以通过查看 prosemirror-example-setup 包了解更多。这个模块提供给你一组插件用来创建一个基础的编辑器，但是就像它的名字一样，只是个例子，并不是生产环境级别的代码库。真正的开发中，你可能会需要替换成自定义的代码来精确实现你想要的功能&lt;/p&gt;
+&lt;p&gt;添加菜单，额外的为特定骨架指定的快捷键绑定 等功能，可以通过查看 &lt;a href=&#34;https://github.com/prosemirror/prosemirror-example-setup&#34; title=&#34;prosemirror-example-setup&#34;&gt;prosemirror-example-setup&lt;/a&gt; 包了解更多。这个模块提供给你一组插件用来创建一个基础的编辑器，但是就像它的名字一样，只是个例子，并不是生产环境级别的代码库。真正的开发中，你可能会需要替换成自定义的代码来精确实现你想要的功能&lt;/p&gt;
 
 &lt;h3 id=&#34;内容-content&#34;&gt;内容 Content&lt;/h3&gt;
 
 &lt;p&gt;一个状态的文档被挂在它的 &lt;code&gt;doc&lt;/code&gt; 属性上。这是一个只读的数据结构，用各种级别的节点来表示文档，就像是浏览器的 DOM。一个简单的文档可能会由一个包含了两个「段落」节点，每个「段落」节点又包含一个「文本」节点的「文档」节点构成&lt;/p&gt;
 
-&lt;p&gt;当初始化一个状态时，你可以给它一个初始文档。这种情况下，schema 就变成非必填项了，因为 schame 可以从文档中获取&lt;/p&gt;
+&lt;p&gt;当初始化一个状态时，你可以给它一个初始文档。这种情况下，&lt;code&gt;schema&lt;/code&gt; 就变成非必传项了，因为 &lt;code&gt;schame&lt;/code&gt; 可以从文档中获取&lt;/p&gt;
 
-&lt;p&gt;下面我们通过传入一个 DOM 元素 （ID 为 content）做为 DOM parser 的初始化一个状态，它将利用 schema 中的信息来解析出对应的节点：&lt;/p&gt;
+&lt;p&gt;下面我们通过传入一个 DOM 元素 （ID 为 content）做为 DOM parser 的参数初始化一个状态，它将利用 &lt;code&gt;schema&lt;/code&gt; 中的信息来解析出对应的节点：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import {DOMParser} from &amp;quot;prosemirror-model&amp;quot;
 import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
@@ -150,7 +150,7 @@ let state = EditorState.create({
 
 &lt;h3 id=&#34;文档-documents&#34;&gt;文档 Documents&lt;/h3&gt;
 
-&lt;p&gt;ProseMirror 定义了他自己的一份用来表示文档内容的数据结构。由于文档是构建所有编辑器的核心元素，了解它们的工作原理会对我们很有帮助&lt;/p&gt;
+&lt;p&gt;ProseMirror 定义了他自己的一种用来表示文档内容的数据结构。由于文档是构建所有编辑器的核心元素，了解它们的工作原理会对我们很有帮助&lt;/p&gt;
 
 &lt;h3 id=&#34;结构-structure&#34;&gt;结构 Structure&lt;/h3&gt;
 
@@ -165,7 +165,7 @@ let state = EditorState.create({
 
 &lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t1/14129/3/786/35284/5c0cc441E403d82b0/ef0b3f850962b393.png&#34; alt=&#34;prosemirror-1&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;而在 ProseMirror 中，内联内容被建模为扁平的序列，标记作为元数据附加到节点&lt;/p&gt;
+&lt;p&gt;而在 ProseMirror 中，内联内容被建模为 &lt;strong&gt;扁平&lt;/strong&gt; 的序列，标记作为元数据附加到节点&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/15813/40/792/39752/5c0cc4e0Ee27f5876/150f7e117aa64233.png&#34; alt=&#34;prosemirror-2&#34; /&gt;&lt;/p&gt;
 
@@ -192,37 +192,37 @@ let state = EditorState.create({
 
 &lt;p&gt;另外一个 DOM 树和 ProseMirror 文档不同的地方是，对象表示节点的行为。在 DOM 中，节点是具有标识的可变的对象，这表示一个节点只能出现在一个父节点中，当节点更新的时候对象也会被修改&lt;/p&gt;
 
-&lt;p&gt;另外一方面，在 ProseMirror 中，节点仅仅是一些 *值*，和你想表示数字 3 一样，3 可以同时出现在很多数据结构中，它自己所处的部分与父元素没有连接关系，如果你给它加 1，你会得到一个新值 4，并且不用改变和原来 3 相关的任何东西&lt;/p&gt;
+&lt;p&gt;另外一方面，在 ProseMirror 中，节点仅仅是一些 *值*，和你想表示数字 3 一样，3 可以同时出现在很多数据结构中，它自己所处的部分与父元素没有连系，如果你给它加 1，你会得到一个新值 4，并且不用改变和原来 3 相关的任何东西&lt;/p&gt;
 
 &lt;p&gt;所以它是 ProseMirror 文档的一部分，它们不会更改，但是可以用作计算修改后的文档的起始值。它们也不知道自己处在什么数据结构当中，但可以是多个结构的一部分，甚至多次出现在一个结构中。它们是值，不是状态化的对象&lt;/p&gt;
 
-&lt;p&gt;这表示每当你更新文档，你将会获得一个新的文档值。文档值将共享所有子节点，并且不会修改原来的文档值，这使得它创建起来相对的廉价&lt;/p&gt;
+&lt;p&gt;这表示每当你更新文档，你将会获得一个新的文档值。文档值将共享所有子节点，并且不会修改原来的文档值，这使得它创建起来相对廉价&lt;/p&gt;
 
-&lt;p&gt;这有很多优点。它可以使两次更新之间的过程无效（严格控制更新的内容和过程），因为具有新文档的新状态可以瞬间转换。它还使得文档以某种数学方式推理变得更容易，相反的如果你的值不断的在后台发生变化这将会很难做到。这有使得协作编辑成为可能，并允许 ProseMirror 通过将最后一个绘制到屏幕的文档与当前文档进行比较来运行非常有效的 DOM 更新算法&lt;/p&gt;
+&lt;p&gt;这有很多优点。它可以使两次更新之间的过程无效（严格控制更新的内容和过程），因为具有新文档的新状态可以瞬间转换。它还使得文档以某种数学方式推理变得更容易，相反的如果你的值不断的在后台发生变化这将会很难做到。这也使得协作编辑成为可能，并允许 ProseMirror 通过将最后一个绘制到屏幕的文档与当前文档进行比较来运行非常高效的 DOM 更新算法&lt;/p&gt;
 
-&lt;p&gt;由于此类节点使用了常规的 JavaScript 对象来表示，并且明确冻结其属性会妨碍性能，实际上可以更改它们，但是并不支持你这么做，这将会导致中断，因为它们几乎总是在多个数据结构之间共享。所以要小心！请注意，这也适用于作为节点对象一部分的数组和普通对象，例如用于存储节点属性的对象或片段中子节点的数组&lt;/p&gt;
+&lt;p&gt;由于此类节点使用了常规的 JavaScript 对象来表示，如果并且明确地冻结（&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze&#34; title=&#34;freeze&#34;&gt;freezing&lt;/a&gt;）其属性可能会影响到性能，实际上属性是 *可以* 改变的，但是并不建议你这么做，这将会导致程序中断，因为它们几乎总是在多个数据结构之间共享。所以要小心！请注意，这也适用于作为节点对象一部分的数组和普通对象，例如用于存储节点属性的对象或片段中子节点的数组（译注：意思是你最好不要更改类似的内部对象，给对象添加或者删除属性）&lt;/p&gt;
 
 &lt;h3 id=&#34;数据结构-data-structures&#34;&gt;数据结构 Data structures&lt;/h3&gt;
 
-&lt;p&gt;文档的对象结构看起来像这样：&lt;/p&gt;
+&lt;p&gt;一个文档的对象看起来像这样：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/9284/27/8310/83213/5c0cc4f2E3dca8ae6/dcc5b46f77995593.png&#34; alt=&#34;prosemirror-3&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;每个节点都是一个 Node 类的实例。都有一个 type 做为标签，通过 type 可以知道节点的名字，属性字段也是有效的。节点类型（标识类型）每个 schema 会建立一次，他们知道自己属于 schema 的哪个部分&lt;/p&gt;
+&lt;p&gt;每个节点都是一个 Node 类的实例。都有一个 type 做为标签，通过 type 可以知道节点的名字，节点的属性字段也是有效的等等。节点的类型（和标识类型）每骨架会创建一次，他们知道自己属于骨架的哪个部分&lt;/p&gt;
 
-&lt;p&gt;节点的内容存储在 Fragment 的一个实例中，它掌握着节点序列。即使节点没有或者不允许拥有内容，这个字段也会有值（共享的空 fragment）&lt;/p&gt;
+&lt;p&gt;节点的内容存储在 Fragment 的一个实例中，它掌握着节点序列。即使节点没有或者不允许有内容，这个字段也会有值（共享的空 fragment）&lt;/p&gt;
 
 &lt;p&gt;一些节点类型允许添加属性，它些值被存储到每个节点上。比如，图片节点一般会使用属性来存储 alt 文本和图片的 URL&lt;/p&gt;
 
-&lt;p&gt;此外，内联节点包含一组活动标记 — 例如强调或链接 — 它们表示为Mark 实例数组&lt;/p&gt;
+&lt;p&gt;此外，内联节点包含一组活动标记 — 例如强调（emphasis）或链接（link）— 活动标记就是一组 Mark 实例&lt;/p&gt;
 
-&lt;p&gt;整个文档仅是一个节点。文档内容表现为一个顶级节点的子节点。通常，它将包含一系列块节点，其中一些块节点可能是包含内联内容的文本块。但顶级节点本身也可以是文本块，因此文档仅包含内联内容&lt;/p&gt;
+&lt;p&gt;整个文档就是一个节点。文档内容表现为一个顶级节点的子节点。通常，它将包含一系列块节点，其中一些块节点可能是包含内联内容的文本块。但顶级节点本身也可以是文本块，这样的话文档就只包含内联内容&lt;/p&gt;
 
-&lt;p&gt;什么样的节点可以被允许，决定它的是文档的骨架。用代码的方式创建节点，你必须通过骨架来实现，比如使用 node 和 text 方法&lt;/p&gt;
+&lt;p&gt;什么样的节点可以被允许，是由文档的骨架决定的。用代码的方式创建节点（而不是直接用基础骨架库），你必须通过骨架来实现，比如使用 &lt;code&gt;node&lt;/code&gt; 和 &lt;code&gt;text&lt;/code&gt; 方法&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 
-// (The null arguments are where you can specify attributes, if necessary.)
+// 如果需要的话可以把 null 参数替换成你想给节点添加的属性
 let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
   schema.node(&amp;quot;paragraph&amp;quot;, null, [schema.text(&amp;quot;One.&amp;quot;)]),
   schema.node(&amp;quot;horizontal_rule&amp;quot;),
@@ -232,26 +232,26 @@ let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
 
 &lt;h3 id=&#34;索引-indexing&#34;&gt;索引 Indexing&lt;/h3&gt;
 
-&lt;p&gt;ProseMirror 节点支持两种索引 — 它们可以看做是树，使用单个节点的偏移量，或者它们可以被视为一个扁平的标记序列&lt;/p&gt;
+&lt;p&gt;ProseMirror 节点支持两种索引 — 它们可以看做是树，使用单个节点的偏移量，或者它们可以被视为一个扁平的标识（tokens）序列&lt;/p&gt;
 
-&lt;p&gt;第一种允许你执行类似于 DOM 与单个节点交互的操作，使用 child method 和 childCount 直接访问子节点，编写扫描文档的递归函数（如果你只想查看所有节点，请使用 descendants 或 nodesBetween）&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;第一种&lt;/em&gt; 允许你执行类似于对 DOM 与单个节点进行操作的交互，使用 &lt;code&gt;child&lt;/code&gt; 方法和 &lt;code&gt;childCount&lt;/code&gt; 直接访问子节点，编写扫描文档的递归函数（如果你只想查看所有节点，请使用 &lt;code&gt;descendants&lt;/code&gt; 或 &lt;code&gt;nodesBetween&lt;/code&gt;）&lt;/p&gt;
 
-&lt;p&gt;第二种当访问一个文档中指定的位置时更好用。它允许任何表示为整数的文档位置 — 即标记序列中的索引。这些标识并不做为对象在内存中 — 它们仅仅是用来计数的惯例 — 但是文档的树形状以及每个节点都知道它的大小 使得按位置访问变得廉价&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;第二种&lt;/em&gt; 当访问一个文档中指定的位置时更好用。它允许把文档任意位置表示为一个整数 — 即标记序列中的索引。这些标识并不做为对象在内存中 — 它们仅仅是用来计数的惯例 — 但是文档的树形状以及每个节点都知道它的大小，这使得按位置访问变的廉价（译注：类似于用下标访问扁平数组，而不是递归遍历嵌套结构的树）&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;在第一个内容之前，文档的开头是位置 0&lt;/li&gt;
-&lt;li&gt;进入或离开不是叶子节点的节子点（即支持内容）计为一个&lt;strong&gt;标识索引位&lt;/strong&gt;。因此，如果文档以段落开头，则该段落的开头计为位置 1&lt;/li&gt;
+&lt;li&gt;进入或离开不是叶子节点的节点（即支持内容）计为一个&lt;strong&gt;标识索引位&lt;/strong&gt;。因此，如果文档以段落开头，则该段落的开头计为位置 1&lt;/li&gt;
 &lt;li&gt;文本节点中的每个字符都算作一个标识索引位。因此，如果文档开头的段落包含单词「hi」，则位置 2 位于「h」之后，位置 3 位于「i」之后，位置 4 位于整个段落之后&lt;/li&gt;
-&lt;li&gt;不允许有内容（例如图像）的叶子节点也算作单个标识索引位&lt;/li&gt;
+&lt;li&gt;不允许有内容（例如图像）的叶子节点也算作 &lt;strong&gt;单个&lt;/strong&gt; 标识索引位&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;因此，如果您有一个文档，当表示为 HTML 时，将如下所示：&lt;/p&gt;
+&lt;p&gt;因此，如果你有一个文档，当表示为 HTML 时，将如下所示：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;p&amp;gt;One&amp;lt;/p&amp;gt;
 &amp;lt;blockquote&amp;gt;&amp;lt;p&amp;gt;Two&amp;lt;img src=&amp;quot;...&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/blockquote&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;标识序列心及位置下标，将会是这样：&lt;/p&gt;
+&lt;p&gt;标识序列以及位置下标，将会是这样：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;0   1 2 3 4    5
  &amp;lt;p&amp;gt; O n e &amp;lt;/p&amp;gt;
@@ -260,19 +260,19 @@ let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
  &amp;lt;blockquote&amp;gt; &amp;lt;p&amp;gt; T w o &amp;lt;img&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/blockquote&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;每个节点都有一个 nodeSize 属性，可以为告诉你整个节点的大小，您可以访问 .content.size 来获取节点内容的大小。注意，对于外部文档节点，打开和关闭标记不被视为文档的一部分（因为你无法将光标放在文档外面），因此文档的大小为 doc.content.size，而不是 doc .nodeSize&lt;/p&gt;
+&lt;p&gt;每个节点都有一个 &lt;code&gt;nodeSize&lt;/code&gt; 属性，可以为告诉你整个节点的大小，你可以访问 &lt;code&gt;.content.size&lt;/code&gt; 来获取节点 *内容* 的大小。注意，对于外部文档节点，打开和关闭标记不被视为文档的一部分（因为你无法将光标放在文档外面），因此文档的大小为 &lt;code&gt;doc.content.size&lt;/code&gt;，而不是 &lt;code&gt;doc.nodeSize&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;手动解释这样的位置涉及相当多的计数。你可以调用 Node.resolve 来获取关于节点位置的更具描述性的数据结构。这个数据结构将告诉你该位置的父节点是什么，它与父节点的偏移量是什么，父节点的祖先是什么，以及其他一些东西&lt;/p&gt;
+&lt;p&gt;手动解释这样的位置会涉及相当多的计数操作。你可以调用 &lt;code&gt;Node.resolve&lt;/code&gt; 来获取关于节点位置的更具有描述性的数据结构。这个数据结构将告诉你该位置的父节点是什么，它与父节点的偏移量是什么，父节点的祖先是什么，以及其他一些东西&lt;/p&gt;
 
-&lt;p&gt;注意区分子索引（每个 childCount），文档范围的位置和 node-local 偏移（有时在递归函数中用于表示当前正在处理的节点中的位置）&lt;/p&gt;
+&lt;p&gt;注意区分子索引（每个 childCount），文档范围的位置和 &lt;code&gt;node-local&lt;/code&gt; 偏移（有时在递归函数中用于表示当前正在处理的节点中的位置）&lt;/p&gt;
 
 &lt;h3 id=&#34;切片-slices&#34;&gt;切片 Slices&lt;/h3&gt;
 
-&lt;p&gt;为了处理一些诸如复制/粘贴和拖拽之类的操作，通过切片与文档进行通信的能力是非常必要的，比如，两个位置之间的内容。这样的切片不同于整个节点或者片段，一些节点可能位于它的开始或者结束&lt;/p&gt;
+&lt;p&gt;为了处理一些诸如复制/粘贴和拖拽之类的操作，通过切片与文档进行通信是非常必要的，比如，两个位置之间的内容。这样的切片不同于整个节点或者片段，一些节点可能位于切片开始或者结束（译注：切片的开始位置可能在某个节点的中间）&lt;/p&gt;
 
-&lt;p&gt;例如，如果从一个段落的中间选择到下一个段落的中间，你所选择的切片中会有两个段落，第一个在开始时打开，第二个在结束时打开。然而如果你 node-select 一个段落，你就选择了一个关闭的节点。可能的情况是，如果将此类开放节点中的内容视为节点的完整内容，则会违反骨架约束，因为某些所需节点落在切片之外&lt;/p&gt;
+&lt;p&gt;例如，如果从一个段落的中间选择到下一个段落的中间，你所选择的切片中会有两个段落，那么切片的开始位置在第一个段落打开的地方，结束位置就在第二个段落打开的地方。然而如果你 node-select 一个段落，你就选择了一整个有关闭的节点。可能的情况是，如果将此类开放节点中的内容视为节点的完整内容，则会违反骨架约束，因为某些所需节点落在切片之外&lt;/p&gt;
 
-&lt;p&gt;Slice 数据结构用于表示这样的切片。它存储一个 fragment 以及两侧的 open depth。您可以在节点上使用切片方法从文档中剪切切片&lt;/p&gt;
+&lt;p&gt;Slice 数据结构用于表示这样的切片。它存储一个 fragment 以及两侧的 节点打开深度（open depth）。你可以在节点上使用切片方法从文档外剪切切片&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;// doc holds two paragraphs, containing text &amp;quot;a&amp;quot; and &amp;quot;b&amp;quot;
 let slice1 = doc.slice(0, 3) // The first paragraph
@@ -284,23 +284,23 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;h3 id=&#34;更改-changing&#34;&gt;更改 Changing&lt;/h3&gt;
 
-&lt;p&gt;由于节点和片段是持久存储的，因此你不应该改变它们。如果你有文档（或节点或片段）的句柄，该对象将保持不变&lt;/p&gt;
+&lt;p&gt;由于节点和片段是持久存储的，因此 &lt;strong&gt;永远&lt;/strong&gt; 不要修改它们。如果你有文档（或节点或片段）的句柄，那这个句柄引用的对象将保持不变（译注：这意味着并不能通过拿到的引用直接修改节点，因为这个节点的引用是不可变的值，当你想改变的时候节点可能已经成为历史）&lt;/p&gt;
 
-&lt;p&gt;大多数情况下，您将使用转换（transformations）来更新文档，而不必直接接触节点。这些也会留下了更改记录，当文档是编辑器状态的一部分时，这是必要的&lt;/p&gt;
+&lt;p&gt;大多数情况下，你将使用转换（transformations）来更新文档，而不必直接接触节点。这些也会留下更改记录，当文档是编辑器状态的一部分时，这是必要的&lt;/p&gt;
 
-&lt;p&gt;如果您确实想要「手动」派发更新的文档，那么 Node 和 Fragment 类型上有一些辅助方法可用。要创建整个文档的更新版本，通常需要使用Node.replace，它用一片新内容替换文档的给定范围。要少量地更新节点，可以使用 copy 方法，该方法使用新内容创建类似的节点。Fragments 还有各种更新方法，例如 replaceChild 或 append&lt;/p&gt;
+&lt;p&gt;如果你确实想要「手动」派发更新的文档，那么 &lt;code&gt;Node&lt;/code&gt; 和 &lt;code&gt;Fragment&lt;/code&gt; 类型上有一些辅助方法可用。要创建整个文档的更新版本，通常需要使用&lt;code&gt;Node.replace&lt;/code&gt;，它用一个新的内容切片替换文档的给定范围。要少量地更新节点，可以使用 copy 方法，该方法使用新内容创建类似的节点。Fragments 还有各种更新方法，例如 &lt;code&gt;replaceChild&lt;/code&gt; 或 &lt;code&gt;append&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;骨架-schemas&#34;&gt;骨架 Schemas&lt;/h2&gt;
 
 &lt;p&gt;每个 ProseMirror 文档都有一个与之关联的骨架，骨架描述了文档中可能出现的节点类型以及它们嵌套的方式。例如，它可能会指定顶级节点可以包含一个或多个块，并且段落节点可以包含任意数量的内联节点，内联节点可以使用任何标记&lt;/p&gt;
 
-&lt;p&gt;有一个包含基础骨架的包，但 ProseMirror 的优点在于它允许您定义自己的骨架&lt;/p&gt;
+&lt;p&gt;有一个包含基础骨架的包，但 ProseMirror 的优点在于它允许你定义自己的骨架&lt;/p&gt;
 
 &lt;h3 id=&#34;节点类型-node-types&#34;&gt;节点类型 Node Types&lt;/h3&gt;
 
 &lt;p&gt;文档中的每个节点都有一个类型，表示其语义和属性，正如其在编辑器中呈现的方式&lt;/p&gt;
 
-&lt;p&gt;定义骨架时，可以枚举其中可能出现的节点类型，并使用 spec object 描述：&lt;/p&gt;
+&lt;p&gt;定义骨架时，可以枚举其中可能出现的节点类型，并使用 &lt;code&gt;spec&lt;/code&gt; 对象描述：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;const trivialSchema = new Schema({
   nodes: {
@@ -314,9 +314,9 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;这段代码定义了一个骨架，其中文档可能包含一个或多个段落，每个段落可以包含任意数量的文本&lt;/p&gt;
 
-&lt;p&gt;每个骨架必须至少定义顶级节点类型（默认为名称「doc」，但你可以设置），以及文本内容的「文本」类型&lt;/p&gt;
+&lt;p&gt;每个骨架必须至少定义顶级节点类型（默认为名称「doc」，但你可以设置），以及文本内容的（text）类型&lt;/p&gt;
 
-&lt;p&gt;计为内联的节点必须使用 inline 属性声明（但对于文本类型，根据定义是内联的，可以省略它）&lt;/p&gt;
+&lt;p&gt;注意内联的节点必须使用 inline 属性声明（但对于文本类型，根据定义是内联的，可以省略它）&lt;/p&gt;
 
 &lt;h3 id=&#34;内容表达式-content-expressions&#34;&gt;内容表达式 Content Expressions&lt;/h3&gt;
 
@@ -326,7 +326,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;可以组合这些表达式来创建序列，比如 &lt;code&gt;heading paragraph+&lt;/code&gt; 表示「首先是标题，然后是一个或多个段落」。你也可以使用管道运算符 &lt;code&gt;|&lt;/code&gt; 表示两个表达式之间的选择，如 &lt;code&gt;(paragraph|blockquote)+&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;某些元素类型组将在您的模式中出现多种类型 — 例如，你可能有一个「块」节点的概念，它可能出现在顶层但也嵌套在块引用内。你可以通过为节点规范提供 group 属性来创建节点组，然后在表达式中按名称引用该组&lt;/p&gt;
+&lt;p&gt;某些元素类型组将在你的模式中出现多种类型 — 例如，你可能有一个「块」节点的概念，它可能出现在顶层但也嵌套在块引用内。你可以通过为节点规范提供 group 属性来创建节点组，然后在表达式中按名称引用该组&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;const groupSchema = new Schema({
   nodes: {
@@ -350,7 +350,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;标记用于向内联内容添加额外样式或其他信息。骨架必须声明允许的所有标记类型。&lt;strong&gt;标记类型&lt;/strong&gt; 是与 &lt;strong&gt;节点类型&lt;/strong&gt; 非常相似的对象，用于标记标记对象并提供其他信息&lt;/p&gt;
 
-&lt;p&gt;默认情况下，具有内联内容的节点允许将骨架中定义的所有标记应用于其子项。您可以使用节点规范上的 marks 属性对其进行配置&lt;/p&gt;
+&lt;p&gt;默认情况下，具有内联内容的节点允许将骨架中定义的所有标记应用于其子项。你可以使用节点规范上的 marks 属性对其进行配置&lt;/p&gt;
 
 &lt;p&gt;这有一个简单的骨架，支持段落中文本的 strong 和 emphasis 标记，但不支持标题：&lt;/p&gt;
 
@@ -388,9 +388,9 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;h3 id=&#34;序列化与解析-serialization-and-parsing&#34;&gt;序列化与解析 Serialization and Parsing&lt;/h3&gt;
 
-&lt;p&gt;为了能够在浏览器中编辑它们，必须能够在浏览器 DOM 中表示文档节点。最简单的方法是使用节点规范中（node spec）的 toDOM 字段包含有关骨架中每个节点的 DOM 表示的信息&lt;/p&gt;
+&lt;p&gt;为了能够在浏览器中编辑它们，必须能够在浏览器 DOM 中表示文档节点。最简单的方法是使用 node spec 中的 &lt;code&gt;toDOM&lt;/code&gt; 字段包含有关骨架中每个节点的 DOM 表示的信息&lt;/p&gt;
 
-&lt;p&gt;该字段应包含一个函数，当以节点作为参数调用时，该函数返回该节点的DOM结构的描述。这可以是直接DOM节点或描述它的数组，例如：&lt;/p&gt;
+&lt;p&gt;该字段应包含一个函数，当以节点作为参数调用时，该函数返回该节点的DOM 结构的描述。这可以是直接 DOM 节点或描述它的数组，例如：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;const schema = new Schema({
   nodes: {
@@ -404,11 +404,11 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 })
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;表达式 &lt;code&gt;[“p”, 0]&lt;/code&gt; 声明了一个段落会被渲染成 HTML &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; 标签。零是一个「洞」用来表示内容被渲染的地方，你还可以在标记名称后面包含具有 HTML 属性的对象，例如：&lt;code&gt;[&amp;quot;div&amp;quot;, {class: &amp;quot;c&amp;quot;}, 0]&lt;/code&gt;。叶节点在其 DOM 表示中不需要「洞」，因为它们没有内容&lt;/p&gt;
+&lt;p&gt;表达式 &lt;code&gt;[“p”, 0]&lt;/code&gt; 声明了一个段落会被渲染成 HTML &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; 标签。零是一个「孔」用来表示内容被渲染的地方，你还可以在标记名称后面包含具有 HTML 属性的对象，例如：&lt;code&gt;[&amp;quot;div&amp;quot;, {class: &amp;quot;c&amp;quot;}, 0]&lt;/code&gt;。叶节点在其 DOM 表示中不需要「洞」，因为它们没有内容&lt;/p&gt;
 
-&lt;p&gt;Mark specs 允许类似于 toDOM 方法，但它们需要渲染成直接包装内容的单个标记，因此内容始终直接在返回的节点中，并且不需要指定「洞」&lt;/p&gt;
+&lt;p&gt;Mark specs 允许类似于 toDOM 方法，但它们需要渲染成直接包装内容的单个标记，因此内容始终直接在返回的节点中，并且不需要指定「孔」&lt;/p&gt;
 
-&lt;p&gt;你经常需要从 DOM 数据中 *解析* 文档，例如，当用户将某些内容粘贴或拖动到编辑器中时。模型（Model） 模块具有相应的功能，建议您使用 parseDOM 属性直接在骨架中包含解析信息&lt;/p&gt;
+&lt;p&gt;你可能经常需要从 DOM 数据中 *解析* 文档，例如，当用户将某些内容粘贴或拖动到编辑器中时。模型（Model） 模块具有相应的功能，建议你使用 &lt;code&gt;parseDOM&lt;/code&gt; 属性直接在骨架中包含解析信息&lt;/p&gt;
 
 &lt;p&gt;这可以列出一个解析规则数组，它描述映射到给定节点或标记的 DOM 结构。例如，基础骨架具有以下表示 emphasis 标记：&lt;/p&gt;
 
@@ -419,15 +419,15 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 ]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;解析规则中标记的值可以是 CSS 选择器，因此您也可以使用 &lt;code&gt;div.myclass&lt;/code&gt; 之类的操作。同样，style 属性匹配内联 CSS 样式&lt;/p&gt;
+&lt;p&gt;解析规则中标记的值可以是 CSS 选择器，因此你也可以使用 &lt;code&gt;div.myclass&lt;/code&gt; 之类的操作。同样，style 属性匹配内联 CSS 样式&lt;/p&gt;
 
-&lt;p&gt;当骨架包含 parseDOM 注解时，您可以使用 DOMParser.fromSchema 为其创建DOMParser 对象。这是由编辑器完成的，用于创建默认剪贴板解析器，但您也可以覆写它&lt;/p&gt;
+&lt;p&gt;当骨架包含 parseDOM 注解时，你可以使用 DOMParser.fromSchema 为其创建DOMParser 对象。这是由编辑器完成的，用于创建默认剪贴板解析器，但你也可以覆写它&lt;/p&gt;
 
-&lt;p&gt;文档还带有内置的 JSON 序列化格式。您可以在文档上调用 toJSON 以获取可以安全地传递给 JSON.stringify 的对象，并且骨架对象具有将此表示形式解析回文档的 nodeFromJSON 方法&lt;/p&gt;
+&lt;p&gt;文档还带有内置的 JSON 序列化格式。你可以在文档上调用 toJSON 以获取可以安全地传递给 JSON.stringify 的对象，并且骨架对象具有将此表示形式解析回文档的 nodeFromJSON 方法&lt;/p&gt;
 
 &lt;h3 id=&#34;扩展一个骨架-extending-a-schema&#34;&gt;扩展一个骨架 Extending a schema&lt;/h3&gt;
 
-&lt;p&gt;传递给 Schema 构造函数的 nodes 和 marks 选项采用了 OrderedMap 对象以及纯 JavaScript 对象。生成的模式的 spec.nodes 和 spec.marks 属性始终是OrderedMaps，可以用作其它骨架的基础&lt;/p&gt;
+&lt;p&gt;传递给 Schema 构造函数的 nodes 和 marks 选项采用了 OrderedMap 对象以及纯 JavaScript 对象。骨架的 spec.nodes 和 spec.marks 属性始终是一组 OrderedMap，可以用作其它骨架的基础&lt;/p&gt;
 
 &lt;p&gt;此类映射支持许多方法以方便地创建更新版本。例如，你可以调用 &lt;code&gt;schema.markSpec.remove(“blockquote”)&lt;/code&gt; 来派生一组没有 blockquote 节点的节点，然后可以将其作为新骨架的节点字段传入&lt;/p&gt;
 
@@ -435,15 +435,15 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;h2 id=&#34;文档转换-document-transformations&#34;&gt;文档转换 Document transformations&lt;/h2&gt;
 
-&lt;p&gt;转换是 ProseMirror 工作方式的核心。它们构成了事务的基础，是使得历史追踪和协作编辑成为可能的原因&lt;/p&gt;
+&lt;p&gt;转换是 ProseMirror 工作方式的核心。它们构成了事务的基础，转换使得历史追踪和协作编辑成为可能&lt;/p&gt;
 
 &lt;h3 id=&#34;为什么-why&#34;&gt;为什么 Why?&lt;/h3&gt;
 
-&lt;p&gt;为什么我们不能只改变文档并完成它？或者至少创建一个新版本的文档，然后将其放入编辑器中？&lt;/p&gt;
+&lt;p&gt;为什么我们不能直接改变文档？或者至少创建一个新版本的文档，然后将其放入编辑器中？&lt;/p&gt;
 
 &lt;p&gt;有几个原因。一个是代码清晰度。不可变数据结构确实使得代码更简单。但是，转换系统的主要工作是留下更新的痕迹，以值的形式表示旧版本的文档到新版本所采取的各个步骤&lt;/p&gt;
 
-&lt;p&gt;撤消历史记录可以保存这些步骤并反转应用它们以便及时返回（ProseMirror实现选择性撤消，这比仅回滚到先前状态更复杂）&lt;/p&gt;
+&lt;p&gt;撤消历史记录可以保存这些步骤并反转应用它们以便及时返回（ProseMirror 实现选择性撤消，这比仅回滚到先前状态更复杂）&lt;/p&gt;
 
 &lt;p&gt;协作编辑系统将这些步骤发送给其他编辑器，并在必要时重新排序，以便每个人最终都使用相同的文档&lt;/p&gt;
 
@@ -451,7 +451,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;h3 id=&#34;步骤-steps&#34;&gt;步骤 Steps&lt;/h3&gt;
 
-&lt;p&gt;对文档的更新会分解为步骤来描述一次更新。您通常不需要直接使用这些，但了解它们的工作方式很有用&lt;/p&gt;
+&lt;p&gt;对文档的更新会分解为步骤来描述一次更新。你通常不需要直接使用这些，但了解它们的工作方式很有用&lt;/p&gt;
 
 &lt;p&gt;例如使用 ReplaceStep 来替换一份文档，或者使用 AddMarkStep 来给指定的范围（Range）添加标记&lt;/p&gt;
 
@@ -466,11 +466,11 @@ console.log(result.doc.toString()) // → p(&amp;quot;heo&amp;quot;)
 
 &lt;p&gt;应用一个步骤是一件相对奇怪的过程 — 它没有做任何巧妙的事情，比如插入节点以保留骨架的约束，或者转换切片以使其适应约束。这意味着应用步骤可能会失败，例如，如果你尝试仅删除节点的打开标记，这会使标记失衡，这对你来说是毫无意义的。这就是为什么 apply 返回一个 result 对象的原因，result 对象包含一个新文档或者一个错误消息&lt;/p&gt;
 
-&lt;p&gt;你通常希望让工具函数为你生成步骤，这样您就用必担心细节&lt;/p&gt;
+&lt;p&gt;你通常会使用工具函数来生成步骤，这样就不必担心细节&lt;/p&gt;
 
 &lt;h3 id=&#34;转换-transforms&#34;&gt;转换 Transforms&lt;/h3&gt;
 
-&lt;p&gt;一个编辑动作可以产生一个或多个步骤。处理一系列步骤最方便的方法是创建一个 Transform 对象（或者，如果您正在使用整个编辑器状态，则可以使用 Transaction，它是 Transform 的子类）&lt;/p&gt;
+&lt;p&gt;一个编辑动作可以产生一个或多个步骤。处理一系列步骤最方便的方法是创建一个 Transform 对象（或者，如果你正在使用整个编辑器状态，则可以使用 Transaction，它是 Transform 的子类）&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let tr = new Transform(myDoc)
 tr.delete(5, 7) // Delete between position 5 and 7
@@ -485,9 +485,9 @@ console.log(tr.steps.length)   // → 2
 
 &lt;h3 id=&#34;映射-mapping&#34;&gt;映射 Mapping&lt;/h3&gt;
 
-&lt;p&gt;当你对文档进行更改时，指向该文档的指针可能会变为无效或并不是你想要的样子了。例如，如果插入一个字符，那么该字符后面的所有位置都会指向一个旧位置之前的标记。同样，如果删除文档中的所有内容，则指向该内容的所有位置现在都会失效&lt;/p&gt;
+&lt;p&gt;当你对文档进行更改时，指向该文档的指针可能会变成无效或并不是你想要的样子了。例如，如果插入一个字符，那么该字符后面的所有位置都会指向一个旧位置之前的标记。同样，如果删除文档中的所有内容，则指向该内容的所有位置现在都会失效&lt;/p&gt;
 
-&lt;p&gt;我们经常需要保留文档更改的位置，例如选区边界。为了解决这个问题，步骤可以为您提供一个字典映射，可以在应用该步骤之前和之后进行转换并且应用应该步骤&lt;/p&gt;
+&lt;p&gt;我们经常需要保留文档更改的位置，例如选区边界。为了解决这个问题，步骤可以为你提供一个字典映射，可以在应用该步骤之前和之后进行转换并且应用应该步骤&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let step = new ReplaceStep(4, 6, Slice.empty) // Delete 4-5
 let map = step.getMap()
@@ -514,6 +514,8 @@ console.log(tr.mapping.map(10)) // → 9
 
 &lt;h3 id=&#34;rebasing&#34;&gt;Rebasing&lt;/h3&gt;
 
+&lt;p&gt;当使用步骤和位置映射时，比如实现一个变更追踪的功能，或者给协作编辑符加一些功能，你可能就会遇到使用 rebase 步骤的场景&lt;/p&gt;
+
 &lt;p&gt;…&lt;/p&gt;
 
 &lt;h2 id=&#34;编辑器状态-the-editor-state&#34;&gt;编辑器状态 The editor state&lt;/h2&gt;
@@ -538,13 +540,13 @@ console.log(state.selection.from) // 1, the start of the paragraph
 
 &lt;p&gt;选区至少包含一个开始（&lt;code&gt;.from&lt;/code&gt;）和一个结束（&lt;code&gt;.to&lt;/code&gt;）做为当前文档的位置指针。许多选区还区分选区的 &lt;code&gt;anchor&lt;/code&gt;（不可移动的）和 &lt;code&gt;head&lt;/code&gt;（可移动的），因此这两个属性在每个选区对象上都存在&lt;/p&gt;
 
-&lt;p&gt;最常见的选区类型是文本选区（text selection），它用于常规的光标（当 anchor 和 head 一样时）或者选择的文本。文本选区两端必须是内联位置，比如 指向内联内容的节点&lt;/p&gt;
+&lt;p&gt;最常见的选区类型是文本选区（text selection），它用于常规的光标（当 &lt;code&gt;anchor&lt;/code&gt; 和 &lt;code&gt;head&lt;/code&gt; 一样时）或者选择的文本。文本选区两端必须是内联位置，比如 指向内联内容的节点&lt;/p&gt;
 
 &lt;p&gt;核心库同样也支持节点选区（node selections），当一个文档节点被选择，你就能得到它，比如，当你按下 ctrl 或者 cmd 键的同时再用鼠标点击一个节点。这样就会产生一个节点开始到结束的选区&lt;/p&gt;
 
 &lt;h3 id=&#34;事务-transactions-1&#34;&gt;事务 Transactions&lt;/h3&gt;
 
-&lt;p&gt;在正常的编辑过程中，新状态将从它们之前的状态派生。但是在某些情况下可能有例外，例如 你想要创建一个全新的状态来初化化一个新文档&lt;/p&gt;
+&lt;p&gt;在正常的编辑过程中，新状态将从它们之前的状态派生而来。但是某些情况例外，例如 你想要创建一个全新的状态来初化化一个新文档&lt;/p&gt;
 
 &lt;p&gt;通过将一个事务应用于现有状态，来生成新状然后进行状态更新。从概念上讲，它们只发生一次：给定旧状态和事务，为状态中的每个组件计算一个新值，并将它们放在一个新的状态值中&lt;/p&gt;
 
@@ -557,9 +559,9 @@ console.log(tr.doc.content.size) // 30
 
 &lt;p&gt;&lt;code&gt;Transaction&lt;/code&gt; 是 &lt;code&gt;Transform&lt;/code&gt; 的子类，它继承了构建一个文档的方法，即 应用步骤到初始文档中。另外一点，事务会追踪选区和其它状态相关的组件，它提供了一些和选区相关的便捷方法，例如 &lt;code&gt;replaceSelection&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;创建事务的最简单方法是使用编辑器状态对象上的 &lt;code&gt;tr getter&lt;/code&gt;。这将基于当前状态创建一个空事务，然后您可以向其添加步骤和其他更新&lt;/p&gt;
+&lt;p&gt;创建事务的最简单方法是使用编辑器状态对象上的 &lt;code&gt;tr getter&lt;/code&gt;。这将基于当前状态创建一个空事务，然后你可以向其添加步骤和其他更新&lt;/p&gt;
 
-&lt;p&gt;默认情况下，旧选区通过每个步骤映射以生成新选区，但可以使用 setSelection 显式设置新选区&lt;/p&gt;
+&lt;p&gt;默认情况下，旧选区通过每个步骤映射以生成新选区，但可以使用 &lt;code&gt;setSelection&lt;/code&gt; 显式设置新选区&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let tr = state.tr
 console.log(tr.selection.from) // → 10
@@ -613,7 +615,7 @@ function getTransactionCount(state) {
 
 &lt;p&gt;因为编辑器状态是持久化（不可变）的对象，并且插件状态是该对象的一部分，所以插件状态值必须是不可变的。即需要更改，他们的 &lt;code&gt;apply&lt;/code&gt; 方法必须返回一个新值，而不是更改旧值，并且其他代码是不可以更改它们的&lt;/p&gt;
 
-&lt;p&gt;可对于插件而言向事务添加一些额外信息是非常有用的。例如，撤销历史记录在执行实际撤消时会标记生成的事务，以便在插件可以识别到，而不仅仅是生成一个新事务，将它们添加到撤消堆栈，我们需要单独处理它，从撤消（undo）堆栈中删除顶部项目，然后同时将此事务添加到重做（redo）堆栈&lt;/p&gt;
+&lt;p&gt;可对于插件而言向事务添加一些额外信息是非常有用的。例如，撤销历史记录在执行实际撤消时会标记生成的事务，以便在插件可以识别到，而不仅仅是生成一个新事务，将它们添加到撤消堆栈，我们需要单独处理它，从撤消（undo）堆栈中删除顶部项，然后同时将此事务添加到重做（redo）堆栈&lt;/p&gt;
 
 &lt;p&gt;为此，事务允许附加元数据（metadata）。我们可以更新我们的事务计数器插件，过滤那些被标记过的事务，如下所示：&lt;/p&gt;
 
@@ -632,7 +634,7 @@ function markAsUncounted(tr) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;metadata 的属性键可以是字符串，但是要避免命名冲突，建议使用插件对象。有一些属性名库中已经定义过了，比如：&lt;code&gt;addToHistory&lt;/code&gt; 可以设置民成 &lt;code&gt;false&lt;/code&gt; 表示事务不可以被撤消，当处理一个粘贴动作时，编辑器将在事务上设置 &lt;code&gt;paste&lt;/code&gt; 属性为 &lt;code&gt;true&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;metadata 的属性键可以是字符串，但是要避免命名冲突，建议使用插件对象。有一些属性名库中已经定义过了，比如：&lt;code&gt;addToHistory&lt;/code&gt; 可以设置成 &lt;code&gt;false&lt;/code&gt; 表示事务不可以被撤消，当处理一个粘贴动作时，编辑器将在事务上设置 &lt;code&gt;paste&lt;/code&gt; 属性为 &lt;code&gt;true&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;视图组件-the-view-component&#34;&gt;视图组件 The view component&lt;/h2&gt;
 
@@ -646,9 +648,9 @@ function markAsUncounted(tr) {
 
 &lt;p&gt;它还会注册很多我DOM在事件处理程序，并将事件转换为适当的事务。例如，粘贴时，粘贴的内容将被解析为 ProseMirror 文档切片，然后插入到文档中&lt;/p&gt;
 
-&lt;p&gt;很多事件也会按原生方式触发，然后才会由 ProseMirror 的数据模型重新解释。浏览器很擅长处理光标和选区等问题（当需要两向操作时则变得困难无比），所以大多数与光标相关的键和鼠标操作都由浏览器处理，之后 ProseMirror 会检查当前DOM 选区对应着什么样的文本选区类型。如果该选区与当前选区不同，则通过调度一次事务来更新选区&lt;/p&gt;
+&lt;p&gt;很多事件也会按原生方式触发，然后才会由 ProseMirror 的数据模型重新解释。浏览器很擅长处理光标和选区等问题（当需要两向操作时则变得困难无比），所以大多数与光标相关的键和鼠标操作都由浏览器处理，之后 ProseMirror 会检查当前 DOM 选区对应着什么样的文本选区类型。如果该选区与当前选区不同，则通过调度一次事务来更新选区&lt;/p&gt;
 
-&lt;p&gt;甚至像输入这种动作通常都留给浏览器处理，因为干扰它往往会破坏拼写检查，某些手机上单词自动首字母大写功能，以及其它一些原生的功能。当浏览器更新DOM 时，编辑器会注意到，并重新解析文档的更改部分，并将差异转换为一次事务&lt;/p&gt;
+&lt;p&gt;甚至像输入这种动作通常都留给浏览器处理，因为干扰它往往会破坏诸如 拼写检查，某些手机上单词自动首字母大写，以及其它一些设配原生的功能。当浏览器更新 DOM 时，编辑器会注意到，并重新解析文档的更改的部分，并将差异转换为一次事务&lt;/p&gt;
 
 &lt;h3 id=&#34;数据流-data-flow&#34;&gt;数据流 Data flow&lt;/h3&gt;
 
@@ -692,7 +694,7 @@ function draw() {
 
 &lt;h3 id=&#34;高效更新-efficient-updating&#34;&gt;高效更新 Efficient updating&lt;/h3&gt;
 
-&lt;p&gt;一种实现 &lt;code&gt;updateState&lt;/code&gt; 的方法是简单地在每次调用文档时重绘文档。但对于大型文档而言，这会变得很慢&lt;/p&gt;
+&lt;p&gt;一种简单的实现 &lt;code&gt;updateState&lt;/code&gt; 的方法是在每次调用文档时重绘文档。但对于大型文档而言，这会变得很慢&lt;/p&gt;
 
 &lt;p&gt;由于在更新期间，视图可以访问到旧文档和新文档，可以用它们来做对比，单独保留没发生变化的节点对应的 DOM 部分。 ProseMirror 就是这么做的，这将使得常规的更新动作只需要做很少的工作&lt;/p&gt;
 
@@ -713,7 +715,7 @@ function draw() {
 
 &lt;p&gt;因此，当前的状态就是一个属性。即使一段代码控制了组件并更新某属性，它也不是真正意义上的状态，因为组件 &lt;strong&gt;自己&lt;/strong&gt; 并没有改变它们，&lt;code&gt;updateState&lt;/code&gt; 方法也只是更新状态中某个属性的一种简写&lt;/p&gt;
 
-&lt;p&gt;插件可以声明除了 state 和 dispatchTransaction 以外的属性，它们只能直接提供给视图&lt;/p&gt;
+&lt;p&gt;插件可以声明除了 &lt;code&gt;state&lt;/code&gt; 和 &lt;code&gt;dispatchTransaction&lt;/code&gt; 以外的任意属性，它们可以直接传给视图&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;function maxSizePlugin(max) {
   return new Plugin({
@@ -724,7 +726,7 @@ function draw() {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;当一个给定的属性被多次声明时，它的处理方式取决于属性类型。直接传入的的属性优先，然后每个插件按顺序执行。对于一些属性而言，比如 domParser，只会使用第一次声明的值。如果是事件处理函数，可以返回一个布尔值来告诉底层事件系统是否要执行自己的逻辑（比如 事件处理函数反回 false，这表示底层事件上绑定的相同事件处理函数将不会被处理），有的属于性，像 attributes 则会做合并然后使用&lt;/p&gt;
+&lt;p&gt;当一个给定的属性被多次声明时，它的处理方式取决于属性类型。直接传入的的属性优先，然后每个插件按顺序执行。对于一些属性而言，比如 &lt;code&gt;domParser&lt;/code&gt;，只会使用第一次声明的值。如果是事件处理函数，可以返回一个布尔值来告诉底层事件系统是否要执行自己的逻辑（比如 事件处理函数反回 false，这表示底层事件上绑定的相同事件处理函数将不会被处理），有的属性，像 attributes 则会做合并然后使用&lt;/p&gt;
 
 &lt;h3 id=&#34;装饰器-decorations&#34;&gt;装饰器 Decorations&lt;/h3&gt;
 
@@ -736,7 +738,7 @@ function draw() {
 &lt;li&gt;&lt;strong&gt;内联装饰器&lt;/strong&gt; Inline decorations - 添加样式或属性，就像节点装饰器一样，但是会添加到给定范围内的所有内联节点&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;为了能够有效地绘制和比较装饰器，它们需要作为装饰数组提供（这是一种模仿实际文档的树形数据结构）。您可以使用静态 &lt;code&gt;create&lt;/code&gt; 方法创建，提供文档和装饰对象数组&lt;/p&gt;
+&lt;p&gt;为了能够有效地绘制和比较装饰器，它们需要作为装饰数组提供（这是一种模仿实际文档的树形数据结构）。你可以使用静态 &lt;code&gt;create&lt;/code&gt; 方法创建，提供文档和装饰对象数组&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let purplePlugin = new Plugin({
   props: {
@@ -749,7 +751,7 @@ function draw() {
 })
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;如果你有很多装饰品，那么每次重新绘制时都要重新创建这些装置成本会很高。这种情况下，维护装饰器的推荐方法是将数组放在插件的状态中，通过更改将其映射到之前的状态，并且只在需要时进行更改&lt;/p&gt;
+&lt;p&gt;如果你有很多装饰器，那么每次重新绘制时都要重新创建这些装置成本会很高。这种情况下，维护装饰器的推荐方法是将数组放在插件的状态中，通过更改将其映射到之前的状态，并且只在需要时进行更改&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let specklePlugin = new Plugin({
   state: {
@@ -777,7 +779,7 @@ function draw() {
 
 &lt;h3 id=&#34;节点视图-node-views&#34;&gt;节点视图 Node views&lt;/h3&gt;
 
-&lt;p&gt;还有一种方法可以影响编辑器视图绘制文档的方式。节点视图可以为文档中的各个节点定义一种微型的 UI 组件。它们允许您展示 DOM，定义更新方式，并编写自定义代码以及响应事件&lt;/p&gt;
+&lt;p&gt;还有一种方法可以影响编辑器视图绘制文档的方式。节点视图可以为文档中的各个节点定义一种微型的 UI 组件。它们允许你展示 DOM，定义更新方式，并编写自定义代码以及响应事件&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let view = new EditorView({
   state,
@@ -803,7 +805,7 @@ class ImageView {
 
 &lt;p&gt;上面的示例为图片节点定义了视图对象，为图像创建了自定义的 DOM 节点，添加了事件处理程序，并使用 stopEvent 方法声明 ProseMirror 应忽略来自该DOM 节点的事件&lt;/p&gt;
 
-&lt;p&gt;你可能常常会希望与节点交互以影响文档中的实际节点。但是要创建更改节点的事务，首先需要知道该节点的位置。为此，节点视图将传递一个 getter 函数，该函数可用于查询文档中当前节点的位置。让我们修改示例，实现单击节点查询你输入图像的 alt 文本：&lt;/p&gt;
+&lt;p&gt;通常你可能会有与节点交互以影响文档中的实际节点的需求。但是要创建更改节点的事务，首先需要知道该节点的位置。为此，节点视图将传递一个 getter 函数，该函数可用于查询文档中当前节点的位置。让我们修改示例，实现单击节点查询你输入图像的 alt 文本：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;let view = new EditorView({
   state,
@@ -861,7 +863,7 @@ class ParagraphView {
 
 &lt;p&gt;在这种情况下，我们希望段落内容的行为类似于常规可编辑文本，因此contentDOM 属性被定义为与 dom 属性相同，因为内容需要直接渲染到外部节点中&lt;/p&gt;
 
-&lt;p&gt;魔术发生在 &lt;code&gt;update&lt;/code&gt; 方法中。首先，该方法负责决定是否可以更新节点视图以显示新节点。此新节点可能是编辑器更新算法尝试绘制的任何内容，因此您必须验证此节点有对应的节点视图来处理它&lt;/p&gt;
+&lt;p&gt;魔术发生在 &lt;code&gt;update&lt;/code&gt; 方法中。首先，该方法负责决定是否可以更新节点视图以显示新节点。此新节点可能是编辑器更新算法尝试绘制的任何内容，因此你必须验证此节点有对应的节点视图来处理它&lt;/p&gt;
 
 &lt;p&gt;示例中的 &lt;code&gt;update&lt;/code&gt; 方法首先检查新节点是否为段落，如果不是，就退出。然后它确保 &lt;code&gt;empty&lt;/code&gt; 类存在或不存在，具体取决于新节点的内容，返回true，则表示更新成功（此时节点的内容将被更新）&lt;/p&gt;
 
@@ -918,7 +920,7 @@ class ParagraphView {
 
 &lt;p&gt;实时协作编辑允许多人同时编辑同一文档。它们所做的更改会立即应用到本地文档，然后发送给对等（pears）方，这些对等方会自动合并这些更改（无需手动解决冲突），以便编辑动作可以不间断地进行，文档也会不断地被合并&lt;/p&gt;
 
-&lt;p&gt;本指南介绍了如何连接ProseMirror的协作编辑功能&lt;/p&gt;
+&lt;p&gt;这一节将介绍如何给 ProseMirror 嫁接上协作编辑的功能&lt;/p&gt;
 
 &lt;h3 id=&#34;算法-algorithm&#34;&gt;算法 Algorithm&lt;/h3&gt;
 
@@ -926,7 +928,7 @@ class ParagraphView {
 
 &lt;h3 id=&#34;权鉴-the-authority&#34;&gt;权鉴 The Authority&lt;/h3&gt;
 
-&lt;p&gt;集权式的系统的角色其实是比较简单的，它必须…&lt;/p&gt;
+&lt;p&gt;集权式的系统的角色其实是相对简单的，它只须做到以下几点…&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;跟踪当前文档的版本&lt;/li&gt;
@@ -1010,7 +1012,7 @@ function collabEditor(authority, place) {
 
 &lt;p&gt;当一组步骤被系统拒绝时，它们将一直保持未确认状态，这个时间段应该会比较短，持续到我们从系统收到新的步骤之后。接着，因为 &lt;code&gt;onNewSteps&lt;/code&gt; 回调调用 &lt;code&gt;dispatch&lt;/code&gt;，&lt;code&gt;dispatch&lt;/code&gt; 再调用我们的 &lt;code&gt;dispatchTransaction&lt;/code&gt; 函数，代码才会将尝试再次提交其更改&lt;/p&gt;
 
-&lt;p&gt;这基本上就是的所有协作模块的功能了。当然，对于异步数据通道（例如上面的演示代码中的长轮询或 Web套接字），你需要更复杂的通信和同步代码，而且你也可能需要集权系统在某些情况下开始抛出步骤，而不至于内存被消耗完。但是这个小例子基本上也描述清楚了大概的实现过程&lt;/p&gt;
+&lt;p&gt;这基本上就是的所有协作模块的功能了。当然，对于异步数据通道（例如上面的演示代码中的长轮询或 Web套接字），你需要更复杂的通信和同步代码，而且你也可能需要集权系统在某些情况下开始抛出步骤，而不至于内存被消耗完。但是这个小例子大概也描述清楚了实现过程&lt;/p&gt;
 </description>
     </item>
     

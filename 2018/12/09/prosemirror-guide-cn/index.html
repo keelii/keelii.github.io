@@ -335,15 +335,31 @@ let doc = schema.node(&quot;doc&quot;, null, [
 
 <p>为了处理一些诸如复制/粘贴和拖拽之类的操作，通过切片与文档进行通信是非常必要的，比如，两个位置之间的内容。这样的切片不同于整个节点或者片段，一些节点可能位于切片开始或者结束（译注：切片的开始位置可能在某个节点的中间）</p>
 
-<p>例如，如果从一个段落的中间选择到下一个段落的中间，你所选择的切片中会有两个段落，那么切片的开始位置在第一个段落打开的地方，结束位置就在第二个段落打开的地方。然而如果你 node-select 一个段落，你就选择了一整个有关闭的节点。可能的情况是，如果将此类开放节点中的内容视为节点的完整内容，则会违反骨架约束，因为某些所需节点落在切片之外</p>
+<p>例如，从一个段落的中间选择到下一个段落的中间，你所选择的切片中会有两个段落，那么切片的开始位置在第一个段落打开的地方，结束位置就在第二个段落打开的地方。然而如果你 node-select 一个段落，你就选择了一整个有关闭的节点。可能的情况是，如果将此类开放节点中的内容视为节点的完整内容，则会违反骨架约束（标签可能没关闭），因为某些所需节点落在切片之外</p>
 
 <p>Slice 数据结构用于表示这样的切片。它存储一个 fragment 以及两侧的 节点打开深度（open depth）。你可以在节点上使用切片方法从文档外剪切切片</p>
 
-<pre><code>// doc holds two paragraphs, containing text &quot;a&quot; and &quot;b&quot;
+<pre><code>/*
+0   1 2 3   4
+ &lt;p&gt; a b &lt;/p&gt;
+4   5 6 7   8 
+ &lt;p&gt; a b &lt;/p&gt;
+*/
+// doc holds two paragraphs, containing text &quot;a&quot; and &quot;b&quot;
 let slice1 = doc.slice(0, 3) // The first paragraph
+/*
+0|   1 2 3   |4
+ &lt;p&gt; a b &lt;/p&gt;
+*/
 console.log(slice1.openStart, slice1.openEnd) // → 0 0
 let slice2 = doc.slice(1, 5) // From start of first paragraph
                              // to end of second
+/*
+0  1| 2 3   4
+ &lt;p&gt; a b &lt;/p&gt;
+4    5|6 7   8 
+ &lt;p&gt; a b &lt;/p&gt;
+*/
 console.log(slice2.openStart, slice2.openEnd) // → 1 1
 </code></pre>
 
@@ -516,9 +532,9 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <h3 id="步骤-steps">步骤 Steps</h3>
 
-<p>对文档的更新会分解为步骤来描述一次更新。你通常不需要直接使用这些，但了解它们的工作方式很有用</p>
+<p>对文档的更新会分解为步骤（step）来描述一次更新。通常不需要你直接使用这些，但了解它们的工作方式很有用</p>
 
-<p>例如使用 ReplaceStep 来替换一份文档，或者使用 AddMarkStep 来给指定的范围（Range）添加标记</p>
+<p>例如使用 <code>ReplaceStep</code> 来替换一份文档，或者使用 <code>AddMarkStep</code> 来给指定的范围（Range）添加标记</p>
 
 <p>可以将步骤应用于文档来成新文档</p>
 
@@ -535,7 +551,7 @@ console.log(result.doc.toString()) // → p(&quot;heo&quot;)
 
 <h3 id="转换-transforms">转换 Transforms</h3>
 
-<p>一个编辑动作可以产生一个或多个步骤。处理一系列步骤最方便的方法是创建一个 Transform 对象（或者，如果你正在使用整个编辑器状态，则可以使用 Transaction，它是 Transform 的子类）</p>
+<p>一个编辑动作可以产生一个或多个步骤（step）。处理一系列步骤最方便的方法是创建一个 <code>Transform</code> 对象（或者，如果你正在使用整个编辑器状态，则可以使用 <code>Transaction</code>，它是 <code>Transform</code> 的子类）</p>
 
 <pre><code>let tr = new Transform(myDoc)
 tr.delete(5, 7) // Delete between position 5 and 7
@@ -544,7 +560,7 @@ console.log(tr.doc.toString()) // The modified document
 console.log(tr.steps.length)   // → 2
 </code></pre>
 
-<p>大多数转换方法都返回转换本身，方便链式调用（允许你执行<code>tr.delete(5,7).split(5)</code>）</p>
+<p>大多数转换方法都返回转换本身，方便链式调用 <code>tr.delete(5,7).split(5)</code></p>
 
 <p>会有很多关于转换的方法可以使用，删除、替换、添加、删除标记，以及维护树型结构的方法如 分割、合并、包裹等</p>
 
@@ -581,7 +597,7 @@ console.log(tr.mapping.map(10)) // → 9
 
 <p>当使用步骤和位置映射时，比如实现一个变更追踪的功能，或者给协作编辑符加一些功能，你可能就会遇到使用 rebase 步骤的场景</p>
 
-<p>…</p>
+<p>…（本小节译者并没有完全理解，暂不翻译，有兴趣可以参考<a href="http://prosemirror.net/docs/guide/#transform.rebasing" title="prosemirror - transform.rebasing">原文</a>）</p>
 
 <h2 id="编辑器状态-the-editor-state">编辑器状态 The editor state</h2>
 

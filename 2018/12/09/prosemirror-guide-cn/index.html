@@ -15,11 +15,11 @@
 
     <link rel="canonical" href="https://keelii.com/2018/12/09/prosemirror-guide-cn/">
     <link href="https://keelii.com/favicon.ico" rel="icon">
-    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="Something">
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
     <link href="/stylesheets/screen.css" rel="stylesheet" type="text/css">
-    <link href="//cdn.bootcss.com/highlight.js/9.7.0/styles/solarized-dark.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/default.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -34,28 +34,7 @@
 </head>
 <body>
 
-<header role="banner">
-    <hgroup>
-        <h1><a href="https://keelii.com/">Something</a></h1>
-        <h2>__ you don&#39;t know yet</h2>
-    </hgroup>
-</header>
-
-
 <nav role="navigation">
-    <ul class="subscription" data-subscription="rss">
-        <li>
-            
-        </li>
-    </ul>
-
-    <form action="https://www.google.com/search" method="get">
-        <fieldset role="search">
-            <input type="hidden" name="sitesearch" value="https://keelii.com/">
-            <input class="search" type="text" name="q" results="0" placeholder="Search" />
-        </fieldset>
-    </form>
-
     <ul class="main-navigation">
         
         <li><a href="https://keelii.com/">Blog</a> </li>
@@ -64,8 +43,12 @@
         
         <li><a href="https://keelii.com/about">About</a> </li>
         
+        <li>
+            
+        </li>
     </ul>
 </nav>
+
 
 
 <div id="main">
@@ -113,7 +96,7 @@
 
 <p>就像拼乐高积木一样，下面的代码可以创建一个最小化的编辑器：</p>
 
-<pre><code>import {schema} from &quot;prosemirror-schema-basic&quot;
+<pre><code class="language-js">import {schema} from &quot;prosemirror-schema-basic&quot;
 import {EditorState} from &quot;prosemirror-state&quot;
 import {EditorView} from &quot;prosemirror-view&quot;
 
@@ -133,7 +116,7 @@ let view = new EditorView(document.body, {state})
 
 <p>这些过程都会默认地在后台处理，但是你可以写一个插件来挂载进去，或者通过配置视图的参数。例如，下面的代码添加了一个 <code>dispatchTransaction</code> 属性（props），每当创建一个事务时都会调用它</p>
 
-<pre><code>// (省略了导入代码库)
+<pre><code class="language-js">// (省略了导入代码库)
 
 let state = EditorState.create({schema})
 let view = new EditorView(document.body, {
@@ -155,7 +138,7 @@ let view = new EditorView(document.body, {
 
 <p>让我们为编辑器添加这两个插件来获取撤消（undo）/重做（redo）的功能：</p>
 
-<pre><code>// (Omitted repeated imports)
+<pre><code class="language-js">// (Omitted repeated imports)
 import {undo, redo, history} from &quot;prosemirror-history&quot;
 import {keymap} from &quot;prosemirror-keymap&quot;
 
@@ -177,7 +160,7 @@ let view = new EditorView(document.body, {state})
 
 <p><code>prosemirror-commands</code> 包提供了许多基本的编辑命令，其中一些是你可以需要用到的基本的快捷键，比如 回车，删除编辑器中指定的内容</p>
 
-<pre><code>// (Omitted repeated imports)
+<pre><code class="language-js">// (Omitted repeated imports)
 import {baseKeymap} from &quot;prosemirror-commands&quot;
 
 let state = EditorState.create({
@@ -203,7 +186,7 @@ let view = new EditorView(document.body, {state})
 
 <p>下面我们通过传入一个 DOM 元素 （ID 为 content）做为 DOM parser 的参数初始化一个状态，它将利用 <code>schema</code> 中的信息来解析出对应的节点：</p>
 
-<pre><code>import {DOMParser} from &quot;prosemirror-model&quot;
+<pre><code class="language-js">import {DOMParser} from &quot;prosemirror-model&quot;
 import {EditorState} from &quot;prosemirror-state&quot;
 import {schema} from &quot;prosemirror-schema-basic&quot;
 
@@ -225,7 +208,7 @@ let state = EditorState.create({
 
 <p>在 HTML 中，一个段落的标记表示为一个树，就像这个：</p>
 
-<pre><code>&lt;p&gt;This is &lt;strong&gt;strong text with &lt;em&gt;emphasis&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+<pre><code class="language-html">&lt;p&gt;This is &lt;strong&gt;strong text with &lt;em&gt;emphasis&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 </code></pre>
 
 <p><img src="https://img13.360buyimg.com/devfe/jfs/t1/14129/3/786/35284/5c0cc441E403d82b0/ef0b3f850962b393.png" alt="prosemirror-1" /></p>
@@ -285,7 +268,7 @@ let state = EditorState.create({
 
 <p>什么样的节点可以被允许，是由文档的骨架决定的。用代码的方式创建节点（而不是直接用基础骨架库），你必须通过骨架来实现，比如使用 <code>node</code> 和 <code>text</code> 方法</p>
 
-<pre><code>import {schema} from &quot;prosemirror-schema-basic&quot;
+<pre><code class="language-js">import {schema} from &quot;prosemirror-schema-basic&quot;
 
 // 如果需要的话可以把 null 参数替换成你想给节点添加的属性
 let doc = schema.node(&quot;doc&quot;, null, [
@@ -312,7 +295,7 @@ let doc = schema.node(&quot;doc&quot;, null, [
 
 <p>因此，如果你有一个文档，当表示为 HTML 时，将如下所示：</p>
 
-<pre><code>&lt;p&gt;One&lt;/p&gt;
+<pre><code class="language-html">&lt;p&gt;One&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;Two&lt;img src=&quot;...&quot;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 </code></pre>
 
@@ -339,7 +322,7 @@ let doc = schema.node(&quot;doc&quot;, null, [
 
 <p>Slice 数据结构用于表示这样的切片。它存储一个 fragment 以及两侧的 节点打开深度（open depth）。你可以在节点上使用切片方法从文档外剪切切片</p>
 
-<pre><code>/*
+<pre><code class="language-js">/*
 0   1 2 3   4
  &lt;p&gt; a b &lt;/p&gt;
 4   5 6 7   8 
@@ -383,7 +366,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>定义骨架时，可以枚举其中可能出现的节点类型，并使用 <code>spec</code> 对象描述：</p>
 
-<pre><code>const trivialSchema = new Schema({
+<pre><code class="language-js">const trivialSchema = new Schema({
   nodes: {
     doc: {content: &quot;paragraph+&quot;},
     paragraph: {content: &quot;text*&quot;},
@@ -409,7 +392,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>某些元素类型组将在你的模式中出现多种类型 — 例如，你可能有一个「块」节点的概念，它可能出现在顶层但也嵌套在块引用内。你可以通过为节点规范提供 group 属性来创建节点组，然后在表达式中按名称引用该组</p>
 
-<pre><code>const groupSchema = new Schema({
+<pre><code class="language-js">const groupSchema = new Schema({
   nodes: {
     doc: {content: &quot;block+&quot;},
     paragraph: {group: &quot;block&quot;, content: &quot;text*&quot;},
@@ -435,7 +418,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>这有一个简单的骨架，支持段落中文本的 strong 和 emphasis 标记，但不支持标题：</p>
 
-<pre><code>const markSchema = new Schema({
+<pre><code class="language-js">const markSchema = new Schema({
   nodes: {
     doc: {content: &quot;block+&quot;},
     paragraph: {group: &quot;block&quot;, content: &quot;text*&quot;, marks: &quot;_&quot;},
@@ -457,7 +440,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>属性集可以认为就是普通对象，具有预定义（每个节点或标记）属性集，包含任何 JSON 可序列化值。要指定它允许的属性，请使用节点中的可选 attrs 字段或标记规范</p>
 
-<pre><code>heading: {
+<pre><code class="language-js">heading: {
   content: &quot;text*&quot;,
   attrs: {level: {default: 1}}
 }
@@ -473,7 +456,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>该字段应包含一个函数，当以节点作为参数调用时，该函数返回该节点的DOM 结构的描述。这可以是直接 DOM 节点或描述它的数组，例如：</p>
 
-<pre><code>const schema = new Schema({
+<pre><code class="language-js">const schema = new Schema({
   nodes: {
     doc: {content: &quot;paragraph+&quot;},
     paragraph: {
@@ -493,7 +476,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>这可以列出一个解析规则数组，它描述映射到给定节点或标记的 DOM 结构。例如，基础骨架具有以下表示 emphasis 标记：</p>
 
-<pre><code>parseDOM: [
+<pre><code class="language-js">parseDOM: [
   {tag: &quot;em&quot;},                 // Match &lt;em&gt; nodes
   {tag: &quot;i&quot;},                  // and &lt;i&gt; nodes
   {style: &quot;font-style=italic&quot;} // and inline 'font-style: italic'
@@ -538,7 +521,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 <p>可以将步骤应用于文档来成新文档</p>
 
-<pre><code>console.log(myDoc.toString()) // → p(&quot;hello&quot;)
+<pre><code class="language-js">console.log(myDoc.toString()) // → p(&quot;hello&quot;)
 // A step that deletes the content between positions 3 and 5
 let step = new ReplaceStep(3, 5, Slice.empty)
 let result = step.apply(myDoc)
@@ -553,7 +536,7 @@ console.log(result.doc.toString()) // → p(&quot;heo&quot;)
 
 <p>一个编辑动作可以产生一个或多个步骤（step）。处理一系列步骤最方便的方法是创建一个 <code>Transform</code> 对象（或者，如果你正在使用整个编辑器状态，则可以使用 <code>Transaction</code>，它是 <code>Transform</code> 的子类）</p>
 
-<pre><code>let tr = new Transform(myDoc)
+<pre><code class="language-js">let tr = new Transform(myDoc)
 tr.delete(5, 7) // Delete between position 5 and 7
 tr.split(5)     // Split the parent node at position 5
 console.log(tr.doc.toString()) // The modified document
@@ -570,7 +553,7 @@ console.log(tr.steps.length)   // → 2
 
 <p>我们经常需要保留文档更改的位置，例如选区边界。为了解决这个问题，步骤可以为你提供一个字典映射，可以在应用该步骤之前和之后进行转换并且应用应该步骤</p>
 
-<pre><code>let step = new ReplaceStep(4, 6, Slice.empty) // Delete 4-5
+<pre><code class="language-js">let step = new ReplaceStep(4, 6, Slice.empty) // Delete 4-5
 let map = step.getMap()
 console.log(map.map(8)) // → 6
 console.log(map.map(2)) // → 2 (nothing changes before the change)
@@ -590,7 +573,7 @@ console.log(tr.mapping.map(10)) // → 9
 
 <p>但是有时候你需要一些其它的行为，这是为什么 map 方法有第二个参数 <code>bias</code> 的原因，你可以设置成 -1 当内容被插入到前面时保持你的位置</p>
 
-<pre><code>console.log(tr.mapping.map(10, -1)) // → 7
+<pre><code class="language-js">console.log(tr.mapping.map(10, -1)) // → 7
 </code></pre>
 
 <h3 id="rebasing">Rebasing</h3>
@@ -605,7 +588,7 @@ console.log(tr.mapping.map(10)) // → 9
 
 <p>一个 ProseMirror 的状态由三个主要的组件构成：<code>doc</code>, <code>selection</code> 和 <code>storedMarks</code></p>
 
-<pre><code>import {schema} from &quot;prosemirror-schema-basic&quot;
+<pre><code class="language-js">import {schema} from &quot;prosemirror-schema-basic&quot;
 import {EditorState} from &quot;prosemirror-state&quot;
 
 let state = EditorState.create({schema})
@@ -631,7 +614,7 @@ console.log(state.selection.from) // 1, the start of the paragraph
 
 <p>通过将一个事务应用于现有状态，来生成新状然后进行状态更新。从概念上讲，它们只发生一次：给定旧状态和事务，为状态中的每个组件计算一个新值，并将它们放在一个新的状态值中</p>
 
-<pre><code>let tr = state.tr
+<pre><code class="language-js">let tr = state.tr
 console.log(tr.doc.content.size) // 25
 tr.insertText(&quot;hello&quot;) // Replaces selection with 'hello'
 let newState = state.apply(tr)
@@ -644,7 +627,7 @@ console.log(tr.doc.content.size) // 30
 
 <p>默认情况下，旧选区通过每个步骤映射以生成新选区，但可以使用 <code>setSelection</code> 显式设置新选区</p>
 
-<pre><code>let tr = state.tr
+<pre><code class="language-js">let tr = state.tr
 console.log(tr.selection.from) // → 10
 tr.delete(6, 8)
 console.log(tr.selection.from) // → 8 (moved back)
@@ -666,7 +649,7 @@ console.log(tr.selection.from) // → 3
 
 <p>创建一个插件，你可以传入一个对象来指定它的行为：</p>
 
-<pre><code>let myPlugin = new Plugin({
+<pre><code class="language-js">let myPlugin = new Plugin({
   props: {
     handleKeyDown(view, event) {
       console.log(&quot;A key was pressed!&quot;)
@@ -680,7 +663,7 @@ let state = EditorState.create({schema, plugins: [myPlugin]})
 
 <p>当一个插件需要他自己的状态槽时，可以定义一个 <code>state</code> 属性：</p>
 
-<pre><code>let transactionCounter = new Plugin({
+<pre><code class="language-js">let transactionCounter = new Plugin({
   state: {
     init() { return 0 },
     apply(tr, value) { return value + 1 }
@@ -700,7 +683,7 @@ function getTransactionCount(state) {
 
 <p>为此，事务允许附加元数据（metadata）。我们可以更新我们的事务计数器插件，过滤那些被标记过的事务，如下所示：</p>
 
-<pre><code>let transactionCounter = new Plugin({
+<pre><code class="language-js">let transactionCounter = new Plugin({
   state: {
     init() { return 0 },
     apply(tr, value) {
@@ -743,7 +726,7 @@ function markAsUncounted(tr) {
 
 <p>由于事务是通过 <code>dispatchTransaction</code> 属性来调度的，所以拦载事务是可以的做到的，为了将这个循环数据流连接到一个更大的周期 — 如果你的整个应用程序使用这样的数据流模型，就像类似 Redux 的体系结构一样，你可以使 ProseMirror 的事务与主动作调度（main action-dispatching）周期集成起来，将 ProseMirror 的状态保留在你应用程序的 <code>store</code> 中</p>
 
-<pre><code>// The app's state
+<pre><code class="language-js">// The app's state
 let appState = {
   editor: EditorState.create({schema}),
   score: 0
@@ -787,7 +770,7 @@ function draw() {
 
 <p>大体上讲 Props 很有用，这是从 React 学过来的。属性就像是 UI 组件中的参数。理想情况下，组件的属性完全定义其行为</p>
 
-<pre><code>let view = new EditorView({
+<pre><code class="language-js">let view = new EditorView({
   state: myState,
   editable() { return false }, // Enables read-only behavior
   handleDoubleClick() { console.log(&quot;Double click!&quot;) }
@@ -798,7 +781,7 @@ function draw() {
 
 <p>插件可以声明除了 <code>state</code> 和 <code>dispatchTransaction</code> 以外的任意属性，它们可以直接传给视图</p>
 
-<pre><code>function maxSizePlugin(max) {
+<pre><code class="language-js">function maxSizePlugin(max) {
   return new Plugin({
     props: {
       editable(state) { return state.doc.content.size &lt; max }
@@ -821,7 +804,7 @@ function draw() {
 
 <p>为了能够有效地绘制和比较装饰器，它们需要作为装饰数组提供（这是一种模仿实际文档的树形数据结构）。你可以使用静态 <code>create</code> 方法创建，提供文档和装饰对象数组</p>
 
-<pre><code>let purplePlugin = new Plugin({
+<pre><code class="language-js">let purplePlugin = new Plugin({
   props: {
     decorations(state) {
       return DecorationSet.create(state.doc, [
@@ -834,7 +817,7 @@ function draw() {
 
 <p>如果你有很多装饰器，那么每次重新绘制时都要重新创建这些装置成本会很高。这种情况下，维护装饰器的推荐方法是将数组放在插件的状态中，通过更改将其映射到之前的状态，并且只在需要时进行更改</p>
 
-<pre><code>let specklePlugin = new Plugin({
+<pre><code class="language-js">let specklePlugin = new Plugin({
   state: {
     init(_, {doc}) {
       let speckles = []
@@ -862,7 +845,7 @@ function draw() {
 
 <p>还有一种方法可以影响编辑器视图绘制文档的方式。节点视图可以为文档中的各个节点定义一种微型的 UI 组件。它们允许你展示 DOM，定义更新方式，并编写自定义代码以及响应事件</p>
 
-<pre><code>let view = new EditorView({
+<pre><code class="language-js">let view = new EditorView({
   state,
   nodeViews: {
     image(node) { return new ImageView(node) }
@@ -888,7 +871,7 @@ class ImageView {
 
 <p>通常你可能会有与节点交互以影响文档中的实际节点的需求。但是要创建更改节点的事务，首先需要知道该节点的位置。为此，节点视图将传递一个 getter 函数，该函数可用于查询文档中当前节点的位置。让我们修改示例，实现单击节点查询你输入图像的 alt 文本：</p>
 
-<pre><code>let view = new EditorView({
+<pre><code class="language-js">let view = new EditorView({
   state,
   nodeViews: {
     image(node, view, getPos) { return new ImageView(node, view, getPos) }
@@ -918,7 +901,7 @@ class ImageView {
 
 <p>节点更新后，默认行为是保持节点外部 DOM 结构不变，并将其子项与新的子元素集进行比较，根据需要更新或替换它们。节点视图可以使用自定义行为覆盖它，这允许我们执行类似于根据内容更改段落类（css class）属性的操作</p>
 
-<pre><code>let view = new EditorView({
+<pre><code class="language-js">let view = new EditorView({
   state,
   nodeViews: {
     paragraph(node) { return new ParagraphView(node) }
@@ -954,7 +937,7 @@ class ParagraphView {
 
 <p>出于实际原因考虑，命令的接口稍微有点复杂。一个接收 <code>state</code> 和 <code>dispatch</code> 参数的函数，该函数返回一个布尔值。下面是一个非常简单的例子：</p>
 
-<pre><code>function deleteSelection(state, dispatch) {
+<pre><code class="language-js">function deleteSelection(state, dispatch) {
   if (state.selection.empty) return false
   dispatch(state.tr.deleteSelection())
   return true
@@ -965,7 +948,7 @@ class ParagraphView {
 
 <p>为了能够查询一个命令对于一个状态下是否具有<strong>可执行性</strong>（可执行但又不通过执行来验证），<code>dispatch</code> 参数是可选的 — 当命令被调用并且没传入 dispatch 参数时，如果命令具有可执行性，那就应该什么也不做并返回 true</p>
 
-<pre><code>function deleteSelection(state, dispatch) {
+<pre><code class="language-js">function deleteSelection(state, dispatch) {
   if (state.selection.empty) return false
   if (dispatch) dispatch(state.tr.deleteSelection())
   return true
@@ -976,7 +959,7 @@ class ParagraphView {
 
 <p>这种行式下，命令并不需要访问实际的编辑器视图 — 大多数命令都不需要，这样的话命令就可以在设置中应用和测试而不必关心视图是否可用。但是有的命令则偏偏需要与 DOM 交互 — 可能需要查询指定的位置是否在文本块儿后面，或者打开一个相对于视图定位的对话框。为了解决这种需求，命令还提供了第三个（整个编辑器视图）参数</p>
 
-<pre><code>function blinkView(_state, dispatch, view) {
+<pre><code class="language-js">function blinkView(_state, dispatch, view) {
   if (dispatch) {
     view.dom.style.background = &quot;yellow&quot;
     setTimeout(() =&gt; view.dom.style.background = &quot;&quot;, 1000)
@@ -1019,7 +1002,7 @@ class ParagraphView {
 
 <p>让我们实现一个简单的集权式的系统，它在与编辑器相同的 JavaScript 环境中运行</p>
 
-<pre><code>class Authority {
+<pre><code class="language-js">class Authority {
   constructor(doc) {
     this.doc = doc
     this.steps = []
@@ -1059,7 +1042,7 @@ class ParagraphView {
 
 <p><code>collab</code> 模块导出一个 <code>collab</code> 函数，该函数返回一个插件，负责跟踪本地变更，接收远程变更，并对于何时必须将某些内容发送到中央机构做出指示</p>
 
-<pre><code>import {EditorState} from &quot;prosemirror-state&quot;
+<pre><code class="language-js">import {EditorState} from &quot;prosemirror-state&quot;
 import {EditorView} from &quot;prosemirror-view&quot;
 import {schema} from &quot;prosemirror-schema-basic&quot;
 import collab from &quot;prosemirror-collab&quot;
@@ -1096,7 +1079,7 @@ function collabEditor(authority, place) {
 <p>这基本上就是的所有协作模块的功能了。当然，对于异步数据通道（例如上面的演示代码中的长轮询或 Web套接字），你需要更复杂的通信和同步代码，而且你也可能需要集权系统在某些情况下开始抛出步骤，而不至于内存被消耗完。但是这个小例子大概也描述清楚了实现过程</p>
 </div>
                 <footer>
-                    <p class="meta">
+                    <p class="meta" style="display:none">
                         <span class="byline author vcard">Posted</span>
                         
                         <span class="span">on</span>
@@ -1110,11 +1093,12 @@ function collabEditor(authority, place) {
                         </span>
                         
                     </p>
+                    
                     <p class="meta">
                         <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2019-01-06 15:51:38">
-                            <span class="date">2019-1-6</span>
-                            <span class="time">15:51 PM</span>
+                        <time class="entry-date" datetime="2019-01-25 16:45:32">
+                            <span class="date">2019-1-25</span>
+                            <span class="time">16:45 PM</span>
                         </time>
                     </p>
                     <p class="meta">
@@ -1152,8 +1136,8 @@ function collabEditor(authority, place) {
         <aside class="sidebar">
     
         
-<section id="side-toc" class="side-toc odd" style="width: 100%;">
-    <h2>Table  of contents</h2>
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
     <nav id="TableOfContents">
 <ul>
 <li><a href="#简介-introduction">简介 Introduction</a>
@@ -1212,7 +1196,17 @@ function collabEditor(authority, place) {
 </ul></li>
 </ul>
 </nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
 </section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
 
 
 
@@ -1224,20 +1218,15 @@ function collabEditor(authority, place) {
 
 <footer role="contentinfo">
     <p>
-        Copyright &copy; 2019 - keelii -
-        <span class="credit">Powered by <a href="http://gohugo.io/">Hugo</a></span>,
-        <span class="credit">Theme Copied from <a href="http://octopress.org/">Octopress</a></span>
+        Copyright &copy; 2019 keelii
     </p>
 </footer>
 
 
-<script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
-<script src="/javascripts/octopress.js"></script>
 
 
 
 <script src="/javascripts/highlight.pack.js"></script>
-<script src="/javascripts/post.js"></script>
 <script>
 if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
 </script>
@@ -1247,18 +1236,6 @@ if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
 <script>
 !function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
 </script>
-
-<!--
-# There are some hotkeys for better experience #
-
-[s] for search input
-[t] for scroll to top
-[h] for prev article
-[l] for next article
-[j] for scroll page up 300px
-[k] for scroll page down 300px
-[G] for scroll page bottom
--->
 
 </body>
 </html>

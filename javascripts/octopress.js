@@ -52,7 +52,7 @@ function testFeatures() {
 
 $('document').ready(function() {
   // testFeatures();
-  getNav();
+  // getNav();
   addSidebarToggler();
 });
 

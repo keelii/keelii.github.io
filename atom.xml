@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Something</title>
+    <title>臨池不輟</title>
     <link>https://keelii.com/</link>
-    <description>Recent content on Something</description>
+    <description>Recent content on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 06 Jan 2019 19:29:27 +0000</lastBuildDate>
@@ -170,7 +170,7 @@
 
 &lt;p&gt;就像拼乐高积木一样，下面的代码可以创建一个最小化的编辑器：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
 import {EditorView} from &amp;quot;prosemirror-view&amp;quot;
 
@@ -190,7 +190,7 @@ let view = new EditorView(document.body, {state})
 
 &lt;p&gt;这些过程都会默认地在后台处理，但是你可以写一个插件来挂载进去，或者通过配置视图的参数。例如，下面的代码添加了一个 &lt;code&gt;dispatchTransaction&lt;/code&gt; 属性（props），每当创建一个事务时都会调用它&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;// (省略了导入代码库)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// (省略了导入代码库)
 
 let state = EditorState.create({schema})
 let view = new EditorView(document.body, {
@@ -212,7 +212,7 @@ let view = new EditorView(document.body, {
 
 &lt;p&gt;让我们为编辑器添加这两个插件来获取撤消（undo）/重做（redo）的功能：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;// (Omitted repeated imports)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// (Omitted repeated imports)
 import {undo, redo, history} from &amp;quot;prosemirror-history&amp;quot;
 import {keymap} from &amp;quot;prosemirror-keymap&amp;quot;
 
@@ -234,7 +234,7 @@ let view = new EditorView(document.body, {state})
 
 &lt;p&gt;&lt;code&gt;prosemirror-commands&lt;/code&gt; 包提供了许多基本的编辑命令，其中一些是你可以需要用到的基本的快捷键，比如 回车，删除编辑器中指定的内容&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;// (Omitted repeated imports)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// (Omitted repeated imports)
 import {baseKeymap} from &amp;quot;prosemirror-commands&amp;quot;
 
 let state = EditorState.create({
@@ -260,7 +260,7 @@ let view = new EditorView(document.body, {state})
 
 &lt;p&gt;下面我们通过传入一个 DOM 元素 （ID 为 content）做为 DOM parser 的参数初始化一个状态，它将利用 &lt;code&gt;schema&lt;/code&gt; 中的信息来解析出对应的节点：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import {DOMParser} from &amp;quot;prosemirror-model&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import {DOMParser} from &amp;quot;prosemirror-model&amp;quot;
 import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
 import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 
@@ -282,7 +282,7 @@ let state = EditorState.create({
 
 &lt;p&gt;在 HTML 中，一个段落的标记表示为一个树，就像这个：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;p&amp;gt;This is &amp;lt;strong&amp;gt;strong text with &amp;lt;em&amp;gt;emphasis&amp;lt;/em&amp;gt;&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;p&amp;gt;This is &amp;lt;strong&amp;gt;strong text with &amp;lt;em&amp;gt;emphasis&amp;lt;/em&amp;gt;&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t1/14129/3/786/35284/5c0cc441E403d82b0/ef0b3f850962b393.png&#34; alt=&#34;prosemirror-1&#34; /&gt;&lt;/p&gt;
@@ -342,7 +342,7 @@ let state = EditorState.create({
 
 &lt;p&gt;什么样的节点可以被允许，是由文档的骨架决定的。用代码的方式创建节点（而不是直接用基础骨架库），你必须通过骨架来实现，比如使用 &lt;code&gt;node&lt;/code&gt; 和 &lt;code&gt;text&lt;/code&gt; 方法&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 
 // 如果需要的话可以把 null 参数替换成你想给节点添加的属性
 let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
@@ -369,7 +369,7 @@ let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
 
 &lt;p&gt;因此，如果你有一个文档，当表示为 HTML 时，将如下所示：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;p&amp;gt;One&amp;lt;/p&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;p&amp;gt;One&amp;lt;/p&amp;gt;
 &amp;lt;blockquote&amp;gt;&amp;lt;p&amp;gt;Two&amp;lt;img src=&amp;quot;...&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/blockquote&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -396,7 +396,7 @@ let doc = schema.node(&amp;quot;doc&amp;quot;, null, [
 
 &lt;p&gt;Slice 数据结构用于表示这样的切片。它存储一个 fragment 以及两侧的 节点打开深度（open depth）。你可以在节点上使用切片方法从文档外剪切切片&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;/*
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;/*
 0   1 2 3   4
  &amp;lt;p&amp;gt; a b &amp;lt;/p&amp;gt;
 4   5 6 7   8 
@@ -440,7 +440,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;定义骨架时，可以枚举其中可能出现的节点类型，并使用 &lt;code&gt;spec&lt;/code&gt; 对象描述：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;const trivialSchema = new Schema({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const trivialSchema = new Schema({
   nodes: {
     doc: {content: &amp;quot;paragraph+&amp;quot;},
     paragraph: {content: &amp;quot;text*&amp;quot;},
@@ -466,7 +466,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;某些元素类型组将在你的模式中出现多种类型 — 例如，你可能有一个「块」节点的概念，它可能出现在顶层但也嵌套在块引用内。你可以通过为节点规范提供 group 属性来创建节点组，然后在表达式中按名称引用该组&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;const groupSchema = new Schema({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const groupSchema = new Schema({
   nodes: {
     doc: {content: &amp;quot;block+&amp;quot;},
     paragraph: {group: &amp;quot;block&amp;quot;, content: &amp;quot;text*&amp;quot;},
@@ -492,7 +492,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;这有一个简单的骨架，支持段落中文本的 strong 和 emphasis 标记，但不支持标题：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;const markSchema = new Schema({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const markSchema = new Schema({
   nodes: {
     doc: {content: &amp;quot;block+&amp;quot;},
     paragraph: {group: &amp;quot;block&amp;quot;, content: &amp;quot;text*&amp;quot;, marks: &amp;quot;_&amp;quot;},
@@ -514,7 +514,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;属性集可以认为就是普通对象，具有预定义（每个节点或标记）属性集，包含任何 JSON 可序列化值。要指定它允许的属性，请使用节点中的可选 attrs 字段或标记规范&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;heading: {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;heading: {
   content: &amp;quot;text*&amp;quot;,
   attrs: {level: {default: 1}}
 }
@@ -530,7 +530,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;该字段应包含一个函数，当以节点作为参数调用时，该函数返回该节点的DOM 结构的描述。这可以是直接 DOM 节点或描述它的数组，例如：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;const schema = new Schema({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const schema = new Schema({
   nodes: {
     doc: {content: &amp;quot;paragraph+&amp;quot;},
     paragraph: {
@@ -550,7 +550,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;这可以列出一个解析规则数组，它描述映射到给定节点或标记的 DOM 结构。例如，基础骨架具有以下表示 emphasis 标记：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;parseDOM: [
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;parseDOM: [
   {tag: &amp;quot;em&amp;quot;},                 // Match &amp;lt;em&amp;gt; nodes
   {tag: &amp;quot;i&amp;quot;},                  // and &amp;lt;i&amp;gt; nodes
   {style: &amp;quot;font-style=italic&amp;quot;} // and inline &#39;font-style: italic&#39;
@@ -595,7 +595,7 @@ console.log(slice2.openStart, slice2.openEnd) // → 1 1
 
 &lt;p&gt;可以将步骤应用于文档来成新文档&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;console.log(myDoc.toString()) // → p(&amp;quot;hello&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;console.log(myDoc.toString()) // → p(&amp;quot;hello&amp;quot;)
 // A step that deletes the content between positions 3 and 5
 let step = new ReplaceStep(3, 5, Slice.empty)
 let result = step.apply(myDoc)
@@ -610,7 +610,7 @@ console.log(result.doc.toString()) // → p(&amp;quot;heo&amp;quot;)
 
 &lt;p&gt;一个编辑动作可以产生一个或多个步骤（step）。处理一系列步骤最方便的方法是创建一个 &lt;code&gt;Transform&lt;/code&gt; 对象（或者，如果你正在使用整个编辑器状态，则可以使用 &lt;code&gt;Transaction&lt;/code&gt;，它是 &lt;code&gt;Transform&lt;/code&gt; 的子类）&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let tr = new Transform(myDoc)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let tr = new Transform(myDoc)
 tr.delete(5, 7) // Delete between position 5 and 7
 tr.split(5)     // Split the parent node at position 5
 console.log(tr.doc.toString()) // The modified document
@@ -627,7 +627,7 @@ console.log(tr.steps.length)   // → 2
 
 &lt;p&gt;我们经常需要保留文档更改的位置，例如选区边界。为了解决这个问题，步骤可以为你提供一个字典映射，可以在应用该步骤之前和之后进行转换并且应用应该步骤&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let step = new ReplaceStep(4, 6, Slice.empty) // Delete 4-5
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let step = new ReplaceStep(4, 6, Slice.empty) // Delete 4-5
 let map = step.getMap()
 console.log(map.map(8)) // → 6
 console.log(map.map(2)) // → 2 (nothing changes before the change)
@@ -647,7 +647,7 @@ console.log(tr.mapping.map(10)) // → 9
 
 &lt;p&gt;但是有时候你需要一些其它的行为，这是为什么 map 方法有第二个参数 &lt;code&gt;bias&lt;/code&gt; 的原因，你可以设置成 -1 当内容被插入到前面时保持你的位置&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;console.log(tr.mapping.map(10, -1)) // → 7
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;console.log(tr.mapping.map(10, -1)) // → 7
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;rebasing&#34;&gt;Rebasing&lt;/h3&gt;
@@ -662,7 +662,7 @@ console.log(tr.mapping.map(10)) // → 9
 
 &lt;p&gt;一个 ProseMirror 的状态由三个主要的组件构成：&lt;code&gt;doc&lt;/code&gt;, &lt;code&gt;selection&lt;/code&gt; 和 &lt;code&gt;storedMarks&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
 
 let state = EditorState.create({schema})
@@ -688,7 +688,7 @@ console.log(state.selection.from) // 1, the start of the paragraph
 
 &lt;p&gt;通过将一个事务应用于现有状态，来生成新状然后进行状态更新。从概念上讲，它们只发生一次：给定旧状态和事务，为状态中的每个组件计算一个新值，并将它们放在一个新的状态值中&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let tr = state.tr
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let tr = state.tr
 console.log(tr.doc.content.size) // 25
 tr.insertText(&amp;quot;hello&amp;quot;) // Replaces selection with &#39;hello&#39;
 let newState = state.apply(tr)
@@ -701,7 +701,7 @@ console.log(tr.doc.content.size) // 30
 
 &lt;p&gt;默认情况下，旧选区通过每个步骤映射以生成新选区，但可以使用 &lt;code&gt;setSelection&lt;/code&gt; 显式设置新选区&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let tr = state.tr
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let tr = state.tr
 console.log(tr.selection.from) // → 10
 tr.delete(6, 8)
 console.log(tr.selection.from) // → 8 (moved back)
@@ -723,7 +723,7 @@ console.log(tr.selection.from) // → 3
 
 &lt;p&gt;创建一个插件，你可以传入一个对象来指定它的行为：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let myPlugin = new Plugin({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let myPlugin = new Plugin({
   props: {
     handleKeyDown(view, event) {
       console.log(&amp;quot;A key was pressed!&amp;quot;)
@@ -737,7 +737,7 @@ let state = EditorState.create({schema, plugins: [myPlugin]})
 
 &lt;p&gt;当一个插件需要他自己的状态槽时，可以定义一个 &lt;code&gt;state&lt;/code&gt; 属性：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let transactionCounter = new Plugin({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let transactionCounter = new Plugin({
   state: {
     init() { return 0 },
     apply(tr, value) { return value + 1 }
@@ -757,7 +757,7 @@ function getTransactionCount(state) {
 
 &lt;p&gt;为此，事务允许附加元数据（metadata）。我们可以更新我们的事务计数器插件，过滤那些被标记过的事务，如下所示：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let transactionCounter = new Plugin({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let transactionCounter = new Plugin({
   state: {
     init() { return 0 },
     apply(tr, value) {
@@ -800,7 +800,7 @@ function markAsUncounted(tr) {
 
 &lt;p&gt;由于事务是通过 &lt;code&gt;dispatchTransaction&lt;/code&gt; 属性来调度的，所以拦载事务是可以的做到的，为了将这个循环数据流连接到一个更大的周期 — 如果你的整个应用程序使用这样的数据流模型，就像类似 Redux 的体系结构一样，你可以使 ProseMirror 的事务与主动作调度（main action-dispatching）周期集成起来，将 ProseMirror 的状态保留在你应用程序的 &lt;code&gt;store&lt;/code&gt; 中&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;// The app&#39;s state
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// The app&#39;s state
 let appState = {
   editor: EditorState.create({schema}),
   score: 0
@@ -844,7 +844,7 @@ function draw() {
 
 &lt;p&gt;大体上讲 Props 很有用，这是从 React 学过来的。属性就像是 UI 组件中的参数。理想情况下，组件的属性完全定义其行为&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let view = new EditorView({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let view = new EditorView({
   state: myState,
   editable() { return false }, // Enables read-only behavior
   handleDoubleClick() { console.log(&amp;quot;Double click!&amp;quot;) }
@@ -855,7 +855,7 @@ function draw() {
 
 &lt;p&gt;插件可以声明除了 &lt;code&gt;state&lt;/code&gt; 和 &lt;code&gt;dispatchTransaction&lt;/code&gt; 以外的任意属性，它们可以直接传给视图&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;function maxSizePlugin(max) {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function maxSizePlugin(max) {
   return new Plugin({
     props: {
       editable(state) { return state.doc.content.size &amp;lt; max }
@@ -878,7 +878,7 @@ function draw() {
 
 &lt;p&gt;为了能够有效地绘制和比较装饰器，它们需要作为装饰数组提供（这是一种模仿实际文档的树形数据结构）。你可以使用静态 &lt;code&gt;create&lt;/code&gt; 方法创建，提供文档和装饰对象数组&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let purplePlugin = new Plugin({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let purplePlugin = new Plugin({
   props: {
     decorations(state) {
       return DecorationSet.create(state.doc, [
@@ -891,7 +891,7 @@ function draw() {
 
 &lt;p&gt;如果你有很多装饰器，那么每次重新绘制时都要重新创建这些装置成本会很高。这种情况下，维护装饰器的推荐方法是将数组放在插件的状态中，通过更改将其映射到之前的状态，并且只在需要时进行更改&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let specklePlugin = new Plugin({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let specklePlugin = new Plugin({
   state: {
     init(_, {doc}) {
       let speckles = []
@@ -919,7 +919,7 @@ function draw() {
 
 &lt;p&gt;还有一种方法可以影响编辑器视图绘制文档的方式。节点视图可以为文档中的各个节点定义一种微型的 UI 组件。它们允许你展示 DOM，定义更新方式，并编写自定义代码以及响应事件&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let view = new EditorView({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let view = new EditorView({
   state,
   nodeViews: {
     image(node) { return new ImageView(node) }
@@ -945,7 +945,7 @@ class ImageView {
 
 &lt;p&gt;通常你可能会有与节点交互以影响文档中的实际节点的需求。但是要创建更改节点的事务，首先需要知道该节点的位置。为此，节点视图将传递一个 getter 函数，该函数可用于查询文档中当前节点的位置。让我们修改示例，实现单击节点查询你输入图像的 alt 文本：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let view = new EditorView({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let view = new EditorView({
   state,
   nodeViews: {
     image(node, view, getPos) { return new ImageView(node, view, getPos) }
@@ -975,7 +975,7 @@ class ImageView {
 
 &lt;p&gt;节点更新后，默认行为是保持节点外部 DOM 结构不变，并将其子项与新的子元素集进行比较，根据需要更新或替换它们。节点视图可以使用自定义行为覆盖它，这允许我们执行类似于根据内容更改段落类（css class）属性的操作&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;let view = new EditorView({
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let view = new EditorView({
   state,
   nodeViews: {
     paragraph(node) { return new ParagraphView(node) }
@@ -1011,7 +1011,7 @@ class ParagraphView {
 
 &lt;p&gt;出于实际原因考虑，命令的接口稍微有点复杂。一个接收 &lt;code&gt;state&lt;/code&gt; 和 &lt;code&gt;dispatch&lt;/code&gt; 参数的函数，该函数返回一个布尔值。下面是一个非常简单的例子：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;function deleteSelection(state, dispatch) {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function deleteSelection(state, dispatch) {
   if (state.selection.empty) return false
   dispatch(state.tr.deleteSelection())
   return true
@@ -1022,7 +1022,7 @@ class ParagraphView {
 
 &lt;p&gt;为了能够查询一个命令对于一个状态下是否具有&lt;strong&gt;可执行性&lt;/strong&gt;（可执行但又不通过执行来验证），&lt;code&gt;dispatch&lt;/code&gt; 参数是可选的 — 当命令被调用并且没传入 dispatch 参数时，如果命令具有可执行性，那就应该什么也不做并返回 true&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;function deleteSelection(state, dispatch) {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function deleteSelection(state, dispatch) {
   if (state.selection.empty) return false
   if (dispatch) dispatch(state.tr.deleteSelection())
   return true
@@ -1033,7 +1033,7 @@ class ParagraphView {
 
 &lt;p&gt;这种行式下，命令并不需要访问实际的编辑器视图 — 大多数命令都不需要，这样的话命令就可以在设置中应用和测试而不必关心视图是否可用。但是有的命令则偏偏需要与 DOM 交互 — 可能需要查询指定的位置是否在文本块儿后面，或者打开一个相对于视图定位的对话框。为了解决这种需求，命令还提供了第三个（整个编辑器视图）参数&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;function blinkView(_state, dispatch, view) {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function blinkView(_state, dispatch, view) {
   if (dispatch) {
     view.dom.style.background = &amp;quot;yellow&amp;quot;
     setTimeout(() =&amp;gt; view.dom.style.background = &amp;quot;&amp;quot;, 1000)
@@ -1076,7 +1076,7 @@ class ParagraphView {
 
 &lt;p&gt;让我们实现一个简单的集权式的系统，它在与编辑器相同的 JavaScript 环境中运行&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class Authority {
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;class Authority {
   constructor(doc) {
     this.doc = doc
     this.steps = []
@@ -1116,7 +1116,7 @@ class ParagraphView {
 
 &lt;p&gt;&lt;code&gt;collab&lt;/code&gt; 模块导出一个 &lt;code&gt;collab&lt;/code&gt; 函数，该函数返回一个插件，负责跟踪本地变更，接收远程变更，并对于何时必须将某些内容发送到中央机构做出指示&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import {EditorState} from &amp;quot;prosemirror-state&amp;quot;
 import {EditorView} from &amp;quot;prosemirror-view&amp;quot;
 import {schema} from &amp;quot;prosemirror-schema-basic&amp;quot;
 import collab from &amp;quot;prosemirror-collab&amp;quot;
@@ -1541,7 +1541,7 @@ function collabEditor(authority, place) {
       <pubDate>Sun, 21 Oct 2018 19:10:25 +0000</pubDate>
       
       <guid>https://keelii.com/2018/10/21/rock-and-roll-in-the-it-crowd/</guid>
-      <description>&lt;p&gt;前几天听说《生活大爆炸》将于 2019 年 5 月完成终结季（12季），一时间让我想起上大学那会刚开始看这部美剧的。起初是因为大学生活确实过的没意思，也是无意中在腾讯视频上点进去的。刚开始我是从第二季开始看的，后来大学毕业加工作后就很少看了，一方面工作后确实时间少，一方面看大爆炸时间长了也会有一些审美疲劳，感觉里面的内容不再那么有意思。&lt;/p&gt;
+      <description>&lt;p&gt;前几天听说《生活大爆炸》将于 2019 年 5 月完成终结季（12季），一时间让我想起上大学那会刚开始看这部美剧的。起初是因为大学生活确实过的没意思，也是无意中在腾讯视频上点进去的。刚开始我是从第二季开始看的，后来大学毕业参加工作后就很少看了，一方面工作后确实时间少，一方面看大爆炸时间长了也会有一些审美疲劳，感觉里面的内容不再那么有意思。&lt;/p&gt;
 
 &lt;p&gt;说到有意思这又让我忽然想起来另外一部同样题材的情景喜剧（英剧）《The IT crowed》，这是一部给我留下深刻印象的英国喜剧。讲的是一个公司里的 IT 部门两个技术极客和一个女经理之间发生的一些有趣的事情&lt;/p&gt;
 

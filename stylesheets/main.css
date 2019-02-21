@@ -28,11 +28,10 @@ body {
   background: #f7f7f7;
   font-size: 20px;
   font-family: "Crimson Text", "Noto Serif", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif, "Noto", "Noto Sans CJK SC", "Noto Sans CJK", "Source Han Sans", "source-han-sans-simplified-c", sans-serif;
-  max-width: 800px;
-  padding-left: 50px; }
+  padding: 0 5%; }
 
 img {
-  max-width: 800px; }
+  max-width: 100%; }
 
 hr {
   border: none;
@@ -41,7 +40,8 @@ hr {
 
 p {
   line-height: 1.8em;
-  margin: 20px 0; }
+  margin: 20px 0;
+  word-break: break-all; }
 
 blockquote {
   color: #5985a6;
@@ -94,6 +94,12 @@ table {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc; }
 
+#main {
+  width: 800px; }
+
+@media (max-width: 830px) {
+  #main {
+    width: 100%; } }
 .main-navigation {
   display: flex;
   list-style: none;

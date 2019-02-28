@@ -30,7 +30,7 @@ body {
   font-family: "Crimson Text", "Noto Serif", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif, "Noto", "Noto Sans CJK SC", "Noto Sans CJK", "Source Han Sans", "source-han-sans-simplified-c", sans-serif;
   padding: 0 5%; }
 
-img {
+p img {
   max-width: 100%; }
 
 hr {

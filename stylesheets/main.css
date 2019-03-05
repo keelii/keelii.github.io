@@ -811,7 +811,7 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  font-family: "Crimson Text", "Noto Serif", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif;
+  font-family: "Crimson Text", "Noto Serif", "Noto Serif SC", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif;
 }
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   color: #393e46;
@@ -825,7 +825,7 @@ body {
   color: #393e46;
   background: #f7f7f7;
   font-size: 20px;
-  font-family: "Crimson Text", "Noto Serif", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif, "Noto", "Noto Sans CJK SC", "Noto Sans CJK", "Source Han Sans", "source-han-sans-simplified-c", sans-serif;
+  font-family: "Crimson Text", "Noto Serif", "Noto Serif SC", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif, "Noto", "Noto Sans CJK SC", "Noto Sans CJK", "Source Han Sans", "source-han-sans-simplified-c", sans-serif;
   padding: 0 5%;
 }
 
@@ -882,7 +882,7 @@ kbd {
 }
 
 code, pre {
-  font-family: "Latin Modern Mono", "Crimson Text", "Noto Serif", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif;
+  font-family: "Latin Modern Mono", "Crimson Text", "Noto Serif", "Noto Serif SC", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", "source-han-serif-sc", serif;
 }
 
 ins {

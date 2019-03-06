@@ -6,10 +6,87 @@
     <description>Recent content in html on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 31 Jul 2016 10:48:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2019 19:19:24 +0000</lastBuildDate>
     
         <atom:link href="https://keelii.com/tags/html/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>开源一个自己写的代码画板</title>
+      <link>https://keelii.com/2019/03/06/open-source-code-sketch/</link>
+      <pubDate>Wed, 06 Mar 2019 19:19:24 +0000</pubDate>
+      
+      <guid>https://keelii.com/2019/03/06/open-source-code-sketch/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://code-sketch.com/&#34;&gt;Code sketch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/keelii/code-sketch&#34;&gt;Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/keelii/code-sketch/releases/download/v0.0.1/Code.Sketch-0.0.1.dmg&#34;&gt;下载 macOS 应用(.dmg)&lt;/a&gt;，基于 electron，不喜欢的也可以使用 &lt;a href=&#34;https://web.code-sketch.com/&#34;&gt;Web 版&lt;/a&gt; 但非全功能支持版&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;代码画板-code-sketch&#34;&gt;代码画板 Code Sketch&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;最初写代码的地方&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;功能&#34;&gt;功能&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;内置 Sass/Babel 支持&lt;/li&gt;
+&lt;li&gt;HTML/CSS emmet 插件支持&lt;/li&gt;
+&lt;li&gt;方便的导入三方库 (&lt;a href=&#34;https://www.bootcdn.cn/&#34;&gt;bootcdn&lt;/a&gt; API 支持).&lt;/li&gt;
+&lt;li&gt;深色主题支持&lt;/li&gt;
+&lt;li&gt;可以打印任意数据格式的控制台&lt;/li&gt;
+&lt;li&gt;同时支持 &lt;a href=&#34;http://code-sketch.com&#34;&gt;macOS App&lt;/a&gt; 与 &lt;a href=&#34;http://web.code-sketch.com&#34;&gt;Web 端应用&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;快捷键&#34;&gt;快捷键&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;切换展示顶部页签: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;代码字体大小: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;+/-&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;保存刷新: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;导出到单个 HTML 文件: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;shift&lt;/code&gt;+&lt;code&gt;s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;导入文件（仅支持展出文件）: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;命令提示容器: &lt;code&gt;Command&lt;/code&gt;+&lt;code&gt;p&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;截图&#34;&gt;截图&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;浅色主题&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://code-sketch.com/image/code-sketch-light-theme.png&#34; alt=&#34;code-sketch-light&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;深色主题&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://code-sketch.com/image/code-sketch-dark-theme.png&#34; alt=&#34;code-sketch-dark&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;错误日志&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://code-sketch.com/image/code-sketch-error-log.png&#34; alt=&#34;log&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;控制台日志&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://code-sketch.com/image/code-sketch-console-log.png&#34; alt=&#34;error&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;开发&#34;&gt;开发&lt;/h3&gt;
+
+&lt;p&gt;yarn or npm&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yarn install
+yarn start
+yarn dev
+# build release for mac
+yarn release
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;支持&#34;&gt;支持&lt;/h3&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>京东单品页前端开发那些不得不说的事儿</title>

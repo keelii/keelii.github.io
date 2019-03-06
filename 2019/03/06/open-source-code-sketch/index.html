@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>前端开发工具 - 编辑器篇</title>
+    <title>开源一个自己写的代码画板</title>
     <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 
-    <link rel="canonical" href="https://keelii.com/2011/05/11/front-end-tooling-editor/">
+    <link rel="canonical" href="https://keelii.com/2019/03/06/open-source-code-sketch/">
     <link href="https://keelii.com/favicon.ico" rel="icon">
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -74,21 +74,83 @@
         <div style="padding-top:0;">
             <article class="hentry" role="article">
                 <header>
-                    <h1 class="entry-title">前端开发工具 - 编辑器篇</h1>
+                    <h1 class="entry-title">开源一个自己写的代码画板</h1>
                     <p class="meta">
-                        <time class="entry-date" datetime="2011-05-11 19:20:04">
-                            <span class="date">2011-5-11</span>
-                            <span class="time">19:20 PM</span>
+                        <time class="entry-date" datetime="2019-03-06 19:19:24">
+                            <span class="date">2019-3-6</span>
+                            <span class="time">19:19 PM</span>
                         </time>
                     </p>
                 </header>
 
-                <div class="entry-content"><p>公司分享会上自己总结的一些关于前端开发的工具应用知识</p>
+                <div class="entry-content">
 
-<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/DKyOV72B1j38ro" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-<div style="margin-bottom:5px">
-    <strong> <a href="//www.slideshare.net/keelii/ss-12892582" title="前端开发工具 - 编辑器篇" target="_blank">前端开发工具 - 编辑器篇</a> </strong> from <strong><a href="https://www.slideshare.net/keelii" target="_blank">keelii</a></strong>
-</div></p>
+<ul>
+<li><a href="https://code-sketch.com/">Code sketch</a></li>
+<li><a href="https://github.com/keelii/code-sketch">Github</a></li>
+<li><a href="https://github.com/keelii/code-sketch/releases/download/v0.0.1/Code.Sketch-0.0.1.dmg">下载 macOS 应用(.dmg)</a>，基于 electron，不喜欢的也可以使用 <a href="https://web.code-sketch.com/">Web 版</a> 但非全功能支持版</li>
+</ul>
+
+<h2 id="代码画板-code-sketch">代码画板 Code Sketch</h2>
+
+<blockquote>
+<p>最初写代码的地方&hellip;</p>
+</blockquote>
+
+<h3 id="功能">功能</h3>
+
+<ul>
+<li>内置 Sass/Babel 支持</li>
+<li>HTML/CSS emmet 插件支持</li>
+<li>方便的导入三方库 (<a href="https://www.bootcdn.cn/">bootcdn</a> API 支持).</li>
+<li>深色主题支持</li>
+<li>可以打印任意数据格式的控制台</li>
+<li>同时支持 <a href="http://code-sketch.com">macOS App</a> 与 <a href="http://web.code-sketch.com">Web 端应用</a></li>
+</ul>
+
+<h3 id="快捷键">快捷键</h3>
+
+<ul>
+<li>切换展示顶部页签: <code>Command</code>+<code>e</code></li>
+<li>代码字体大小: <code>Command</code>+<code>+/-</code></li>
+<li>保存刷新: <code>Command</code>+<code>s</code></li>
+<li>导出到单个 HTML 文件: <code>Command</code>+<code>shift</code>+<code>s</code></li>
+<li>导入文件（仅支持展出文件）: <code>Command</code>+<code>o</code></li>
+<li>命令提示容器: <code>Command</code>+<code>p</code></li>
+</ul>
+
+<h3 id="截图">截图</h3>
+
+<p><em>浅色主题</em></p>
+
+<p><img src="https://code-sketch.com/image/code-sketch-light-theme.png" alt="code-sketch-light" /></p>
+
+<p><em>深色主题</em></p>
+
+<p><img src="https://code-sketch.com/image/code-sketch-dark-theme.png" alt="code-sketch-dark" /></p>
+
+<p><em>错误日志</em></p>
+
+<p><img src="https://code-sketch.com/image/code-sketch-error-log.png" alt="log" /></p>
+
+<p><em>控制台日志</em></p>
+
+<p><img src="https://code-sketch.com/image/code-sketch-console-log.png" alt="error" /></p>
+
+<h3 id="开发">开发</h3>
+
+<p>yarn or npm</p>
+
+<pre><code class="language-bash">yarn install
+yarn start
+yarn dev
+# build release for mac
+yarn release
+</code></pre>
+
+<h3 id="支持">支持</h3>
+
+<p>&hellip;</p>
 </div>
                 <footer>
                     <p class="meta" style="display:none">
@@ -98,7 +160,7 @@
                         <span class="categories">
                             
                             
-                            <a class="category 0|1" href="https://keelii.com/categories/ppt">ppt</a>
+                            <a class="category 0|1" href="https://keelii.com/categories/fe">fe</a>
                             
                         </span>
                         
@@ -106,18 +168,18 @@
                     
                     <p class="meta">
                         <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2018-08-12 11:42:52">
-                            <span class="date">2018-8-12</span>
-                            <span class="time">11:42 AM</span>
+                        <time class="entry-date" datetime="2019-03-06 19:19:24">
+                            <span class="date">2019-3-6</span>
+                            <span class="time">19:19 PM</span>
                         </time>
                     </p>
                     <p class="meta">
                         
-
-                        
-                        <span class="basic-alignment right">
-                            <a href="https://keelii.com/2012/08/18/front-end-makes-change/" title="Nextious Post: 前端，改变">前端，改变</a> &raquo;
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/01/06/empathy-is-better-than-equality/" title="Previous Post: 理解比平等更重要">理解比平等更重要</a>
                         </span>
+                        
+
                         
                     </p>
                 </footer>
@@ -142,118 +204,31 @@
         <aside class="sidebar">
     
         
-    
-<section class="even" style="display:none;">
-    <h2>Categories</h2>
-    <ul id="category-list">
-        
-        <li>
-            <a href="https://keelii.com/categories/Event">Event (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide (14)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/Linux">Linux (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/OS">OS (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/Server">Server (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/VIM">VIM (2)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/WebDev">WebDev (2)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/algorithm">algorithm (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/blog">blog (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/chrome">chrome (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/concept">concept (8)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/database">database (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/editor">editor (4)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/fe">fe (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/javascript">javascript (22)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/jd">jd (3)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/lisp">lisp (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/mac">mac (3)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/math">math (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/ppt">ppt (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/python">python (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/shell">shell (2)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/sublime-text">sublime text (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/template_engine">template_engine (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/vim">vim (1)</a>
-        </li>
-        
-        <li>
-            <a href="https://keelii.com/categories/webdev">webdev (2)</a>
-        </li>
-        
-    </ul>
-</section>
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#代码画板-code-sketch">代码画板 Code Sketch</a>
+<ul>
+<li><a href="#功能">功能</a></li>
+<li><a href="#快捷键">快捷键</a></li>
+<li><a href="#截图">截图</a></li>
+<li><a href="#开发">开发</a></li>
+<li><a href="#支持">支持</a></li>
+</ul></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
 
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
 
 
 

@@ -6,10 +6,488 @@
     <description>Recent content in Archives on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 06 Mar 2019 19:19:24 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Mar 2019 19:20:04 -0700</lastBuildDate>
     
         <atom:link href="https://keelii.com/archives/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何使用前端技术开发一个桌面跨端应用</title>
+      <link>https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/</link>
+      <pubDate>Thu, 14 Mar 2019 19:20:04 -0700</pubDate>
+      
+      <guid>https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/</guid>
+      <description>
+
+&lt;p&gt;本文将会讲述一个完整的跨端桌面应用 &lt;a href=&#34;https://code-sketch.com/&#34; title=&#34;代码画板&#34;&gt;&lt;strong&gt;代码画板&lt;/strong&gt;&lt;/a&gt; 的构建，会涉及到整个软件开发流程，从开始的设计、编码、到最后产品成型、包装等。&lt;/p&gt;
+
+&lt;p&gt;本文不仅仅是一篇技术方面的专业文章，更会有很多产品方面的设计思想和将技术转换成生产力的思考，我将结合我自己的使用场景完全的讲解整个开发流程，当然涉及到设计方面的不一定具有普遍实用性，多数情况下都是我自己的一些喜好，我只关心自己的需求。&lt;/p&gt;
+
+&lt;p&gt;同时本文只从整体上讲思路，也会有个别的技术细节和常规套路，有兴趣的也可以直接去 github 上看 &lt;a href=&#34;https://github.com/keelii/code-sketch&#34; title=&#34;code-sketch-source&#34;&gt;源码&lt;/a&gt;，文章会比较长，如果你只想知道一些拿来即用的「干货」，或许这篇文章并不是一个好的选择&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;一-定位需求&#34;&gt;一、定位需求&lt;/h2&gt;
+
+&lt;p&gt;事情的起因是这样的，因为我们内部会有一些培训会议。会经常现场演示一些代码片段。比如说我们讲到 React 的时候会现场写一些组件，让大家能直观的感受到 React 的一些功能。&lt;/p&gt;
+
+&lt;p&gt;但是通常由于条件所所限，会议总会遇到一些意外。比如断网、投影分辨率低看不清文字等&lt;/p&gt;
+
+&lt;p&gt;起初我们用的是在线版的 &lt;a href=&#34;https://codepen.io/&#34; title=&#34;codepen&#34;&gt;codepen&lt;/a&gt;，但是感觉并不是那么好用。比如不能方便的修改字体大小，必须要在连网的情况下才能使用。另外它的 UI 设计不是很紧凑，通常我们展示代码的时候都投影是寸土寸金的，应该有一个简洁又不失功能的 UI 界面，能全屏展示…&lt;/p&gt;
+
+&lt;p&gt;于是我解决自己实现一个这样的轮子，那么大概的需求目标是有了：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;离线可用&lt;/li&gt;
+&lt;li&gt;可以改变界面字体大小&lt;/li&gt;
+&lt;li&gt;更加简洁的 UI&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;二-整体设计&#34;&gt;二、整体设计&lt;/h2&gt;
+
+&lt;h3 id=&#34;应用风格&#34;&gt;应用风格&lt;/h3&gt;
+
+&lt;p&gt;代码画板解决的是 &lt;strong&gt;临时性&lt;/strong&gt; 的一些 *演示代码* 的需求，所以它的本质属性是一个拿来即用的工具，它不应该有更复杂的功能，比如用户登录、代码片段的管理等。这些需求不是它要解决的。代码画板会提供一个简单的导出成 HTML 文件的功能，可以方便用户存储整个 HTML 文件。&lt;/p&gt;
+
+&lt;p&gt;既然是用来演示代码的，那么它的界面上应该只有两个东西，一个是 &lt;strong&gt;代码&lt;/strong&gt;，一个就是 &lt;strong&gt;预览&lt;/strong&gt;。像代码/控制台切换的功能都做成 tab 的形式，正常情况不需要让他们展示出来。像 codepen 那样把所有的代码编辑器功能都展示出来我认为是不对的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t1/16250/31/9820/200587/5c81e5f1Ecd4c788e/73e2e8b44c45fd2b.png&#34; alt=&#34;codepen-demo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;codepen 的界面给人感觉非常复杂，有很多功能点。当然我并不是在批评它，codepen 做为一个需要商业化运营的软件，势必会做的非常复杂，这样才能满足更多用户的需求。然而程序员写软件则可以完全按照自己的想法来，哪怕这个应用只给自己一个人用呢。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/21966/22/9894/223877/5c81e745E5fc64825/1612674f92321245.png&#34; alt=&#34;hello-code-sketch&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;桌面应用的设计&#34;&gt;桌面应用的设计&lt;/h3&gt;
+
+&lt;p&gt;桌面应用的设计和 web 界面的设计还是有些细微区别的，同样的基于 electron 的应用，有的应用会让人感觉很「原生」，有的则一眼就能看出来是用 CSS 画的。我在设计代码画板的时候也尽量向原生靠近，避免产生落差感。比如禁用鼠标手型图标、在按钮或者非可选元素上禁止用户选择：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;cursor: default;
+user-select: none
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因为实际上用户在使用一款应用的时候感性的因素影响占很大一部分，比如说有人不喜欢 electron 可能就是因为看到过 electron 里面嵌一个完整的  web 页面的操作，这就让人很反感。但是这不是 electron 的问题，而是应用设计者的问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;应用标识的设计&#34;&gt;应用标识的设计&lt;/h3&gt;
+
+&lt;p&gt;说实话应用 logo 设计我也是业余水平，但是聊胜于无。既然水平不行，那就尽量设计的不难看就行了。可以参考一些好的设计。我用 sketch 画出 logo 的外形，sketch 有很多 macOS 的模块可以从网上下载下来，直接基于模板修改就可以了。&lt;/p&gt;
+
+&lt;p&gt;代码画板主要的界面是分割开的两个面板，左边是代码，右边是预览。所以我就大概画了一个形状&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img14.360buyimg.com/devfe/jfs/t1/25508/31/10134/47955/5c84b771Efe6319f7/e58c1fb10f4692bb.png&#34; alt=&#34;code-sketch-icon&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个 logo 有个问题就是线条过多，小尺寸的时候看不清楚。这个问题我暂时先忽略了，毕竟我还不是专业的，后续有好的创意可以再改&lt;/p&gt;
+
+&lt;h3 id=&#34;默认设置&#34;&gt;默认设置&lt;/h3&gt;
+
+&lt;p&gt;代码画板也 &lt;strong&gt;不会有&lt;/strong&gt; 设置界面，因为常用的设置都预定义好了，你不需要配置。顶多改变下代码字体的大小。使用编辑器的通用快捷键 &lt;code&gt;command&lt;/code&gt;+&lt;code&gt;+/-&lt;/code&gt; 就解决了，或者插入三方库，直接使用编辑器的通用命令快捷键 &lt;code&gt;command&lt;/code&gt;+&lt;code&gt;p&lt;/code&gt; 调出。我们的思路就是把复杂的东西帮用户隐藏在后台，观众只需要关注演员台上的一分钟，而不必了解其它细节。&lt;/p&gt;
+
+&lt;h3 id=&#34;快捷键-可用性&#34;&gt;快捷键/可用性&lt;/h3&gt;
+
+&lt;p&gt;由于代码画板的界面非常简单，在一些细小的必要功能就得添加一些快捷键。比如：切换 HTML/CSS/JS/Console 代码编辑器，我在每个 tab 上加了数字标号，暗示它是有顺序有快捷键的，而且这个切换方式和 Chrome tab 切换的逻辑一致，使用 &lt;code&gt;command&lt;/code&gt;+&lt;code&gt;数字&lt;/code&gt; 就可以实现，万一还是有人不会用的话，可以去看帮助文档。里面有所有的快捷键。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/29290/34/10809/7022/5c8a01e4E1b50ceff/6c235ce5bfd1c228.png&#34; alt=&#34;cs-tab&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;界面中间的分割条可以自定义拖动，双击重置平分界面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t1/19010/29/10797/101406/5c8a0247Edd9de215/adedbbec61fde586.gif&#34; alt=&#34;cs-spliter&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;刚开始的时候我把每个 tab 页签都分割成单独的面板，因为我觉得这个能拖动自定义面板大小的交互实在是太爽了，忍不住想去拖动它。但是后来想想，其实并没有必要，我们写代码时应该更专注于代码本身，如果只有两个面板，那么这个界面无论是认知还是使用起来就没有任何困难。&lt;/p&gt;
+
+&lt;p&gt;因为我们并不需要把一堆的功能的界面摔给用户，让他们自己去选择。&lt;/p&gt;
+
+&lt;h2 id=&#34;三-技术调研&#34;&gt;三、技术调研&lt;/h2&gt;
+
+&lt;h3 id=&#34;实现控制台&#34;&gt;实现控制台&lt;/h3&gt;
+
+&lt;p&gt;通过使用流行的几款在线代码运行工具，我发现他们有一个共同的问题：&lt;strong&gt;控制台很难用&lt;/strong&gt;。无法像 Chrome Console 那样展示任意类型的 JS 值。比如我想 log 一段嵌套的 JS 对象：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;console.log({ a: { b: 1, c: { d: [1, 2, 3] } }})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大多数都展示成这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[object Object] {
+  a: [object Object] {
+    b: 1
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Chrome 是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t1/20790/15/9802/66920/5c80fc26E0a7def72/a638657b209ea000.gif&#34; alt=&#34;chrome-console&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;显然 Chrome 控制台中更直观。所以我们需要在前面的基础上加一个需求，即：&lt;strong&gt;实现一个基于 DOM 的日志展示界面（无限级联选择）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;日志界面应该有下面这些功能：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;展示任意 JS 类型的数据&lt;/li&gt;
+&lt;li&gt;Primitive 类型的数据显示不同的颜色（number - 蓝色，string - 绿色）&lt;/li&gt;
+&lt;li&gt;Object 类型默认折叠起来，点击按钮展示子级，属性过多需要展示缩略信息&lt;/li&gt;
+&lt;li&gt;数组前应该有长度标记&lt;/li&gt;
+&lt;li&gt;能展示 JS 运行时的报错 Error 信息&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;集成现代化的前端框工作流&#34;&gt;集成现代化的前端框工作流&lt;/h3&gt;
+
+&lt;p&gt;现代化的前端写页面肯定不是 HTML/CSS/JS 一把梭了，至少应该有 Sass/Babel 的支持吧。&lt;/p&gt;
+
+&lt;p&gt;Sass 嵌套能让你少写很多选择器，当然 Less 也可以，但是在我们的这个应用里面区别不大，一般来说临时性的写一些代码很少会用到它们的细节功能。有 &lt;strong&gt;变量&lt;/strong&gt; 和 &lt;strong&gt;选择器&lt;/strong&gt; 嵌套就够了&lt;/p&gt;
+
+&lt;p&gt;Babel 主要是解决了写 React 的问题，不用再安装一大堆的构建工具了，直接使用 &lt;code&gt;UMD&lt;/code&gt; 的 &lt;code&gt;React/ReactDOM&lt;/code&gt; 就可以了，而且 electron 内嵌的 chromium 也支持了 es6 的 class 写法，实际上 Babel 主要的目的还是用来转译 JSX&lt;/p&gt;
+
+&lt;p&gt;注意这里是有一个我认为是 &lt;strong&gt;刚性&lt;/strong&gt; 的需求，比如临时忽然有个想法，或者想验证一段代码的话，正常情况是使用你的编辑器，新建 demo.html/demo.css/demo.js 等这些操作。但是这些动作太浪费时间了。有了代码画板以后，直接打应用就可以开始 coding 了，真正能做到开箱即用。&lt;/p&gt;
+
+&lt;h3 id=&#34;提高程序的扩展性&#34;&gt;提高程序的扩展性&lt;/h3&gt;
+
+&lt;p&gt;我们在写 demo 页面时通常是要引用很多第三方类库的，比如：Bootstrp/jQuery 等。我希望有一种方法可以方便的引用到这些库，直接把库文件的 link/script 标签插入到代码画板的 HTML 中，但是前端框架真的是太多了，又不能一个个去扣来写死到页面，就算是写死了随着框架版本的升级，可能就无法满足我们的需求。&lt;/p&gt;
+
+&lt;p&gt;以前写页面时经常会用到 &lt;a href=&#34;https://www.bootcdn.cn/&#34; title=&#34;bootcdn&#34;&gt;bootcdn&lt;/a&gt;，无意中发现它提供了相关 &lt;a href=&#34;https://www.bootcdn.cn/api/&#34; title=&#34;boot cdn API&#34;&gt;API&lt;/a&gt;，可以直接拿来使用。接下来就得想办法让用户通过界面选择即可。&lt;/p&gt;
+
+&lt;p&gt;这个 API 有三层数据结构：&lt;code&gt;库 - 版本 - 资源链接&lt;/code&gt;。这个功能要用界面来实现肯定会非常臃肿，界面上可能会放很多按钮。这就违背了「更简洁」的需求目标。&lt;/p&gt;
+
+&lt;p&gt;这时就得参考下我们经常使用的一些软件是如何解决 &lt;strong&gt;简洁性&lt;/strong&gt; 和 &lt;strong&gt;功能性&lt;/strong&gt; 需求之间的矛盾问题的，我比较喜欢 Sublime Text 的一些界面设计，Command Palette 是我经常使用的，所以我决定再模拟一个 Command Palette 来实现插入第三方库的需求。而且重要的是这个 Command Palette 并不一定只用来实现这一个功能，或者后期会有一些别的功能需要添加，那这个 Command Palette 也是个很好的入口。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img11.360buyimg.com/devfe/jfs/t1/28459/10/9844/97920/5c81d765Efd5a0345/50a35821db9f4c52.png&#34; alt=&#34;Command Palette&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-electron-实现桌面应用&#34;&gt;使用 electron 实现桌面应用&lt;/h3&gt;
+
+&lt;p&gt;实现离线可用很多方法，比如使用 PWA 技术。但是 PWA 并不能给我带来一种原生应用的那种可靠感，相反 &lt;a href=&#34;https://electronjs.org/&#34; title=&#34;el ec tr on&#34;&gt;electron&lt;/a&gt; 刚好可以解决我的顾虑。同时它可以把你的应用打包成各个平台（macOS/Window/Linux）的原生应用。唯一的缺点就是安装包确实很大，一般来讲一个 electron 应用 &lt;strong&gt;安装完&lt;/strong&gt; 至少要 100 多兆，不过我觉得还能接受，毕竟硬盘存储现在已经很廉价了。&lt;/p&gt;
+
+&lt;p&gt;有人可能对 electron 有抗拒，觉得 electron 应用太庞大、占系统资源什么的，不过我们做的这个应用并不需要常驻系统，临时性的使用一下，用完就关闭，正常写生产环境的代码肯定还是要换回 编辑器/IDE 的。同时因为 electron 降低了写桌面应用的门槛，确实有很多人把一个完整的在线的网页直接嵌进去，这也是有问题的。&lt;/p&gt;
+
+&lt;p&gt;electron 还有一个好处，因为它完全基于 HTML/CSS/JS 来实现 UI(可以使用 Chrome only 的一些新功能)，那我们理论上可以在做桌面应用时顺手把 web 应用也做了。这就可以同时支持各个系统下的原生应用，并且有 web 在线版本。如果你不愿意使用原生应用，直接登录 web.code-sketch.com 使用在线版也没是一种选择。这样就使得我们的应用具有真正的 &lt;strong&gt;跨端&lt;/strong&gt; 能力。&lt;/p&gt;
+
+&lt;p&gt;由于我们团队都使用了 macbook，所以我优先支持 macOS 的开发，另外 macOS Mojave 的系统级别的暗色主题我也比较喜欢，刚好实现支持 mojave 暗色主题这个需求也做上。&lt;/p&gt;
+
+&lt;h2 id=&#34;三-框架的选择&#34;&gt;三、框架的选择&lt;/h2&gt;
+
+&lt;p&gt;大方向确定了，像框架选择这个就简单了，基于 electron 的应用，需要你区分开 render/main process 来选择。&lt;/p&gt;
+
+&lt;h3 id=&#34;render-process&#34;&gt;Render process&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;渲染进程&lt;/strong&gt; 就是 electron 中界面的实现部分 ，一般来说就是一个 webview，选自己喜欢的框架即可。我使用 React 来实现界面。样式方面就不再使用框架了，因为我们的界面原则上没有复杂的元素，直接手写 CSS，300 行内基本上就可以解决问题。可能有人会觉得这不可能，实际情况是当你写样式只跑在 Chrome 里面的时候那感觉完全爽到飞起，CSS variable/flex/grid/calc/vh/rem 什么的都可以拿来用，实现一个功能的成本就降低了很多。&lt;/p&gt;
+
+&lt;p&gt;我使用 &lt;a href=&#34;https://codemirror.net/&#34; title=&#34;codemirror&#34;&gt;Codemirror&lt;/a&gt; 来做为主界面的代码编辑器，&lt;a href=&#34;https://microsoft.github.io/monaco-editor/index.html&#34; title=&#34;monaco&#34;&gt;Monaco&lt;/a&gt; 也是一个好选择，但是它有点过于庞大了，而且如果想要自定义功能得自己写很多实现&lt;/p&gt;
+
+&lt;p&gt;主界面上的分割组件，使用了 &lt;a href=&#34;https://split.js.org/&#34; title=&#34;react split&#34;&gt;React-split&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;main-process&#34;&gt;Main process&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;主进程&lt;/strong&gt; 就是 electron 应用程序的进程，主要的区别在于主进程中可以调用一些与原生操作系统交互的 API，比如对话框、系统风格主题等。并且有 node 的运行时，可以引用 NPM 包。当然渲染进程也可以有 node 支持，但是我建议渲染进程中就只放一些纯前端的逻辑，这样的话方便后期把应用分离成 web 版&lt;/p&gt;
+
+&lt;p&gt;因为我们要集成 Sass 编译功能，如果你也经历过 node-sass 的各种问题，那就应该果断选择 &lt;a href=&#34;https://github.com/sass/dart-sass&#34; title=&#34;dart-sass&#34;&gt;dart-sass&lt;/a&gt; — 使用 dart 实现，编译成了原生的 JS，没有依赖问题。dart-sass 我放在了 main process 中，因为我试过放在 render process 中会有各种报错。如果 web 端要实现这个功能就需要其它的解决办法了，比如做成一个 http 服务，让 web 调 http 服务。&lt;/p&gt;
+
+&lt;p&gt;Babel 的话我是放在了 &lt;strong&gt;渲染进程&lt;/strong&gt; 中以 script 标签的方式调用，这样即使在 web 端 Babel 编译也是可用的。&lt;/p&gt;
+
+&lt;p&gt;总之如果你使用 electron 构建应用并且引入的第三方 NPM 包可以 &lt;strong&gt;支持&lt;/strong&gt; 运行在客户端（浏览器）上，那就尽量把包放在渲染进程里面。&lt;/p&gt;
+
+&lt;h3 id=&#34;构建工具&#34;&gt;构建工具&lt;/h3&gt;
+
+&lt;p&gt;我使用 &lt;a href=&#34;https://parceljs.org/&#34; title=&#34;parcel js&#34;&gt;Parcel&lt;/a&gt; 来构建 React 而不是 Create React App。后者用来写个小应用还可以，稍微大一点的，需要定制化一些东西你就得 eject 出来一大堆 webpack 配置文件，即便是我已经用 webpack 开发过几个项目了，但是说实话我还是没用会 webpack。写 webpack 配置的时间足够我自己写 npm script 来满足自己的需求了。&lt;/p&gt;
+
+&lt;h3 id=&#34;原生应用打&#34;&gt;原生应用打&lt;/h3&gt;
+
+&lt;p&gt;使用 &lt;a href=&#34;https://www.electron.build/&#34; title=&#34;electron builder&#34;&gt;electron-builder&lt;/a&gt; 来打包到平台原生应用，并且如果你有 Apple 开发者账号的话应用还可以提交到 AppStore 上去。&lt;/p&gt;
+
+&lt;p&gt;我目前的打包参数是这么配置的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;build&amp;quot;: {
+        &amp;quot;productName&amp;quot;: &amp;quot;Code Sketch&amp;quot;,
+        &amp;quot;extends&amp;quot;: null,
+        &amp;quot;directories&amp;quot;: { &amp;quot;output&amp;quot;: &amp;quot;release&amp;quot; },
+        &amp;quot;files&amp;quot;: [
+            &amp;quot;icon.icns&amp;quot;,
+            &amp;quot;main.js&amp;quot;,
+            &amp;quot;src/*.js&amp;quot;,
+            &amp;quot;所有需要的文件&amp;quot;,
+            &amp;quot;package.json&amp;quot;,
+            &amp;quot;node_modules/@babel&amp;quot;,
+            &amp;quot;node_modules/sass&amp;quot;
+        ],
+        &amp;quot;mac&amp;quot;: {
+            &amp;quot;icon&amp;quot;: &amp;quot;icon.icns&amp;quot;,
+            &amp;quot;category&amp;quot;: &amp;quot;public.app-category.productivity&amp;quot;,
+            &amp;quot;target&amp;quot;: [ &amp;quot;dmg&amp;quot; ]
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在你的 package.json 中添加 build 字段，productName, directories 这些按自己需要更改即可&lt;/p&gt;
+
+&lt;h2 id=&#34;四-分离开发环境&#34;&gt;四、分离开发环境&lt;/h2&gt;
+
+&lt;h3 id=&#34;区分开开发环境&#34;&gt;区分开开发环境&lt;/h3&gt;
+
+&lt;p&gt;代码画板项目开过过程中涉及两个关键环境&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Parcel 构建环境（渲染进程）&lt;/strong&gt;：Parcel 可以为你提供一些现在 JS 的转译工作，因此你可以放心使用例如 ES6 的 JS 新特性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.JS 运行环境（主进程+渲染进程）&lt;/strong&gt;：这个取决于你的 electron 版本中集成的是 node 版本，比如：Node 10 中就没有 ES Module，这意味着你如果要在 electron &lt;strong&gt;主进程&lt;/strong&gt; 是无法识别 &lt;code&gt;import&lt;/code&gt; 这样的语句的，但是渲染进程由于你使用了 Parcel 编译，则无需考虑&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;*这里温馨提示下*：想要做到 electron 中的 渲染进程与主进程之间共享 JS 代码是非常困难的。就算是有办法也会特别的别扭，我的建议是尽量分离这两个进程中的代码，&lt;strong&gt;主进程主要做一些系统级别的 API 调用、事件分发等，业务逻辑尽量放在渲染进程中去做&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果非要共享，那建议单独做成一个 NPM 包分别做为主进程运行时依赖，和渲染进程的 Parcel 编译依赖，唯一的缺点就是实际上共享的代码会有两份。&lt;/p&gt;
+
+&lt;p&gt;渲染进程中调用 node API 可能会和 Parcel 打包工具冲突，一般在调用比如文件模块时，可以加上 &lt;code&gt;window.require(‘fs’)&lt;/code&gt; 这样就可以兼容两个环境：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;get ipc() {
+    if (window.require) {
+        return window.require(&#39;electron&#39;).ipcRenderer
+    } else {
+        return { on() {}, send() {}, sendToHost() {} }
+    }
+}
+this.ipc.send(&#39;event&#39;, data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样的话你在浏览器端调试也不会产生报错。一般情况下，建议当你用渲染进程中的 JS 引用（&lt;code&gt;require&lt;/code&gt;）包的时候都加上 &lt;code&gt;window.&lt;/code&gt; 前缀就可以了。因为渲染进程中 window 是全局变量，调用 &lt;code&gt;require&lt;/code&gt; 和调用 &lt;code&gt;window.require&lt;/code&gt; 是等价的&lt;/p&gt;
+
+&lt;h3 id=&#34;开发流程&#34;&gt;开发流程&lt;/h3&gt;
+
+&lt;p&gt;通常在测试的时候应用会调用一些 electron 内置的系统级别 API，这部分调用通常需要启动 electron，但是有时候只有渲染进程中 UI 界面上的改动，就不用再启动 electron 了，直接在浏览器里面测试即可。使用 Parcel 运行一个本地的服务，这样就可以在浏览器里面调试页面。整个开发过程需要两个命令（NPM Script）：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;启动 Parcel 编译服务器&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;./node_modules/.bin/parcel index.html -p 2044&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;*调试 electron 原生功能*，注意设置 &lt;code&gt;ELECTRON_START_URL&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+    &amp;quot;dev&amp;quot;: &amp;quot;ELECTRON_START_URL=http://localhost:2044 yarn electron&amp;quot;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;技术难点&#34;&gt;技术难点&lt;/h3&gt;
+
+&lt;p&gt;整个应用只有两个功能是需要我们自己写代码实现的：日志控制台，Sublime 命令行。我们分别来分析下这两个模块的难点。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;日志控制台&lt;/strong&gt; 的难点在于，我们需要打印任意类型的 JS 值。如果你对 JS 了解比较多的话自然会想到在 JS 中所有的东西都是 &lt;strong&gt;对象&lt;/strong&gt;，即 Object，那么实际上当你想打印一个变量的时候，其实你只要把整个 Object 递归的遍历出来，然后做成一个无限级的下拉菜单就可以了。看起来大概想下面这样：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/18901/35/10834/23415/5c890f3bE71a4d189/3e2bf8c0a6f5eb0a.png&#34; alt=&#34;logger&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sublime 命令行&lt;/strong&gt; 实际上开发起来还是比较简单的，使用 React 很简单就实现了功能，比较麻烦的是调用 bootcdn 的接口，过程中我发现接口返回数据量还是挺大的，有必要做上一层 localStorage 缓存，加快二次打开速度。&lt;/p&gt;
+
+&lt;p&gt;然而在使用的过程中你会发现当我想插入一个前端库需要很多操作，因为有 &lt;strong&gt;三级选择&lt;/strong&gt;：库-版本-CDN 链接。虽然这个流程解决了 &lt;strong&gt;所有用户&lt;/strong&gt; 的使用问题，但是却损害了 &lt;strong&gt;大部分&lt;/strong&gt; 用户的体验。这个时候插入一个常用库的成本就很高了，所以我们就要加上一些快捷入口，来实现一键插入流行框架。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img20.360buyimg.com/devfe/jfs/t1/15567/2/10960/38060/5c89b038Ebf681113/6c169122ab1eb903.png&#34; alt=&#34;sublime-commend-p&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我们写代码的思路是满足所有用户的使用需求，但是一个好产品的思路是先满足大多数用户（80%）的常规需求，再让其余的用户（20%）可以有选择&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;还有一个问题比较典型就是 React 这类框架在渲染大列表并且进行过滤（关键字查询）时性能的问题。注意这个性能问题 &lt;strong&gt;并不是&lt;/strong&gt; 引入框架产生的，真正的原因是当你渲染的 HTML 节点数以千计的时候，批量操作 DOM 会使得 DOM Render 特别慢。&lt;/p&gt;
+
+&lt;p&gt;所以说当我们遇到性能问题的时候应该去查找问题的根源，而不是停留在框架使用上，实际上在 DOM 操作这个层面来讲 jQuery 提供了更多的性能优化，比如自身的缓存系统，以致于当你在使用的时候很难发现有性能问题。但是在类 React 框架中它们框架本身的重点并不在于解决你应用的性能问题。&lt;/p&gt;
+
+&lt;p&gt;类似我们上面讲到的，实际上 jQuery 帮助你屏蔽了很多舞台背后的东西，以致于你可以不用操心技术细节，你甚至可以把 jQuery 当做一个 &lt;strong&gt;产品&lt;/strong&gt; 来使用，而类 React 框架你却要亲力亲为的用他来设计你的代码。&lt;/p&gt;
+
+&lt;p&gt;话题再转回性能问题。这时候需要我们去实现一个类似于 &lt;a href=&#34;https://addyosmani.com/blog/react-window/&#34;&gt;react-window&lt;/a&gt;  的功能，让列表元素根据滚动按需加载。这可能是一种通用的解决大列表加载的方案，但是我的解决方法更粗暴，因为我们的下拉过滤功能使用时用户只关注 &lt;strong&gt;最佳的匹配项&lt;/strong&gt; 即可，后面匹配程度不高的项可以直接限制数量裁剪就行了嘛。很少有用户会一直滚动到下面去查找某个选项，如果有，那就说明我们这个匹配做的有问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;slice() {
+    const idx = (this.props.itemsPerPage || 50) * (this.state.activeFrame + 1)
+    return this.props.items.slice(0, idx)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;整个匹配筛选的状态大概是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;this.state = {
+    // 当前第N步选择
+    step: 0,
+    // 当前步骤数据
+    items: [],
+    // 是否显示
+    active: false,
+    // 当前选中项
+    current: {},
+    // 过滤关键字
+    keyword: &#39;&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个 &lt;code&gt;items&lt;/code&gt; 是当前步骤的所有数据，实际上我们这个组件是支持无限级的扩展的，那么我们通过组件的 props 传入所有层级的数据，然后持久存储在内存中。这个 &lt;strong&gt;所有层级的数据&lt;/strong&gt; 是数据结构层面的，实际上它可能是通过异步接口获取的。&lt;/p&gt;
+
+&lt;p&gt;再来看看我们组件提供的所有 &lt;code&gt;props&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;static defaultProps = {
+    step: 0,
+    active: false,
+    data: [[]],    // 无限层级数据 [[], [], [], ...]
+    // 数据的主键，用于钩子函数返回用户选择的结果集
+    pk: &#39;id&#39;,
+
+    autoFocus: true,
+    activeCls: &#39;active&#39;,
+    delay: 300,
+    defaultSelected: 0,
+    placeholder: &#39;&#39;,
+    async: false,
+    alias: [],
+    done: () =&amp;gt; {}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这些数据都可以通过组件的 props 传入，这就意味着我们的这个组件才是真正的组件，别人也可以使用这样的功能，而他们并不用在意里面的细节，使用者只需要做好类似调用自己接口的这种业务逻辑。&lt;/p&gt;
+
+&lt;p&gt;组件的调用大概是这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;CommandPalette step={0}
+    key=&amp;quot;CommandPalette&amp;quot;
+    async={injectData}
+    done={this.done.bind(this)}
+    alias={alias}
+    aliasClick={this.aliasClick.bind(this)}
+    data={[ [], [], [] ]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt; 这个 props 实际上是一个异步调用的钩子方法，它会回传给你组件上当前操作的相关数据状态，通过这些数据使用者就可以按自己的需求在不同的步骤上调用不同的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export const injectData = (step, item, results, cb) =&amp;gt; {
+    const API = &#39;https://api.bootcdn.cn/libraries&#39;
+
+    if (step === 0) {
+        fetchData(`${API}.min.json`)
+            .then(processLibraryData)
+            .then(cb)
+    } else if (step === 1) {
+        // ...
+    } else if (step === 2) {
+        // ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外关于 React 这里安利下自己翻译过的一个教程：&lt;a href=&#34;https://github.com/keelii/reactpatterns.cn&#34;&gt;React 模式&lt;/a&gt;，里面讲到 18 种短小精悍的 React 模式案例，非常简单易懂。&lt;/p&gt;
+
+&lt;p&gt;还有一个小窍门，我们在适配暗色主题时，传统的方法是直接写两套主题 CSS 代码，实际上我们要使用 CSS Variable 的话完全没必要生成两套了，背景色，字体都做成 CSS 变量，切换的时候只需要动态往页面插入更新过的 CSS 变量值即可&lt;/p&gt;
+
+&lt;p&gt;系统的一些参数想直接传给渲染进程也是比较麻烦的，我的做法是直接从主进程中的 loadUrl 方法上以 queryString 的方式传到渲染页面的 URL 上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const query = {
+    theme: osTheme,
+    app_path: app.getAppPath(),
+    home_dir: app.getPath(&#39;home&#39;)
+}
+
+mainWindow.loadURL(process.env.ELECTRON_START_URL ? url.format({
+    slashes: true,
+    protocol: &#39;http:&#39;,
+    hostname: &#39;localhost&#39;,
+    port: 2044,
+    query
+}) : url.format({
+    slashes: true,
+    protocol: &#39;file:&#39;,
+    pathname: path.resolve(app.getAppPath(), &#39;./dist/index.html&#39;),
+    query
+}))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;像程序运行时的一些参数（比如程序的根目录）也可以这么动态传过去，而且还有一个好处就是你甚至可以在渲染进程中测试与这些参数相关的功能。&lt;/p&gt;
+
+&lt;h2 id=&#34;五-宣传&#34;&gt;五、宣传&lt;/h2&gt;
+
+&lt;h3 id=&#34;demo-视频录制&#34;&gt;demo 视频录制&lt;/h3&gt;
+
+&lt;p&gt;我会把最终所有功能的使用方法录制成一个视频，万一有人不不想下载你的软件，只是要了解一下，这就是个很好的方法。我同时上传到了 Youtube 和 bilibili 这两个平台，其它的都有广告就没必要了&lt;/p&gt;
+
+&lt;p&gt;使用 Quicktime Player 即可，录制完使用 iMovie 转码成两倍速率的 mp4。如果你有兴趣还可以加上一段音乐什么的，让视频看起来更灵动&lt;/p&gt;
+
+&lt;h3 id=&#34;域名申请&#34;&gt;域名申请&lt;/h3&gt;
+
+&lt;p&gt;域名是一个能让用户记住你产品的方法，如果你做的是一个成型的产品，那就一定要申请个域名。&lt;/p&gt;
+
+&lt;p&gt;我总是有这样的体验，有的时候看到一个非常不错的产品但由于当时没需求就忽略了，想起来或者突然有需求的时候缺记不起来名字叫什么了。&lt;/p&gt;
+
+&lt;p&gt;事实上代码画板最开始我给他起的名字是 code playground，这个更直观，但是名字太长，而且想用到的一些域名呀、Github 名、NPM 包都被注册了。&lt;/p&gt;
+
+&lt;p&gt;想来想去就换成了 code sketch，这和符合我们的设计初衷，即：一边是代码，一边是效果/草图&lt;/p&gt;
+
+&lt;p&gt;域名申请我一般会上 Godaddy，不用备案，.com 域名一年 ¥65.00，然后 DNS 服务器转到了 cloudflare，后续域名也会直接转到 cloudflare。因为据说以后在 cloudflare 上续费域名最便宜&lt;/p&gt;
+
+&lt;h3 id=&#34;网站搭建&#34;&gt;网站搭建&lt;/h3&gt;
+
+&lt;p&gt;宣传网站直接放在 github pages 上，做个自定义域即可，实在是太方便了。而且还有 SSL 支持，Github 真的是业界良心&lt;/p&gt;
+
+&lt;p&gt;web 版的代码画板，由于我们把渲染进程中的代码分离开发，所以直接把 parcel 打包出来的静态文件也做成 github pages 就可以了，爽歪歪，网站就等于一分钱不花了。后续做一些 web 版的增强功能时，可以做成前后端分离的 http 服务，这就是后话了&lt;/p&gt;
+
+&lt;h3 id=&#34;加入-google-analytics-代码&#34;&gt;加入 Google analytics 代码&lt;/h3&gt;
+
+&lt;p&gt;GA 可以让你了解网站的用户分布情况，清楚的知道网站访问的波动。比如说你把自己的链接放到某个网站上分享了，GA 里面就能看出来所有的推荐来源和波动，对于运营来说是非常有必要的&lt;/p&gt;
+
+&lt;h3 id=&#34;广告语&#34;&gt;广告语&lt;/h3&gt;
+
+&lt;p&gt;这个我还真想了好长时间，基于我对于代码画板的定义，我觉得它应该是一个我们有一个想法的时候需要快速去实现一个 demo 的地方，想来想去就定了一段看起来文邹邹的话，虽然听名字根本不知道它是干啥用的，但是没关系，程序员写东西就是要有个性，因为我的受众只有自己。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;First place where the code was written&amp;hellip;
+一个你最初写代码的地方&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;六-汇总使用到的库与工具&#34;&gt;六、汇总使用到的库与工具&lt;/h2&gt;
+
+&lt;p&gt;麻雀虽小，五脏俱全。我们来看下代码画板总共用到了多少东西：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;框架/库
+
+&lt;ul&gt;
+&lt;li&gt;electronjs&lt;/li&gt;
+&lt;li&gt;react&lt;/li&gt;
+&lt;li&gt;babeljs&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;NPM 模块
+
+&lt;ul&gt;
+&lt;li&gt;codemirror 及其插件&lt;/li&gt;
+&lt;li&gt;react-split&lt;/li&gt;
+&lt;li&gt;sublime-command-palette&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;打包/工具
+
+&lt;ul&gt;
+&lt;li&gt;parceljs&lt;/li&gt;
+&lt;li&gt;electron-builder&lt;/li&gt;
+&lt;li&gt;bootcdn&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;设计与素材
+
+&lt;ul&gt;
+&lt;li&gt;sketch&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.tweaknow.com/appicongenerator.php&#34;&gt;Free AppIcon Generator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Inconsolata 字体&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://benschwarz.github.io/gallery-css/&#34; title=&#34;pure css gallery&#34;&gt;Gallary CSS&lt;/a&gt; 纯 CSS 实现的焦点图，用于宣传页展示&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;七-结语总结&#34;&gt;七、结语总结&lt;/h2&gt;
+
+&lt;p&gt;实事上我自己的开发这个应用的时候并没有严格按照这篇文章的顺序执行，而是想到一些实现一些，可能一个功能实现了后来觉得不好又干掉了，是不断的取舍、提炼的结果。&lt;/p&gt;
+
+&lt;p&gt;开发中我也不断的问自己这个功能是否有必要，如果可有可无那是不是可以去掉，这样才能使得用户更加关注于代码本身。&lt;/p&gt;
+
+&lt;p&gt;整个开发过程中自己实现的功能模块并不多，只有控制台、命令行窗口是自己实现的，其它的功能基本上都是靠社区现有的工具库来完成的，从这一点来说前端技术的生态还是挺好的。这使得当我从整体上构思一个产品时我不必在意那些细节，虽然过程中还是能感觉到前端工具/库的割裂感，但是整体而言还是向好的，毕竟工具对于开发者只是一种选择的。&lt;/p&gt;
+
+&lt;p&gt;八、引用&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/keelii/code-sketch&#34; title=&#34;code-sketch-source&#34;&gt;https://github.com/keelii/code-sketch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.tweaknow.com/appicongenerator.php&#34;&gt;http://www.tweaknow.com/appicongenerator.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://benschwarz.github.io/gallery-css/&#34;&gt;http://benschwarz.github.io/gallery-css/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://addyosmani.com/blog/react-window/&#34;&gt;https://addyosmani.com/blog/react-window/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/keelii/reactpatterns.cn&#34;&gt;https://github.com/keelii/reactpatterns.cn&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>开源一个自己写的代码画板</title>
@@ -1609,64 +2087,6 @@ function collabEditor(authority, place) {
 &lt;p&gt;可能会有很多人认为写代码对于自己来说只是为了赚钱生活，并不追求极致。这当然也是非常合理且正常的，因为并不是每个人的工作都是自己选择的、喜欢的。但是我比较认同的是一种做事情的态度。环顾你周围的那些优秀的人，你会发现他们无论做什么事都会做的像模像样，即使他们做一些非擅长领域的事情，也可以做的非常优秀甚至出彩。&lt;/p&gt;
 
 &lt;p&gt;所以说编程对于大家来说 for fun 还是 for 饭并不重要，重要的是大家的态度&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>《IT 狂人》中的摇滚精神</title>
-      <link>https://keelii.com/2018/10/21/rock-and-roll-in-the-it-crowd/</link>
-      <pubDate>Sun, 21 Oct 2018 19:10:25 +0000</pubDate>
-      
-      <guid>https://keelii.com/2018/10/21/rock-and-roll-in-the-it-crowd/</guid>
-      <description>&lt;p&gt;前几天听说《生活大爆炸》将于 2019 年 5 月完成终结季（12季），一时间让我想起上大学那会刚开始看这部美剧的。起初是因为大学生活确实过的没意思，也是无意中在腾讯视频上点进去的。刚开始我是从第二季开始看的，后来大学毕业参加工作后就很少看了，一方面工作后确实时间少，一方面看大爆炸时间长了也会有一些审美疲劳，感觉里面的内容不再那么有意思。&lt;/p&gt;
-
-&lt;p&gt;说到有意思这又让我忽然想起来另外一部同样题材的情景喜剧（英剧）《The IT crowed》，这是一部给我留下深刻印象的英国喜剧。讲的是一个公司里的 IT 部门两个技术极客和一个女经理之间发生的一些有趣的事情&lt;/p&gt;
-
-&lt;p&gt;如果你同时看过这两部剧的话你会发现他们之间有很大的差别，美式幽默和英式的幽默完全不是一个风格。英式幽默特别夸张、无理头，甚至讽刺、搞怪。他会用一些你很难想象的非常夸张的表现手法，比如在第一季中的「火焰屏保」&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img10.360buyimg.com/devfe/jfs/t1/3755/16/10751/846454/5bcc3e51E9179c795/3e57d0b0706e52ab.png&#34; alt=&#34;it-crowed-火焰屏保&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一本正经的胡说八道，却让人笑到抽&lt;/p&gt;
-
-&lt;p&gt;还有 &lt;strong&gt;灭火器着火&lt;/strong&gt;。我从来没见过甚至听过有比灭火器着火更离谱且搞笑的事情了吧&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3296/27/10678/875307/5bcc3eafEf75c2af6/a6fa72572495df69.png&#34; alt=&#34;it-crowed-灭火器着火&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这还不算，镜头一转&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t1/9182/24/944/574450/5bcc3f27E12b1667d/fcb6c97d159f403d.png&#34; alt=&#34;it-crowed-灭火器made-in-britain&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;「Made in Britain - 英国制造」，这算是把自己国家完整的黑了一把&lt;/p&gt;
-
-&lt;p&gt;其实了解英国文化的人应该会懂，英国人特别喜欢讽刺，即使自己国家的东西也可以拿来嘲讽娱乐。剧中这种讽刺还有很多，比如 *0118 999 881 999 119 725* 这居然是一个电话号码！没错，而且还是 &lt;strong&gt;紧急服务&lt;/strong&gt; 电话&lt;strong&gt;，&lt;/strong&gt;有没有搞错，紧急服务哎。这个电话号码在剧中被演绎包装成了一个政府应急服务的广告，其实就是在讽刺政府的工作效率低下。你很难想象一个老年人从楼梯上摔下去快不行的时候打这个电话的场景&lt;/p&gt;
-
-&lt;p&gt;英式的幽默也很注重反转与对比，比如 Moss 和 Ray 翘班的那集。前脚说「我们是同事，我不会丢下你不管的…」后脚撒腿就跑的场景，诸如此类的场景剧中随处可见。以至于我有时候会隐约觉得这种英式幽默和东北人骨子里的那种搞笑爽快的性格非常相似&lt;/p&gt;
-
-&lt;p&gt;在我看来这部剧中的很多元素都来自于英国文化中的 &lt;strong&gt;摇滚精神&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;前面说过大学时间很无聊，当年我也实在是没事儿干，去图书馆看过一些摇滚乐方面的东西，所以我在看这剧的时候很有感触&lt;/p&gt;
-
-&lt;p&gt;摇滚乐发源于上世纪 60 年代至 90 年代末期，大家对早期摇滚印象深刻的可能就几个人：美国的猫王（埃尔维斯·普雷斯利），英国的甲壳虫（披头士），再到后来的朋克风平克·弗洛伊德，再到我们这一代人熟悉的迈克杰·克逊、邦·乔维等。你会发现摇滚发展了这么多年，但是摇滚的核心并没变，在我看来摇滚精神就是那种追求自由的孤独感。事实上尤其在国内，大部分人对于摇滚的印象就是吵闹、杂乱、满嘴飙脏话的阶段。大家并没有意识到实际上每个人心中都有摇滚精神体现的。对于生活追求、自由的渴望、世道不公的控诉 — 这些都是。其实摇滚乐是很简单的，有节奏的东西就是摇滚的，而且摇滚的本质就是激发人们听觉（对声音）的原始动力，这是一种特别原生、特别真实的表现方式&lt;/p&gt;
-
-&lt;p&gt;引用一句谢天笑的《命运还是巧合》中的一句歌词：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;「命运给了我一双眼睛，放在我的心里，从此为勇敢者哭泣，为不平的世界叹息…」&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;话题再转到这部剧上，我在这部剧中看到很多摇滚的元素，无论是剧情的设计和演员演技（哥特男）、服饰（珍的狂暴发型）都充满了摇滚风&lt;/p&gt;
-
-&lt;p&gt;同时这又是一部 IT 技术方面的喜剧，这个题材能设计出完美的搞 IT 的程序员的角色是非常不容易的。导演虽然是拍喜剧的，但是他对演员角色的理解相当深刻，并且深谙程序员的套路，就如 Roy 经常提起电话时的一句反馈「Have you tried turning it off and on again-重启试试」，看这句话懂的人自然就懂了，正所谓「运维有三宝 注销、重启、装系统」。还有就是细心的人会发现这部剧里面的片头曲非常有意思，只有两种音调，以不同的音阶搭配，听起来非常有节奏感觉，是不是就象征着程序员世界中的二进制 0 和 1 呢&lt;/p&gt;
-
-&lt;p&gt;其实最令我印象深刻的是 2013 特别篇中的「The Internet」，这一节中可以说完美的体现了导演对于程序员心理理解，再加上旁观者傻白甜的举动行成了鲜明的对比。当 Moss 对珍说「This, Jan is The Internet - 珍，这就是 Internet」的时候程序员估计会笑喷了吧&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img30.360buyimg.com/devfe/jfs/t1/3872/18/10568/253979/5bcc3f95E69534c32/897afbf3f66a4e07.jpg&#34; alt=&#34;it-crowed-this-is-the-interinet&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这一集是真正意义上的完完全全从程序员的视角拍摄的一集，看过之后你会有一种这集就是为自己拍的的感觉。这种感觉是在其它剧或者电影里面没有的。一开始看似无理头的搞怪，最后逐渐发酵 Jen 居然拿到公司去给一大帮人讲这个盒子上的东西就是整个 Internet，荒唐的是居然大家都信了！再到最后的 Internet 被摔整个「闹剧」结束。整集看下来过瘾的同时也无比的感叹导演对剧本的精准设计和演员出色的演技。反观国内大多数人对程序员的认知还在「牛仔裤、格子衬衫」的阶段吧&lt;/p&gt;
-
-&lt;p&gt;要看完全懂这部剧得有一点关于英国文化关于摇滚的一点认识。英国有很多著名的摇滚乐队，像前面讲到的披头士、弗洛伊德以及滚石、性手枪等一系列的优秀摇滚乐队。这些已经成为了英国人的历史文化基因，摇滚到疯狂的程序被写到了英国人的骨子里。你很难想象 2012 伦敦奥运会开幕式上居然出现一个中年男子抱着一部电吉他在那搞演唱会。你会发现这个国家对于文化的传承有多么的重视，同时对于大众的批判性讽刺性思维有多高的认同与「容忍」程度&lt;/p&gt;
-
-&lt;p&gt;事实上，我觉得程序员这种对技术追求到 nerd 的程度的人群有着非常强烈的摇滚精神，像摇滚一样不顾一切疯狂的追求真理，讨厌任何规矩与束缚。很多时候尤其在一个不重视技术的国家里面（预告下次话题），虽然周围的人对程序员有很深刻的偏见，但是骨子里的那种摇滚精神才使他们真正与众不同&lt;/p&gt;
 </description>
     </item>
     

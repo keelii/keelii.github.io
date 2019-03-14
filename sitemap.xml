@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/</loc>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2019/03/06/open-source-code-sketch/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-06T22:06:10+08:00</lastmod>
   </url>
   
   <url>
@@ -274,7 +279,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -411,7 +416,7 @@
   
   <url>
     <loc>https://keelii.com/tags/css/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-06T22:06:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -436,6 +441,12 @@
   <url>
     <loc>https://keelii.com/categories/editor/</loc>
     <lastmod>2019-01-25T16:45:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/electron/</loc>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -465,7 +476,7 @@
   
   <url>
     <loc>https://keelii.com/categories/fe/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -495,7 +506,7 @@
   
   <url>
     <loc>https://keelii.com/tags/html/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-06T22:06:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -537,7 +548,7 @@
   
   <url>
     <loc>https://keelii.com/tags/javascript/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-06T22:06:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -622,6 +633,12 @@
   <url>
     <loc>https://keelii.com/tags/operation/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/parcel/</loc>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -777,7 +794,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-03-06T19:19:24+00:00</lastmod>
+    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   

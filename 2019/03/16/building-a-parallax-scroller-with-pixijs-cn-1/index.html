@@ -1,0 +1,721 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>使用 Pixi.js 构建一个视差滚动器（第一篇）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.49.2" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/default.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+
+<nav role="navigation">
+    <ul class="main-navigation">
+        
+        <li><a href="https://keelii.com/">Blog</a> </li>
+        
+        <li><a href="https://keelii.com/archives">Archives</a> </li>
+        
+        <li><a href="https://keelii.com/about">About</a> </li>
+        
+        <li>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+<div id="main">
+    <div id="content">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">使用 Pixi.js 构建一个视差滚动器（第一篇）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-03-16 19:20:04">
+                            <span class="date">2019-3-16</span>
+                            <span class="time">19:20 PM</span>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<h2 id="翻译对照">翻译对照</h2>
+
+<p>原文：
+<a href="http://www.yeahbutisitflash.com/?p=5226">PART 1</a>・
+<a href="http://www.yeahbutisitflash.com/?p=5666">PART 2</a>・
+<a href="http://www.yeahbutisitflash.com/?p=6496">PART 3</a>・
+<a href="http://www.yeahbutisitflash.com/?p=7046">PART 4</a></p>
+
+<p>译文：
+<a href="/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1/">第一篇</a>・
+<a href="/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2/">第二篇</a>・
+第三篇・
+第四篇</p>
+
+<hr />
+
+<p>关注 <a href="https://twitter.com/intent/follow?screen_name=chriscaleb">@chriscaleb</a></p>
+
+<p>这个系列的教程已经更新到了 <a href="http://www.pixijs.com/">PixiJS v4</a> 版本。</p>
+
+<p>曾经玩过 <a href="http://www.adamatomic.com/canabalt/">Canabalt</a> 和 <a href="https://chrome.google.com/webstore/detail/monster-dash/cknghehebaconkajgiobncfleofebcog?hl=en">Monster Dash</a>，好奇他们是如何构建一个滚动游戏地图的？在这个教程中我们将向「构建一个视差滚动器」迈出第一步，我们将使用 JavaScript 和 <a href="http://www.pixijs.com/">pixi.js</a> 这个 2D 渲染引擎。</p>
+
+<h3 id="你将学到什么">你将学到什么…</h3>
+
+<ul>
+<li>Pixi.js 的基础知识</li>
+<li>如何处理纹理（textures）和精灵（sprites）</li>
+<li>如何实现简单的视差滚动</li>
+</ul>
+
+<h3 id="预备知识">预备知识…</h3>
+
+<ul>
+<li>了解 JavaScript 或者 ActionScript 的基础知识</li>
+</ul>
+
+<p>JavaScript 无处不在，由于浏览器的不断改善和大量的 JavaScript 库，我们真的开始看到 HTML5 游戏领域开发蓬勃发展。但是当有很多库可用的时候，选择合适的并非易事。</p>
+
+<p>这个系列的教程将向你介绍 JavaScript 游戏开发的基础，我们会聚焦到 pixijs。它是一个支持 WebGL 和 HTML5 Canvas 的渲染框架。教程最后你将完成如下的一个视差滚动地图程序：</p>
+
+<p><a href="http://www.yeahbutisitflash.com/pixi-parallax-scroller/final/index.html"><img src="https://img10.360buyimg.com/devfe/jfs/t1/25206/13/10616/142679/5c887df7E7c1fa38a/eab39f5f7ab1cc6d.png" alt="ps-tut1-screenshot1" /></a></p>
+
+<p>点击上面的链接启动最终版的程序，这就是你将要完成的。注意它包含了三个视差层：一个远景（far）层，一个中间（mid）层，一个前景（foreground）层。在第一篇教程中我们将集中精力构建远景层和中间层。当然为了做到这一点教程必须涉及 pixi.js 的基础，当然如果你还是个 JavaScript 新手，这会是个很好的开始学习 HTML5 游戏编程的地方。</p>
+
+<p><a href="http://www.yeahbutisitflash.com/pixi-parallax-scroller/tutorial-1/index.html"><img src="https://img10.360buyimg.com/devfe/jfs/t1/25206/13/10616/142679/5c887df7E7c1fa38a/eab39f5f7ab1cc6d.png" alt="ps-tut1-screenshot1" /></a></p>
+
+<p>开始之前，点击上面的链接预览下这篇教程中将做成的效果。你也可以从 github 上下载这个程序的 <a href="https://github.com/ccaleb/pixi-parallax-scroller">源代码</a>。</p>
+
+<h2 id="起步">起步</h2>
+
+<p>为了完成编码，你需要一个代码编辑器，我将使用一个体验版的 sublime text，可以在 <a href="www.sublimetext.com/2">这里</a> 下载到。</p>
+
+<p>还需要一个浏览器来测试你的程序。任何现代浏览器都可以，我将用 Google Chrome，开发过程中将会涉及到一些开始者工具的使用。如果你还没有安装 Chrome，可以去 <a href="www.google.com/chrome">这里</a> 下载。</p>
+
+<p>为了测试你的程序，你还需要在你的开发机上安装一个 web 服务器。如果你用的是 Window，可以 <a href="http://www.yeahbutisitflash.com/www.howtogeek.com/howto/windows-vista/how-to-install-iis-on-windows-vista">安装 IIS</a>，macOS 用户可以配置下系统默认的 <a href="http://macdevcenter.com/pub/a/mac/2001/12/07/apache.html">Apache</a>，如果你的系统是 OS X Mountain Lion 配置 web 服务器可以会比较麻烦，可以参考这个 <a href="http://reviews.cnet.com/8301-13727_7-57481978-263/how-to-enable-web-sharing-in-os-x-mountain-lion/">教程</a>。</p>
+
+<blockquote>
+<p>如果你有自己托管的 web 服务器，就可以直接上传所以文件来测试，或者如果你有一个 <a href="https://www.dropbox.com/">Dropbox</a> 账号，你可以通过 <a href="http://droppages.com/">DropPages</a> 服务来托管你的文件。</p>
+</blockquote>
+
+<p>web 服务器建好后，创建一个目录 <code>parallax-scroller</code> 如果你使用 Windows。你的 web 服务器根目录应该类似 <code>C:\inetpub\parallax-scroller</code> 。如果你使用 OS X 则应该是 <code>/Users/your_user_name/Sites</code>，<code>your_user_name</code> 就是你电脑的用户名。</p>
+
+<p>最后，在教程中我们将使用几个图片素材，不用你自己去找，我已经为你打包好了一个 <a href="http://www.yeahbutisitflash.com/pixi-parallax-scroller/tutorial-1/resources.zip">zip 文件</a>，下载并解压好你的 <code>parallax-scroller</code> 目录。</p>
+
+<p>下面就是你的 <code>parallax-scroller</code> 文件夹的样子（Windows）：</p>
+
+<p><img src="https://img13.360buyimg.com/devfe/jfs/t1/10162/32/14136/48598/5c8884a8Ee6927d64/153a8f1b6f1b4e97.png" alt="screenshot3" /></p>
+
+<p>如果你用的是 Mac OS X 则应该如下图：</p>
+
+<p><img src="https://img30.360buyimg.com/devfe/jfs/t1/31876/28/5811/61642/5c8884ccE7e17d248/5c69f80f99e2cb1d.png" alt="screenshot4" /></p>
+
+<p>现在我们已经准备好开始写代码了，启动 Sublime Text 2 或者你最喜欢的编辑器。</p>
+
+<h2 id="创建画布">创建画布</h2>
+
+<p>所有的 pixijs 项目都以一个 HTML 文件开始。在这里我们将创建一个 canvas 元素以及引入 pixi.js 库。canvas 元素表示HTML页面上将呈现滚动条的区域。</p>
+
+<p>在你的项目根目录 <code>parallax-scroller</code> 下使用编辑器新建一个文件，命名为 <code>index.html</code>，并写入下面的代码：</p>
+
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Parallax Scrolling Demo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>现在看起来还非常奇怪，我们的 HTML 页面只有一个 <code>&lt;head&gt;</code> 和 <code>&lt;body&gt;</code> 元素。</p>
+
+<p>现在让我们在页面上添加 HTML5 Canvas 元素，在 body 元素中添加如下的代码：</p>
+
+<pre><code class="language-html">&lt;body&gt;
+  &lt;div align=&quot;center&quot;&gt;
+    &lt;canvas id=&quot;game-canvas&quot; width=&quot;512&quot; height=&quot;384&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>我们指定了 canvas 宽度 512 像素，高度 384 像素。这就是 pixi.js 为库渲染游戏的地方。注意我们给 canvas 了一个 id 属性，值为 <code>game-canvas</code> 这将使我们易于控制它，当 pixi.js 启动时也需要它</p>
+
+<p>现在启动你的 web 服务器，在 浏览器中打开类似 <a href="http://localhost/parallax-scroller/index.html">http://localhost/parallax-scroller/index.html</a> 或者 <a href="http://localhost/~**your_user_name**/parallax-scroller/index.html">http://localhost/~**your_user_name**/parallax-scroller/index.html</a> 的链接</p>
+
+<p>你会发现并没有什么东西，我们来给 canvas 加点样式（style 标签）：</p>
+
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Endless Runner Game Demo&lt;/title&gt;
+    &lt;style&gt;
+      body { background-color: #000000; }
+      canvas { background-color: #222222; }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>保存并刷新，你将会看见一个水平居中的灰色区域出现在页面上。</p>
+
+<h2 id="引入-pixi-js-类库">引入 pixi.js 类库</h2>
+
+<p>在 </body> 标签前面加入引用：</p>
+
+<pre><code>...
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.0.0/pixi.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>Pixi.js 库文件托管在 CDN 上，URL 上的 <code>4.0.0</code> 表示库的版本号，你可以替换成其它的发行版。</p>
+
+<h2 id="添加程序的入口">添加程序的入口</h2>
+
+<p>给 body 元素添加 <code>onload=&quot;init();</code> 表示页面加载完成时调用 init 方法。我们在 script 标签中添加一个 init 方法</p>
+
+<pre><code>&lt;body onload=&quot;init();&quot;&gt;
+  &lt;div align=&quot;center&quot;&gt;
+    &lt;canvas id=&quot;game-canvas&quot; width=&quot;512&quot; height=&quot;384&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;script src=&quot;pixi.js-master/bin/pixi.dev.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    function init() {
+      console.log(&quot;init() successfully called.&quot;);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>打开 Chrome Console，Windows 下按 <code>F12</code>，macOS 下按 <code>Cmd + Opt + i</code>。正常的话控制台就会有下面的输出：</p>
+
+<pre><code>&gt; init() successfully called.
+</code></pre>
+
+<p>现在这个 init 方法做的事情还很少，最终它将做为入口负责你程序的调用。</p>
+
+<h2 id="初始化-pixi-js">初始化 pixi.js</h2>
+
+<p>我们在 init 方法中需要做下面两件事情：</p>
+
+<ul>
+<li>创建你的舞台（stage）</li>
+<li>选择并实例化一个渲染器（renderer）</li>
+</ul>
+
+<p>我们先来创建一个舞台对象，如果你是个 Flash 开发者，你可能会对舞台的概念比较熟悉了。基本上舞台就是你游戏的图形内容呈现的地方。另一方面，渲染器控制舞台并且把游戏绘制到你的 HTML 页面中的 canvas 元素上，这样你的做的东西才最终呈现给了用户。</p>
+
+<p>我们来创建一个舞台对象并将它关联到一个名字叫做 <code>stage</code> 的全局变量上。并且删除之前的 log 语句：</p>
+
+<pre><code>function init() {
+  console.log(&quot;init() successfully called.&quot;);
+  stage = new PIXI.Container();
+}
+</code></pre>
+
+<p>pixi.js 的 API 包含了一些类和函数，并且被保存在 <code>PIXI</code> 模块命名空间下面。PIXI.Container 类用来表示一些 <strong>展示对象</strong>（display object） 的集合，同样也可以表示舞台这个根展示对象。</p>
+
+<p>现在我们已经创建好了一个舞台，我们还需要一个渲染器。Pixi.js 支持两种渲染器：WebGL 和 HTML5 Canvas。你可以通过 <code>PIXI.WebGLRenderer</code> 或者 <code>PIXI.CanvasRenderer</code> 来分别创建它们各自的实例。然而，更好的做法是让 Pixi 为你判断浏览器自动检测并使用正确的渲染器。Pixi 默认会尝试使用 WebGL，如果不支持则回滚到  canvas。我们调用用 Pixi 的 <code>PIXI.autoDetectRenderer()</code> 函数来自动帮我们选择合适的渲染器。</p>
+
+<pre><code>function init() {		
+  stage = new PIXI.Container();
+  renderer = PIXI.autoDetectRenderer(
+    512,
+    384,
+    {view:document.getElementById(&quot;game-canvas&quot;)}
+  );
+}
+</code></pre>
+
+<p><code>autoDetectRenderer()</code> 函数需要传入渲染舞台上 cavnas 的宽度和高度，以及 cavnas 元素的引用，它返回 <code>PIXI.WebGLRenderer</code> 或 <code>PIXI.CanvasRenderer</code> 的实例，我们将其保存在名为 <code>renderer</code> 的全局变量中。</p>
+
+<p>在上面的代码中，我们通过一个包含 <code>view</code> 属性的 JavaScript 对象来传递给 <code>autoDetectRenderer</code> 方法，表示 canvas 元素的引用。我们传递这个对象做为函数的第三个参数而不是直接传 canvas 对象的引用。</p>
+
+<p>我们使用了硬编码的方式指定了宽，高，实际上可以直接通过 canvas 元素取得这两个值：</p>
+
+<pre><code>var width = document.getElementById(&quot;game-canvas&quot;).width;
+</code></pre>
+
+<h2 id="渲染">渲染</h2>
+
+<p>为了能看到舞台上的内容，你得指导你的渲染器把舞台上的内容真正的绘制到 canvas 上。可以通过调用 renderer 的 render 方法，并传入舞台对象的引用来做到：</p>
+
+<pre><code>function init() {		
+  stage = new PIXI.Container();
+  renderer = PIXI.autoDetectRenderer(
+    512,
+    384,
+    {view:document.getElementById(&quot;game-canvas&quot;)}
+  );
+  renderer.render(stage);
+}
+</code></pre>
+
+<p>这将成功的把舞台渲染到浏览器中。当然我们还没有给舞台上添加任何东西，所以你还看不出来</p>
+
+<h2 id="为你的展示列表-display-list-添加内容">为你的展示列表（display list）添加内容</h2>
+
+<p>现在你的舞台已经建成，让我们继续往上面添加一些实际的东西。毕竟我们不想一直只到一个黑色的窗口。</p>
+
+<p>舞台上的东西被添加到一个 <strong>树型结构</strong> 的展示列表中。你的舞台扮演着这些展示列表的根元素的角色，同时展示列表也会有栈顺序的问题，这意味着有的对象展示在别的对象上面，这由他们被设计的索引深度决定。</p>
+
+<p>有很多种类的 <strong>展示对象（display object）</strong> 可以被添加到 <strong>展示列表</strong> 中，最常见的是 <code>PIXI.Sprite</code>，它可以添加图片素材。</p>
+
+<p>由于这个教程是关于创建视差滚动背景的，让我们来添加一个表示远景层的图片。 我们将以添加一行代码来加载 <code>bg-far.png</code> 文件，这个文件在 resources 目录中：</p>
+
+<pre><code>function init() {		
+  stage = new PIXI.Container();
+  renderer = PIXI.autoDetectRenderer(
+    512,
+    384,
+    {view:document.getElementById(&quot;game-canvas&quot;)}
+  );
+
+  var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);
+
+  renderer.render(stage);
+}
+</code></pre>
+
+<p>图片素材被加载并保存为纹理（textures），这个纹理可以随后被符加到一个或者多个精灵上面。在上面的代码中我们调用了静态 <code>PIXI.Texture.fromImage()</code> 方法来创建一个<code>PIXI.Texture</code> 实例并将 <code>bg-far.png</code> 文件加载到其中。为了方便使用，我们将纹理引用赋值给名为 <code>farTexture</code> 的局部变量。</p>
+
+<p>现在让我们创建一个精灵并将纹理附加到它上面。并将精灵定位在舞台的左上角：</p>
+
+<pre><code>function init() {		
+  stage = new PIXI.Container();
+  renderer = PIXI.autoDetectRenderer(
+    512,
+    384,
+    {view:document.getElementById(&quot;game-canvas&quot;)}
+  );
+
+  var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);
+  far = new PIXI.Sprite(farTexture);
+  far.position.x = 0;
+  far.position.y = 0;
+
+  renderer.render(stage);
+}
+</code></pre>
+
+<p><code>PIXI.Sprite</code> 类用于创建精灵。它的构造函数将接收一个纹理的引用参数。我们使用了一个名为 far 的全局变量，并将新创建的 sprite 实例存储在其中。</p>
+
+<p>聪明的你可能已经发现我们是如何使用 position 属性将精灵的 x 和 y 坐标设置到舞台的左上角的。舞台的坐标从左到右，从上到下，这意味着舞台的左上角位置为（0,0），右下角为（512,384）。</p>
+
+<p>精灵有一个轴心点（pivot），它们可以来回旋转。轴心点也可以用来定位精灵。精灵的默认轴心点设置为左上角（0,0）。这就是为什么当我们的精灵定位在舞台的左上角时，我们将其位置设置为（0,0）。（译者：如果你将轴心点设置到正中央，那位置是（0,0）的精灵就会展示不全）</p>
+
+<p>最后一步是将精灵添加到舞台上。这是使用 <code>PIXI.Stage</code> 类的（实例方法） <code>addChild()</code> 方法完成的。来看看怎么做吧：</p>
+
+<pre><code>  var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);
+  far = new PIXI.Sprite(farTexture);
+  far.position.x = 0;
+  far.position.y = 0;
+  stage.addChild(far);
+
+  renderer.render(stage);
+}
+</code></pre>
+
+<p>好的，保存你的代码并刷新浏览器。你可能已经满坏期望能看到背景图，但实际上可能看不到。为什么呢？在素材纹理被加载完成之前就渲染它可能并不能有任何效果。因为纹理加载是需要一小段时间的。</p>
+
+<p>我们可以通过简单地等一段时间，然后再次调用 render 方法来解决这个问题。通过 Chrome 的控制台执行下面的代码即可：</p>
+
+<pre><code>renderer.render(stage);
+</code></pre>
+
+<blockquote>
+<p>由于我们之前声明的 <code>renderer</code> 是全局变量，所以你能在 console 中直接使用它。console 中可以使用任何 JavaScript 中声明的全局变量。</p>
+</blockquote>
+
+<p>恭喜你！现在应该看到紧贴在屏幕顶部的背景图层了。</p>
+
+<p>现在让我们继续添舞台上的中间层：</p>
+
+<pre><code>var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);
+far = new PIXI.Sprite(farTexture);
+far.position.x = 0;
+far.position.y = 0;
+stage.addChild(far);
+
+var midTexture = PIXI.Texture.fromImage(&quot;resources/bg-mid.png&quot;);
+mid = new PIXI.Sprite(midTexture);
+mid.position.x = 0;
+mid.position.y = 128;
+stage.addChild(mid);
+
+renderer.render(stage);
+</code></pre>
+
+<p>保存代码并刷新浏览器。你需要再次手动在 Chrome 控制台中调用渲染方法才能看到两个层：</p>
+
+<pre><code>renderer.render(stage);
+</code></pre>
+
+<p>因为中间层是在远景层 <strong>之后</strong> 加入的，所以它离我们更进，或者说有更高的层深度。也就是说每次调用 addChild() 方法添加的展示对象都会在上一次添加的对象之上。</p>
+
+<blockquote>
+<p>我们在这一节的教程中将只会聚焦到远景层和中间层的展示，后面的几节中，我们会实现更复杂的前景层</p>
+</blockquote>
+
+<h2 id="主循环">主循环</h2>
+
+<p>现在我们有两个背景图层，我想我们可以尝试实现一些视差滚动，并且还可以找到一种渲染内容的方法，而不用从 JavaScript 控制台中手动执行。</p>
+
+<p>为了避免疑惑，让我们快速解释下究竟是什么视差滚动。这是一种用于视频游戏的滚动技术，其中背景层在屏幕上移动的速度比前景层慢。这样做会在2D游戏中产生一种幻觉，并让玩家更有沉浸感（更真实）。</p>
+
+<p>根据上面这些信息，我们可以将它应用于我们的两个精灵层，来生成一个水平视差滚动器，我们将背景层移动到屏幕上的速度比中间层慢一点。为了能让每个层都滚动，我们将创建一个主循环，我们可以不断改变每个层的位置。为了实现这一点，我们将使用 <code>requestAnimationFrame()</code> 的帮助，这是一个 JavaScript 函数，它能决定浏览器的最佳帧速率，然后在下一次重绘 canvas/stage 时调用指定的函数。我们还将使用这个主循环来 <strong>不断地</strong> 呈现我们的内容。</p>
+
+<pre><code>var midTexture = PIXI.Texture.fromImage(&quot;resources/bg-mid.png&quot;);
+mid = new PIXI.Sprite(midTexture);
+mid.position.x = 0;
+mid.position.y = 128;
+stage.addChild(mid);
+
+renderer.render(stage);
+
+requestAnimationFrame(update);
+</code></pre>
+
+<p>上面的代码，我们指定了一个 update 函数，如果你想连续调用 <code>requestAnimationFrame()</code> ，这将使得你的 update 方法每秒调用 60 次。或者通常称为每秒 60 帧（FPS）。</p>
+
+<p>我们还没有 update 函数，但是在实现它之前，先删除渲染方法的调用，因为主循环中会处理这个逻辑。</p>
+
+<pre><code>var midTexture = PIXI.Texture.fromImage(&quot;resources/bg-mid.png&quot;);
+mid = new PIXI.Sprite(midTexture);
+mid.position.x = 0;
+mid.position.y = 128;
+stage.addChild(mid);
+
+renderer.render(stage); // 删除它
+
+requestAnimationFrame(update);
+</code></pre>
+
+<p>好吧，让我们来编写主循环并让它稍微改变两个层的位置，然后渲染舞台的内容，这样我们就可以看到每个帧重绘的差异。在 <code>init()</code> 函数之后直接添加 <code>update()</code> 函数：</p>
+
+<pre><code>function update() {
+  far.position.x -= 0.128;
+  mid.position.x -= 0.64;
+
+  renderer.render(stage);
+
+  requestAnimationFrame(update);
+}
+</code></pre>
+
+<p>前两行代码更新了远景层和中间层精灵的水平位置。请注意，我们将远层向左移动0.128 像素，而我们将中间层向左移动 0.64 像素。要向左移动某些东西，我们得使用负值，而正值则会将其移动到右侧。另外请注意，我们将精灵移动了 <strong>小数</strong> 像素。 Pixi 的渲染器可以存储它们并使用子像素来处理它们位置。当你想要非常缓慢地在屏幕上轻推东西时，这是理想的选择。</p>
+
+<p>在循环结束时，我们再次调用 <code>requestAnimationFrame()</code> 函数，以确保在下次再次绘制画布时自动再次调用 <code>update()</code>。正是它确保了我们的主循环被连续调用，从而能确保我们的视差层在屏幕上稳定移动。</p>
+
+<p><img src="https://img14.360buyimg.com/devfe/jfs/t1/25862/18/10942/84129/5c8b2631E9323cbf6/487b26b72c59b787.png" alt="ps-tut1-screenshot5" /></p>
+
+<p>保存代码并刷新浏览器看看它长什么样子。你应该看到两个图层自动呈现在屏幕上。此外，当两个图层都在移动时，中间层实际上比远景层更快地移动，从而为场景提供深度感。但是你也应该发现有一个明显问题：当每个精灵移出屏幕的左侧时，它会向右边留下一个间隙。换句话说，两个图层的图形都没有循环，以给出连续滚动的错觉。还好，有一个解决方案。</p>
+
+<h2 id="使用瓦片-平铺-精灵">使用瓦片（平铺）精灵</h2>
+
+<p>到目前为止，我们已经学会使用 <code>PIXI.Sprite</code> 类来表示展示列表中的对象。然而，pixi.js 还提供了几个其他 <strong>展示对象</strong> 以满足不同的需求。</p>
+
+<p>如果你细心的观察一下 bg-far.png 和 bg-mid.png 的话，你应该注意到这两个图像都设计成可以水平平铺的（译：平铺就好比瓦片）。检查每个图像的左右边缘。你可以发现，最右边的边缘完美地匹配连接到最左边的边缘。换句话说，两个图像都被设计成无缝循环的。</p>
+
+<p>因此，如果有一种方法可以简单地移动每个精灵的纹理以给出他们正在移动的错觉，而不是物理地移动我们的远景层和中间层精灵的位置，这不是很好吗？值得庆幸的是 pixi.js 提供了 PIXI.extras.TilingSprite 类，它就是用来做这个的。</p>
+
+<p>所以，让我们对代码进行一些调整，来使用瓦片精灵。我们首先关注远景层。继续从建立函数中删除以下行：</p>
+
+<pre><code>var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);
+far = new PIXI.Sprite(farTexture); // 删除它
+far.position.x = 0;
+far.position.y = 0;
+stage.addChild(far);
+</code></pre>
+
+<p>替换成这样：</p>
+
+<pre><code>far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
+</code></pre>
+
+<p>然后设置他们的位置：</p>
+
+<pre><code>far.tilePosition.x = 0;
+far.tilePosition.y = 0;
+</code></pre>
+
+<p>在继续之前，让我们讨论 TilingSprite 类的构造函数及它的 tilePosition 属性。</p>
+
+<p>和 Sprite 类的单个参数比较，您会注意到 TilingSprite 类的构造函数需要 3 个参数：</p>
+
+<pre><code>far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
+</code></pre>
+
+<p>它的第一个参数与之前相同：纹理的引用。第二个和第三个参数分别表示瓦片精灵的宽度和高度。通常，将这两个参数设置为 <strong>纹理</strong> 的宽度和高度，比如 <code>bg-far.png</code> 为 512 x 256 像素。</p>
+
+<p>我们又一次的硬编码的传入了两个宽高参数，可以通过下面的方法改善：</p>
+
+<pre><code>far = new PIXI.extras.TilingSprite(
+  farTexture,
+  farTexture.baseTexture.width,
+  farTexture.baseTexture.height
+);
+</code></pre>
+
+<p>我们还利用了平铺精灵的 tilePosition 属性，该属性用于偏移精灵纹理的位置。换句话说，通过调整偏移量，就可以水平或垂直地移动纹理，并使纹理环绕。本质上，你可以模拟滚动而无需实际更改精灵的位置。</p>
+
+<p>我们将精灵的 tilePosition 属性默认设置为（0,0），这意味着远景层的外观在初始化的状态下没有变化：</p>
+
+<pre><code>far.tilePosition.x = 0;
+far.tilePosition.y = 0;
+</code></pre>
+
+<p>剩下要做的就是通过不断更新精灵的 tilePosition 属性的水平偏移来模拟滚动。为此，我们将对 <code>update()</code> 函数进行更改。首先删除以下行：</p>
+
+<pre><code>function update() {
+  far.position.x -= 0.128; // 删除它
+  mid.position.x -= 0.64;
+
+  renderer.render(stage);
+
+  requestAnimationFrame(update);
+}
+</code></pre>
+
+<p>替换成下面这样：</p>
+
+<pre><code>function update() {
+  far.tilePosition.x -= 0.128;
+  mid.position.x -= 0.64;
+
+  renderer.render(stage);
+
+  requestAnimationFrame(update);
+}
+</code></pre>
+
+<p>现在保存 index.html 并再次刷新浏览器。你将看到远景层无缝滚动并一直重复着，这和我们的预期结果的一样。</p>
+
+<p>好的，让我们继续为中间层做出相同的修改。以下是进行更改后 <code>init()</code> 函数：</p>
+
+<pre><code>function init() {
+  stage = new PIXI.Container();
+  renderer = PIXI.autoDetectRenderer(
+    512,
+    384,
+    {view:document.getElementById(&quot;game-canvas&quot;)}
+  );
+
+  var farTexture = PIXI.Texture.fromImage(&quot;resources/bg-far.png&quot;);	
+  far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
+  far.position.x = 0;
+  far.position.y = 0;
+  far.tilePosition.x = 0;
+  far.tilePosition.y = 0;
+  stage.addChild(far);
+
+  var midTexture = PIXI.Texture.fromImage(&quot;resources/bg-mid.png&quot;);
+  mid = new PIXI.extras.TilingSprite(midTexture, 512, 256);
+  mid.position.x = 0;
+  mid.position.y = 128;
+  mid.tilePosition.x = 0;
+  mid.tilePosition.y = 0;
+  stage.addChild(mid);
+
+  requestAnimationFrame(update);
+}
+</code></pre>
+
+<p>现在继续对 <code>update()</code> 函数进行以下重构：</p>
+
+<pre><code>function update() {
+  far.tilePosition.x -= 0.128;
+  mid.tilePosition.x -= 0.64;
+
+  renderer.render(stage);
+
+  requestAnimationFrame(update);
+}
+</code></pre>
+
+<p>保存并测试你的代码。这次你应该看到两个图层完全地滚动，同时环绕屏幕的左右边界。</p>
+
+<h2 id="结语">结语</h2>
+
+<p>我们已经介绍了pixi.js 的一些基础知识，并了解了 <code>PIXI.extras.TilingSprite</code> 如何用于创建无限滚动图层的。我们还看到了如何使用 <code>addChild()</code> 将瓦片精灵堆叠在一起以产生真实的视差滚动。</p>
+
+<p>我建议你继续尝试使用 Pixi 并查看它的文档和代码示例。两者都可以在 PixiJS <a href="http://www.pixijs.com/">官方网站</a> 上找到。</p>
+
+<h2 id="下集预告">下集预告…</h2>
+
+<p>虽然我们有一个水平视差滚动器并且能运行起来，但它仍然有点简单。下次我们将介绍 <strong>视口</strong> 和 <strong>世界</strong> 位置的概念，如果你想最终将你的卷轴添加到游戏中，这两个都很重要。它还将使我们处于添加前景层的良好位置，这将代表一个简单的平台游戏地图。</p>
+
+<p>我们将花很多时间来重构现有的代码库。我们将采用更加面向对象的架构，摆脱目前对全局变量的依赖。在下一个教程结束时，所有滚动功能都将整齐地包含在一个类中。</p>
+
+<p>我希望这个教程能帮助到你，也希望下次能在 <strong>第二部分</strong> 中见到你。</p>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/fe">fe</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    <p class="meta">
+                        <span class="span">Last modified •</span>
+                        <time class="entry-date" datetime="2019-03-16 19:20:04">
+                            <span class="date">2019-3-16</span>
+                            <span class="time">19:20 PM</span>
+                        </time>
+                    </p>
+                    <p class="meta">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/" title="Previous Post: 如何使用前端技术开发一个桌面跨端应用">如何使用前端技术开发一个桌面跨端应用</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2/" title="Nextious Post: 使用 Pixi.js 构建一个视差滚动器（第二篇）">使用 Pixi.js 构建一个视差滚动器（第二篇）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#翻译对照">翻译对照</a>
+<ul>
+<li><a href="#你将学到什么">你将学到什么…</a></li>
+<li><a href="#预备知识">预备知识…</a></li>
+</ul></li>
+<li><a href="#起步">起步</a></li>
+<li><a href="#创建画布">创建画布</a></li>
+<li><a href="#引入-pixi-js-类库">引入 pixi.js 类库</a></li>
+<li><a href="#添加程序的入口">添加程序的入口</a></li>
+<li><a href="#初始化-pixi-js">初始化 pixi.js</a></li>
+<li><a href="#渲染">渲染</a></li>
+<li><a href="#为你的展示列表-display-list-添加内容">为你的展示列表（display list）添加内容</a></li>
+<li><a href="#主循环">主循环</a></li>
+<li><a href="#使用瓦片-平铺-精灵">使用瓦片（平铺）精灵</a></li>
+<li><a href="#结语">结语</a></li>
+<li><a href="#下集预告">下集预告…</a></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

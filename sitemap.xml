@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2/</loc>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1/</loc>
+    <lastmod>2019-03-16T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/</loc>
     <lastmod>2019-03-14T19:20:04-07:00</lastmod>
   </url>
@@ -279,7 +289,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -476,7 +486,7 @@
   
   <url>
     <loc>https://keelii.com/categories/fe/</loc>
-    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -489,6 +499,12 @@
   <url>
     <loc>https://keelii.com/tags/gVim/</loc>
     <lastmod>2018-07-23T14:42:47+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/game/</loc>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -649,6 +665,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/tags/pixi.js/</loc>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/tags/plugin/</loc>
     <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
@@ -794,7 +816,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-03-14T19:20:04-07:00</lastmod>
+    <lastmod>2019-03-17T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   

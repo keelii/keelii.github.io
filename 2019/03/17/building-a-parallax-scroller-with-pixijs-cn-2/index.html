@@ -128,7 +128,7 @@
 
 <p>作为提示，点击上面的图片，将会加载当前版本的视差滚动，目前来说只有两个层，我们将添加每三个更复杂的层。与此同时，我们将通过添加视口的概念来添加第三层。我们还会执行一些重要代码重构，以便将滚动器封装在类中。</p>
 
-<p>虽然本教程非常针对那些对面向对象有基础概念的初学者级别，如这些概念让您感到不舒服，也不用担心，因为我仍然会为那些不熟悉这些枞的的人提供足够的指导。</p>
+<p>虽然本教程非常针对那些对面向对象有基础概念的初学者级别，如这些概念让你感到不舒服，也不用担心，因为我仍然会为那些不熟悉这些枞的的人提供足够的指导。</p>
 
 <h2 id="起步">起步</h2>
 
@@ -140,7 +140,7 @@
 
 <p>正如我们之前发现的，pixi.js 提供了几种可使用的 <strong>展示对象</strong> 类型。如果你还记得的话，我们在使用 <code>PIXI.extras.TilingSprite</code> 来满足我们的需求之前，先简单地使用了 <code>PIXI.Sprite</code>。</p>
 
-<p>这两个类共享许多公用的功能。例如，它们都为您提供位置（position），宽度（width），高度（height）和 alpha 属性。此外，两者都可以通过 <code>addChild()</code> 方法添加到容器中。事实上，<code>PIXI.Container</code> 类本身就是一个 <strong>展示对象</strong>，它还提供了许多 Sprite 和 TilingSprite 类都能使用的属性。</p>
+<p>这两个类共享许多公用的功能。例如，它们都为你提供位置（position），宽度（width），高度（height）和 alpha 属性。此外，两者都可以通过 <code>addChild()</code> 方法添加到容器中。事实上，<code>PIXI.Container</code> 类本身就是一个 <strong>展示对象</strong>，它还提供了许多 Sprite 和 TilingSprite 类都能使用的属性。</p>
 
 <p>所有这些公用的功能都来自于 <strong>继承（inheritance）</strong> 的魔力。它使得类可以继承和扩展功能到其它类上。为了让你能理解它，可以参考下面的示意图，它将为你展示 pixi.js 中提供的大多数展示对象</p>
 
@@ -228,7 +228,7 @@ Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 <p>返回你的 <code>index.html</code> 页面。</p>
 
-<p>要使用 Far 类，您需要引用它的源文件。在页面正文顶部附近添加以下行：</p>
+<p>要使用 Far 类，你需要引用它的源文件。在页面正文顶部附近添加以下行：</p>
 
 <pre><code>&lt;body onload=&quot;init();&quot;&gt;
   &lt;div align=&quot;center&quot;&gt;
@@ -323,7 +323,7 @@ stage.addChild(far);
   PIXI.extras.TilingSprite.call(this, texture, 512, 256); // 512, 256
 </code></pre>
 
-<p>由于我们现在直接在类中处理纹理，因此实际上不需要将纹理，宽度和高度参数传递给构造函数。删除所有三个参数并保存您的代码：</p>
+<p>由于我们现在直接在类中处理纹理，因此实际上不需要将纹理，宽度和高度参数传递给构造函数。删除所有三个参数并保存你的代码：</p>
 
 <pre><code>function Far(texture, width, height) { // 删除 texture, width, height
 </code></pre>
@@ -794,7 +794,7 @@ Mid.prototype.setViewportX = function(newViewportX) {
 <p>JavaScript 控制台可以访问程序中的任何全局变量。因此，我们可以通过全局 <code>scroller</code> 变量访问滚动条并调用其 <code>setViewportX()</code> 方法。</p>
 </blockquote>
 
-<p>您应该看到视差图层向左移动，这表示我们已成功重新定位了视口。</p>
+<p>你应该看到视差图层向左移动，这表示我们已成功重新定位了视口。</p>
 
 <p>尝试将视口移动到 x = 7000 的位置 ：</p>
 
@@ -913,7 +913,7 @@ Scroller.prototype.moveViewportXBy = function(units) {
 
 <p>本系列教程的第二部分即将结束。在我们完成之前，让我们回顾下 index.html 并做最后一个重构。</p>
 
-<p>虽然我们已经完成了减少对全局变量的依赖的这样一项令人敬重的工作，但我们的 index.html 文件仍然有一些零散的全局变量。实际上，在大型应用程序中，将尽可能多的 JavaScript 与 HTML 页面分开也是一种很好的做法。虽然我们的 HTML 页面中没有多少 JavaScript，但我们可以做得更好。让我们把代码单独封装在一个与自己类名相同的文件中。这样，我们当前所依赖的全局变量将成为我们新类的成员变量。</p>
+<p>虽然我们已经完成了减少对全局变量的依赖的这样一项令人敬重的工作，但我们的 index.html 文件仍然有一些零散的全局变量。实际上，在大型应用程序中，将尽可能多的 JavaScript 与 HTML 页面分开也是一种很好的做法。虽然我们的 HTML 页面中没有多少 JavaScript，但我们可以做得更好。让我们把代码单独封装在一个与自己类名相同的文件中。这样，我们当前所依赖的全局变量将封装到类的成员变量中。</p>
 
 <p>创建一个新文件并将其命名为 <code>Main.js</code>。</p>
 
@@ -940,7 +940,7 @@ Scroller.prototype.moveViewportXBy = function(units) {
 <pre><code>requestAnimationFrame(this.update.bind(this));
 </code></pre>
 
-<p>这里使用它来指定我们的类名为 <code>update()</code> 的方法（我们仍然要写这个方法）将在下一次重绘时调用。另外，还调用另一个您可能不熟悉的名为 <code>bind()</code> 的JavaScript 函数。它用来保证在调用 <code>update()</code> 时它正确地访问到 Main 类的实例。如果不用 <code>bind()</code>，<code>update()</code> 方法将无法访问和使用任何 Main 类的成员变量。</p>
+<p>这里使用它来指定我们的类名为 <code>update()</code> 的方法（我们仍然要写这个方法）将在下一次重绘时调用。另外，还调用另一个你可能不熟悉的名为 <code>bind()</code> 的JavaScript 函数。它用来保证在调用 <code>update()</code> 时它正确地访问到 Main 类的实例。如果不用 <code>bind()</code>，<code>update()</code> 方法将无法访问和使用任何 Main 类的成员变量。</p>
 
 <p>好吧，让我们实际编写我们的类的 <code>update()</code> 方法。它将只包含我们原来 HTML 页面的 <code>update()</code> 函数中的代码：</p>
 
@@ -1012,7 +1012,7 @@ Main.prototype.update = function() {
 &lt;script src=&quot;Main.js&quot;&gt;&lt;/script&gt; &lt;!-- 添加 --&gt;
 </code></pre>
 
-<p>保存您的工作并测试仍在 Google Chrome 中运行的所有内容。</p>
+<p>保存你的工作并测试仍在 Google Chrome 中运行的所有内容。</p>
 
 <p>我们已经成功地将所有内容都移到了一个主应用程序类中，而 index.html中只剩下几行 JavaScript 来解决所有问题。</p>
 

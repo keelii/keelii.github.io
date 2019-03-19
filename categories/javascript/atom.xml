@@ -1256,8 +1256,7 @@ console.log(data === +data + &amp;quot;&amp;quot;)        // false 不转换，�
       <pubDate>Mon, 21 Nov 2016 12:39:49 +0800</pubDate>
       
       <guid>https://keelii.com/2016/11/21/trimpath-template-engine/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据
-&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html&#34;&gt;TrimPath&lt;/a&gt; 是一款轻量级的前端 JavaScript 模板引擎，语法类似 &lt;a href=&#34;http://freemarker.org/&#34;&gt;FreeMarker&lt;/a&gt;, &lt;a href=&#34;https://velocity.apache.org/&#34;&gt;Velocity&lt;/a&gt;，主要用于方便地渲染 json 数据&lt;/p&gt;
 
 &lt;h2 id=&#34;语法-syntax&#34;&gt;语法 Syntax&lt;/h2&gt;
 
@@ -1437,8 +1436,7 @@ template.process(data)
       
       <guid>https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧
-&lt;/p&gt;
+&lt;p&gt;本文首发于 &lt;a href=&#34;http://www.infoq.com/cn/articles/practise-of-phantomjs-and-nodejs-in-jingdong&#34;&gt;infoQ&lt;/a&gt; 及「前端之巅」微信公众号（&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;amp;mid=2247484138&amp;amp;idx=1&amp;amp;sn=431702ee926dd3a92403bb58417d88d4&amp;amp;scene=2&amp;amp;srcid=0831H070dVHqyZ5Gg62tZRsl&amp;amp;from=timeline&amp;amp;isappinstalled=0&amp;amp;pass_ticket=UAxLVHRLr%2B46hzwgDjfAanLKPSIcnzOQLPJZtqRkoQeHy03khyC2aD7Lat9WgyiL&#34;&gt;微信群直播记录&lt;/a&gt;），感谢 infoQ 前端之巅尾尾同学对文章的整理和校对、微信群直播的组织策划。「前端之巅」是个非常棒的前端知识分享平台，想了解最前沿的前端知识资讯果断关注吧&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&#34;为什么需要一个前端监控系统&#34;&gt;为什么需要一个前端监控系统&lt;/h2&gt;
@@ -1653,8 +1651,7 @@ errorTracker.log(&#39;日志信息&#39;)
 &lt;p&gt;事件驱动程序设计（英语：Event-driven programming）是一种电脑程序设计模型。这种模型的程序运行流程是由用户的动作（如鼠标的按键，键盘的按键动作）或者是由其他程序的消息来决定的。相对于批处理程序设计（batch programming）而言，程序运行的流程是由程序员来决定。批量的程序设计在初级程序设计教学课程上是一种方式。然而，事件驱动程序设计这种设计模型是在交互程序（Interactive program）的情况下孕育而生的&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;
-简页言之，在 web 前端编程里面 JavaScript 通过浏览器提供的事件模型 API 和用户交互，接收用户的输入&lt;/p&gt;
+&lt;p&gt;简页言之，在 web 前端编程里面 JavaScript 通过浏览器提供的事件模型 API 和用户交互，接收用户的输入&lt;/p&gt;
 
 &lt;p&gt;由于用户的行为是不确定的，也就是说不知道用户什么时候发生点击、滚动这些动作。这种场景是传统的同步编程模型没法解决的，因为你不可能等用户操作完了才执行后面的代码&lt;/p&gt;
 
@@ -1919,8 +1916,6 @@ $(document).unbind()                    // 解除所有事件
       
       <guid>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</guid>
       <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;dom-概览&#34;&gt;DOM 概览&lt;/h2&gt;
 
@@ -2391,9 +2386,9 @@ offsetParent
 
 &lt;h2 id=&#34;计时器&#34;&gt;计时器&lt;/h2&gt;
 
-&lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
+&lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用&lt;/p&gt;
 
-由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;
+&lt;p&gt;由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 4 秒后显示 log
 var t1 = setTimeout(function () {
@@ -2588,8 +2583,7 @@ var s = new parent.Set();   // 甚至可以构造父窗口中的对象
       <guid>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</guid>
       <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
 
-&lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
-&lt;/p&gt;
+&lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 页面跳转
 window.location = &#39;http://www.oreilly.com/&#39;;

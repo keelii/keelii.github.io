@@ -6,7 +6,7 @@
     <meta name="description" content="__ you don&#39;t know yet">
     <meta name="keywords" content="">
     <meta name="author" content="keelii">
-    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="generator" content="Hugo 0.54.0" />
 
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -87,9 +87,9 @@
 
 <h2 id="计时器">计时器</h2>
 
-<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
+<p>setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用</p>
 
-由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容</p>
+<p>由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容</p>
 
 <pre><code class="language-javascript">// 4 秒后显示 log
 var t1 = setTimeout(function () {

@@ -17,8 +17,7 @@
       <pubDate>Sun, 12 Jun 2016 18:04:47 +0800</pubDate>
       
       <guid>https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/</guid>
-      <description>&lt;p&gt;之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。
-&lt;/p&gt;
+      <description>&lt;p&gt;之前要申请免费的 https 证书操作步骤相当麻烦，今天看到有人在讨论，就搜索了一下。发现现在申请步骤简单多了。&lt;/p&gt;
 
 &lt;h2 id=&#34;1-下载-certbot&#34;&gt;1. 下载 certbot&lt;/h2&gt;
 

@@ -21,8 +21,6 @@
 
 &lt;p&gt;由 &lt;a href=&#34;https://zh.wikipedia.org/wiki/%E7%9A%AE%E4%BA%9A%E8%AF%BA%E5%85%AC%E7%90%86&#34;&gt;皮亚诺&lt;/a&gt; 算术定义的求 x 和 y 之和的过程&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
 &lt;pre&gt;&lt;code class=&#34;language-lisp&#34;&gt;; Define a [+] processor
 (define (+ x y)
     (if (= x 0)

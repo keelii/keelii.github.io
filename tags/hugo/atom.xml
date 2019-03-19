@@ -23,8 +23,6 @@
 
 &lt;p&gt;但就在最近因为家里的用 Macbook，刚好升级到了新版的 Sierria，杯具的是之前安装的 Octopress bundle 都失效了。调试了很久还没把环境搭建好，再加上之前发现 Octopress 的 Markdown 解析器老报错，于是就决定要更换一个配置安装简单点的博客生成器了&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
 &lt;p&gt;在参考了这个网站上的各种生成器后 &lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen&lt;/a&gt;，果断选择了 Hugo。没有什么特殊原因，下载安装试用一下就明白了。Hugo 由于是 Go 语言写的，所以你只需要下载好官方给的二进制可执行文件就可以了，再也不用安装各种依赖，然后各种换源什么的乱折腾了。这一点就足以让我转入 Hugo&lt;/p&gt;
 
 &lt;h2 id=&#34;主题&#34;&gt;主题&lt;/h2&gt;

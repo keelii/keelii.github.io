@@ -19,8 +19,6 @@
       <guid>https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/</guid>
       <description>&lt;p&gt;每个 Window 对象有一个 document 属性引用了 Document 对象。Document 对象表示窗口的内容，它是一个巨大的 API 中的核心对象，叫做文档对象模型（Document Obejct Model, DOM），用来展示和操作文档内容&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
 &lt;h2 id=&#34;dom-概览&#34;&gt;DOM 概览&lt;/h2&gt;
 
 &lt;p&gt;HTML 或 XML 文档的嵌套元素在 DOM 中以「树」的形式展示。HTML 文档的树装结构包含表示 HTML 标签或元素（如 body, p）和表示文本字符串的节点，也可能包含表示 HTML 注释的节点&lt;/p&gt;
@@ -490,9 +488,9 @@ offsetParent
 
 &lt;h2 id=&#34;计时器&#34;&gt;计时器&lt;/h2&gt;
 
-&lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用
+&lt;p&gt;setTimeout() 和 setInterval() 可以用来注册指定时间之后调用的函数，不同的是 setInterval 会在指定毫秒数的间隔里重复调用。它们都返回一个值，这个值可以传递给 clearInterval/clearTimeout，用于取消后续函数的调用&lt;/p&gt;
 
-由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;
+&lt;p&gt;由于历史原因（通常不建议这么做），setTimeout 和 setInterval 的第一个参数可以作为字符串传入。如果是字符串，当到达指定时间时相当于执行 eval 字符串内容&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 4 秒后显示 log
 var t1 = setTimeout(function () {
@@ -687,8 +685,7 @@ var s = new parent.Set();   // 甚至可以构造父窗口中的对象
       <guid>https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/</guid>
       <description>&lt;h2 id=&#34;客户端的-javascript&#34;&gt;客户端的 JavaScript&lt;/h2&gt;
 
-&lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:
-&lt;/p&gt;
+&lt;p&gt;Window 对象是所有客户端 JavaScript 特性和 API 的主要接入点。它表示 Web 浏览器的一个窗口或者窗体，并且可以用标识符 window 来引用它。Window 对象定义了一些属性，比如:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 页面跳转
 window.location = &#39;http://www.oreilly.com/&#39;;
@@ -972,8 +969,7 @@ name = name.replace(/&amp;lt;/g, &amp;quot;&amp;amp;lt;&amp;quot;).replace(/&amp
 
 &lt;p&gt;Node 是基于 C++ 的调整 JavaScript 解释器，绑定了用于进程、文件和网络套接字等底层 Unix API，还绑定了 HTTP 客户端和服务器 API。除了一些专门命名的同步方法外，Node 的绑定是异步的，且 Node 程序默认绝不阻塞，这意味着它们通过具备强大的可伸缩能力并能有效地处理高负荷。由于 API 是异步的，因此 Node 依赖事件处理程序，其通常使用嵌套函数和闭包来实现&lt;/p&gt;
 
-&lt;p&gt;
-Node 在其全局对象中实现了所有标准的 ECMAScript 5 构造函数、属性和函数。除此之外，它也支持客户端講器函数集 setTimeout(), setInterval()&lt;/p&gt;
+&lt;p&gt;Node 在其全局对象中实现了所有标准的 ECMAScript 5 构造函数、属性和函数。除此之外，它也支持客户端講器函数集 setTimeout(), setInterval()&lt;/p&gt;
 
 &lt;p&gt;Node 在 process 名字空间中定义了其它重要的 &lt;strong&gt;全局&lt;/strong&gt; 属性：&lt;/p&gt;
 
@@ -1059,8 +1055,6 @@ server.listen(port, hostname, function() {
       
       <guid>https://keelii.com/2016/07/06/javascript-definitive-guide-note-9/</guid>
       <description>&lt;p&gt;正则表达式（regular expression）是一个描述字符模式的对象。在 JavaScript 中 String 和 RegExp 都定义了相关方法对文本进行模式匹配、检索和替换&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;正则表达式的定义&#34;&gt;正则表达式的定义&lt;/h2&gt;
 
@@ -1453,8 +1447,6 @@ pattern.test(&#39;JavaScript&#39;);     // =&amp;gt; true
       <guid>https://keelii.com/2016/07/02/javascript-definitive-guide-note-8/</guid>
       <description>&lt;p&gt;每个 JavaScript 对象都是一个属性集合，相互之间没有任何联系。在 JavaScript 中也可以定义对象的类，让每个对象都共享某些属性，这种「共享」的特性是非常有用的。类的成员或实例都包含一些属性，用以存放或者定义它们的状态，其中有些属性定义了它们的行为（通常称为方法）。这些行为通常是由类定义的，而且为所有实例所共享。例如，假设有一个 Complex 的类用来表示复数， 同时还定义了一些复数运算，一个 Complex 实例应当包含实数的实部和虚部（状态），同样 Complex 类还会定义复数的加法和乘法操作（行为）&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
 &lt;p&gt;JavaScript 中类的一个重要特性是「&lt;strong&gt;动态可继承&lt;/strong&gt;」（dynamically extendable），我们可以将类看做是类型，本章会介绍一种编程哲学 —— 「&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B&#34;&gt;&lt;strong&gt;鸭子类型&lt;/strong&gt;&lt;/a&gt;」（duck-typing），它弱化了对象的类型，强化了对象的功能&lt;/p&gt;
 
 &lt;h2 id=&#34;类和原型&#34;&gt;类和原型&lt;/h2&gt;
@@ -1787,8 +1779,6 @@ NonNullSet.prototype.add = function() {
       
       <guid>https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/</guid>
       <description>&lt;p&gt;函数是一段 JavaScript 代码，定义一次，可以被执行多次。JavaScript 函数是参数化的：函数定义会包括一个形参（parameter）的标识符列表，这些参数在函数体中像 &lt;strong&gt;局部变量&lt;/strong&gt; 一样工作，函数被调用的时候会为形参提供实参（argument）的值。使用实参的值计算返回值，成为该函数的 &lt;strong&gt;&lt;a href=&#34;https://keelii.com/2016/06/20/javascript-definitive-guide-note-3/#TOC-4&#34;&gt;调用表达式&lt;/a&gt;&lt;/strong&gt;值，调用上下文（invocation context）可以用 this 引用，嵌套函数可以构成闭包（closure）&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;函数定义&#34;&gt;函数定义&lt;/h2&gt;
 
@@ -2450,8 +2440,6 @@ memorize(factorial)(3)
       <guid>https://keelii.com/2016/06/23/javascript-definitive-guide-note-4/</guid>
       <description>&lt;p&gt;表达式在 JavaScript 中是短语（phrases），那么语句（statements）就是 JavaScript 整句或命令，语句以分号结束。表达式计算出一个值，语句用来执行以使某件事情发生&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
 &lt;h2 id=&#34;表达式语句&#34;&gt;表达式语句&lt;/h2&gt;
 
 &lt;p&gt;赋值语句、递增/减运算、delete 运算符删除对象属性、函数调用都是表达式语句&lt;/p&gt;
@@ -2833,8 +2821,7 @@ o           // =&amp;gt; {a: 2, b: 2, c: 3}
 
 &lt;p&gt;JavaScript 对象是动态的 —— 可以新增属性也可以删除属性，除了字符串、数字、布尔值、null 和 undefined 之外，JavaScript 中的值都是对象&lt;/p&gt;
 
-&lt;p&gt;对象是可变的，通过引用操作对象原对象也会受到影响
-&lt;/p&gt;
+&lt;p&gt;对象是可变的，通过引用操作对象原对象也会受到影响&lt;/p&gt;
 
 &lt;p&gt;属性包括名字和值。名字是可以包含空字符串在内的 &lt;strong&gt;任意字符串&lt;/strong&gt;，值可以是任意 JavaScript 值，或者（在 ECMAScript 5中）可以是一个 getter 或者 setter （或都有），每个属性还有一些与之相关的值称为「属性特性」（property attribute）：&lt;/p&gt;
 
@@ -3276,8 +3263,7 @@ s.toString();       // =&amp;gt; &amp;quot;[object Ojbect]&amp;quot;
 
 &lt;p&gt;JavaScript 数组可能是 &lt;strong&gt;稀疏的&lt;/strong&gt;，数组元素索引不一定要连续&lt;/p&gt;
 
-&lt;p&gt;JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 &lt;strong&gt;快很多&lt;/strong&gt;
-&lt;/p&gt;
+&lt;p&gt;JavaScript 数组是 JavaScript 对象的特殊形式。数组的实现是经过优化的，用数字索引来访问数组元素一般来说比访问常规的对象属性要 &lt;strong&gt;快很多&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;创建数组&#34;&gt;创建数组&lt;/h2&gt;
 

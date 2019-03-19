@@ -64,12 +64,14 @@ p {
     margin: 20px 0;
     word-break: break-all;
 }
-
+pre {
+    margin: 30px 0;
+}
 blockquote {
     color: $blockquote-bg;
     position: relative;
     padding-left: 40px;
-    margin-left: 0;
+    margin: 30px 0 30px 0;
     font-style: normal;
     p {
         margin: 10px 0;

@@ -43,11 +43,14 @@ p {
   margin: 20px 0;
   word-break: break-all; }
 
+pre {
+  margin: 30px 0; }
+
 blockquote {
   color: #5985a6;
   position: relative;
   padding-left: 40px;
-  margin-left: 0;
+  margin: 30px 0 30px 0;
   font-style: normal; }
   blockquote p {
     margin: 10px 0; }

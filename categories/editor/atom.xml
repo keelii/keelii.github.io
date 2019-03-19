@@ -1135,8 +1135,7 @@ What format do you want your config file to be in? JavaScript
       
       <guid>https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/</guid>
       <description>&lt;p&gt;vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全插件需要 lua
-官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等
-&lt;/p&gt;
+官方下载的 vim 版本是不带这种第三方语言支持的，得自己手动编译一个支持的版本。但是 Windows 下编译源代码需要选择一个 GUN 工具集，比较流行的有 Cygwin, MinGW。主要是为了使用一些编译源码的工具，比如 gcc, make等&lt;/p&gt;
 
 &lt;p&gt;需要下载的链接都在这里了：&lt;/p&gt;
 
@@ -1214,8 +1213,6 @@ make: *** [Make_cyg_ming.mak:860: gobjx86-64] Error 2
       <description>&lt;p&gt;一直以来被称为编辑器之神的 vim 在 Windows 下很难发挥其强大的功能，本文从实用的角度阐述如何调校出一个比较好用的 vim&lt;/p&gt;
 
 &lt;p&gt;不过仍然要说明下，在众多 vim 构建版本中 Mac OS 平台的 MacVim 是我认为最好用的一个版本。由于自己公司主力用 Windows，又因笔者是一枚对编辑器颜值体验有要求的前端工程师， 所以才有了下文 ^!^&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;先说明下开发环境：&lt;/p&gt;
 

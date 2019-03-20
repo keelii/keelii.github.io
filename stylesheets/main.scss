@@ -262,23 +262,22 @@ footer {
     top: 0;
     font-size: 14px;
     background: #fff;
-    padding: 0 20px;
+    padding: 0 10px;
     transition: right 0.2s $global-anim-tween;
     &.toggle {
         right: -295px;
     }
     .fold {
         position: absolute;
-        left: -15px;
+        left: -20px;
         top: 50%;
-        width: 15px;
-        height: 50px;
-        line-height: 50px;
+        width: 25px;
+        height: 55px;
+        line-height: 55px;
         background: #fff;
         text-align: center;
-        text-indent: 5px;
         user-select: none;
-        font-size: 18px;
+        font-size: 20px;
         color: #666;
         cursor: pointer;
     }
@@ -298,13 +297,13 @@ footer {
     #TableOfContents {
         height: calc(100vh - 70px);
         overflow-y: auto;
-        ul { padding-left: 1em; margin-top: 0; }
+        ul { padding-left: 1.5em; margin-top: 0; }
         li {
             padding: 2px 0;
             list-style: decimal;
         }
         > ul {
-            padding-left: 1em;
+            padding-left: 1.5em;
         }
     }
 }

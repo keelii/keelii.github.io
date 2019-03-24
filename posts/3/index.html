@@ -90,6 +90,26 @@
             <article>
                 <header>
                     <h1>
+                        <div class="entry-title"><a href="https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/">jQuery ajax 方法 data 参数默认 encode 失败的 bug</a></div>
+                    </h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2018-05-25 19:20:04">
+                            <span class="date">May, 25, 2018</span>
+                            <span class="time">19:20 PM</span>
+                        </time>
+                    </p>
+                </header>
+                <div class="entry-content"><p>使用 jQuery ajax 方法调用异步接口时 data 参数默认会被添加转码 encodeURIComponent，如下： $.ajax({ url: 'http://your.domain.com/action', dataType: 'jsonp', data: { spaces: 'a b', other: '&amp;' } }) 上面的代码会向 http://your.domain.com/action?spaces=a+b&amp;other=%26 发送</p></div>
+                
+                <footer>
+                    <a title="617 Words, 2 Minutes" href="/2018/05/25/jquery-ajax-data-param-auto-encode-bug/" rel="full-article">Read More »</a>
+                </footer>
+                
+            </article>
+            
+            <article>
+                <header>
+                    <h1>
                         <div class="entry-title"><a href="https://keelii.com/2017/11/07/yet-another-host-manager-plugin/">又双叒叕写了一个 host 管理插件</a></div>
                     </h1>
                     <p class="meta">
@@ -267,26 +287,6 @@
                 
             </article>
             
-            <article>
-                <header>
-                    <h1>
-                        <div class="entry-title"><a href="https://keelii.com/2016/11/21/trimpath-template-engine/">TrimPath 模板引擎使用指南</a></div>
-                    </h1>
-                    <p class="meta">
-                        <time class="entry-date" datetime="2016-11-21 12:39:49">
-                            <span class="date">Nov, 21, 2016</span>
-                            <span class="time">12:39 PM</span>
-                        </time>
-                    </p>
-                </header>
-                <div class="entry-content"><p><p><a href="http://www.summitdowntown.org/site_media/media/javascript/private/trimpath-template-docs/JavaScriptTemplates.html">TrimPath</a> 是一款轻量级的前端 JavaScript 模板引擎，语法类似 <a href="http://freemarker.org/">FreeMarker</a>, <a href="https://velocity.apache.org/">Velocity</a>，主要用于方便地渲染 json 数据</p></p></div>
-                
-                <footer>
-                    <a title="913 Words, 2 Minutes" href="/2016/11/21/trimpath-template-engine/" rel="full-article">Read More »</a>
-                </footer>
-                
-            </article>
-            
 
             
             <div class="pagination">
@@ -347,7 +347,7 @@
         </li>
         
         <li>
-            <a href="https://keelii.com/categories/concept">concept (8)</a>
+            <a href="https://keelii.com/categories/concept">concept (9)</a>
         </li>
         
         <li>

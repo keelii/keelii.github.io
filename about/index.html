@@ -36,8 +36,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/default.min.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -52,25 +51,25 @@
 </head>
 <body>
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
-            
-        </li>
-    </ul>
-</nav>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
 
-
-
-<div id="main">
-    <div id="content">
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div style="padding-top:0;">
             <article class="hentry" role="article">
                 <header>
@@ -79,6 +78,7 @@
                         <time class="entry-date" datetime="2016-06-13 18:04:47">
                             <span class="date">2016-6-13</span>
                             <span class="time">18:04 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
                         </time>
                     </p>
                 </header>
@@ -96,6 +96,7 @@
 <h3 id="手艺">手艺</h3>
 
 <ul>
+<li><a href="https://code-sketch.com/">Code Sketch</a> 代码画板 一个你最初写代码的地方</li>
 <li><a href="https://zen-writer.com">Zen Writer</a> 禅意写作 一个简洁、纯粹的 Markdown 写作应用</li>
 <li><a href="https://note.crazy4code.com/notes">Simple Note</a> - 简单笔记 - 一个基于 Flask 的在线笔记本应用</li>
 <li><a href="https://zhuanlan.zhihu.com/fe-player">FE Player@zhihu</a> 前端玩家 - 知乎专栏</li>
@@ -106,7 +107,8 @@
 
 <style type="text/css">
 .ins-4096 { position: relative; }
-.ins-4096 img { display: none; position: absolute; left: 0; top: 2em; margin-left: -60px; box-shadow: 0 5px 28px 0 rgba(227, 227, 227, 1); }
+.ins-4096 img { display: none; position: absolute; left: 0; top: 2em; margin-left: -60px; box-shadow: 0 5px 28px 0 rgba(227, 227, 227, 1); max-width: initial; }
+.dark .ins-4096 img { box-shadow: 0 5px 28px 0 #3f3f3f; }
 .ins-4096.active img { display: block; }
 </style>
 
@@ -121,7 +123,7 @@
 <ul>
 <li>正文中文 - <a href="https://source.typekit.com/source-han-serif/cn/">思源宋体</a> <a href="http://storage.jd.com/blogfont/SourceHanSerifCN.zip">下载 »</a></li>
 <li>正文中文 - <a href="https://github.com/adobe-fonts/source-han-sans">思源黑体</a> <a href="http://storage.jd.com/blogfont/SourceHanSansCN.zip">下载 »</a></li>
-<li>英文正文 - <a href="https://fonts.google.com/specimen/Crimson+Text">Crimson Text</a> <a href="http://storage.jd.com/blogfont/Crimson_Text.zip">下载 »</a></li>
+<li>英文正文 - <a href="https://fonts.google.com/specimen/Source+Serif+Pro">Source Serif Pro</a> / <a href="https://fonts.google.com/specimen/Crimson+Text">Crimson Text</a></li>
 <li>英文代码 - <a href="https://www.fontsquirrel.com/fonts/latin-modern-mono">Latin Modern Mono</a></li>
 </ul>
 </div>
@@ -131,14 +133,8 @@
                         
                     </p>
                     
-                    <p class="meta">
-                        <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2019-02-15 13:49:00">
-                            <span class="date">2019-2-15</span>
-                            <span class="time">13:49 PM</span>
-                        </time>
-                    </p>
-                    <p class="meta">
+                    
+                    <p class="meta salign">
                         
 
                         
@@ -146,7 +142,7 @@
                 </footer>
             </article>
             <section>
-    <h1>Comments</h1>
+    <h2>Comments</h2>
     <div id="disqus_thread"></div>
     <script>
     (function() {
@@ -286,11 +282,28 @@
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 

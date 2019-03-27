@@ -36,8 +36,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/default.min.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -52,25 +51,25 @@
 </head>
 <body>
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
-            
-        </li>
-    </ul>
-</nav>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
 
-
-
-<div id="main">
-    <div id="content">
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div style="padding-top:0;">
             <article class="hentry" role="article">
                 <header>
@@ -79,6 +78,7 @@
                         <time class="entry-date" datetime="2016-09-29 17:22:29">
                             <span class="date">2016-9-29</span>
                             <span class="time">17:22 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
                         </time>
                     </p>
                 </header>
@@ -363,14 +363,8 @@ $(document).unbind()                    // 解除所有事件
                         
                     </p>
                     
-                    <p class="meta">
-                        <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2016-11-24 14:20:02">
-                            <span class="date">2016-11-24</span>
-                            <span class="time">14:20 PM</span>
-                        </time>
-                    </p>
-                    <p class="meta">
+                    
+                    <p class="meta salign">
                         
                         <span class="basic-alignment left">
                             &laquo; <a href="https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/" title="Previous Post: 《JavaScript 权威指南》读书笔记 15 - 脚本化文档">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
@@ -386,7 +380,7 @@ $(document).unbind()                    // 解除所有事件
                 </footer>
             </article>
             <section>
-    <h1>Comments</h1>
+    <h2>Comments</h2>
     <div id="disqus_thread"></div>
     <script>
     (function() {
@@ -444,11 +438,28 @@ document.querySelector('#side-toc').onclick = function(e) {
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 

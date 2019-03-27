@@ -40,7 +40,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -55,43 +55,85 @@
 </head>
 <body>
 
-<header role="banner">
-    <hgroup>
-        <h1><a href="https://keelii.com/">臨池不輟</a></h1>
-        
-    </hgroup>
+<header id="header" role="banner">
+    <nav class="nav">
+        <div class="nav-left">
+            <h1 class="brand"><a href="https://keelii.com/">臨池不輟</a></h1>
+            
+            <div class="main-navigation" role="navigation">
+                
+                <a class="nav-item" href="https://keelii.com/">首页</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/archives">归档</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/about">关于</a> <span class="sep">❖</span>
+                
+                
+                <a class="nav-item" href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">
+                    <abbr title="Subscribe via RSS">订阅</abbr>
+                </a>
+                
+            </div>
+        </div>
+        <div class="nav-right valign">
+            <div class="nav-item">
+                <input type="checkbox" name="font-family" id="font-family" />
+                <label for="font-family" title="Sans-serif">非衬线</label>
+            </div>
+            <div class="nav-item">
+                <input type="checkbox" name="dark-theme" id="dark-theme" />
+                <label for="dark-theme" title="Dark theme">暗色</label>
+            </div>
+        </div>
+        <script>
+            (function(window, document) {
+                document.querySelector('#font-family').onclick = function() {
+                    var font = this.checked ? 'sans-serif' : 'serif'
+                    localStorage.setItem('fontFamily', font)
+                    window.changeFont()
+                }
+                document.querySelector('#dark-theme').onclick = function() {
+                    let exists = document.body.classList.toggle('dark')
+                    localStorage.setItem('dark', exists)
+                    window.changeTheme()
+                }
+            })(window, document);
+        </script>
+    </nav>
 </header>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);   
+</script>
 
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
-            
-            <a href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
-            
-        </li>
-    </ul>
-</nav>
 
 
 
-<div id="main">
-    <div id="content">
+
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div class="blog-index">
             
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/16/javascript-definitive-guide-note-2/">《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-16 13:06:13">
                             <span class="date">Jun, 16, 2016</span>
@@ -113,9 +155,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/">Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-14 10:39:40">
                             <span class="date">Jun, 14, 2016</span>
@@ -134,9 +176,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/13/awsome-window-vimrc/">可能是 Windows 下最漂亮的 Gvim 配置了</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-13 21:25:57">
                             <span class="date">Jun, 13, 2016</span>
@@ -156,9 +198,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/">免费 https 证书（Let&#39;s Encrypt）申请与配置</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-12 18:04:47">
                             <span class="date">Jun, 12, 2016</span>
@@ -176,9 +218,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/11/javascript-throttle/">JavaScript 节流函数 throttle 详解</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-11 06:52:57">
                             <span class="date">Jun, 11, 2016</span>
@@ -196,9 +238,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2016/06/10/test-post/">测试文章</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2016-06-10 18:04:47">
                             <span class="date">Jun, 10, 2016</span>
@@ -216,9 +258,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2012/08/18/front-end-makes-change/">前端，改变</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2012-08-18 19:20:04">
                             <span class="date">Aug, 18, 2012</span>
@@ -236,9 +278,9 @@
             
             <article>
                 <header>
-                    <h1>
+                    <h2>
                         <div class="entry-title"><a href="https://keelii.com/2011/05/11/front-end-tooling-editor/">前端开发工具 - 编辑器篇</a></div>
-                    </h1>
+                    </h2>
                     <p class="meta">
                         <time class="entry-date" datetime="2011-05-11 19:20:04">
                             <span class="date">May, 11, 2011</span>
@@ -252,12 +294,12 @@
             
 
             
-            <div class="pagination">
+            <p class="pagination salign">
                 
                 
-                <a class="next" href="/posts/5/">Next →</a>
+                <a class="btn outline secondary next" href="/posts/5/">Next →</a>
                 
-            </div>
+            </p>
             
         </div>
         <aside class="sidebar">
@@ -380,11 +422,28 @@
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 
@@ -395,4 +454,3 @@
 
 </body>
 </html>
-

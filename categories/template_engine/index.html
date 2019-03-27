@@ -36,7 +36,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -51,55 +51,107 @@
 </head>
 <body>
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
+<header id="header" role="banner">
+    <nav class="nav">
+        <div class="nav-left">
+            <h1 class="brand"><a href="https://keelii.com/">臨池不輟</a></h1>
             
-            <a href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
-            
-        </li>
-    </ul>
-</nav>
+            <div class="main-navigation" role="navigation">
+                
+                <a class="nav-item" href="https://keelii.com/">首页</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/archives">归档</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/about">关于</a> <span class="sep">❖</span>
+                
+                
+                <a class="nav-item" href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">
+                    <abbr title="Subscribe via RSS">订阅</abbr>
+                </a>
+                
+            </div>
+        </div>
+        <div class="nav-right valign">
+            <div class="nav-item">
+                <input type="checkbox" name="font-family" id="font-family" />
+                <label for="font-family" title="Sans-serif">非衬线</label>
+            </div>
+            <div class="nav-item">
+                <input type="checkbox" name="dark-theme" id="dark-theme" />
+                <label for="dark-theme" title="Dark theme">暗色</label>
+            </div>
+        </div>
+        <script>
+            (function(window, document) {
+                document.querySelector('#font-family').onclick = function() {
+                    var font = this.checked ? 'sans-serif' : 'serif'
+                    localStorage.setItem('fontFamily', font)
+                    window.changeFont()
+                }
+                document.querySelector('#dark-theme').onclick = function() {
+                    let exists = document.body.classList.toggle('dark')
+                    localStorage.setItem('dark', exists)
+                    window.changeTheme()
+                }
+            })(window, document);
+        </script>
+    </nav>
+</header>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);   
+</script>
 
 
 
-<div id="main">
-    <div id="content">
+
+
+
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div>
             <article role="article">
                 <header>
                     
-                    <h1>Category: template_engine</h1>
+                    <h2>Category: template_engine</h2>
                     
                 </header>
                 <div id="blog-archives">
                     
-                        <h2>2016</h2>
+                        <h3>2016</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/11/21/trimpath-template-engine/">TrimPath 模板引擎使用指南</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-11-21 12:39:49">
-                                    <span class="date">Nov</span>
-                                    <span class="time">21</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-11-21 12:39:49">
+                                        <span class="date">Nov</span>
+                                        <span class="time">21</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/template_engine">template_engine</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/template_engine">template_engine</a>
-                                
-                            </div>
                         </article>
                     
                 </div>
@@ -225,11 +277,28 @@
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 

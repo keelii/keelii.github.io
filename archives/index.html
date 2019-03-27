@@ -36,7 +36,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -51,1082 +51,1248 @@
 </head>
 <body>
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
+<header id="header" role="banner">
+    <nav class="nav">
+        <div class="nav-left">
+            <h1 class="brand"><a href="https://keelii.com/">臨池不輟</a></h1>
             
-            <a href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a>
-            
-        </li>
-    </ul>
-</nav>
+            <div class="main-navigation" role="navigation">
+                
+                <a class="nav-item" href="https://keelii.com/">首页</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/archives">归档</a> <span class="sep">❖</span>
+                
+                <a class="nav-item" href="https://keelii.com/about">关于</a> <span class="sep">❖</span>
+                
+                
+                <a class="nav-item" href="https://keelii.com/atom.xml" rel="subscribe-rss" title="subscribe via RSS">
+                    <abbr title="Subscribe via RSS">订阅</abbr>
+                </a>
+                
+            </div>
+        </div>
+        <div class="nav-right valign">
+            <div class="nav-item">
+                <input type="checkbox" name="font-family" id="font-family" />
+                <label for="font-family" title="Sans-serif">非衬线</label>
+            </div>
+            <div class="nav-item">
+                <input type="checkbox" name="dark-theme" id="dark-theme" />
+                <label for="dark-theme" title="Dark theme">暗色</label>
+            </div>
+        </div>
+        <script>
+            (function(window, document) {
+                document.querySelector('#font-family').onclick = function() {
+                    var font = this.checked ? 'sans-serif' : 'serif'
+                    localStorage.setItem('fontFamily', font)
+                    window.changeFont()
+                }
+                document.querySelector('#dark-theme').onclick = function() {
+                    let exists = document.body.classList.toggle('dark')
+                    localStorage.setItem('dark', exists)
+                    window.changeTheme()
+                }
+            })(window, document);
+        </script>
+    </nav>
+</header>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);   
+</script>
 
 
 
-<div id="main">
-    <div id="content">
+
+
+
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div>
             <article role="article">
                 <header>
                     
-                    <h1 class="entry-title archives">Blog Archive </h1>
+                    <h2 class="entry-title archives">Blog Archive </h2>
                     
                 </header>
                 <div id="blog-archives">
                     
-                        <h2>2019</h2>
+                        <h3>2019</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/24/choice-leads-lose/">选择太多所以迷失方向</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-24 19:20:04">
-                                    <span class="date">Mar</span>
-                                    <span class="time">24</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-24 19:20:04">
+                                        <span class="date">Mar</span>
+                                        <span class="time">24</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/19/building-a-parallax-scroller-with-pixijs-cn-3/">使用 Pixi.js 构建一个视差滚动器（第三篇）</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-19 19:20:04">
-                                    <span class="date">Mar</span>
-                                    <span class="time">19</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-19 19:20:04">
+                                        <span class="date">Mar</span>
+                                        <span class="time">19</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/fe">fe</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/fe">fe</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2/">使用 Pixi.js 构建一个视差滚动器（第二篇）</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-17 19:20:04">
-                                    <span class="date">Mar</span>
-                                    <span class="time">17</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-17 19:20:04">
+                                        <span class="date">Mar</span>
+                                        <span class="time">17</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/fe">fe</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/fe">fe</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1/">使用 Pixi.js 构建一个视差滚动器（第一篇）</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-16 19:20:04">
-                                    <span class="date">Mar</span>
-                                    <span class="time">16</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-16 19:20:04">
+                                        <span class="date">Mar</span>
+                                        <span class="time">16</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/fe">fe</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/fe">fe</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech/">如何使用前端技术开发一个桌面跨端应用</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-14 19:20:04">
-                                    <span class="date">Mar</span>
-                                    <span class="time">14</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-14 19:20:04">
+                                        <span class="date">Mar</span>
+                                        <span class="time">14</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/fe">fe</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/fe">fe</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/03/06/open-source-code-sketch/">开源一个自己写的代码画板</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-03-06 19:19:24">
-                                    <span class="date">Mar</span>
-                                    <span class="time">6</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-03-06 19:19:24">
+                                        <span class="date">Mar</span>
+                                        <span class="time">6</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/fe">fe</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/fe">fe</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/01/06/empathy-is-better-than-equality/">理解比平等更重要</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-01-06 19:29:27">
-                                    <span class="date">Jan</span>
-                                    <span class="time">6</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-01-06 19:29:27">
+                                        <span class="date">Jan</span>
+                                        <span class="time">6</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2019/01/01/political-correctness-then-freedom-of-speech/">名不正则言不顺，是这样的吗？</a>
-                                </h1>
-                                <time class="entry-date" datetime="2019-01-01 19:29:27">
-                                    <span class="date">Jan</span>
-                                    <span class="time">1</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2019-01-01 19:29:27">
+                                        <span class="date">Jan</span>
+                                        <span class="time">1</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                     
-                        <h2>2018</h2>
+                        <h3>2018</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/12/09/prosemirror-guide-cn/">ProseMirror 编辑器指南中文翻译版</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-12-09 17:59:45">
-                                    <span class="date">Dec</span>
-                                    <span class="time">9</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-12-09 17:59:45">
+                                        <span class="date">Dec</span>
+                                        <span class="time">9</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/editor">editor</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/editor">editor</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/12/02/why-frontend-dev-should-care-design/">为什么前端工程师需要关注设计</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-12-02 19:10:24">
-                                    <span class="date">Dec</span>
-                                    <span class="time">2</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-12-02 19:10:24">
+                                        <span class="date">Dec</span>
+                                        <span class="time">2</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/11/25/why-some-wechat-article-become-modern-opium/">为什么一些高赞公众号文章成为现代鸦片</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-11-25 19:10:24">
-                                    <span class="date">Nov</span>
-                                    <span class="time">25</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-11-25 19:10:24">
+                                        <span class="date">Nov</span>
+                                        <span class="time">25</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/11/17/differences-between-cn-and-us-of-online-shopping-site/">国内外购物网站的差异</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-11-17 19:10:24">
-                                    <span class="date">Nov</span>
-                                    <span class="time">17</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-11-17 19:10:24">
+                                        <span class="date">Nov</span>
+                                        <span class="time">17</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/11/04/why-youtube-ad-better/">为什么 Youtube 广告更好看</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-11-04 19:10:24">
-                                    <span class="date">Nov</span>
-                                    <span class="time">4</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-11-04 19:10:24">
+                                        <span class="date">Nov</span>
+                                        <span class="time">4</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/10/27/technology-driven-and-respect/">谈谈技术驱动与尊重技术</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-10-27 19:10:24">
-                                    <span class="date">Oct</span>
-                                    <span class="time">27</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-10-27 19:10:24">
+                                        <span class="date">Oct</span>
+                                        <span class="time">27</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/10/21/rock-and-roll-in-the-it-crowd/">《IT 狂人》中的摇滚精神</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-10-21 19:10:25">
-                                    <span class="date">Oct</span>
-                                    <span class="time">21</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-10-21 19:10:25">
+                                        <span class="date">Oct</span>
+                                        <span class="time">21</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/concept">concept</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/concept">concept</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/10/15/ios-vs-android/">我理解的 iOS 与 Android 的区别</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-10-15 19:10:24">
-                                    <span class="date">Oct</span>
-                                    <span class="time">15</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-10-15 19:10:24">
+                                        <span class="date">Oct</span>
+                                        <span class="time">15</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/OS">OS</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/OS">OS</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/09/24/socket-programming-in-python/">[译]Python 中的 Socket 编程（指南）</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-09-24 19:10:27">
-                                    <span class="date">Sep</span>
-                                    <span class="time">24</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-09-24 19:10:27">
+                                        <span class="date">Sep</span>
+                                        <span class="time">24</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/python">python</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/python">python</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/09/03/HTTPie/">HTTPie 官方文档中文翻译版</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-09-03 19:10:27">
-                                    <span class="date">Sep</span>
-                                    <span class="time">3</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-09-03 19:10:27">
+                                        <span class="date">Sep</span>
+                                        <span class="time">3</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/shell">shell</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/shell">shell</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/08/26/vim-plugin-ultisnips-advanced-tips/">VIM 代码片段插件 ultisnips 使用教程</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-08-26 17:59:45">
-                                    <span class="date">Aug</span>
-                                    <span class="time">26</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-08-26 17:59:45">
+                                        <span class="date">Aug</span>
+                                        <span class="time">26</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/vim">vim</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/vim">vim</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/08/12/fuzzy-finder-full-guide/">Fuzzy finder(fzf&#43;vim) 使用全指南</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-08-12 19:20:04">
-                                    <span class="date">Aug</span>
-                                    <span class="time">12</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-08-12 19:20:04">
+                                        <span class="date">Aug</span>
+                                        <span class="time">12</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/shell">shell</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/shell">shell</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2018/05/25/jquery-ajax-data-param-auto-encode-bug/">jQuery ajax 方法 data 参数默认 encode 失败的 bug</a>
-                                </h1>
-                                <time class="entry-date" datetime="2018-05-25 19:20:04">
-                                    <span class="date">May</span>
-                                    <span class="time">25</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2018-05-25 19:20:04">
+                                        <span class="date">May</span>
+                                        <span class="time">25</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                            </div>
                         </article>
                     
-                        <h2>2017</h2>
+                        <h3>2017</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/11/07/yet-another-host-manager-plugin/">又双叒叕写了一个 host 管理插件</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-11-07 12:51:27">
-                                    <span class="date">Nov</span>
-                                    <span class="time">7</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-11-07 12:51:27">
+                                        <span class="date">Nov</span>
+                                        <span class="time">7</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/chrome">chrome</a>
+                                        
+                                        <a class="category" href="/categories/webdev">webdev</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/chrome">chrome</a>
-                                
-                                <a class="category" href="/categories/webdev">webdev</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/11/03/fix-seajs-parse-dep-bug/">解决 seajs parseDependencies 方法引起的依赖解析错误问题</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-11-03 15:51:27">
-                                    <span class="date">Nov</span>
-                                    <span class="time">3</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-11-03 15:51:27">
+                                        <span class="date">Nov</span>
+                                        <span class="time">3</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/10/07/macos-development-setup-guide/">macOS Sierra 开发环境配置指南</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-10-07 17:19:27">
-                                    <span class="date">Oct</span>
-                                    <span class="time">7</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-10-07 17:19:27">
+                                        <span class="date">Oct</span>
+                                        <span class="time">7</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/mac">mac</a>
+                                        
+                                        <a class="category" href="/categories/WebDev">WebDev</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/mac">mac</a>
-                                
-                                <a class="category" href="/categories/WebDev">WebDev</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/">macOS 单独设置 command(⌘) 键点击功能</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-10-03 17:10:27">
-                                    <span class="date">Oct</span>
-                                    <span class="time">3</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-10-03 17:10:27">
+                                        <span class="date">Oct</span>
+                                        <span class="time">3</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/mac">mac</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/mac">mac</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/05/03/a-trick-from-jquery-data-method/">jQuery data 方法的一个小特技</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-05-03 17:59:45">
-                                    <span class="date">May</span>
-                                    <span class="time">3</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-05-03 17:59:45">
+                                        <span class="date">May</span>
+                                        <span class="time">3</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/04/29/sublime-text-3-configure-eslint/">Sublime text 3 配置 ESLint 代码检查</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-04-29 17:17:24">
-                                    <span class="date">Apr</span>
-                                    <span class="time">29</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-04-29 17:17:24">
+                                        <span class="date">Apr</span>
+                                        <span class="time">29</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/editor">editor</a>
+                                        
+                                        <a class="category" href="/categories/sublime-text">sublime text</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/editor">editor</a>
-                                
-                                <a class="category" href="/categories/sublime-text">sublime text</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/04/22/proxy-google-fonts-with-ssl-http2-support/">Nginx 配置 Google fonts 反向代理开启 HTTP2/SSL 支持</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-04-22 11:19:58">
-                                    <span class="date">Apr</span>
-                                    <span class="time">22</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-04-22 11:19:58">
+                                        <span class="date">Apr</span>
+                                        <span class="time">22</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/Server">Server</a>
+                                        
+                                        <a class="category" href="/categories/Linux">Linux</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/Server">Server</a>
-                                
-                                <a class="category" href="/categories/Linux">Linux</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2017/02/19/basic-operations-of-relation-algebra/">关系代数的基本运算</a>
-                                </h1>
-                                <time class="entry-date" datetime="2017-02-19 15:10:38">
-                                    <span class="date">Feb</span>
-                                    <span class="time">19</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2017-02-19 15:10:38">
+                                        <span class="date">Feb</span>
+                                        <span class="time">19</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/math">math</a>
+                                        
+                                        <a class="category" href="/categories/database">database</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/math">math</a>
-                                
-                                <a class="category" href="/categories/database">database</a>
-                                
-                            </div>
                         </article>
                     
-                        <h2>2016</h2>
+                        <h3>2016</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/">sku 多维属性状态判断算法</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-12-22 15:55:52">
-                                    <span class="date">Dec</span>
-                                    <span class="time">22</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-12-22 15:55:52">
+                                        <span class="date">Dec</span>
+                                        <span class="time">22</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/jd">jd</a>
+                                        
+                                        <a class="category" href="/categories/algorithm">algorithm</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/jd">jd</a>
-                                
-                                <a class="category" href="/categories/algorithm">algorithm</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/11/21/trimpath-template-engine/">TrimPath 模板引擎使用指南</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-11-21 12:39:49">
-                                    <span class="date">Nov</span>
-                                    <span class="time">21</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-11-21 12:39:49">
+                                        <span class="date">Nov</span>
+                                        <span class="time">21</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/template_engine">template_engine</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/template_engine">template_engine</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/11/17/best-practice-for-phantomjs-and-nodejs-at-jd-s-webdev-front-end-monitor-platform/">PhantomJS &amp; NodeJS 在京东网站前端监控平台的最佳实践</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-11-17 09:55:41">
-                                    <span class="date">Nov</span>
-                                    <span class="time">17</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-11-17 09:55:41">
+                                        <span class="date">Nov</span>
+                                        <span class="time">17</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/jd">jd</a>
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/jd">jd</a>
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/10/25/migrating-from-octopress-to-hugo-smoothly/">平滑迁移 Octopress 到 Hugo</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-10-25 13:27:20">
-                                    <span class="date">Oct</span>
-                                    <span class="time">25</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-10-25 13:27:20">
+                                        <span class="date">Oct</span>
+                                        <span class="time">25</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/blog">blog</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/blog">blog</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/10/04/rebuild-mbp-power-cord/">简单方法解决 Macbook 电源接口接触不良的问题</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-10-04 17:22:29">
-                                    <span class="date">Oct</span>
-                                    <span class="time">4</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-10-04 17:22:29">
+                                        <span class="date">Oct</span>
+                                        <span class="time">4</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/mac">mac</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/mac">mac</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/09/29/javascript-browser-event/">JavaScript 浏览器事件</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-09-29 17:22:29">
-                                    <span class="date">Sep</span>
-                                    <span class="time">29</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-09-29 17:22:29">
+                                        <span class="date">Sep</span>
+                                        <span class="time">29</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/Event">Event</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/Event">Event</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/08/12/javascript-definitive-guide-note-13/">《JavaScript 权威指南》读书笔记 15 - 脚本化文档</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-08-12 15:36:59">
-                                    <span class="date">Aug</span>
-                                    <span class="time">12</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-08-12 15:36:59">
+                                        <span class="date">Aug</span>
+                                        <span class="time">12</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/31/something-have-to-say-with-JD-item/">京东单品页前端开发那些不得不说的事儿</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-31 10:48:57">
-                                    <span class="date">Jul</span>
-                                    <span class="time">31</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-31 10:48:57">
+                                        <span class="date">Jul</span>
+                                        <span class="time">31</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/jd">jd</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/jd">jd</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/26/javascript-definitive-guide-note-12/">《JavaScript 权威指南》读书笔记 14 - Window 对象</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-26 11:35:42">
-                                    <span class="date">Jul</span>
-                                    <span class="time">26</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-26 11:35:42">
+                                        <span class="date">Jul</span>
+                                        <span class="time">26</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/14/javascript-definitive-guide-note-11/">《JavaScript 权威指南》读书笔记 13 - Web 浏览器中的 JavaScript</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-14 14:11:08">
-                                    <span class="date">Jul</span>
-                                    <span class="time">14</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-14 14:11:08">
+                                        <span class="date">Jul</span>
+                                        <span class="time">14</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/10/javascript-definitive-guide-note-10/">《JavaScript 权威指南》读书笔记 11 - 服务器端的 JavaScript</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-10 19:47:18">
-                                    <span class="date">Jul</span>
-                                    <span class="time">10</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-10 19:47:18">
+                                        <span class="date">Jul</span>
+                                        <span class="time">10</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/06/javascript-definitive-guide-note-9/">《JavaScript 权威指南》读书笔记 10 - 正则表达式的模式匹配</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-06 12:43:30">
-                                    <span class="date">Jul</span>
-                                    <span class="time">6</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-06 12:43:30">
+                                        <span class="date">Jul</span>
+                                        <span class="time">6</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/04/describe-a-simple-add-method-use-lisp/">使用 lisp 简单描述加法运算</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-04 09:32:45">
-                                    <span class="date">Jul</span>
-                                    <span class="time">4</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-04 09:32:45">
+                                        <span class="date">Jul</span>
+                                        <span class="time">4</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/lisp">lisp</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/lisp">lisp</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/07/02/javascript-definitive-guide-note-8/">《JavaScript 权威指南》读书笔记 9 - 类和模块</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-07-02 13:58:30">
-                                    <span class="date">Jul</span>
-                                    <span class="time">2</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-07-02 13:58:30">
+                                        <span class="date">Jul</span>
+                                        <span class="time">2</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/29/javascript-definitive-guide-note-7/">《JavaScript 权威指南》读书笔记 8 - 函数</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-29 20:22:22">
-                                    <span class="date">Jun</span>
-                                    <span class="time">29</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-29 20:22:22">
+                                        <span class="date">Jun</span>
+                                        <span class="time">29</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/23/javascript-definitive-guide-note-6/">《JavaScript 权威指南》读书笔记 7 - 数组</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-23 19:10:28">
-                                    <span class="date">Jun</span>
-                                    <span class="time">23</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-23 19:10:28">
+                                        <span class="date">Jun</span>
+                                        <span class="time">23</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/23/javascript-definitive-guide-note-5/">《JavaScript 权威指南》读书笔记 6 - 对象</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-23 19:10:28">
-                                    <span class="date">Jun</span>
-                                    <span class="time">23</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-23 19:10:28">
+                                        <span class="date">Jun</span>
+                                        <span class="time">23</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/23/javascript-definitive-guide-note-4/">《JavaScript 权威指南》读书笔记 5 - 语句</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-23 19:10:28">
-                                    <span class="date">Jun</span>
-                                    <span class="time">23</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-23 19:10:28">
+                                        <span class="date">Jun</span>
+                                        <span class="time">23</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/20/javascript-definitive-guide-note-3/">《JavaScript 权威指南》读书笔记 4 - 表达式和运算符</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-20 19:10:28">
-                                    <span class="date">Jun</span>
-                                    <span class="time">20</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-20 19:10:28">
+                                        <span class="date">Jun</span>
+                                        <span class="time">20</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/16/javascript-definitive-guide-note-2/">《JavaScript 权威指南》读书笔记 3 - 类型、值和变量</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-16 13:06:13">
-                                    <span class="date">Jun</span>
-                                    <span class="time">16</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-16 13:06:13">
+                                        <span class="date">Jun</span>
+                                        <span class="time">16</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/16/javascript-definitive-guide-note-1/">《JavaScript 权威指南》读书笔记 2 - 词法结构</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-16 13:06:13">
-                                    <span class="date">Jun</span>
-                                    <span class="time">16</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-16 13:06:13">
+                                        <span class="date">Jun</span>
+                                        <span class="time">16</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/16/javascript-definitive-guide-note-0/">《JavaScript 权威指南》读书笔记 1 - 简介</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-16 13:06:13">
-                                    <span class="date">Jun</span>
-                                    <span class="time">16</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-16 13:06:13">
+                                        <span class="date">Jun</span>
+                                        <span class="time">16</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                        <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                                <a class="category" href="/categories/JavaScript_The_Definitive_Guide">JavaScript_The_Definitive_Guide</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/14/compile-vim-on-windows-with-lua-support/">Windows 下使用 MinGW 编译安装 (g)vim 添加 lua 等编程语言支持</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-14 10:39:40">
-                                    <span class="date">Jun</span>
-                                    <span class="time">14</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-14 10:39:40">
+                                        <span class="date">Jun</span>
+                                        <span class="time">14</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/editor">editor</a>
+                                        
+                                        <a class="category" href="/categories/VIM">VIM</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/editor">editor</a>
-                                
-                                <a class="category" href="/categories/VIM">VIM</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/13/awsome-window-vimrc/">可能是 Windows 下最漂亮的 Gvim 配置了</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-13 21:25:57">
-                                    <span class="date">Jun</span>
-                                    <span class="time">13</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-13 21:25:57">
+                                        <span class="date">Jun</span>
+                                        <span class="time">13</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/editor">editor</a>
+                                        
+                                        <a class="category" href="/categories/VIM">VIM</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/editor">editor</a>
-                                
-                                <a class="category" href="/categories/VIM">VIM</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/12/free-https-cert-lets-encrypt-apply-install/">免费 https 证书（Let&#39;s Encrypt）申请与配置</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-12 18:04:47">
-                                    <span class="date">Jun</span>
-                                    <span class="time">12</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-12 18:04:47">
+                                        <span class="date">Jun</span>
+                                        <span class="time">12</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/WebDev">WebDev</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/WebDev">WebDev</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/11/javascript-throttle/">JavaScript 节流函数 throttle 详解</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-11 06:52:57">
-                                    <span class="date">Jun</span>
-                                    <span class="time">11</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-11 06:52:57">
+                                        <span class="date">Jun</span>
+                                        <span class="time">11</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/javascript">javascript</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/javascript">javascript</a>
-                                
-                            </div>
                         </article>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2016/06/10/test-post/">测试文章</a>
-                                </h1>
-                                <time class="entry-date" datetime="2016-06-10 18:04:47">
-                                    <span class="date">Jun</span>
-                                    <span class="time">10</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2016-06-10 18:04:47">
+                                        <span class="date">Jun</span>
+                                        <span class="time">10</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                            </div>
                         </article>
                     
-                        <h2>2012</h2>
+                        <h3>2012</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2012/08/18/front-end-makes-change/">前端，改变</a>
-                                </h1>
-                                <time class="entry-date" datetime="2012-08-18 19:20:04">
-                                    <span class="date">Aug</span>
-                                    <span class="time">18</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2012-08-18 19:20:04">
+                                        <span class="date">Aug</span>
+                                        <span class="time">18</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/webdev">webdev</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/webdev">webdev</a>
-                                
-                            </div>
                         </article>
                     
-                        <h2>2011</h2>
+                        <h3>2011</h3>
                         <article>
                             <header>
-                                <h1>
+                                <h4>
                                     <a href="https://keelii.com/2011/05/11/front-end-tooling-editor/">前端开发工具 - 编辑器篇</a>
-                                </h1>
-                                <time class="entry-date" datetime="2011-05-11 19:20:04">
-                                    <span class="date">May</span>
-                                    <span class="time">11</span>
-                                </time>
+                                </h4>
+                                <div class="meta">
+                                    <time class="entry-date" datetime="2011-05-11 19:20:04">
+                                        <span class="date">May</span>
+                                        <span class="time">11</span>
+                                    </time>
+                                    <span class="categories">
+                                        in
+                                        
+                                        <a class="category" href="/categories/ppt">ppt</a>
+                                        
+                                    </span>
+                                </div>
                             </header>
-                            <div class="categories">
-                                in
-                                
-                                <a class="category" href="/categories/ppt">ppt</a>
-                                
-                            </div>
                         </article>
                     
                 </div>
@@ -1252,11 +1418,28 @@
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 

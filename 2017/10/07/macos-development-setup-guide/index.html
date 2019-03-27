@@ -36,8 +36,7 @@
     <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
 
     
-    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/default.min.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
 
     
     
@@ -52,25 +51,25 @@
 </head>
 <body>
 
-<nav role="navigation">
-    <ul class="main-navigation">
-        
-        <li><a href="https://keelii.com/">Blog</a> </li>
-        
-        <li><a href="https://keelii.com/archives">Archives</a> </li>
-        
-        <li><a href="https://keelii.com/about">About</a> </li>
-        
-        <li>
-            
-        </li>
-    </ul>
-</nav>
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
 
-
-
-<div id="main">
-    <div id="content">
+<div id="main" class="container">
+    <div id="content" class="typo">
         <div style="padding-top:0;">
             <article class="hentry" role="article">
                 <header>
@@ -79,6 +78,7 @@
                         <time class="entry-date" datetime="2017-10-07 17:19:27">
                             <span class="date">2017-10-7</span>
                             <span class="time">17:19 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
                         </time>
                     </p>
                 </header>
@@ -330,14 +330,8 @@ sass_binary_site &quot;http://cdn.npm.taobao.org/dist/node-sass&quot;
                         
                     </p>
                     
-                    <p class="meta">
-                        <span class="span">Last modified •</span>
-                        <time class="entry-date" datetime="2017-12-10 13:44:22">
-                            <span class="date">2017-12-10</span>
-                            <span class="time">13:44 PM</span>
-                        </time>
-                    </p>
-                    <p class="meta">
+                    
+                    <p class="meta salign">
                         
                         <span class="basic-alignment left">
                             &laquo; <a href="https://keelii.com/2017/10/03/how-to-map-single-command-key-on-mac/" title="Previous Post: macOS 单独设置 command(⌘) 键点击功能">macOS 单独设置 command(⌘) 键点击功能</a>
@@ -353,7 +347,7 @@ sass_binary_site &quot;http://cdn.npm.taobao.org/dist/node-sass&quot;
                 </footer>
             </article>
             <section>
-    <h1>Comments</h1>
+    <h2>Comments</h2>
     <div id="disqus_thread"></div>
     <script>
     (function() {
@@ -429,11 +423,28 @@ document.querySelector('#side-toc').onclick = function(e) {
     </div>
 </div>
 
-<footer role="contentinfo">
+<footer id="footer" role="contentinfo" class="container">
     <p>
         Copyright &copy; 2019 keelii
     </p>
 </footer>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
 
 
 

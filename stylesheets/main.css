@@ -845,8 +845,8 @@ body.dark .hljs-strong {
   font-weight: bold; }
 
 :root body {
-  --bg-color: #F1FFFF;
-  --fore-color: #034F50;
+  --bg-color: #FFFFFF;
+  --fore-color: #272F32;
   --blockquote-bg: #CFF5EE;
   --code-mark-bg: #CFF5EE;
   --color-primary: #034F50;

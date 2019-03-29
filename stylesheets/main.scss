@@ -1,4 +1,5 @@
-// @import './font.scss';
+
+
 // @import 'http://localhost:3000/dist/joshua.css';
 @import '../../../../../joshua.css/src/joshua.scss';
 
@@ -7,34 +8,63 @@
 
 $global-anim-tween: cubic-bezier(0, 0, 0.2, 1);
 
-:root body {
-    // --color-primary: #2f2230;
-    // --bg-color: #f7f7f7;
-    --bg-color: #F1FFFF;
-    --fore-color: #034F50;
 
-    --blockquote-bg: #CFF5EE;
-    --code-mark-bg: #CFF5EE;
-    // --color: rgb();
-    --color-primary: #034F50;
-    --color-lightGrey: #92D1C8;
-    --color-grey: #50A5A6;
-    --color-darkGrey: #3f4144;
-    --color-error: #d43939;
-    --color-success: #28bd14;
 
-    transition: background 0.3s $global-anim-tween, color 0.3s $global-anim-tween;
+// https://colorhunt.co/palette/118963
+// :root body {
+//     // --color-primary: #2f2230;
+//     // --bg-color: #f7f7f7;
+//     --bg-color: #f4f9f4;
+//     --fore-color: #282828;
 
-    &.dark {
-        --bg-color: #232830;
-        --fore-color: #F1FFFF;
+//     --blockquote-bg: rgba(196, 227, 203, 0.3);
+//     // --code-mark-bg: rgba(238, 238, 238, 0.9);
+//     // --color: rgb();
 
-        --code-mark-bg: #3f3f3f;
-        --color-primary: #fff;
+//     --color-primary: #8aae92;
+//     --color-lightGrey: #8aae92;
+//     --color-grey: #50A5A6;
+//     --color-darkGrey: #616161;
+//     --color-error: #d43939;
+//     --color-success: #28bd14;
+
+//     transition: background 0.3s $global-anim-tween, color 0.3s $global-anim-tween;
+
+//     &.dark {
+//         // --bg-color: #232830;
+//         // --fore-color: #F1FFFF;
+
+//         // --code-mark-bg: #3f3f3f;
+//         // --color-primary: #fff;
+//     }
+// }
+
+$line-height: 24px;
+
+// #header h1 {
+//     // &.serif {
+//         font-family: var(--font-serif-en), var(--font-serif-cn), serif;
+//     // }
+//     // &.sans-serif {
+//         // font-family: var(--font-sans-serif-en), var(--font-sans-serif-cn), sans-serif;
+//     // }
+// }
+h1, h2, h3, h4, h5, h6 {
+    // color: var(--color-darkGrey)!important;
+    // .dark & {
+    //     color: #ffffff!important;
+    // }
+    a {
+        color: var(--fore-color)!important;
     }
 }
 
-$line-height: 24px;
+// // .article a {
+// //     color: var(--color-primary);
+// // }
+// h1 a {
+//     color: var(--color-primary)!important;
+// }
 
 .hljs {
     background: none!important;
@@ -112,7 +142,7 @@ $line-height: 24px;
             color: var(--color-grey);
         }
         .categories {
-            margin-left: 12px;
+            margin-left: 10px;
             a {
                 margin-left: 5px;
             }
@@ -130,7 +160,7 @@ $line-height: 24px;
 }
 #side-toc {
     $width: 350px;
-    $light-bg-color: #fff;
+    $light-bg-color: #f4f9f4;
     $dark-bg-color: var(--code-mark-bg);
 
     width: $width;

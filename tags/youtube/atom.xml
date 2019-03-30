@@ -53,7 +53,7 @@
 &lt;p&gt;还有类似 Grammarly 这样的广告，简洁清新的设计风格，让你一看就懂：&lt;/p&gt;
 
 &lt;p class=&#34;video-wrap&#34;&gt;
-&lt;iframe width=&#34;1382&#34; height=&#34;779&#34; src=&#34;https://www.youtube.com/embed/15NXrnyT2HM&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;iframe width=&#34;100%&#34; src=&#34;https://www.youtube.com/embed/15NXrnyT2HM&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/p&gt;
 
 &lt;h2 id=&#34;推荐关联强&#34;&gt;推荐关联强&lt;/h2&gt;

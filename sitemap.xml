@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</loc>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2019/03/24/choice-leads-lose/</loc>
     <lastmod>2019-03-24T18:34:47+08:00</lastmod>
   </url>
@@ -299,7 +304,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-03-24T18:34:47+08:00</lastmod>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -508,7 +513,7 @@
   
   <url>
     <loc>https://keelii.com/tags/gVim/</loc>
-    <lastmod>2018-07-23T14:42:47+08:00</lastmod>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -623,6 +628,12 @@
   <url>
     <loc>https://keelii.com/tags/macro/</loc>
     <lastmod>2017-05-02T15:19:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/markdown/</loc>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -819,6 +830,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/categories/wtdf/</loc>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/tags/youtube/</loc>
     <lastmod>2018-11-04T16:51:32+08:00</lastmod>
     <priority>0</priority>
@@ -826,7 +843,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-03-24T18:34:47+08:00</lastmod>
+    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
     <priority>0</priority>
   </url>
   

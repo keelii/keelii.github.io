@@ -1,0 +1,248 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>也许 Markdown 并不是一个好选择</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/06/06/md-maybe-not-good-enough/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">也许 Markdown 并不是一个好选择</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-06-06 18:31:57">
+                            <span class="date">2019-6-6</span>
+                            <span class="time">18:31 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p>我经常会使用 markdown 来写一些东西。比如：博客文章、技术文档什么的。但是时间长了总是会觉得编辑 Markdown 源码的方式太容易让人分心了。</p>
+
+<p>Markdown 确实是一个非常好的<strong>通用</strong>排版格式，因为它很简单，学习使用起来没有门槛。但是随着人们越来越多的使用 Markdown 创作，Markdown 本身的一些问题也显露出来。比如：当你需要一些高级排版格式的时候 Markdown 是无能为力的，更不用说表格编辑这类重排版的工作在 Markdown 中的编辑体验了。</p>
+
+<p>当然开源社区会有一些开源项目来扩展 Markdown 的功能，甚至是用 Markdown 来画流程图。这且没有什么问题，问题是当你使用了一些扩展的高级功能时又想把他扩展到其它系统（比如博客），这时你又不得不改造博客来适配这些功能，Markdown 也就丧失了它的便携性。所以说使用 Markdown 的关键问题在于：</p>
+
+<blockquote>
+<p>如何能更简单方便的使用 Markdown，同时又不失一些好用的功能</p>
+</blockquote>
+
+<h4 id="如何解决编辑的体验问题">如何解决编辑的体验问题</h4>
+
+<p>编辑排版最佳的体验毫无疑问是「<strong>所见即所得</strong>」的模式。因为人们总是喜欢改完东西立即看见效果。目前常用的 Markdown 编辑器通常分左右两列：++源码++ ｜ ++预览++。实际上我认为这种模式并不好，甚至是错的。因为整个编辑过程会非常痛苦，你不得不既关注源码里面的格式，如：空格、Markdown 符号，还得关注预览出来的效果是不是满意然后再调整。</p>
+
+<p>相比之下 <a href="https://typora.io/">Typora</a> 给出了稍好一些的体验方案 — <strong>富文本的编辑模式 +</strong> <strong>Markdown 源格式</strong>。这应该也是目前 Markdown 最好的编辑方式了，但是在我看来还是不够好。</p>
+
+<p>我自己在书写 Markdown 文件的时间会非常注意格式排版，比如：标点符号，中英文空格，分行留白等，Typora 的编辑模式并不能让我免于这样的困扰，我还是不得不关注 Markdown 的那些符号，这些符号就像听音乐时的耳机里面的「杂音」一样。当你专注于写作，一口气写下上千字的时候，很容易就会被这种杂音打断，灵感转瞬即逝…</p>
+
+<h4 id="如何添加一些功能特性">如何添加一些功能特性</h4>
+
+<p>这个问题我认为不应该给 Markdown 扩展功能，因为扩展 Markdonw 只能通过<strong>添加更多符号</strong>的形式实现。而这会增加它的复杂度，最终让 Markdown 格式变的<strong>不可交换</strong>。</p>
+
+<p>各种编辑方式按功能强大的排序应该是：Makrdown &lt; 富文本 &lt; Word。复杂的功能应该由后面两种工具来胜任，Markdown 可以做为一种格式上的约定。重功能不需要它来实现，比如编辑表格的体验在 Markdown 里简直就是灾难，但是在富文本或者 Word 中却异常简单。这就像是 Markdown 应该做为++接口++来定义一些规范，而不应该让它去关心具体++实现++。</p>
+
+<h4 id="结论">结论</h4>
+
+<p>既然如此那有没有更好的解决方案呢（广告预警）。我正在开发一款基于网页的 WYSIWYG<sup class="footnote-ref" id="fnref:What-You-See-Is"><a href="#fn:What-You-See-Is">1</a></sup> 富文本编辑器应用，并试着解决上面的这些问题，解决 Markdown 问题的同时又能获得富文本编辑的优质体验，主要面向有写作和编辑文章/笔记需求的用户。如果你也刚好有这个需求，不妨试试：</p>
+
+<blockquote>
+<p><a href="//wtdf.io">wtdf.io</a> — 基于网页的所见即所得 Markdown 写作应用</p>
+</blockquote>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:What-You-See-Is">What You See Is What You Get — 中译「所见所得」 <a class="footnote-return" href="#fnref:What-You-See-Is"><sup>[return]</sup></a></li>
+</ol>
+</div>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/wtdf">wtdf</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/03/24/choice-leads-lose/" title="Previous Post: 选择太多所以迷失方向">选择太多所以迷失方向</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#如何解决编辑的体验问题">如何解决编辑的体验问题</a></li>
+<li><a href="#如何添加一些功能特性">如何添加一些功能特性</a></li>
+<li><a href="#结论">结论</a></li>
+</ul></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

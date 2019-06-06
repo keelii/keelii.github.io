@@ -6,10 +6,60 @@
     <description>Recent content on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 24 Mar 2019 19:20:04 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 06 Jun 2019 18:31:57 +0800</lastBuildDate>
     
         <atom:link href="https://keelii.com/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>也许 Markdown 并不是一个好选择</title>
+      <link>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</link>
+      <pubDate>Thu, 06 Jun 2019 18:31:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</guid>
+      <description>
+
+&lt;p&gt;我经常会使用 markdown 来写一些东西。比如：博客文章、技术文档什么的。但是时间长了总是会觉得编辑 Markdown 源码的方式太容易让人分心了。&lt;/p&gt;
+
+&lt;p&gt;Markdown 确实是一个非常好的&lt;strong&gt;通用&lt;/strong&gt;排版格式，因为它很简单，学习使用起来没有门槛。但是随着人们越来越多的使用 Markdown 创作，Markdown 本身的一些问题也显露出来。比如：当你需要一些高级排版格式的时候 Markdown 是无能为力的，更不用说表格编辑这类重排版的工作在 Markdown 中的编辑体验了。&lt;/p&gt;
+
+&lt;p&gt;当然开源社区会有一些开源项目来扩展 Markdown 的功能，甚至是用 Markdown 来画流程图。这且没有什么问题，问题是当你使用了一些扩展的高级功能时又想把他扩展到其它系统（比如博客），这时你又不得不改造博客来适配这些功能，Markdown 也就丧失了它的便携性。所以说使用 Markdown 的关键问题在于：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;如何能更简单方便的使用 Markdown，同时又不失一些好用的功能&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;如何解决编辑的体验问题&#34;&gt;如何解决编辑的体验问题&lt;/h4&gt;
+
+&lt;p&gt;编辑排版最佳的体验毫无疑问是「&lt;strong&gt;所见即所得&lt;/strong&gt;」的模式。因为人们总是喜欢改完东西立即看见效果。目前常用的 Markdown 编辑器通常分左右两列：++源码++ ｜ ++预览++。实际上我认为这种模式并不好，甚至是错的。因为整个编辑过程会非常痛苦，你不得不既关注源码里面的格式，如：空格、Markdown 符号，还得关注预览出来的效果是不是满意然后再调整。&lt;/p&gt;
+
+&lt;p&gt;相比之下 &lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 给出了稍好一些的体验方案 — &lt;strong&gt;富文本的编辑模式 +&lt;/strong&gt; &lt;strong&gt;Markdown 源格式&lt;/strong&gt;。这应该也是目前 Markdown 最好的编辑方式了，但是在我看来还是不够好。&lt;/p&gt;
+
+&lt;p&gt;我自己在书写 Markdown 文件的时间会非常注意格式排版，比如：标点符号，中英文空格，分行留白等，Typora 的编辑模式并不能让我免于这样的困扰，我还是不得不关注 Markdown 的那些符号，这些符号就像听音乐时的耳机里面的「杂音」一样。当你专注于写作，一口气写下上千字的时候，很容易就会被这种杂音打断，灵感转瞬即逝…&lt;/p&gt;
+
+&lt;h4 id=&#34;如何添加一些功能特性&#34;&gt;如何添加一些功能特性&lt;/h4&gt;
+
+&lt;p&gt;这个问题我认为不应该给 Markdown 扩展功能，因为扩展 Markdonw 只能通过&lt;strong&gt;添加更多符号&lt;/strong&gt;的形式实现。而这会增加它的复杂度，最终让 Markdown 格式变的&lt;strong&gt;不可交换&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;各种编辑方式按功能强大的排序应该是：Makrdown &amp;lt; 富文本 &amp;lt; Word。复杂的功能应该由后面两种工具来胜任，Markdown 可以做为一种格式上的约定。重功能不需要它来实现，比如编辑表格的体验在 Markdown 里简直就是灾难，但是在富文本或者 Word 中却异常简单。这就像是 Markdown 应该做为++接口++来定义一些规范，而不应该让它去关心具体++实现++。&lt;/p&gt;
+
+&lt;h4 id=&#34;结论&#34;&gt;结论&lt;/h4&gt;
+
+&lt;p&gt;既然如此那有没有更好的解决方案呢（广告预警）。我正在开发一款基于网页的 WYSIWYG&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:What-You-See-Is&#34;&gt;&lt;a href=&#34;#fn:What-You-See-Is&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; 富文本编辑器应用，并试着解决上面的这些问题，解决 Markdown 问题的同时又能获得富文本编辑的优质体验，主要面向有写作和编辑文章/笔记需求的用户。如果你也刚好有这个需求，不妨试试：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;//wtdf.io&#34;&gt;wtdf.io&lt;/a&gt; — 基于网页的所见即所得 Markdown 写作应用&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:What-You-See-Is&#34;&gt;What You See Is What You Get — 中译「所见所得」 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:What-You-See-Is&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>选择太多所以迷失方向</title>
@@ -4633,86 +4683,6 @@ function collabEditor(authority, place) {
 &lt;p&gt;当一组步骤被系统拒绝时，它们将一直保持未确认状态，这个时间段应该会比较短，持续到我们从系统收到新的步骤之后。接着，因为 &lt;code&gt;onNewSteps&lt;/code&gt; 回调调用 &lt;code&gt;dispatch&lt;/code&gt;，&lt;code&gt;dispatch&lt;/code&gt; 再调用我们的 &lt;code&gt;dispatchTransaction&lt;/code&gt; 函数，代码才会将尝试再次提交其更改&lt;/p&gt;
 
 &lt;p&gt;这基本上就是的所有协作模块的功能了。当然，对于异步数据通道（例如上面的演示代码中的长轮询或 Web套接字），你需要更复杂的通信和同步代码，而且你也可能需要集权系统在某些情况下开始抛出步骤，而不至于内存被消耗完。但是这个小例子大概也描述清楚了实现过程&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>为什么前端工程师需要关注设计</title>
-      <link>https://keelii.com/2018/12/02/why-frontend-dev-should-care-design/</link>
-      <pubDate>Sun, 02 Dec 2018 19:10:24 +0000</pubDate>
-      
-      <guid>https://keelii.com/2018/12/02/why-frontend-dev-should-care-design/</guid>
-      <description>
-
-&lt;p&gt;在很久之前我就说过同样的话，表达过我觉得做为前端工程师而言设计素养的重要性，今天我想聊天为什么我有这种观点&lt;/p&gt;
-
-&lt;h2 id=&#34;泛化的设计&#34;&gt;泛化的设计&lt;/h2&gt;
-
-&lt;p&gt;实际上生活中设计是中无处不在的，大到建筑工程、工业设计，小到网页设计、产品设计。我认为设计的本质就是 &lt;strong&gt;理解你（或者你的用户）内心想法的一个过程&lt;/strong&gt;，在完成了一个物件的物理功能后，你需要考虑它的适用场景及多数用户的实用需求&lt;/p&gt;
-
-&lt;p&gt;我在北京呆了很多年，你要问我对北京的印象是什么颜色，我会毫不犹豫的告诉你「蓝色」。有的人会认为是雾霾的灰色、有的人会认为是天安门的红色。为什么我的印象是蓝色呢，因为在北京无论你去哪儿都会选择公共交通，所有的交通标识牌都是蓝背景加白前景色，环路上的路标、地铁标、普通道路的路标，到处都会有蓝色的标识牌。使用蓝色的好处在于 &lt;strong&gt;标识性强&lt;/strong&gt;，尤其对我这种视觉异常的人特别友好。但是却缺乏美感，因为要照顾大多数人的体验&lt;/p&gt;
-
-&lt;p&gt;我也常去西安，你要问我对西安的印象是什么颜色，我也会告诉你是「暗红」。西安的地铁标识牌就是这种暗红，我也不太确定这种颜色准确的叫法，赤红或者朱红？总之这种颜色和西安这个城市的调性很搭。无论是古城门上的各种架梁、门柱、瓦石的着色，还是现代的地铁标识颜色，到处都有暗红色的设计。西安地铁标的设计虽然说是和整个城市的气质具有一致性，但是 &lt;strong&gt;识别性很差&lt;/strong&gt;，尤其城市里面绿化比较好，树木多的时候绿色和这种红色标识交错在一起是很难分辨的&lt;/p&gt;
-
-&lt;p&gt;从这个例子中我们可以了解到，其实设计并不是那种只存在于理论或者艺术世界里面的东西，大多数的设计都源于生活。都表达了人们对于生活的思考与理解&lt;/p&gt;
-
-&lt;h2 id=&#34;狭义的设计&#34;&gt;狭义的设计&lt;/h2&gt;
-
-&lt;p&gt;狭义点讲前端工程师（程序员）们的日常是程序设计或者软件设计。有一个关于用户体验的真相是：大多数用户当他们不喜欢你的产品时，他们会 &lt;strong&gt;直接离开并放弃&lt;/strong&gt;。用户的选择是正向的，他会因为你的软件好用选择，但 &lt;strong&gt;并不一定&lt;/strong&gt; 会因为你的软件不好而批评反馈。所以我一直认为很多所谓的为了提高用户体验的调查问卷并没有什么作用。相反的很多反馈都是没有经过深思熟虑，或者是很个人的需求，这反倒会影我们的判断&lt;/p&gt;
-
-&lt;p&gt;所以说代码设计的的好不好，交互是否流畅，体验是否极致。这个门槛的最后一步就在前端&lt;/p&gt;
-
-&lt;p&gt;当然后端也很重要，后端的重要性是我们在这聊设计聊体验的前提。「仓廪实而知礼节」，很多前端在知乎提问类似「Node.JS 和 Java 相比…」的话题的时候却从来没想过这个问题，不过这个话题就不细聊了&lt;/p&gt;
-
-&lt;p&gt;前端需要关注设计，原因有二：&lt;/p&gt;
-
-&lt;p&gt;一、离用户更近。这个毫无疑问，前端在整个软件的系统栈里面是最顶部一个元素，他们写出来的代码第一用户是自己，一个功能好不好用前端会有第一知觉。同时这个也依赖于工程师对于设计体验的素养。很多东西是没法区分 &lt;strong&gt;逻辑上的好坏&lt;/strong&gt;，同时有些东西应该是 &lt;strong&gt;不言而喻&lt;/strong&gt; 的：&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;页面的链接到底应该在当前面页打开还是新页签&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;这就是一个典型的没法从逻辑上区分好坏的问题。当然所有页面都新窗口打开肯定是不对的。我认为 &lt;code&gt;&amp;lt;base target=&amp;quot;_blank&amp;quot;/&amp;gt;&lt;/code&gt; 在任何时时候都不应该被使用。看看自己每天使用的浏览器 tab 页的个数就明白了。实际使用的时候要根据用户的场景、喜好、链接去向内容、技术实现等各方面因素综合考虑，*一刀切* 的做法绝对是错误的&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;弹出层、hover 提示 应该是尽量少的使用&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;这就是不言而喻的，因为在 PC 端用户的鼠标是最常用的输入设备。鼠标的 &lt;code&gt;mouseover&lt;/code&gt; 事件会产生很多误操作，浮层的显示这会骚扰用户的视觉。当然技术上我们可以通给 &lt;code&gt;mouseover&lt;/code&gt; 事件添加延迟的方式来避免误操作的机率，但是我认为这是一种 *打补丁* 的解决方法，因为当一个提示信息足够重要的时候，任何延迟都是错误的，更何况打补丁还有副作用&lt;/p&gt;
-
-&lt;p&gt;最近刚好发现一个笔记类应用「www.notion.so」，初次使用的时候感觉真的非常棒。设计精美、交互流畅、动画细腻，好的产品不就应该是这样的么&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img12.360buyimg.com/devfe/jfs/t29341/339/962472864/379822/48eff2bb/5c03552aN432640ea.png&#34; alt=&#34;motion.so-optmz&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;但是当你深入使用的时候你会发现这个页面上充满了各个的 hover 效果，提示信息、状态切换等。它几乎在所有的图标上都加了 功能提示或快捷键的 hover 提示，这个在我看来就非常的骚扰用户。就比如左侧菜单的收起按钮使用了左箭头的图标「＜」，这种图标就是不言而喻的，不需要再用 tooltip 来提示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://img13.360buyimg.com/devfe/jfs/t30091/247/977323550/330695/a320c333/5c03914aNcce71c64.gif&#34; alt=&#34;hovers&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;二、审美需求。这一点其实上是所有人都需要关注的，很多程序员在使用 macOS 一段时间后就再也没法忍受 windows 的界面了。单从审美诉求这一项讲，macOS 体现出来的简洁、专注是 windows 系统没有的。结合上面的问题可以思考下：*为什么 macOS 系统的鼠标 hover 的交互很少？*我觉得应该是操作系统给用户带来的那种稳定、可靠的感觉。当你专注的做一件事情的时候最好不要有任何形式的打扰，像系统通知、气泡提醒什么的应该完全被禁止&lt;/p&gt;
-
-&lt;p&gt;很多人会认为程序员不需要审美，因为他们实现功能就行了。事实上甚至很多程序员也可能是这么想的。但是他们并没有意识到一点，即使是那种特别不关心审美的人也有基本审美的需求，或者说一个长像其丑无比的人也有基本审美的需求，爱美之心人皆有之。只是程序员这类群体写代码太久就会进入特别专注的状态，只在乎代码，忘了其它一些同样有价值的东西&lt;/p&gt;
-
-&lt;p&gt;我想表达的意思并不是说这样不好，而是我认为在专注技术的前提下了解一些设计方面的东西会让我们理解别人（用户）的想法，这其实也是一种与外界的沟通形式，也能弥补程序员天生的弱点&lt;/p&gt;
-
-&lt;h2 id=&#34;设计的规则&#34;&gt;设计的规则&lt;/h2&gt;
-
-&lt;p&gt;很多对设计一知半解的人会说一句别人经过实践总结出来的真理：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Rules are meant to be broken — 规则就是用来被打破的&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在《写给大家看的设计书》中就讲过这个问题，我是比较同意作者的观点，即：打破规则的前提应该是你足够了解规则是什么，意味着什么&lt;/p&gt;
-
-&lt;p&gt;同时书中开篇分享了另外一个观点，我也很赞同：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;当你能叫出一个东西的名字后，这个东西就无处不在了&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;这个估计很多人都会有这种体验，某一天某个人说了一个你以前从来没听过的词儿，然后你觉得这个词很新鲜，接着在后来一段时间内这个词就会不段的出现在你的周围&lt;/p&gt;
-
-&lt;p&gt;作者的意思是，其实就是设计在很多人眼中遙不可及并不是因为它很高深，而是你没听过、没见过一些设计规则&lt;/p&gt;
-
-&lt;p&gt;后面的东西就不聊了，读者有兴趣可以读下原著，书中提到的几个原则至今都在我的脑海里：亲密、对齐、重复、对比&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;封面图：&lt;a href=&#34;https://www.pexels.com/photo/black-pencils-and-design-word-6444/&#34;&gt;https://www.pexels.com/photo/black-pencils-and-design-word-6444/&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 </description>
     </item>
     

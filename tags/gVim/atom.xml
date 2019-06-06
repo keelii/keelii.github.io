@@ -6,10 +6,60 @@
     <description>Recent content in gVim on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 13 Jun 2016 21:25:57 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Jun 2019 18:31:57 +0800</lastBuildDate>
     
         <atom:link href="https://keelii.com/tags/gVim/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>也许 Markdown 并不是一个好选择</title>
+      <link>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</link>
+      <pubDate>Thu, 06 Jun 2019 18:31:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</guid>
+      <description>
+
+&lt;p&gt;我经常会使用 markdown 来写一些东西。比如：博客文章、技术文档什么的。但是时间长了总是会觉得编辑 Markdown 源码的方式太容易让人分心了。&lt;/p&gt;
+
+&lt;p&gt;Markdown 确实是一个非常好的&lt;strong&gt;通用&lt;/strong&gt;排版格式，因为它很简单，学习使用起来没有门槛。但是随着人们越来越多的使用 Markdown 创作，Markdown 本身的一些问题也显露出来。比如：当你需要一些高级排版格式的时候 Markdown 是无能为力的，更不用说表格编辑这类重排版的工作在 Markdown 中的编辑体验了。&lt;/p&gt;
+
+&lt;p&gt;当然开源社区会有一些开源项目来扩展 Markdown 的功能，甚至是用 Markdown 来画流程图。这且没有什么问题，问题是当你使用了一些扩展的高级功能时又想把他扩展到其它系统（比如博客），这时你又不得不改造博客来适配这些功能，Markdown 也就丧失了它的便携性。所以说使用 Markdown 的关键问题在于：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;如何能更简单方便的使用 Markdown，同时又不失一些好用的功能&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;如何解决编辑的体验问题&#34;&gt;如何解决编辑的体验问题&lt;/h4&gt;
+
+&lt;p&gt;编辑排版最佳的体验毫无疑问是「&lt;strong&gt;所见即所得&lt;/strong&gt;」的模式。因为人们总是喜欢改完东西立即看见效果。目前常用的 Markdown 编辑器通常分左右两列：++源码++ ｜ ++预览++。实际上我认为这种模式并不好，甚至是错的。因为整个编辑过程会非常痛苦，你不得不既关注源码里面的格式，如：空格、Markdown 符号，还得关注预览出来的效果是不是满意然后再调整。&lt;/p&gt;
+
+&lt;p&gt;相比之下 &lt;a href=&#34;https://typora.io/&#34;&gt;Typora&lt;/a&gt; 给出了稍好一些的体验方案 — &lt;strong&gt;富文本的编辑模式 +&lt;/strong&gt; &lt;strong&gt;Markdown 源格式&lt;/strong&gt;。这应该也是目前 Markdown 最好的编辑方式了，但是在我看来还是不够好。&lt;/p&gt;
+
+&lt;p&gt;我自己在书写 Markdown 文件的时间会非常注意格式排版，比如：标点符号，中英文空格，分行留白等，Typora 的编辑模式并不能让我免于这样的困扰，我还是不得不关注 Markdown 的那些符号，这些符号就像听音乐时的耳机里面的「杂音」一样。当你专注于写作，一口气写下上千字的时候，很容易就会被这种杂音打断，灵感转瞬即逝…&lt;/p&gt;
+
+&lt;h4 id=&#34;如何添加一些功能特性&#34;&gt;如何添加一些功能特性&lt;/h4&gt;
+
+&lt;p&gt;这个问题我认为不应该给 Markdown 扩展功能，因为扩展 Markdonw 只能通过&lt;strong&gt;添加更多符号&lt;/strong&gt;的形式实现。而这会增加它的复杂度，最终让 Markdown 格式变的&lt;strong&gt;不可交换&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;各种编辑方式按功能强大的排序应该是：Makrdown &amp;lt; 富文本 &amp;lt; Word。复杂的功能应该由后面两种工具来胜任，Markdown 可以做为一种格式上的约定。重功能不需要它来实现，比如编辑表格的体验在 Markdown 里简直就是灾难，但是在富文本或者 Word 中却异常简单。这就像是 Markdown 应该做为++接口++来定义一些规范，而不应该让它去关心具体++实现++。&lt;/p&gt;
+
+&lt;h4 id=&#34;结论&#34;&gt;结论&lt;/h4&gt;
+
+&lt;p&gt;既然如此那有没有更好的解决方案呢（广告预警）。我正在开发一款基于网页的 WYSIWYG&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:What-You-See-Is&#34;&gt;&lt;a href=&#34;#fn:What-You-See-Is&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; 富文本编辑器应用，并试着解决上面的这些问题，解决 Markdown 问题的同时又能获得富文本编辑的优质体验，主要面向有写作和编辑文章/笔记需求的用户。如果你也刚好有这个需求，不妨试试：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;//wtdf.io&#34;&gt;wtdf.io&lt;/a&gt; — 基于网页的所见即所得 Markdown 写作应用&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:What-You-See-Is&#34;&gt;What You See Is What You Get — 中译「所见所得」 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:What-You-See-Is&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>可能是 Windows 下最漂亮的 Gvim 配置了</title>

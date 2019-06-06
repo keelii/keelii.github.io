@@ -1,9 +1,14 @@
+
+
+// @import 'http://localhost:3000/dist/joshua.css';
 @import '../../../../../joshua.css/src/joshua.scss';
 
 @import './light-theme.scss';
 @import './dark-theme.scss';
 
 $global-anim-tween: cubic-bezier(0, 0, 0.2, 1);
+
+
 
 // https://colorhunt.co/palette/118963
 // :root body {
@@ -77,8 +82,8 @@ h1, h2, h3, h4, h5, h6 {
     .tabs {
         font-size: 14px;
     }
-    .nav-item {
-        padding-top: 0;
+    .nav-item { 
+        padding-top: 0; 
         padding-bottom: 0;
     }
     .sep {
@@ -211,19 +216,5 @@ h1, h2, h3, h4, h5, h6 {
         > ul {
             padding-left: 1.5em;
         }
-    }
-}
-
-.video-wrap {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-    height: 0;
-    iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
     }
 }

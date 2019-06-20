@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2019/06/20/why-avengers-3-is-better-6-7/</loc>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2019/06/06/md-maybe-not-good-enough/</loc>
     <lastmod>2019-06-06T18:31:57+08:00</lastmod>
   </url>
@@ -304,7 +309,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -412,6 +417,12 @@
   <url>
     <loc>https://keelii.com/tags/apple/</loc>
     <lastmod>2018-10-28T21:42:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/avengers/</loc>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -656,6 +667,18 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/tags/movie/</loc>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/movie/</loc>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/tags/nginx/</loc>
     <lastmod>2017-05-02T15:19:43+08:00</lastmod>
     <priority>0</priority>
@@ -843,7 +866,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-06-06T18:31:57+08:00</lastmod>
+    <lastmod>2019-06-20T19:20:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   

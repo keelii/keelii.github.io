@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>typescript on 臨池不輟</title>
+    <link>https://keelii.com/tags/typescript/</link>
+    <description>Recent content in typescript on 臨池不輟</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 03 Jul 2019 18:33:57 +0800</lastBuildDate>
+    
+        <atom:link href="https://keelii.com/tags/typescript/atom.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nestjs 框架教程（第三篇：控制器）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-3/</link>
+      <pubDate>Wed, 03 Jul 2019 18:33:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-3/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;控制器&lt;/strong&gt;（Controller）负责处理客户端请求并发送响应内容，在传统的 MVC 架构中控制器就是负责处理指定请求与应用程序的对应关系，路由则决定具体处理哪个请求。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d18c461b3cb641859.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;路由&#34;&gt;路由&lt;/h3&gt;
+
+&lt;p&gt;得益于 TypeScript，在 Nest 中我们可以使用类来实现控制器的功能，使用装饰器来实现路由功能。它们分别需要配合 @Controller 和 @Get 饰器来使用，前者是控制器类的装饰，后者是具体方法的装饰器。&lt;/p&gt;
+
+&lt;p&gt;比如下面的代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Controller, Get } from &#39;@nestjs/common&#39;;
+
+@Controller(&#39;cats&#39;)
+export class CatsController {
+  @Get()
+  findAll(): string {
+    return &#39;This action returns all cats&#39;;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码声明了一个猫咪控制器类，实现了 findAll 方法，当你在浏览器中发送请求到 /cates 时程序就返回给你 This action returns all cats&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;++小提示++：可以使用 Nest-cli 工具来自动生成上面的代码：$ nest g controller cats&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;@Get()&lt;/code&gt; 表示 HTTP 请求装饰器。控制器类的装饰器和 HTTP 方法的装饰器共同决定了一个路由规则。findAll 将返回一个状态码为 200 的响应，当然你有两种方法来指定返回的状态码：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;标准模式（建议的）&lt;/td&gt;
+&lt;td&gt;使用内置方法时，如果返回一个 JavaScript 对象或者数据，将自动序列化成 JSON，如果是字符串将默认不会序列化，响应的返回状态码 &lt;strong&gt;默认&lt;/strong&gt; 总是 200，除非是 POST 请求会默认设置成 201。可以使用 @HttpCode() 装饰器来改变它&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;指定框架&lt;/td&gt;
+&lt;td&gt;也可以使用指定框架的请求处理方法，比如 Express 的响应对象。可以使用 @Res() 装饰器来装饰响应对象使用，这样以来你就可以使用类 Express API 的方式处理响应了：&lt;code&gt;response.status(200).send()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;++警告++&lt;/strong&gt;：你可以同时使用上面两种方法，但是 Nest 会检测到，同时标准模式会在这个路由上被禁用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;请求对象&#34;&gt;请求对象&lt;/h3&gt;
+
+&lt;p&gt;处理器一般需要访问到请求对象。一般配合 @Req() 装饰器来使用，请求对象包含查询字符串、参数、HTTP 头，请求体等。但是大多数情况只用到其中某个，我们可以单独使用指定的装饰器来装饰请求。&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;装饰器&lt;/th&gt;
+&lt;th&gt;参数值&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Request()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Response()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;res&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Next()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;next&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Session()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req.session&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Param(key?: string)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req.params&lt;/code&gt; / &lt;code&gt;req.params[key]&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Body(key?: string)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req.body&lt;/code&gt; / &lt;code&gt;req.body[key]&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Query(key?: string)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req.query&lt;/code&gt; / &lt;code&gt;req.query[key]&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;@Headers(name?: string)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;req.headers&lt;/code&gt; / &lt;code&gt;req.headers[name]&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;举个例子：比如我们只需要处理请求的查询字符串（query string），就可以使用 @Query 来装饰入参，这样取到的值就自然是一个 query string 的字典了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get()
+getHello(@Query() q: String): string {
+    console.log(q)
+    return this.appService.getHello();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果我们的请求是：&lt;a href=&#34;http://localhost:3000/?test=a&#34;&gt;http://localhost:3000/?test=a&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;那么控制台将打印一个 &lt;code&gt;{ test: &#39;a&#39; }&lt;/code&gt; 字典&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;++小提示++&lt;/strong&gt;：建议安装 @types/express 包来获取 Request 的相关类型提示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;资源&#34;&gt;资源&lt;/h3&gt;
+
+&lt;p&gt;除了使用 @Get 装饰器，我们还可以使用其它 HTTP 方法装饰器。比如：&lt;code&gt;@Put()&lt;/code&gt;, &lt;code&gt;@Delete()&lt;/code&gt;, &lt;code&gt;@Patch()&lt;/code&gt;, &lt;code&gt;@Options()&lt;/code&gt;, &lt;code&gt;@Head()&lt;/code&gt;, and &lt;code&gt;@All()&lt;/code&gt;，注意 All 并不是 HTTP 的方法，而是 Nest 提供的一个快捷方式，表示接收任何类型的 HTTP 请求。&lt;/p&gt;
+
+&lt;h3 id=&#34;路由通配符&#34;&gt;路由通配符&lt;/h3&gt;
+
+&lt;p&gt;Nest 支持基于模式的路由规则匹配，比如：星号（*）表示匹配任意的字母组合。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get(&#39;ab*cd&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;&#39;ab*cd&#39;&lt;/code&gt; 路由将匹配 &lt;code&gt;abcd&lt;/code&gt;, &lt;code&gt;ab_cd&lt;/code&gt;, &lt;code&gt;abecd&lt;/code&gt; 等规则。同时：&lt;code&gt;?&lt;/code&gt;, &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;*&lt;/code&gt;, and &lt;code&gt;()&lt;/code&gt; 通配符（wildcard）都可以使用&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;通配符&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;th&gt;示例&lt;/th&gt;
+&lt;th&gt;匹配&lt;/th&gt;
+&lt;th&gt;不匹配&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;*&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;匹配任意数量的任意字符&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Law*&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Law&lt;/code&gt;, &lt;code&gt;Laws&lt;/code&gt;, or &lt;code&gt;Lawyer&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GrokLaw&lt;/code&gt;, &lt;code&gt;La&lt;/code&gt;, or &lt;code&gt;aw&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;*Law*&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Law&lt;/code&gt;, &lt;code&gt;GrokLaw&lt;/code&gt;, or &lt;code&gt;Lawyer&lt;/code&gt;.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;La&lt;/code&gt;, or &lt;code&gt;aw&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;?&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;匹配任意&lt;strong&gt;单个&lt;/strong&gt;字符&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;?at&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Cat&lt;/code&gt;, &lt;code&gt;cat&lt;/code&gt;, &lt;code&gt;Bat&lt;/code&gt; or &lt;code&gt;bat&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;at&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;[abc]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;匹配方括号中的任意&lt;strong&gt;一个&lt;/strong&gt;字符&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;[CB]at&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Cat&lt;/code&gt; or &lt;code&gt;Bat&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;cat&lt;/code&gt; or &lt;code&gt;bat&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;[a-z]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;匹配字母、数字区间&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Letter[0-9]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Letter0&lt;/code&gt;, &lt;code&gt;Letter1&lt;/code&gt;, &lt;code&gt;Letter2&lt;/code&gt; up to &lt;code&gt;Letter9&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Letters&lt;/code&gt;, &lt;code&gt;Letter&lt;/code&gt; or &lt;code&gt;Letter10&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;状态码&#34;&gt;状态码&lt;/h3&gt;
+
+&lt;p&gt;响应的默认状态码是 200，POST 则是 201，我们可以使用装饰器 &lt;code&gt;@HttpCode(204)&lt;/code&gt; 来指定&lt;strong&gt;处理器&lt;/strong&gt;级别的 默认 HttpCode 为 204&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@HttpCode(204)
+create() {
+  return &#39;This action adds a new cat&#39;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果想动态指定状态码，就要使用 @Res() 装饰器来注入响应对象，同时调用响应的状态码设置方法。&lt;/p&gt;
+
+&lt;h3 id=&#34;请求头&#34;&gt;请求头&lt;/h3&gt;
+
+&lt;p&gt;同样的我们可以使用 &lt;code&gt;@Header()&lt;/code&gt; 来设置自定义的请求头，也可以使用 &lt;code&gt;response.header()&lt;/code&gt; 设置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@Header(&#39;Cache-Control&#39;, &#39;none&#39;)
+create() {
+  return &#39;This action adds a new cat&#39;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;路由参数&#34;&gt;路由参数&lt;/h3&gt;
+
+&lt;p&gt;通常我们需要设置一些动态的路由来接收一些客户端的查询参数，通过指定路由参数可以很方便的捕获到 URL 上的动态参数到控制器中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get(&#39;:id&#39;)
+findOne(@Param() params): string {
+  console.log(params.id);
+  return `This action returns a #${params.id} cat`;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过使用 @Param() 装饰器可以在方法中直接访问到路由装饰器 &lt;code&gt;@Get()&lt;/code&gt; 中的的参数字典，:id 就表示匹配到所有的字符串，可以通过引用 params.id 在方法中访问到。&lt;/p&gt;
+
+&lt;p&gt;当然，就像前面学到的参数装饰器也可以指定到具体的某个参数值：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get(&#39;:id&#39;)
+findOne(@Param(&#39;id&#39;) id): string {
+  return `This action returns a #${id} cat`;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;路由顺序&#34;&gt;路由顺序&lt;/h3&gt;
+
+&lt;p&gt;路由的注册顺序与控制器类中的&lt;strong&gt;方法&lt;/strong&gt;顺序相关，如果你先装饰了一个 cats/:id 的路由，后面又装饰了一个 cats 路由，那么当用户访问到 GET /cats 时，后面的路由将不会被捕获，因为参数才都是&lt;strong&gt;非必选&lt;/strong&gt;的。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第二篇：入门）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-2/</link>
+      <pubDate>Wed, 03 Jul 2019 18:32:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-2/</guid>
+      <description>
+
+&lt;p&gt;这篇教程起，你将会学习到 Nest 的几个核心点。为了更好的了解 Nest 应用中的模块，我们将开发一个有基本 CRUD&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Create-Read-Upda&#34;&gt;&lt;a href=&#34;#fn:Create-Read-Upda&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; 功能的入门级应用。&lt;/p&gt;
+
+&lt;h2 id=&#34;实现语言&#34;&gt;实现语言&lt;/h2&gt;
+
+&lt;p&gt;Nest 是 TypeScript 写的，所以天生就很好的并且渐进地支持 JavaScript。&lt;/p&gt;
+
+&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+
+&lt;p&gt;保证你的操作系统上安装的 Node.js 版本大于 8.9.0 即可。&lt;/p&gt;
+
+&lt;h2 id=&#34;初始化&#34;&gt;初始化&lt;/h2&gt;
+
+&lt;p&gt;就像上节讲到的直接用 nest new project-name 就可以了。我们来回顾下目录结构：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;src
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+└── main.ts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;分别对应的功能如下表：&lt;/p&gt;
+
+&lt;p&gt;| app.controller.ts | 只有一个路由的控制器（controller）示例 |
+| app.module.ts | 应用程序的根模块（root module） |
+| main.ts | 应用程序的入口文件，使用 &lt;code&gt;NestFactory&lt;/code&gt; 方法创建应用实例 |
+在 main.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。&lt;/p&gt;
+
+&lt;h2 id=&#34;平台&#34;&gt;平台&lt;/h2&gt;
+
+&lt;p&gt;Nest 的目标是一个平台无关的框架。这个意思就是说 Nest 本身并不造某个细分领域的轮子，他只构建一套构架体系，然后把一些好用的库或者平台融合进来。所以 Nest 可以衔接任何 HTTP 框架，默认支持 express 和 fastify 两个 web 框架。&lt;/p&gt;
+
+&lt;p&gt;| &lt;code&gt;platform-express&lt;/code&gt; | &lt;strong&gt;&lt;a href=&#34;https://expressjs.com/&#34;&gt;Express&lt;/a&gt;&lt;/strong&gt; 是一个 Node web 框架，有很多社区成熟的资源。@nestjs/platform-express 默认会被引入，大家都很熟悉了，用起来会容易上手 |
+| &lt;code&gt;platform-fastify&lt;/code&gt; | &lt;strong&gt;&lt;a href=&#34;https://www.fastify.io/&#34;&gt;Fastify&lt;/a&gt;&lt;/strong&gt; 是一个高能低耗的框架，致力于最大化效率与速度 |
+无论使用哪个平台，都要暴露自己的应用接口。上面两个平台暴露了对应的两个变量 &lt;code&gt;NestExpressApplication&lt;/code&gt; and &lt;code&gt;NestFastifyApplication&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;如下的代码会创建一个 app 对象，并且指定了使用 NestExpressApplication 平台：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const app = await NestFactory.create&amp;lt;NestExpressApplication&amp;gt;(ApplicationModule);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过一般情况下不需要指定这个类型。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:Create-Read-Upda&#34;&gt;Create, Read, Update, Delete 通常对应于数据的增删改查功能 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Create-Read-Upda&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第一篇：简介）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-1/</link>
+      <pubDate>Wed, 03 Jul 2019 18:31:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-1/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d185dfb87f5e21948.png&#34; alt=&#34;Nestjs&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;教程目录&#34;&gt;教程目录&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;请注意：本教程结合官方文档内容并添加了许多我自己学习过种中的理解，存在许多个人观点&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Nestjs 框架教程（第一篇：&lt;a href=&#34;nestjs-framework-tutorial-1&#34;&gt;简介&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第二篇：入门）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：控制器）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第四篇：Providers）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第五篇：模块）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：中间件）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：异常过滤器）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：管道）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：守卫）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：拦截器）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：自定义装饰器）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Object-Oriented&#34;&gt;&lt;a href=&#34;#fn:Object-Oriented&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;、FP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-Progr&#34;&gt;&lt;a href=&#34;#fn:Functional-Progr&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;、FRP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-React&#34;&gt;&lt;a href=&#34;#fn:Functional-React&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; 的相关理念。并且设计上很多灵感来自于 Angular。&lt;/p&gt;
+
+&lt;p&gt;Angular 的很多模式又来自于 Java 中的 Spring 框架，依赖注入、面向切面编程等，所以你可以认为： &lt;strong&gt;Nest 是 Node.js 版的 Spring 框架&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;或许很多前端工程师看到这里就自动劝退了，事实上我以前也挺讨厌 Java 的（现在也不怎么喜欢），后来由于工作原因学习到了一些 Java 相关的知识后才发现自己的认识很片面。现在 WEB 后端主流的技术栈都基于 Spring 框架，框架必然是解决了很多实际问题，能学习到它的思想比它自己的出身、派系更重要。同时建议那些没有学习或者接触过 Java 的前端可以了解一些相关概念，不要拒绝，因为这可能会为你打开另一扇门。&lt;/p&gt;
+
+&lt;p&gt;可能在很多伪 FP 爱好者来看 OOP 是臃肿无用的东西。但是从使用角度讲：&lt;strong&gt;FP 小而美，OOP 大而全&lt;/strong&gt;，如果不关注场景去讨论好坏没有任何意义。而且事实上这两者完全是不冲突的，可以结合得非常完美。不要被那些所谓的&lt;strong&gt;纯&lt;/strong&gt;函数、&lt;strong&gt;纯&lt;/strong&gt;页面对象的概念误导，能写出真正的好代码才是重要的。&lt;/p&gt;
+
+&lt;p&gt;如果你以前在使用 Node.js 开发后端应用时常常不知道如何规划代码关系，搞不清楚控制器、服务、模型和数据的关系，或者是你打算使用 Node.js 构建大型应用，那就建议你了解一下 Nest。&lt;/p&gt;
+
+&lt;h3 id=&#34;框架的哲学&#34;&gt;框架的哲学&lt;/h3&gt;
+
+&lt;p&gt;在开始体验前，有必要简单介绍下 Nest 框架的的设计理念，我结合我自己的理解大概梳理下。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;近几年由于 Node.js 的出现，JavaScript 成为了前端和后端的「lingua franca&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:-&#34;&gt;&lt;a href=&#34;#fn:-&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;」，前端方面出现了 Angular, React, Vue 等众多的 UI 框架，后端方面也有像 Express, Koa 这样优秀的框架出现，但这些框架都没有高效地解决一个核心问题 — &lt;strong&gt;架构&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;官方的这段介绍和我看到的非常一致，注意作者说是&lt;strong&gt;高效地&lt;/strong&gt;解决，我的理解是现在 Node.js 或者说 JavaScript 框架都是各做各的，都是些点，可能确实有做的很不错的，但是整体而言并没有一个把各种好东西串链起来做成一种通用模式的框架，或者说是架构。&lt;/p&gt;
+
+&lt;p&gt;这个问题主要有三方面原因：其一，现在大多前端工程师的工作范围还是局限于前端 UI 层，或者说视图层，后端一般都由更加成熟的一技术栈来实现；其二，Node.js 诞生于 2009 年，相比于 2002 就发第一版的 Spring 差的很远；其三，Node.js 实际上就是 JavaScript，这门语言本身也有很多缺陷，以至于无法胜任大型应用的架构场景。&lt;/p&gt;
+
+&lt;p&gt;虽然有这些问题但是我始终认为 Nest 是个很好的开端，或者说对于所谓的「全栈」工程师来讲是个好事。因为我认为在大型项目中构架层面的复用比代码层面的复用更重要。&lt;/p&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;安装 Nest 最方便的方法就是使用它额外提供的一个 CLI 工具（需要安装 Node.js &amp;gt; 8.9 版本），使用下面的命令它可以帮你自己生成项目的目录结构和预定义的最小模块：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm i -g @nestjs/cli
+nest new project-name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行后命令行可以看见它自动生成的文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;➜  github.com nest new project-name
+⚡  We will scaffold your app in a few seconds..
+
+CREATE /project-name/.prettierrc (51 bytes)
+CREATE /project-name/README.md (3370 bytes)
+CREATE /project-name/nest-cli.json (84 bytes)
+CREATE /project-name/nodemon-debug.json (163 bytes)
+CREATE /project-name/nodemon.json (67 bytes)
+CREATE /project-name/package.json (1808 bytes)
+CREATE /project-name/tsconfig.build.json (97 bytes)
+CREATE /project-name/tsconfig.json (325 bytes)
+CREATE /project-name/tslint.json (426 bytes)
+CREATE /project-name/src/app.controller.spec.ts (617 bytes)
+CREATE /project-name/src/app.controller.ts (274 bytes)
+CREATE /project-name/src/app.module.ts (249 bytes)
+CREATE /project-name/src/app.service.ts (142 bytes)
+CREATE /project-name/src/main.ts (208 bytes)
+CREATE /project-name/test/app.e2e-spec.ts (561 bytes)
+CREATE /project-name/test/jest-e2e.json (183 bytes)
+
+? Which package manager would you ❤️  to use? yarn
+▹▸▹▹▹ Installation in progress... ☕
+🚀  Successfully created project project-name
+👉  Get started with the following commands:
+
+$ cd project-name
+$ yarn run start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这时可以按提示，进入到 &lt;code&gt;project-name&lt;/code&gt; 运行项目。如果看到下面的输出就表示成功了：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;➜  github.com cd project-name
+➜  project-name git:(master) ✗ yarn run start
+yarn run v1.10.1
+$ ts-node -r tsconfig-paths/register src/main.ts
+[Nest] 26470   - 2019/06/30 下午8:58   [NestFactory] Starting Nest application...
+[Nest] 26470   - 2019/06/30 下午8:58   [InstanceLoader] AppModule dependencies initialized +11ms
+[Nest] 26470   - 2019/06/30 下午8:58   [RoutesResolver] AppController {/}: +5ms
+[Nest] 26470   - 2019/06/30 下午8:58   [RouterExplorer] Mapped {/, GET} route +3ms
+[Nest] 26470   - 2019/06/30 下午8:58   [NestApplication] Nest application successfully started +3ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后我们访问 &lt;code&gt;http://localhost:3000&lt;/code&gt; 就可以看到 &lt;code&gt;Hello World!&lt;/code&gt; 了。用编辑器打开目录结构如下图所示&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d18b3033825c45837.png&#34; alt=&#34;nestjs init&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;自动生成的配置文件还是挺多的，我们现在暂不用关注这些，只需要知道大概是做什么的就行了。&lt;/p&gt;
+
+&lt;p&gt;从上面的命令行中可以看出来整个项目是用 ts-node 跑起来的，这样的目的就是在开发环境节去了编译 .ts 的过程（实际上是 ts-node 在背后做了这个事情）。我们只需要关注 &lt;code&gt;src/main.ts&lt;/code&gt; 这个入口文件即可。&lt;/p&gt;
+
+&lt;p&gt;整个 main.ts 文件就 8 行代码，使用 Nest 的工厂函数创建了一个应用实例，并且监听 3000 端口。注意，Nest 默认会使用 ES 的 async/await 语法，所以你再也不用怕嵌套回调函数了，以同步的编码方式获取异步的效率。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:Object-Oriented&#34;&gt;Object Oriented Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Object-Oriented&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Functional-Progr&#34;&gt;Functional Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-Progr&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Functional-React&#34;&gt;Functional Reactive Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-React&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:-&#34;&gt;一种术语，表示通用语言 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:-&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

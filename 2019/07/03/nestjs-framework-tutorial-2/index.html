@@ -1,0 +1,262 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Nestjs 框架教程（第二篇：入门）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-2/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Nestjs 框架教程（第二篇：入门）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-07-03 18:32:57">
+                            <span class="date">2019-7-3</span>
+                            <span class="time">18:32 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p>这篇教程起，你将会学习到 Nest 的几个核心点。为了更好的了解 Nest 应用中的模块，我们将开发一个有基本 CRUD<sup class="footnote-ref" id="fnref:Create-Read-Upda"><a href="#fn:Create-Read-Upda">1</a></sup> 功能的入门级应用。</p>
+
+<h2 id="实现语言">实现语言</h2>
+
+<p>Nest 是 TypeScript 写的，所以天生就很好的并且渐进地支持 JavaScript。</p>
+
+<h2 id="依赖">依赖</h2>
+
+<p>保证你的操作系统上安装的 Node.js 版本大于 8.9.0 即可。</p>
+
+<h2 id="初始化">初始化</h2>
+
+<p>就像上节讲到的直接用 nest new project-name 就可以了。我们来回顾下目录结构：</p>
+
+<pre><code>src
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+└── main.ts
+</code></pre>
+
+<p>分别对应的功能如下表：</p>
+
+<p>| app.controller.ts | 只有一个路由的控制器（controller）示例 |
+| app.module.ts | 应用程序的根模块（root module） |
+| main.ts | 应用程序的入口文件，使用 <code>NestFactory</code> 方法创建应用实例 |
+在 main.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。</p>
+
+<h2 id="平台">平台</h2>
+
+<p>Nest 的目标是一个平台无关的框架。这个意思就是说 Nest 本身并不造某个细分领域的轮子，他只构建一套构架体系，然后把一些好用的库或者平台融合进来。所以 Nest 可以衔接任何 HTTP 框架，默认支持 express 和 fastify 两个 web 框架。</p>
+
+<p>| <code>platform-express</code> | <strong><a href="https://expressjs.com/">Express</a></strong> 是一个 Node web 框架，有很多社区成熟的资源。@nestjs/platform-express 默认会被引入，大家都很熟悉了，用起来会容易上手 |
+| <code>platform-fastify</code> | <strong><a href="https://www.fastify.io/">Fastify</a></strong> 是一个高能低耗的框架，致力于最大化效率与速度 |
+无论使用哪个平台，都要暴露自己的应用接口。上面两个平台暴露了对应的两个变量 <code>NestExpressApplication</code> and <code>NestFastifyApplication</code>。</p>
+
+<p>如下的代码会创建一个 app 对象，并且指定了使用 NestExpressApplication 平台：</p>
+
+<pre><code>const app = await NestFactory.create&lt;NestExpressApplication&gt;(ApplicationModule);
+</code></pre>
+
+<p>不过一般情况下不需要指定这个类型。</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:Create-Read-Upda">Create, Read, Update, Delete 通常对应于数据的增删改查功能 <a class="footnote-return" href="#fnref:Create-Read-Upda"><sup>[return]</sup></a></li>
+</ol>
+</div>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-1/" title="Previous Post: Nestjs 框架教程（第一篇：简介）">Nestjs 框架教程（第一篇：简介）</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-3/" title="Nextious Post: Nestjs 框架教程（第三篇：控制器）">Nestjs 框架教程（第三篇：控制器）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#实现语言">实现语言</a></li>
+<li><a href="#依赖">依赖</a></li>
+<li><a href="#初始化">初始化</a></li>
+<li><a href="#平台">平台</a></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

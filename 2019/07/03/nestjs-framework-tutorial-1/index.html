@@ -88,35 +88,35 @@
 
 <p><img src="https://i.loli.net/2019/06/30/5d185dfb87f5e21948.png" alt="Nestjs" /></p>
 
-<h2 id="教程目录">教程目录</h2>
+<h2 id="教程目录">++教程目录++</h2>
 
 <blockquote>
 <p>请注意：本教程结合官方文档内容并添加了许多我自己学习过种中的理解，存在许多个人观点</p>
 </blockquote>
 
 <ol>
-<li>Nestjs 框架教程（第一篇：<a href="nestjs-framework-tutorial-1">简介</a>）</li>
-<li>Nestjs 框架教程（第二篇：入门）</li>
-<li>Nestjs 框架教程（第三篇：控制器）</li>
-<li>Nestjs 框架教程（第四篇：Providers）</li>
-<li>Nestjs 框架教程（第五篇：模块）</li>
-<li>Nestjs 框架教程（第三篇：中间件）</li>
-<li>Nestjs 框架教程（第三篇：异常过滤器）</li>
-<li>Nestjs 框架教程（第三篇：管道）</li>
-<li>Nestjs 框架教程（第三篇：守卫）</li>
-<li>Nestjs 框架教程（第三篇：拦截器）</li>
-<li>Nestjs 框架教程（第三篇：自定义装饰器）</li>
+<li>Nestjs 框架教程（第一篇：<a href="https://wtdf.io/nestjs-framework-tutorial-1-6-30">简介</a>）</li>
+<li>Nestjs 框架教程（第二篇：<a href="https://wtdf.io/nestjs-framework-tutorial-2-6-30">入门</a>）</li>
+<li>Nestjs 框架教程（第三篇：<a href="https://wtdf.io/nestjs-framework-tutorial-3-6-30">控制器</a>）</li>
+<li>Nestjs 框架教程（第四篇：<a href="https://wtdf.io/nestjs-framework-tutorial-4-6-30">Providers</a>）</li>
+<li>Nestjs 框架教程（第五篇：<a href="https://wtdf.io/nestjs-framework-tutorial-5-6-30">模块</a>）</li>
+<li>Nestjs 框架教程（第六篇：<a href="https://wtdf.io/nestjs-framework-tutorial-6-6-30">中间件</a>）</li>
+<li>Nestjs 框架教程（第七篇：<a href="https://wtdf.io/nestjs-framework-tutorial-7-6-30">异常过滤器</a>）</li>
+<li>Nestjs 框架教程（第八篇：<a href="https://wtdf.io/nestjs-framework-tutorial-8-6-30">管道</a>）</li>
+<li>Nestjs 框架教程（第九篇：<a href="https://wtdf.io/nestjs-framework-tutorial-9-6-30">守卫</a>）</li>
+<li>Nestjs 框架教程（第十篇：<a href="https://wtdf.io/nestjs-framework-tutorial-10-6-30">拦截器</a>）</li>
+<li>Nestjs 框架教程（第十一篇：自定义装饰器）</li>
 </ol>
 
 <hr />
 
-<p>Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP<sup class="footnote-ref" id="fnref:Object-Oriented"><a href="#fn:Object-Oriented">1</a></sup>、FP<sup class="footnote-ref" id="fnref:Functional-Progr"><a href="#fn:Functional-Progr">2</a></sup>、FRP<sup class="footnote-ref" id="fnref:Functional-React"><a href="#fn:Functional-React">3</a></sup> 的相关理念。并且设计上很多灵感来自于 Angular。</p>
+<p>Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP<sup class="footnote-ref" id="fnref:Object-Oriented"><a href="#fn:Object-Oriented">1</a></sup>、FP<sup class="footnote-ref" id="fnref:Functional-Progr"><a href="#fn:Functional-Progr">2</a></sup>、FRP<sup class="footnote-ref" id="fnref:Functional-React"><a href="#fn:Functional-React">3</a></sup> 的相关理念。并且设计上很多灵感来自于 Angular<sup class="footnote-ref" id="fnref:Angular-is-a-pla"><a href="#fn:Angular-is-a-pla">4</a></sup>。</p>
 
 <p>Angular 的很多模式又来自于 Java 中的 Spring 框架，依赖注入、面向切面编程等，所以你可以认为： <strong>Nest 是 Node.js 版的 Spring 框架</strong>。</p>
 
 <p>或许很多前端工程师看到这里就自动劝退了，事实上我以前也挺讨厌 Java 的（现在也不怎么喜欢），后来由于工作原因学习到了一些 Java 相关的知识后才发现自己的认识很片面。现在 WEB 后端主流的技术栈都基于 Spring 框架，框架必然是解决了很多实际问题，能学习到它的思想比它自己的出身、派系更重要。同时建议那些没有学习或者接触过 Java 的前端可以了解一些相关概念，不要拒绝，因为这可能会为你打开另一扇门。</p>
 
-<p>可能在很多伪 FP 爱好者来看 OOP 是臃肿无用的东西。但是从使用角度讲：<strong>FP 小而美，OOP 大而全</strong>，如果不关注场景去讨论好坏没有任何意义。而且事实上这两者完全是不冲突的，可以结合得非常完美。不要被那些所谓的<strong>纯</strong>函数、<strong>纯</strong>页面对象的概念误导，能写出真正的好代码才是重要的。</p>
+<p>可能在很多伪 FP 爱好者来看 OOP 是臃肿无用的东西。但是从使用角度讲：<strong>FP 小而美，OOP 大而全</strong>，如果不关注场景去讨论好坏没有任何意义。而且事实上这两者完全是不冲突的，可以结合得非常完美。不要被那些所谓的<strong>纯</strong>函数、<strong>纯</strong>面向对象的概念误导，能写出真正的好代码才是重要的。</p>
 
 <p>如果你以前在使用 Node.js 开发后端应用时常常不知道如何规划代码关系，搞不清楚控制器、服务、模型和数据的关系，或者是你打算使用 Node.js 构建大型应用，那就建议你了解一下 Nest。</p>
 
@@ -125,7 +125,7 @@
 <p>在开始体验前，有必要简单介绍下 Nest 框架的的设计理念，我结合我自己的理解大概梳理下。</p>
 
 <blockquote>
-<p>近几年由于 Node.js 的出现，JavaScript 成为了前端和后端的「lingua franca<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">4</a></sup>」，前端方面出现了 Angular, React, Vue 等众多的 UI 框架，后端方面也有像 Express, Koa 这样优秀的框架出现，但这些框架都没有高效地解决一个核心问题 — <strong>架构</strong></p>
+<p>近几年由于 Node.js 的出现，JavaScript 成为了前端和后端的「lingua franca<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">5</a></sup>」，前端方面出现了 Angular, React, Vue 等众多的 UI 框架，后端方面也有像 Express, Koa 这样优秀的框架出现，但这些框架都没有高效地解决一个核心问题 — <strong>架构</strong></p>
 </blockquote>
 
 <p>官方的这段介绍和我看到的非常一致，注意作者说是<strong>高效地</strong>解决，我的理解是现在 Node.js 或者说 JavaScript 框架都是各做各的，都是些点，可能确实有做的很不错的，但是整体而言并没有一个把各种好东西串链起来做成一种通用模式的框架，或者说是架构。</p>
@@ -188,7 +188,7 @@ $ ts-node -r tsconfig-paths/register src/main.ts
 
 <p>然后我们访问 <code>http://localhost:3000</code> 就可以看到 <code>Hello World!</code> 了。用编辑器打开目录结构如下图所示</p>
 
-<p><img src="https://i.loli.net/2019/06/30/5d18b3033825c45837.png" alt="nestjs init" /></p>
+<p><img src="https://i.loli.net/2019/06/30/5d18b3033825c45837.png" alt="" /></p>
 
 <p>自动生成的配置文件还是挺多的，我们现在暂不用关注这些，只需要知道大概是做什么的就行了。</p>
 
@@ -200,9 +200,10 @@ $ ts-node -r tsconfig-paths/register src/main.ts
 <hr />
 
 <ol>
-<li id="fn:Object-Oriented">Object Oriented Programming <a class="footnote-return" href="#fnref:Object-Oriented"><sup>[return]</sup></a></li>
-<li id="fn:Functional-Progr">Functional Programming <a class="footnote-return" href="#fnref:Functional-Progr"><sup>[return]</sup></a></li>
-<li id="fn:Functional-React">Functional Reactive Programming <a class="footnote-return" href="#fnref:Functional-React"><sup>[return]</sup></a></li>
+<li id="fn:Object-Oriented">Object Oriented Programming — 面向对象的编程 <a class="footnote-return" href="#fnref:Object-Oriented"><sup>[return]</sup></a></li>
+<li id="fn:Functional-Progr">Functional Programming — 函数式的编程 <a class="footnote-return" href="#fnref:Functional-Progr"><sup>[return]</sup></a></li>
+<li id="fn:Functional-React">Functional Reactive Programming — 函数式响应工式编程 <a class="footnote-return" href="#fnref:Functional-React"><sup>[return]</sup></a></li>
+<li id="fn:Angular-is-a-pla">Angular is a platform for building mobile and desktop web applications. <a class="footnote-return" href="#fnref:Angular-is-a-pla"><sup>[return]</sup></a></li>
 <li id="fn:-">一种术语，表示通用语言 <a class="footnote-return" href="#fnref:-"><sup>[return]</sup></a></li>
 </ol>
 </div>
@@ -261,7 +262,7 @@ $ ts-node -r tsconfig-paths/register src/main.ts
     <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#教程目录">教程目录</a>
+<li><a href="#教程目录">++教程目录++</a>
 <ul>
 <li><a href="#框架的哲学">框架的哲学</a></li>
 </ul></li>

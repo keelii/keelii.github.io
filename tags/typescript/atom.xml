@@ -335,35 +335,35 @@ findOne(@Param(&#39;id&#39;) id): string {
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d185dfb87f5e21948.png&#34; alt=&#34;Nestjs&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;教程目录&#34;&gt;教程目录&lt;/h2&gt;
+&lt;h2 id=&#34;教程目录&#34;&gt;++教程目录++&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;请注意：本教程结合官方文档内容并添加了许多我自己学习过种中的理解，存在许多个人观点&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Nestjs 框架教程（第一篇：&lt;a href=&#34;nestjs-framework-tutorial-1&#34;&gt;简介&lt;/a&gt;）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第二篇：入门）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：控制器）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第四篇：Providers）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第五篇：模块）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：中间件）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：异常过滤器）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：管道）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：守卫）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：拦截器）&lt;/li&gt;
-&lt;li&gt;Nestjs 框架教程（第三篇：自定义装饰器）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第一篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-1-6-30&#34;&gt;简介&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第二篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-2-6-30&#34;&gt;入门&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第三篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-3-6-30&#34;&gt;控制器&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第四篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-4-6-30&#34;&gt;Providers&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第五篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-5-6-30&#34;&gt;模块&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第六篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-6-6-30&#34;&gt;中间件&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第七篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-7-6-30&#34;&gt;异常过滤器&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第八篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-8-6-30&#34;&gt;管道&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第九篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-9-6-30&#34;&gt;守卫&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第十篇：&lt;a href=&#34;https://wtdf.io/nestjs-framework-tutorial-10-6-30&#34;&gt;拦截器&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;Nestjs 框架教程（第十一篇：自定义装饰器）&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Object-Oriented&#34;&gt;&lt;a href=&#34;#fn:Object-Oriented&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;、FP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-Progr&#34;&gt;&lt;a href=&#34;#fn:Functional-Progr&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;、FRP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-React&#34;&gt;&lt;a href=&#34;#fn:Functional-React&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; 的相关理念。并且设计上很多灵感来自于 Angular。&lt;/p&gt;
+&lt;p&gt;Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Object-Oriented&#34;&gt;&lt;a href=&#34;#fn:Object-Oriented&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;、FP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-Progr&#34;&gt;&lt;a href=&#34;#fn:Functional-Progr&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;、FRP&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Functional-React&#34;&gt;&lt;a href=&#34;#fn:Functional-React&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; 的相关理念。并且设计上很多灵感来自于 Angular&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:Angular-is-a-pla&#34;&gt;&lt;a href=&#34;#fn:Angular-is-a-pla&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
 
 &lt;p&gt;Angular 的很多模式又来自于 Java 中的 Spring 框架，依赖注入、面向切面编程等，所以你可以认为： &lt;strong&gt;Nest 是 Node.js 版的 Spring 框架&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;p&gt;或许很多前端工程师看到这里就自动劝退了，事实上我以前也挺讨厌 Java 的（现在也不怎么喜欢），后来由于工作原因学习到了一些 Java 相关的知识后才发现自己的认识很片面。现在 WEB 后端主流的技术栈都基于 Spring 框架，框架必然是解决了很多实际问题，能学习到它的思想比它自己的出身、派系更重要。同时建议那些没有学习或者接触过 Java 的前端可以了解一些相关概念，不要拒绝，因为这可能会为你打开另一扇门。&lt;/p&gt;
 
-&lt;p&gt;可能在很多伪 FP 爱好者来看 OOP 是臃肿无用的东西。但是从使用角度讲：&lt;strong&gt;FP 小而美，OOP 大而全&lt;/strong&gt;，如果不关注场景去讨论好坏没有任何意义。而且事实上这两者完全是不冲突的，可以结合得非常完美。不要被那些所谓的&lt;strong&gt;纯&lt;/strong&gt;函数、&lt;strong&gt;纯&lt;/strong&gt;页面对象的概念误导，能写出真正的好代码才是重要的。&lt;/p&gt;
+&lt;p&gt;可能在很多伪 FP 爱好者来看 OOP 是臃肿无用的东西。但是从使用角度讲：&lt;strong&gt;FP 小而美，OOP 大而全&lt;/strong&gt;，如果不关注场景去讨论好坏没有任何意义。而且事实上这两者完全是不冲突的，可以结合得非常完美。不要被那些所谓的&lt;strong&gt;纯&lt;/strong&gt;函数、&lt;strong&gt;纯&lt;/strong&gt;面向对象的概念误导，能写出真正的好代码才是重要的。&lt;/p&gt;
 
 &lt;p&gt;如果你以前在使用 Node.js 开发后端应用时常常不知道如何规划代码关系，搞不清楚控制器、服务、模型和数据的关系，或者是你打算使用 Node.js 构建大型应用，那就建议你了解一下 Nest。&lt;/p&gt;
 
@@ -372,7 +372,7 @@ findOne(@Param(&#39;id&#39;) id): string {
 &lt;p&gt;在开始体验前，有必要简单介绍下 Nest 框架的的设计理念，我结合我自己的理解大概梳理下。&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;近几年由于 Node.js 的出现，JavaScript 成为了前端和后端的「lingua franca&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:-&#34;&gt;&lt;a href=&#34;#fn:-&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;」，前端方面出现了 Angular, React, Vue 等众多的 UI 框架，后端方面也有像 Express, Koa 这样优秀的框架出现，但这些框架都没有高效地解决一个核心问题 — &lt;strong&gt;架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;近几年由于 Node.js 的出现，JavaScript 成为了前端和后端的「lingua franca&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:-&#34;&gt;&lt;a href=&#34;#fn:-&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;」，前端方面出现了 Angular, React, Vue 等众多的 UI 框架，后端方面也有像 Express, Koa 这样优秀的框架出现，但这些框架都没有高效地解决一个核心问题 — &lt;strong&gt;架构&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;官方的这段介绍和我看到的非常一致，注意作者说是&lt;strong&gt;高效地&lt;/strong&gt;解决，我的理解是现在 Node.js 或者说 JavaScript 框架都是各做各的，都是些点，可能确实有做的很不错的，但是整体而言并没有一个把各种好东西串链起来做成一种通用模式的框架，或者说是架构。&lt;/p&gt;
@@ -435,7 +435,7 @@ $ ts-node -r tsconfig-paths/register src/main.ts
 
 &lt;p&gt;然后我们访问 &lt;code&gt;http://localhost:3000&lt;/code&gt; 就可以看到 &lt;code&gt;Hello World!&lt;/code&gt; 了。用编辑器打开目录结构如下图所示&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d18b3033825c45837.png&#34; alt=&#34;nestjs init&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/06/30/5d18b3033825c45837.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;自动生成的配置文件还是挺多的，我们现在暂不用关注这些，只需要知道大概是做什么的就行了。&lt;/p&gt;
 
@@ -447,9 +447,10 @@ $ ts-node -r tsconfig-paths/register src/main.ts
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:Object-Oriented&#34;&gt;Object Oriented Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Object-Oriented&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:Functional-Progr&#34;&gt;Functional Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-Progr&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:Functional-React&#34;&gt;Functional Reactive Programming &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-React&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Object-Oriented&#34;&gt;Object Oriented Programming — 面向对象的编程 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Object-Oriented&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Functional-Progr&#34;&gt;Functional Programming — 函数式的编程 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-Progr&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Functional-React&#34;&gt;Functional Reactive Programming — 函数式响应工式编程 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Functional-React&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:Angular-is-a-pla&#34;&gt;Angular is a platform for building mobile and desktop web applications. &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:Angular-is-a-pla&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li id=&#34;fn:-&#34;&gt;一种术语，表示通用语言 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:-&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;

@@ -769,12 +769,41 @@ closing connection 2
 
 &lt;p&gt;看起来就像这样：&lt;/p&gt;
 
-&lt;p&gt;步骤 | 端     | 动作/消息内容
-:-   | :-     | :-
-1    | 客户端 | 发送带有请求内容的消息
-2    | 服务端 | 接收并处理请求消息
-3    | 服务端 | 发送有响应内容的消息
-4    | 客户端 | 接收并处理响应消息&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;步骤&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;端&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;动作/消息内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;客户端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;发送带有请求内容的消息&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;2&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;服务端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;接收并处理请求消息&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;服务端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;发送有响应内容的消息&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;客户端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;接收并处理响应消息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;下面是代码的结构：&lt;/p&gt;
 
@@ -881,11 +910,35 @@ sel.register(conn, selectors.EVENT_READ, data=message)
 
 &lt;p&gt;当一个方法开始处理消息时，首页要检查的就是接受缓冲区保存了足够的多读取的数据，如果确定，它们将继续处理各自的数据，然后把数据存到其它流程可能会用到的变量上，并且清空自己的缓冲区。由于一个消息有三个组件，所以会有三个状态检查和处理方法的调用：&lt;/p&gt;
 
-&lt;p&gt;Message Component   | Method                | Output
-&amp;ndash;                  | &amp;ndash;                    | &amp;ndash;
-Fixed-length header | process_protoheader() | self._jsonheader_len
-JSON header         | process_jsonheader()  | self.jsonheader
-Content             | process_request()     | self.request&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Message Component&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Method&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Fixed-length header&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;process_protoheader()&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;self._jsonheader_len&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;JSON header&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;process_jsonheader()&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;self.jsonheader&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Content&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;process_request()&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;self.request&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;接下来，让我们一起看看 &lt;code&gt;write()&lt;/code&gt; 方法，这是服务端的版本：&lt;/p&gt;
 
@@ -1312,16 +1365,65 @@ round-trip min/avg/max/stddev = 0.058/0.129/0.165/0.050 ms
 
 &lt;p&gt;ICMP 消息通过类型和代号来定义。下面有一些重要的信息可以参考：&lt;/p&gt;
 
-&lt;p&gt;ICMP 类型 | ICMP 代码 | 说明
-&amp;ndash;        | &amp;ndash;        | &amp;ndash;
-8         | 0         | 打印请求
-0         | 0         | 打印回复
-3         | 0         | 目标网络不可达
-3         | 1         | 目标主机不可达
-3         | 2         | 目标协议不可达
-3         | 3         | 目标端口不可达
-3         | 4         | 需要分片，但是 DF(Don&amp;rsquo;t fragmentation) 标识已被设置
-11        | 0         | 网络存在环路&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;ICMP 类型&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;ICMP 代码&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;8&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;打印请求&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;打印回复&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;目标网络不可达&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;目标主机不可达&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;2&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;目标协议不可达&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;目标端口不可达&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;需要分片，但是 DF(Don&amp;rsquo;t fragmentation) 标识已被设置&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;11&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;网络存在环路&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;查看 &lt;a href=&#34;https://en.wikipedia.org/wiki/Path_MTU_Discovery#Problems_with_PMTUD&#34;&gt;Path MTU Discovery&lt;/a&gt; 更多关于分片和 ICMP 消息的内容，里面遇到的问题就是我前面提及的一些奇怪行为&lt;/p&gt;
 
@@ -1438,12 +1540,47 @@ Python 3.3 开始，与 socket 或地址语义相关的错误会引发 OSError �
 常 &lt;a href=&#34;https://docs.python.org/3/library/socket.html&#34;&gt;引用&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;异常                   | &lt;code&gt;errno&lt;/code&gt; 常量 | 说明
-BlockingIOError        | EWOULDBLOCK  | 资源暂不可用，比如在非阻塞模式下调用 &lt;code&gt;send()&lt;/code&gt; 方法，对方太繁忙面没有读取，发送队列满了，或者网络有问题
-OSError                | EADDRINUSE   | 端口被战用，确保没有其它的进程与当前的程序运行在同一地址/端口上，你的服务器设置了 &lt;code&gt;SO_REUSEADDR&lt;/code&gt; 参数
-ConnectionResetError   | ECONNRESET   | 连接被重置，远端的进程崩溃，或者 socket 意外关闭，或是有防火墙或链路上的设配有问题
-TimeoutError           | ETIMEDOUT    | 操作超时，对方没有响应
-ConnectionRefusedError | ECONNREFUSED | 连接被拒绝，没有程序监听指定的端口&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;异常&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;&lt;code&gt;errno&lt;/code&gt; 常量&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;BlockingIOError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;EWOULDBLOCK&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;资源暂不可用，比如在非阻塞模式下调用 &lt;code&gt;send()&lt;/code&gt; 方法，对方太繁忙面没有读取，发送队列满了，或者网络有问题&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;OSError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;EADDRINUSE&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;端口被战用，确保没有其它的进程与当前的程序运行在同一地址/端口上，你的服务器设置了 &lt;code&gt;SO_REUSEADDR&lt;/code&gt; 参数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ConnectionResetError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;ECONNRESET&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;连接被重置，远端的进程崩溃，或者 socket 意外关闭，或是有防火墙或链路上的设配有问题&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;TimeoutError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;ETIMEDOUT&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;操作超时，对方没有响应&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ConnectionRefusedError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;ECONNREFUSED&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;连接被拒绝，没有程序监听指定的端口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h3 id=&#34;socket-地址族&#34;&gt;socket 地址族&lt;/h3&gt;
 
@@ -1451,10 +1588,32 @@ ConnectionRefusedError | ECONNREFUSED | 连接被拒绝，没有程序监听指�
 ，表示地址协议族，API 使用了一个期望传入指定格式参数的地址，这取决于是
 &lt;code&gt;AF_INET&lt;/code&gt; 还是 &lt;code&gt;AF_INET6&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;地址族         | 协议 | 地址元组                        | 说明
-&amp;ndash;              | &amp;ndash;   | &amp;ndash;                              | &amp;ndash;
-socket.AF_INET  | IPv4 | (host, port)                    | host 参数是个如 &lt;code&gt;www.example.com&lt;/code&gt; 的主机名称，或者如 &lt;code&gt;10.1.2.3&lt;/code&gt; 的 IPv4 地址
-socket.AF_INET6 | IPv6 | (host, port, flowinfo, scopeid) | 主机名同上，IPv6 地址 如：&lt;code&gt;fe80::6203:7ab:fe88:9c23&lt;/code&gt;，flowinfo 和 scopeid 分别表示 C 语言结构体 &lt;code&gt;sockaddr_in6&lt;/code&gt; 中的 &lt;code&gt;sin6_flowinfo&lt;/code&gt; 和 &lt;code&gt;sin6_scope_id&lt;/code&gt; 成员&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;地址族&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;协议&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;地址元组&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.AF_INET&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;IPv4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;(host, port)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;host 参数是个如 &lt;code&gt;www.example.com&lt;/code&gt; 的主机名称，或者如 &lt;code&gt;10.1.2.3&lt;/code&gt; 的 IPv4 地址&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.AF_INET6&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;IPv6&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;(host, port, flowinfo, scopeid)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;主机名同上，IPv6 地址 如：&lt;code&gt;fe80::6203:7ab:fe88:9c23&lt;/code&gt;，flowinfo 和 scopeid 分别表示 C 语言结构体 &lt;code&gt;sockaddr_in6&lt;/code&gt; 中的 &lt;code&gt;sin6_flowinfo&lt;/code&gt; 和 &lt;code&gt;sin6_scope_id&lt;/code&gt; 成员&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;注意下面这段 python socket 模块中关于 host 值和地址元组文档&lt;/p&gt;
 
@@ -1516,12 +1675,41 @@ IPv4/v6 地址不同的其它地址，这取决于 DNS 解析和你的 host 文�
 
 &lt;p&gt;考虑到接口、IP 地址、域名解析这些「变量」，你应该怎么应对？如果你还没有网络应用程序审查流程，可以使用以下建议：&lt;/p&gt;
 
-&lt;p&gt;应用程序 | 使用       | 建议
-&amp;ndash;       | &amp;ndash;         | &amp;ndash;
-服务端   | 回环地址   | 使用 IP 地址 127.0.0.1 或 ::1
-服务端   | 以太网地址 | 使用 IP 地址，比如：10.1.2.3，使用空字符串表示本机所有 IP 地址
-客户端   | 回环地址   | 使用 IP 地址 127.0.0.1 或 ::1
-客户端   | 以太网地址 | 使用统一的不依赖域名解析的 IP 地址，特殊情况下才会使用主机地址，查看上面的安全提示&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;应用程序&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;使用&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;建议&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;服务端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;回环地址&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;使用 IP 地址 127.0.0.1 或 ::1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;服务端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;以太网地址&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;使用 IP 地址，比如：10.1.2.3，使用空字符串表示本机所有 IP 地址&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;客户端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;回环地址&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;使用 IP 地址 127.0.0.1 或 ::1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;客户端&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;以太网地址&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;使用统一的不依赖域名解析的 IP 地址，特殊情况下才会使用主机地址，查看上面的安全提示&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;对于客户端或者服务端来说，如果你需要授权连接到主机，请查看如何使用 TLS&lt;/p&gt;
 
@@ -1563,12 +1751,36 @@ UTF-8 和其它编码方式&lt;/p&gt;
 
 &lt;p&gt;TCP/IP 使用的字节顺序是 &lt;a href=&#34;https://en.wikipedia.org/wiki/Endianness#Big&#34;&gt;big-endian&lt;/a&gt;，被称做网络序。网络序被用来表示底层协议栈中的整型数字，好比 IP 地址和端口号，python 的 socket 模块有几个函数可以把这种整型数字从网络字节序转换成主机字节序&lt;/p&gt;
 
-&lt;p&gt;函数            | 说明
-&amp;ndash;              | &amp;ndash;
-socket.ntohl(x) | 把 32 位的正整型数字从网络字节序转换成主机字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 4 字节的交换操作
-socket.ntohs(x) | 把 16 位的正整型数字从网络字节序转换成主机字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 2 字节的交换操作
-socket.htonl(x) | 把 32 位的正整型数字从主机字节序转换成网络字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 4 字节的交换操作
-socket.htons(x) | 把 16 位的正整型数字从主机字节序转换成网络字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 2 字节的交换操作&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;函数&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.ntohl(x)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;把 32 位的正整型数字从网络字节序转换成主机字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 4 字节的交换操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.ntohs(x)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;把 16 位的正整型数字从网络字节序转换成主机字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 2 字节的交换操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.htonl(x)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;把 32 位的正整型数字从主机字节序转换成网络字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 4 字节的交换操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;socket.htons(x)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;把 16 位的正整型数字从主机字节序转换成网络字节序，在网络字节序和主机字节序相同的机器上这是个空操作，否则将是一个 2 字节的交换操作&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;你也可以使用 &lt;a href=&#34;https://docs.python.org/3/library/struct.html&#34;&gt;struct&lt;/a&gt; 模块打包或者解包二进制数据（使用格式化字符串）：&lt;/p&gt;
 

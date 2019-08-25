@@ -1,0 +1,311 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>漫谈哲学与编程</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/08/25/philosophy-and-programming/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">漫谈哲学与编程</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-08-25 18:33:57">
+                            <span class="date">2019-8-25</span>
+                            <span class="time">18:33 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p><img src="https://i.v2ex.co/nfs1f0Yn.jpeg" alt="philosophy and programming" /></p>
+
+<p>谈到哲学，多数人都会直觉性的认为它是很高深的一门学问。实际上大多数情况并非如此，哲学研究的往往是非常简单的一些命题，而这些命题在常人看来可能并没有现实意义。</p>
+
+<p>比如说：到底是先有鸡还是先有蛋的问题；比如说：一个号称只给不能给自己理发的人理发的理发师到底能不能给自己理发的问题。当然本文的目的并不在于讨论这两个问题，我们来聊聊几个稍微简单一些的概念：</p>
+
+<h3 id="哲学中的理性与感性">哲学中的理性与感性</h3>
+
+<blockquote>
+<p>理性是超越的，本质在于追求无限</p>
+</blockquote>
+
+<p><strong>超越</strong>的意思是说理性本身不依赖任何现实或者经验社会中的任何对象，<strong>无限</strong>实际上就是说理性本身需要达到的某种理想状态。</p>
+
+<p>比方说：「<strong>100%的金」</strong> 就是一种无限状态。我们不使用任何经验就可以判断出 100% 的金是必然有的，概念上没人能否定这一点。</p>
+
+<p>但是运用在经验社会中的知识来判断，这个命题就是不正确的，或者说不具有*普遍*的正确性。因为我们知道无论人类的技术如何高超也无法制造出来 100% 的金。即使到 99.99% 逻辑上也没到达 100%。</p>
+
+<p>这个时候人们对于类似的事情就会产生了不同的反应。有的人会因为理想状态达不到而<strong>反向</strong>地认为原来的命题是错误的；有的人内心则有一种说不清道不明的东西指引着他，不会因为到达不到无限状态而肯定整个命题。</p>
+
+<p>这个问题也一直困扰了我很久，因为在现实生活中在你看来很多明显正确的事情忽出现了一个反例，结果就会有一堆人来告诉你你错了。</p>
+
+<p>德国哲学家康德在《<a href="https://zh.wikipedia.org/wiki/%E7%BA%AF%E7%B2%B9%E7%90%86%E6%80%A7%E6%89%B9%E5%88%A4">纯粹理性批判</a>》这本书中给出了一种解释：</p>
+
+<blockquote>
+<p>理性的调节性是引导经验去追求无限，追求绝对，但是永远也达不到。达不到也有作用 — 它使得经验科学不断的前进，并且有了明确的目的和方向…</p>
+</blockquote>
+
+<p>类似的哲学观点好就好在一但明白了其中的本质和它阐述的真理以后，它就可以在某种层次上解释经验世界的各种现象。这或许就是大家说的哲学是任何其它学科的奠基，是第一学科的原因。</p>
+
+<p>对应的在编程领域也有一些无限的概念，对于多数前端工程师来讲「实现一个无限级的下拉菜单」似乎也在表达着一种无限状态。当然用户在使用的时候根本不可能用到无限级的菜单，无限级的菜单在交互方面也也是极其反人类的，一步可以做到的事情没人愿意多增加一步。但是为什么程序员们热衷于实现这种类似的无限状态。实际上这就是理性的力量，总有一种说不清楚的力量在引导着你，你也没法解释。</p>
+
+<p>理解了这一点你就会有一个很简单的评判程序好坏的论点，即：程序或者代码是否表现了某种<strong>无限</strong>状态？如果你的程序函数里面只是几个简单的 if else，那你有没有考虑过如果当输入不断的增加或者变化时，原来的代码是否还可以正常返回。或者说在不考虑硬件等客观条件的前提下，你的程序是否存在极限状态。</p>
+
+<p>我们经常在知乎或者其它论坛上争论一些问题，本质上讲大家都没有区分清楚自己对于一个论点的<strong>逻辑认知</strong>和<strong>情感认知</strong>。太多人喜欢用自己的感情认知去否定逻辑事实，以至于争来争去谁也没能说服谁，试图用唯心观点去解释唯物的现象或者相反，这是极其不正确的。</p>
+
+<p>一个典型的问题是我不久之前在知乎上回答的一个问题：<a href="https://www.zhihu.com/question/309891718">谁能大致说下vue和react的最大区别之处</a>？我的回答简单总结就两句话：Vue 有一种设计层面追求的简洁感性之美，React 则是一种数学层面的逻辑一致之美。本质上讲没有什么好坏之分。但是诸如些类的一些前端框架问题正在变成一种帮派化的「站队」风气。</p>
+
+<h3 id="编程中的低阶-low-level-与高阶-hight-level">编程中的低阶（low-level）与高阶（hight-level）</h3>
+
+<p>注意这里讲的 low/hight level 并不是计算机术语中特定的某种形式。</p>
+
+<p>有个笑话是这么讲的：</p>
+
+<blockquote>
+<p>一个程序员去相亲，程序员自己介绍说「我是做嵌入式C语言底层开发的」，妹子反问「那啥时候做到高层开发呢」？</p>
+</blockquote>
+
+<p>程序员们内心都有一个做底层开发的梦，因为这才是一个真正的程序员的追求与理想。</p>
+
+<p>但是现实往往相反，大多数程序员每天都在写业务代码（重复的 CRUD）。所以很多程序员得出来一个结论就是：越底层的东西越重要，越高层的东西越肤浅。通常这也会行成一条鄙视链，他们会不由自主地忽略高层的东西。</p>
+
+<p>注意这里有两个问题：</p>
+
+<ol>
+<li>业务代码有没有价值？</li>
+</ol>
+
+<p>当然有了，业务部分的代码是系统的最终结果。从结果导向上讲底层代码如何优雅、实现如何科学我们根本不关心，我们更关心整个系统层面的稳定与健壮。这是一种领导的高层次视角。</p>
+
+<ol>
+<li>底层的东西就一定重要？</li>
+</ol>
+
+<p>并不一定，这里说的不一定不是要完全否定底层的重要性。恰恰相反，软件领域一些特别优秀或者说伟大的软件底层并不是那么的如人意。比方说微软开发的 VSCode 代码编辑器。要是从底层去讨论它的构架合理性那确实挺像一个笑话的。因为本质上讲 VSCode 基于 electron，它把编辑器放在了一个 webview 中去运行，但是 webview 是用来浏览网页的，而且 electron 居然把 NodeJS 运行时也整合进去，以至于最小的一个应用解压完也有上百兆。</p>
+
+<p>这感觉就像是上学的时候你很期待一个数学教授教你数学课，但是实际上你的数学课却是一个体育老师带的，这不是可不可以的问题对吧。</p>
+
+<p>然而 VSCode 这样做的结果是：它还真的成功了，而且编辑器的性能比很多原生软件做的都要好，以至于周围所有人都在使用它，VSCode 在 Github 上名列前茅，也改变了很多程序员对于微软的刻板印象。</p>
+
+<p>如果我们再回过头从哲学的角度去思考这个问题，实际上计算机中的<strong>底层</strong>与<strong>高层</strong>正好对应着哲学中的<strong>理性</strong>与<strong>感性</strong>。</p>
+
+<ul>
+<li>底层更注重逻辑严谨，因为这是构建高层建筑的基础，它面向的是理论</li>
+<li>高层更注重表现形式，因为高层的部分呈现出来的是一个完整的系统，它面向的对象是人。是人，那需求就是多样化的，因为人的想法总是特别的感性</li>
+</ul>
+
+<p>理性的认知是有对错可以批判的，但是感性的直观是没有对错的，因为即使是同一种声音、颜色对不同人观感都是不一样的。</p>
+
+<p>比如说你在火车上看书，对面的人说话声音太大吵到了你。你说：你们说话小声点可以吗？对方会说：车上这么多人说话为啥就我们吵到你了？你说：因为就你们声音最大。对方说：我咋没觉得？</p>
+
+<h3 id="现实中的主观与客观">现实中的主观与客观</h3>
+
+<p>现实生活中我们经常会遇到一些对于论点的评价：主观还是客观。但是很多人没搞清楚这两个词的关系。多数人都觉得客观的观点就是好的，主观的就是臆断的。</p>
+
+<p>主观和客观的关系就像是主人与客人的关系一样，有的人会认为应该主随客便，有的人则认为应该是客随主便。</p>
+
+<ul>
+<li>如果一个人表达的观点全是主观的，那我们会认为这些观点是不可以讨论与评判的，不经过讨论批判的观点是站不住脚的。</li>
+<li>如果一个人表达的观点全是客观的，那似乎也不对，因为这些观点全是别人的，你可能忽略了自己的意识，最终只能游走在别人的规则中。</li>
+</ul>
+
+<p>任何语言中都有那么一些词语是成对儿出现的，像因果、主客、高低，这些词在被造出来的时候就是成对出现的，缺一不可。没有前者，后者将不会单独存在。它们之间没有绝对性的对于错。如果有，那对方就没有了存在的意义，反过来自己也将不存在。</p>
+
+<p>当有人抛出一个观点的时候我的经验是一定要听清楚对方说的是「我觉得」还是「我认为」。「我觉得」那必然就是人家的主观感受，这种观点我们就没必要讨论了。你应该回复：「嗯，没错，确实是这样的。」。如果对方说「我认为」那你要是有不同的观点就完全可以和他讨论，因为说「我认为」的观点必然是有一些客观事实做为依据的，有事实有逻辑，那就可以有对错。</p>
+
+<h3 id="结语">结语</h3>
+
+<p>哲学中的知识并不能完全解释现实中的事物，因为哲学研究的终点是一些没有结论的东西：上帝、自由、灵魂不朽。这些东西并非常人能理解的，但是人们对于无限真理的追求驱使着大家去研究它，很多人会觉得既然研究不出来结果那是不是就没意义了，当然不是。事实恰恰相反，如果我们把所有的事物本质都研究清楚了，那我们的存在也将失去意义。</p>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|2" href="https://keelii.com/categories/programming">programming</a>,
+                            
+                            <a class="category 1|2" href="https://keelii.com/categories/philosophy">philosophy</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/13/a-real-programmer-fabrice-bellard/" title="Previous Post: 法布里斯·贝拉 — 一个真正的程序员">法布里斯·贝拉 — 一个真正的程序员</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#哲学中的理性与感性">哲学中的理性与感性</a></li>
+<li><a href="#编程中的低阶-low-level-与高阶-hight-level">编程中的低阶（low-level）与高阶（hight-level）</a></li>
+<li><a href="#现实中的主观与客观">现实中的主观与客观</a></li>
+<li><a href="#结语">结语</a></li>
+</ul></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

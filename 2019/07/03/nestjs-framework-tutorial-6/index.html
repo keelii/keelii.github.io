@@ -1,0 +1,313 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Nestjs 框架教程（第六篇：中间件）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-6/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Nestjs 框架教程（第六篇：中间件）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-07-03 18:36:57">
+                            <span class="date">2019-7-3</span>
+                            <span class="time">18:36 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p><strong>中间件</strong>就是一个函数，在路由处理器之前调用。这就表示中间件函数可以访问到请求和响应对象以及应用的请求响应周期中的 next() 中间间函数。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19e2f1938ef39341.png" alt="" /></p>
+
+<p>Nest 中间件实际上和 Express 的中间件是一样的，Express 文档中对中间件的描述如下：</p>
+
+<blockquote>
+<p>中间件函数主要做以下的事情：</p>
+
+<ul>
+<li><p>执行任意的代码</p></li>
+
+<li><p>对请求/响应做操作</p></li>
+
+<li><p>终结请求-响应周期</p></li>
+
+<li><p>调用下一个栈中的中间件函数</p></li>
+
+<li><p>如果当前的中间间函数没有终结请求响应周期，那么它必须调用 next() 方法将控制权传递给下一个中间件函数。否则请求将被挂起</p></li>
+</ul>
+</blockquote>
+
+<p>Nest 允许你使用函数或者类来实现自己的中间件。如果用类实现，则需要使用 <code>@Injectable()</code> 装饰，并且实现 <code>NestMiddleware</code> 接口。</p>
+
+<pre><code>import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response } from 'express';
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: Function) {
+    console.log('Request...');
+    next();
+  }
+}
+</code></pre>
+
+<h2 id="依赖注入">依赖注入</h2>
+
+<p>中间件也是支持依赖注入的，就像其它支持方式一样，你可以使用构造函数注入依赖。</p>
+
+<h2 id="应用中间件">应用中间件</h2>
+
+<p>@Module() 装饰器中并不能指定中间件参数，我们可以在模块类的构 configure() 方法中应用中间件，下面的代码会应用一个 ApplicationModule级别的日志中间件 LoggerMiddleware</p>
+
+<pre><code>@Module({
+  imports: [CatsModule],
+})
+export class ApplicationModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('cats');
+  }
+}
+</code></pre>
+
+<p>上面的代码 forRoutes 方法表示只将中间件应用在 cats 路由上，还可以是指定的 HTTP 方法，甚至是路由通配符：</p>
+
+<pre><code>.forRoutes({ path: 'cats', method: RequestMethod.GET });
+.forRoutes({ path: 'ab*cd', method: RequestMethod.ALL });
+</code></pre>
+
+<p>当然，你也可以指定不包括某些路由规则：</p>
+
+<pre><code>consumer
+  .apply(LoggerMiddleware)
+  .exclude(
+    { path: 'cats', method: RequestMethod.GET },
+    { path: 'cats', method: RequestMethod.POST }
+  )
+  .forRoutes(CatsController);
+</code></pre>
+
+<p>不过请注意 exclude 方法不能运用在函数式的中间件上，而且这里指定的 path 也不支持通配符，这只是个快捷方法，如果你真的需要某种路由级别的控制，那完全可以把逻辑写在一个单独的中间件中。</p>
+
+<h2 id="函数式的中间件">函数式的中间件</h2>
+
+<p>函数式的中间件可以用一个简单无依赖函数来实现：</p>
+
+<pre><code>export function logger(req, res, next) {
+  console.log(`Request...`);
+  next();
+};
+</code></pre>
+
+<h2 id="多个中间件">多个中间件</h2>
+
+<p>apply 方法传入多个中间件参数即可：</p>
+
+<pre><code>consumer.apply(cors(), helmet(), logger)
+.forRoutes(CatsController);
+</code></pre>
+
+<h2 id="全局中间件">全局中间件</h2>
+
+<p>在实现了 INestApplication 接口的实例上调用 use() 方法即可：</p>
+
+<pre><code>const app = await NestFactory.create(ApplicationModule);
+app.use(logger);
+await app.listen(3000);
+</code></pre>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/" title="Previous Post: Nestjs 框架教程（第五篇：模块）">Nestjs 框架教程（第五篇：模块）</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-7/" title="Nextious Post: Nestjs 框架教程（第七篇：异常过滤器）">Nestjs 框架教程（第七篇：异常过滤器）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#依赖注入">依赖注入</a></li>
+<li><a href="#应用中间件">应用中间件</a></li>
+<li><a href="#函数式的中间件">函数式的中间件</a></li>
+<li><a href="#多个中间件">多个中间件</a></li>
+<li><a href="#全局中间件">全局中间件</a></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

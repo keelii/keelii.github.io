@@ -1,0 +1,359 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Nestjs 框架教程（第五篇：模块）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Nestjs 框架教程（第五篇：模块）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-07-03 18:35:57">
+                            <span class="date">2019-7-3</span>
+                            <span class="time">18:35 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p><strong>模块</strong>（Module）是一个使用了 @Module() 装饰的类。@Module() 装饰器提供了一些 Nest 需要使用的元数据，用来组织应用程序的结构。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19d7a33690e19033.png" alt="" /></p>
+
+<p>每个应用都至少有一个根模块，根模块就是 Nest 应用的入口。Nest 会从这里查找出整个应用的依赖/调用<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">图</a>。</p>
+
+<p>@Module() 装饰器接收一个参数对象，有以下取值：</p>
+
+<table>
+<thead>
+<tr>
+<th><code>providers</code></th>
+<th>可以被 Nest 的注入器初始化的 providers，至少会在此模块中共享</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>controllers</code></td>
+<td>这个模块需要用到的控制器集合</td>
+</tr>
+
+<tr>
+<td><code>imports</code></td>
+<td>引入的其它模块集合</td>
+</tr>
+
+<tr>
+<td><code>exports</code></td>
+<td>此模块提供的 providers 的子集，其它模块引入此模块时可用</td>
+</tr>
+</tbody>
+</table>
+
+<p>模块默认会封装 providers，如果要在不同模块之间共享 provider 可以在 exports 参数中指定。</p>
+
+<h2 id="功能模块">功能模块</h2>
+
+<p>使用下面的代码可以将相关的控制器和 Service 包装成一个模块：</p>
+
+<pre><code>import { Module } from '@nestjs/common';
+import { CatsController } from './cats.controller';
+import { CatsService } from './cats.service';
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+</code></pre>
+
+<blockquote>
+<p>++小提示++：也可以使用 CLI 来自动生成模块：$ nest g module cats</p>
+</blockquote>
+
+<p>这样我们就完成了一个模块的封装。</p>
+
+<h2 id="共享的模块">共享的模块</h2>
+
+<p>在 Nest 中模块默认是单例的，因此你可在不同的模块之间共享任意 Provider 实例。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19dd669f9c560755.png" alt="" /></p>
+
+<p>模块都是共享的，我们可以通过导出当前模块的指定 Service 来实现其它模块对 Service 的复用。</p>
+
+<pre><code>import { Module } from '@nestjs/common';
+import { CatsController } from './cats.controller';
+import { CatsService } from './cats.service';
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService] // 导出
+})
+export class CatsModule {} 
+</code></pre>
+
+<h2 id="模块的重复导出">模块的重复导出</h2>
+
+<p>给模块包装一层即可实现：</p>
+
+<pre><code>@Module({
+  imports: [CommonModule],
+  exports: [CommonModule],
+})
+export class CoreModule {}
+</code></pre>
+
+<h2 id="依赖注入">依赖注入</h2>
+
+<p>模块的构造函数中也可以注入指定的 providers，通常用在一些配置参数场景。</p>
+
+<pre><code>@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {
+  constructor(private readonly catsService: CatsService) {}
+}
+</code></pre>
+
+<p>但是模块类本身并不可以装饰成 provider，因为这会造成循环依赖</p>
+
+<h2 id="全局模块">全局模块</h2>
+
+<p>当一些模块在你的应用频繁使用时，可以使用全局模块来避免每次都要调用的问题。Angular 会把 provider 注册到全局作用域上，然而 Nest 会默认将 provider 注册到<strong>模块作用域</strong>上。如果你没有显示的导出模块的 provider，那么其它地方就无法使用它。</p>
+
+<p>如果你想让一个模块随处可见，那就使用 @Global() 装饰器来装饰这个模块。</p>
+
+<pre><code>@Global()
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService],
+})
+export class CatsModule {}
+</code></pre>
+
+<p>@Global() 装饰器可以让模块获得<strong>全局</strong>作用域</p>
+
+<h3 id="动态模块">动态模块</h3>
+
+<p>Nest 模块系统支持<strong>动态模块</strong>的功能，这将让自定义模块的开发变得容易。</p>
+
+<pre><code>import { Module, DynamicModule } from '@nestjs/common';
+import { createDatabaseProviders } from './database.providers';
+import { Connection } from './connection.provider';
+
+@Module({
+  providers: [Connection],
+})
+export class DatabaseModule {
+  static forRoot(entities = [], options?): DynamicModule {
+    const providers = createDatabaseProviders(options, entities);
+    return {
+      module: DatabaseModule,
+      providers: providers,
+      exports: providers,
+    };
+  }
+}
+</code></pre>
+
+<p>模块的静态方法 forRoot 返回一个动态模块，可以是同步或者异步模块。</p>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-4/" title="Previous Post: Nestjs 框架教程（第四篇：Providers）">Nestjs 框架教程（第四篇：Providers）</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-6/" title="Nextious Post: Nestjs 框架教程（第六篇：中间件）">Nestjs 框架教程（第六篇：中间件）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#功能模块">功能模块</a></li>
+<li><a href="#共享的模块">共享的模块</a></li>
+<li><a href="#模块的重复导出">模块的重复导出</a></li>
+<li><a href="#依赖注入">依赖注入</a></li>
+<li><a href="#全局模块">全局模块</a>
+<ul>
+<li><a href="#动态模块">动态模块</a></li>
+</ul></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

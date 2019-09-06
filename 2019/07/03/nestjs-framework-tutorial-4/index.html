@@ -1,0 +1,364 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Nestjs 框架教程（第四篇：Providers）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-4/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Nestjs 框架教程（第四篇：Providers）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-07-03 18:34:57">
+                            <span class="date">2019-7-3</span>
+                            <span class="time">18:34 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p><strong>Provider</strong> 主要的设计理念来自于<a href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC">控制反转</a>（Inversion of Control，简称 IOC<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">1</a></sup> ）模式中的依赖注入（Dependency Injection）特性。使用 <code>@Injectable()</code> 装饰的类就是一个 Provider，装饰器方法会优先于类被解析执行。</p>
+
+<p>到这里我们应该要了解整个 Nest 框架的三层结构，Nest 和传统的 MVC 框架的区别在于它更注重于后端部分（控制器、服务与数据）的架构，视图层相对比较独立，完全可以由用户自定义配置。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19aa5c9532744345.png" alt="" /></p>
+
+<p>Nest 的分层借鉴自 Spring，更细化。随着代码库的增长 MVC 模式中 Modal 和 Controller 会变得含糊不清，导致难于维护。</p>
+
+<h3 id="services">Services</h3>
+
+<p>我们可以自己实现一个名叫 <code>CatsService</code> 的 Service</p>
+
+<pre><code>export interface Cat {
+  name: string;
+  age: number;
+  breed: string;
+}
+</code></pre>
+
+<pre><code>import { Injectable } from '@nestjs/common';
+import { Cat } from './interfaces/cat.interface';
+
+@Injectable()
+export class CatsService {
+  private readonly cats: Cat[] = [];
+
+  create(cat: Cat) {
+    this.cats.push(cat);
+  }
+
+  findAll(): Cat[] {
+    return this.cats;
+  }
+}
+</code></pre>
+
+<blockquote>
+<p>++小提示++：也可以使用 CLI 工具自动生成一个 Service $ nest g service cats</p>
+</blockquote>
+
+<p>有了 Service 我们就可以在控制器中注入并引用到它了</p>
+
+<pre><code>@Controller('cats')
+export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+  // 等同于
+  private readonly catsService: CatsService
+  constructor(catsService: CatsService) {
+    this.catsService = catsService
+  }
+
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+  }
+
+  @Get()
+  async findAll(): Promise&lt;Cat[]&gt; {
+    return this.catsService.findAll();
+  }
+}
+</code></pre>
+
+<p>依赖注入的很多种方法，Nest 使用了构建函数注入的方式，看起来非常直观。这个时候我们就可以发现 Nest 的优点了，至少你能发现 Controller 和 Service 处于完全解耦的状态：Controller 做的事情仅仅是接收请求，并在合适的时候调用到 Service，至于 Service 内部怎么实现的 Controller 完全不在乎。</p>
+
+<p>这样以来有两个好处：其一，Controller 和 Service 的职责边界很清晰，不存在灰色地带；其二，各自只关注自身职责涉及的功能，比方说 Service 通常来写业务逻辑，但它也仅仅只与业务相关。当然你可能会觉得这很理想，时间长了增加了诸如缓存、验证等逻辑后，代码最终会变得无比庞大而难于维护。事实上这也是一个框架应该考虑和抽象出来的，后续 Nest 会有一系列的解决方法，但目前为至我们只需要了解到 Controller 和 Service 的设计原理即可。</p>
+
+<h3 id="依赖注入">依赖注入</h3>
+
+<pre><code>constructor(private readonly catsService: CatsService) {}
+</code></pre>
+
+<p>得益于 TypeScript 类型，Nest 可以通过 CatsService 类型查找到 catsService，依赖被查找并传入到控制器的构造函数中。</p>
+
+<p>通常我们在没有依赖注入的时候如果 A 依赖于 B，那么在 A 初始化或者执行中的某个过程需要先创建 B，这时我们就认为 A 对 B 的依赖是<strong>正向</strong>的。但是这样解决依赖的办法会得得 A 与 B 的逻辑耦合在一起，依赖越来越多代码就会变的越来越糟糕。如下图所示，齿轮之间是相互依赖的，一损俱损。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19b545530fe73281.jpg" alt="" /></p>
+
+<p>控制反转（IOC）模式就是要解决这个问题，它会多引入一个容器（Container）的概念，让一个 IOC 容器去管理 A、B 的依赖并初始化。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19b570db26721361.png" alt="" /></p>
+
+<p>当我们去掉容器时，剩下的齿轮成了一个个独立的功能模块。</p>
+
+<p><img src="https://i.loli.net/2019/07/01/5d19b5db066fa32957.png" alt="" /></p>
+
+<h3 id="注入作用域">注入作用域</h3>
+
+<p>Providers 有一个和应用程序一样的生命周期。当应用启动，每个依赖都必须被获取到。将会有单独的一章来讲解注入作用域</p>
+
+<h3 id="自定义的-providers">自定义的 Providers</h3>
+
+<p>Nest 有一个内置的 IOC 容器，用来解析 Providers 之间的关系。这个功能相对于 DI 来讲更底层，但是功能却异常强大，@Injectable() 只是冰山一角。事实上，你可以使用值，类和同步或者异步的工厂。</p>
+
+<h3 id="可选的-providers">可选的 Providers</h3>
+
+<p>有时候，你可以会需要一个依赖，但是这个依赖并不需要一定被容器解析出来。比如我们通常会传入一个配置对象，但是如果不传会使用一个默认值代替。可以使用 <code>@Optional()</code> 来装饰一个非必选的参数。</p>
+
+<pre><code>@Injectable()
+export class HttpService&lt;T&gt; {
+  constructor(
+    @Optional() 
+    @Inject('HTTP_OPTIONS') 
+    private readonly httpClient: T
+  ) {}
+}
+</code></pre>
+
+<h3 id="基于属性的注入">基于属性的注入</h3>
+
+<p>前面我们提过了 Nest 实现注入是基于类的构造函数的，但是在一些特殊情况下，基于属性的注入会特别有用。</p>
+
+<p>比如一个顶层的类依赖一个或多个 Providers 时，通过在子类的构造函数中调用 super() 方法并不是很优雅，为了避免这种情况我们可以在属性上使用 @Inject() 装饰器。</p>
+
+<pre><code>@Injectable()
+export class HttpService&lt;T&gt; {
+  @Inject('HTTP_OPTIONS')
+  private readonly httpClient: T;
+}
+</code></pre>
+
+<blockquote>
+<p>++警告++：如果你的类并没有继承其它 Provider，那么一定要使用基于构造函数注入方式</p>
+</blockquote>
+
+<h3 id="注册-provider">注册 Provider</h3>
+
+<p>一般来讲控制器就是 Service 的消费（使用）者，我们需要将这些 Service 注册到 Nest 上，这样就可以让 Nest 帮你完成注入操作。通常我们会使用 @Module 装饰器来完成注册的过程。</p>
+
+<pre><code>import { Module } from '@nestjs/common';
+import { CatsController } from './cats/cats.controller';
+import { CatsService } from './cats/cats.service';
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class ApplicationModule {}
+</code></pre>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:-">控制反转 <a class="footnote-return" href="#fnref:-"><sup>[return]</sup></a></li>
+</ol>
+</div>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-3/" title="Previous Post: Nestjs 框架教程（第三篇：控制器）">Nestjs 框架教程（第三篇：控制器）</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/" title="Nextious Post: Nestjs 框架教程（第五篇：模块）">Nestjs 框架教程（第五篇：模块）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#services">Services</a></li>
+<li><a href="#依赖注入">依赖注入</a></li>
+<li><a href="#注入作用域">注入作用域</a></li>
+<li><a href="#自定义的-providers">自定义的 Providers</a></li>
+<li><a href="#可选的-providers">可选的 Providers</a></li>
+<li><a href="#基于属性的注入">基于属性的注入</a></li>
+<li><a href="#注册-provider">注册 Provider</a></li>
+</ul></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

@@ -6,10 +6,1353 @@
     <description>Recent content in nest on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 03 Jul 2019 18:33:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jul 2019 18:40:57 +0800</lastBuildDate>
     
         <atom:link href="https://keelii.com/tags/nest/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nestjs 框架教程（第十篇：拦截器）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-10/</link>
+      <pubDate>Wed, 03 Jul 2019 18:40:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-10/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/05/5d1edebfa26f771380.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;拦截器&lt;/strong&gt;（Interceptors）是一个使用 @Injectable() 装饰的类，它必须实现 NestInterceptor 接口。&lt;/p&gt;
+
+&lt;p&gt;拦截器有一系列的功能，这些功能的设计灵感都来自于面向切面的编程（AOP）技术。这使得下面这些功能成为可能：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在函数执行前/后绑定&lt;strong&gt;额外的逻辑&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;转换&lt;/strong&gt;一个函数的返回值&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;转换&lt;/strong&gt;函数抛出的异常&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;扩展&lt;/strong&gt;基础函数的行为&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;根据特定的条件&lt;strong&gt;完全的重写&lt;/strong&gt;一个函数（比如：缓存）&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;基础&#34;&gt;基础&lt;/h2&gt;
+
+&lt;p&gt;每个拦截器都要实现 intercept() 方法，此方法有两个参数。第一个是 ExecutionContext 实例（这和守卫中的对象一样）。ExecutionContext 继承自 ArgumentsHost。上一节中我们见过，它是一个包装了传递向原始处理器而且根据应用的不同包含不同的参数数组的类&lt;/p&gt;
+
+&lt;h2 id=&#34;执行上下文&#34;&gt;执行上下文&lt;/h2&gt;
+
+&lt;p&gt;ExecutionContext 通过继承 ArgumentsHost，提供了更多的执行过种中的更多细节，它看起来长这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export interface ExecutionContext extends ArgumentsHost {
+  getClass&amp;lt;T = any&amp;gt;(): Type&amp;lt;T&amp;gt;;
+  getHandler(): Function;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getHandler() 方法返回一个将会被调用的路由处理器的引用。getClass() 方法返回控制器类的类型。例如，如果当前进行着一个 POST 请求，假定它会由 CatsController 的 create() 方法处理，那么 getHandler() 方法将返回 create() 方法的引用，而 getClass() 则会返回 CatsController 的类型（非实例）&lt;/p&gt;
+
+&lt;h2 id=&#34;调用处理器&#34;&gt;调用处理器&lt;/h2&gt;
+
+&lt;p&gt;第二个参数是一个 CallHandler。CallHandler 接口实现了 handle() 方法，这个方法就是你可以在你拦截器的某个地方调用的路由处理器。如果你的 intercept() 方法中没调用 handle() 方法，那么路由处理器将不会被执行。&lt;/p&gt;
+
+&lt;p&gt;不像守卫与过滤器，拦截器对于一次请求响应有完全的&lt;strong&gt;控制权与责任&lt;/strong&gt;。这样的方式意味着 intercept() 方法可以高效地包装请求/响应流。因此，你可以在最终的路由处理器执行前/后实现自己的逻辑。显然，你已经可以通过在 intercept() 方法中的 handle() 调用之前写自己的代码，但是后续的逻辑应该如何处理？因为 handle() 方法返回的是一个 Observable，我们可以使用 RxJS 做到修改后来的响应。使用 AOP 技术，路由处理器的调用被称做一个 &lt;strong&gt;切点&lt;/strong&gt;（Pointcut），这表示一个我们的自定义的逻辑插入的地方。&lt;/p&gt;
+
+&lt;p&gt;假如有一个 &lt;code&gt;POST /cats&lt;/code&gt; 的请求，这个请求将被 CatsController 中的 create() 方法处理。如果一个没调用 handle() 方法的拦截器在某处被调用，create() 方法将不会被执行。一但 handle() 方法被调用（它的 Observable 已返回），create() 处理器将被触发。一但响应流通过 Observable 接收到，附加的操作可以在注上被执行，最后的结果将返回给调用方。&lt;/p&gt;
+
+&lt;h2 id=&#34;切面拦截&#34;&gt;切面拦截&lt;/h2&gt;
+
+&lt;p&gt;我们将要研究的第一个例子就是用户登录的交互。下面展示了一个简单的日志拦截器：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Injectable()
+export class LoggingInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;any&amp;gt; {
+    console.log(&#39;Before...&#39;);
+
+    const now = Date.now();
+    return next
+      .handle()
+      .pipe(
+        tap(() =&amp;gt; console.log(`After... ${Date.now() - now}ms`)),
+      );
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于 handle() 方法返回了一个 RxJS 的 Observable 对象，对于修改流我们将有更多的选择。上面的示例中我们使用了 tap() 操作符。它在 Observable 流的正常或异常终止时调用我们的匿名日志记录函数，但不会干扰到响应周期。&lt;/p&gt;
+
+&lt;h2 id=&#34;绑定拦截器&#34;&gt;绑定拦截器&lt;/h2&gt;
+
+&lt;p&gt;我们可以使用 @UseInterceptors() 装饰器来绑定一个拦截器，和管道、守卫一样，它即可以是控制器作用域的，也可以是方法作用域的，或者是全局的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@UseInterceptors(LoggingInterceptor)
+export class CatsController {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的实现，在请求进入 CatsController 后，你将看到下面的日志输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Before...
+After... 1ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;响应映射&#34;&gt;响应映射&lt;/h2&gt;
+
+&lt;p&gt;我们已经知道了 handle() 方法返回一个 Observable。流包含路由处理器返回的值，因此，我们可以很容易的使用 RxJS 的 map() 操作符改变它。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：响应映射功能并不适用于库级别的响应策略（不可以使用 @Res 装饰器）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;让我们新建一个 TransformInterceptor，它可以修改每个响应。它将使用 map() 操作符来给响应对象符加 data 属性，并且将这个新的响应返回给客户端。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import { map } from &#39;rxjs/operators&#39;;
+
+export interface Response&amp;lt;T&amp;gt; {
+  data: T;
+}
+
+@Injectable()
+export class TransformInterceptor&amp;lt;T&amp;gt; implements NestInterceptor&amp;lt;T, Response&amp;lt;T&amp;gt;&amp;gt; {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;Response&amp;lt;T&amp;gt;&amp;gt; {
+    return next.handle().pipe(map(data =&amp;gt; ({ data })));
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当有请求进入时，响应看起来将会是下面这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;data&amp;quot;: []
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;拦截器对于创建整个应用层面的可复用方案有非常大的意义。比如说，我们需要将所有响应中出现的 null 值改成空字符串 &amp;ldquo;&amp;ldquo;。我们可以使用拦截器功能仅用下面一行代码就可以实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import { map } from &#39;rxjs/operators&#39;;
+
+@Injectable()
+export class ExcludeNullInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;any&amp;gt; {
+    return next
+      .handle()
+      .pipe(map(value =&amp;gt; value === null ? &#39;&#39; : value ));
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;异常映射&#34;&gt;异常映射&lt;/h2&gt;
+
+&lt;p&gt;另外一个有趣的用例是使用 RxJS 的 catchError() 操作符来重写异常捕获：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  BadGatewayException,
+  CallHandler,
+} from &#39;@nestjs/common&#39;;
+import { Observable, throwError } from &#39;rxjs&#39;;
+import { catchError } from &#39;rxjs/operators&#39;;
+
+@Injectable()
+export class ErrorsInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;any&amp;gt; {
+    return next
+      .handle()
+      .pipe(
+        catchError(err =&amp;gt; throwError(new BadGatewayException())),
+      );
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;流重写&#34;&gt;流重写&lt;/h2&gt;
+
+&lt;p&gt;有一些情况下我们希望完全阻止处理器的调用并返回一个不同的值。比如缓存的实现。让我们来试试使用缓存拦截器来实现它。当然真正的缓存实现还包含 TTL，缓存验证，缓存大小等问题，我们这个例子只是一个简单的示意。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from &#39;@nestjs/common&#39;;
+import { Observable, of } from &#39;rxjs&#39;;
+
+@Injectable()
+export class CacheInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;any&amp;gt; {
+    const isCached = true;
+    if (isCached) {
+      return of([]);
+    }
+    return next.handle();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码中我们硬编码了 isCached 变量，以及返回的缓存数据 []。关键点在于我们返回了一个新的流，使用了 RxJS 的 of() 操作符。因此路由处理器永远不会被调用。为了实现一个更完整的解决方案，你可以通过使用 Reflector 创建一个自定义的装饰器来实现缓存功能。&lt;/p&gt;
+
+&lt;h2 id=&#34;更多的操作符&#34;&gt;更多的操作符&lt;/h2&gt;
+
+&lt;p&gt;RxJS 的操作符有很多种能力，我们可以考虑下面这种用例。你需要处理路由请求的超时问题。当你的响应很久都没正常返回时，你会想把它关闭并返回一个错误的响应。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import { timeout } from &#39;rxjs/operators&#39;;
+
+@Injectable()
+export class TimeoutInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable&amp;lt;any&amp;gt; {
+    return next.handle().pipe(timeout(5000))
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5 秒后，请求处理将会被取消。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第九篇：守卫）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-9/</link>
+      <pubDate>Wed, 03 Jul 2019 18:39:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-9/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;守卫&lt;/strong&gt;（Guards）是一个使用 @Injectable() 装饰的类，它必须实现 CanActivate 接口。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/05/5d1ec2a0e2ae056395.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;守卫&lt;/strong&gt;只有&lt;strong&gt;一个&lt;/strong&gt;职责，就是决定请求是否需要被控制器处理。一般用在权限、角色的场景中。&lt;/p&gt;
+
+&lt;p&gt;守卫和中间件的区别在于：中间件很简单，next 方法调用后中间的任务就完成了。但是守卫需要关心上下游，它需要鉴别请求与控制器之间的关系。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;守卫会在中间件逻辑之==后==、拦截器/管道之==前==执行。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;授权守卫&#34;&gt;授权守卫&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, CanActivate, ExecutionContext } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&amp;lt;boolean&amp;gt; | Observable&amp;lt;boolean&amp;gt; {
+    const request = context.switchToHttp().getRequest();
+    return validateRequest(request);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;canActivate 返回 true，控制器正常执行，false 请求会被 deny&lt;/p&gt;
+
+&lt;h2 id=&#34;执行上下文&#34;&gt;执行上下文&lt;/h2&gt;
+
+&lt;p&gt;ExecutionContext 不但继承了 ArgumentsHost，还有两个额外方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export interface ExecutionContext extends ArgumentsHost {
+  getClass&amp;lt;T = any&amp;gt;(): Type&amp;lt;T&amp;gt;;
+  getHandler(): Function;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;getHandler() 方法会返回一个将被调用的方法处理器，getClass() 返回处理器对应的控制器类。&lt;/p&gt;
+
+&lt;h2 id=&#34;基于角色的认证&#34;&gt;基于角色的认证&lt;/h2&gt;
+
+&lt;p&gt;我们来实现一个小型的基于角色的认证系统。&lt;/p&gt;
+
+&lt;p&gt;创建一个守卫，先让它返回 true，后面再改：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, CanActivate, ExecutionContext } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&amp;lt;boolean&amp;gt; | Observable&amp;lt;boolean&amp;gt; {
+    return true;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;绑定守卫&#34;&gt;绑定守卫&lt;/h2&gt;
+
+&lt;p&gt;就像过滤器一样，守卫可以是控制器作用域的，也可以是方法作用域或者全局作用域。我们使用 @UseGuards 来引用一个控制器作用域的守卫。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Controller(&#39;cats&#39;)
+@UseGuards(RolesGuard)
+export class CatsController {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果想引用到全局作用域可以调用 useGlobalGuards 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const app = await NestFactory.create(ApplicationModule);
+app.useGlobalGuards(new RolesGuard());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于我们在根模块外层引用了全局守卫，这时守卫无法注入依赖。所以我们还需要在要模块上引入。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module } from &#39;@nestjs/common&#39;;
+import { APP_GUARD } from &#39;@nestjs/core&#39;;
+
+@Module({
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
+})
+export class ApplicationModule {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;反射&#34;&gt;反射&lt;/h2&gt;
+
+&lt;p&gt;虽然现在已经有了守卫，但是它还没有执行上下文。CatsController 应该有一些需要访问到的权限类型。比如：管理员（admin）角色可以访问、其它角色不可以。&lt;/p&gt;
+
+&lt;p&gt;这时我们需要对控制器（或方法）添加一些&lt;strong&gt;元数据&lt;/strong&gt;，用来标记这个控制器的权限类型。在 Nest 中我们通常使用 @SetMetadata() 装饰器来完成这个工作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@SetMetadata(&#39;roles&#39;, [&#39;admin&#39;])
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码表示给 create 方法设置角色的元数据，用来标识 create 方法只能是 roles 关联的一些角色（admin…）才能访问到的。&lt;/p&gt;
+
+&lt;p&gt;如果你觉得 SetMetadata 这个装饰器看着不是那么见名知意，也可以实现一个自定义的装饰器。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { SetMetadata } from &#39;@nestjs/common&#39;;
+
+export const Roles = (...roles: string[]) =&amp;gt; SetMetadata(&#39;roles&#39;, roles);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就可以用更简洁的方式来声明角色权限关系了：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@Roles(&#39;admin&#39;)
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;联合在一起使用&#34;&gt;联合在一起使用&lt;/h2&gt;
+
+&lt;p&gt;我们将使用反射机制来获取控制器上的元数据。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, CanActivate, ExecutionContext } from &#39;@nestjs/common&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import { Reflector } from &#39;@nestjs/core&#39;;
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const roles = this.reflector.get&amp;lt;string[]&amp;gt;(&#39;roles&#39;, context.getHandler());
+    if (!roles) {
+      return true;
+    }
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    const hasRole = () =&amp;gt; user.roles.some((role) =&amp;gt; roles.includes(role));
+    return user &amp;amp;&amp;amp; user.roles &amp;amp;&amp;amp; hasRole();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当 canActivate 方法返回 false 时，Nest 将会抛出一个 ForbiddenException 异常。你也可以手动抛出别的异常：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;throw new UnauthorizedException();
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第八篇：管道）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-8/</link>
+      <pubDate>Wed, 03 Jul 2019 18:38:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-8/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/04/5d1dc90b3606425009.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;管道&lt;/strong&gt;（Pipes）是一个用 @Injectable() 装饰过的类，它必须实现 PipeTransform 接口。&lt;/p&gt;
+
+&lt;p&gt;从官方的示意图中我们可以看出来管道 pipe 和过滤器 filter 之间的关系：管道偏向于服务端控制器逻辑，过滤器则更适合用客户端逻辑。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;过滤器在客户端发送请求&lt;strong&gt;==后==&lt;/strong&gt;处理，管道则在控制器接收请求&lt;strong&gt;==前==&lt;/strong&gt;处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;管道通常有两种作用：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;转换/变形&lt;/strong&gt;：转换输入数据为目标格式&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;验证&lt;/strong&gt;：对输入数据时行验证，如果合法让数据通过管道，否则抛出异常。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;管道会处理控制器路由的参数，Nest 会在方法调用前插入管道，管道接收发往该方法的参数，此时就会触发上面两种情况。然后路由处理器会接收转换过的参数数据并处理后续逻辑。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;++小提示++：管道会在异常范围内执行，这表示异常处理层可以处理管道异常。如果管道发生了异常，控制器的执行将会&lt;strong&gt;停止&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;内置管道&#34;&gt;内置管道&lt;/h2&gt;
+
+&lt;p&gt;Nest 内置了两种管道：&lt;code&gt;ValidationPipe&lt;/code&gt; 和 &lt;code&gt;ParseIntPipe&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { PipeTransform, Injectable, ArgumentMetadata } from &#39;@nestjs/common&#39;;
+
+@Injectable()
+export class ValidationPipe implements PipeTransform {
+  transform(value: any, metadata: ArgumentMetadata) {
+    return value;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意这里可能不太好理解，因为我们前面已经在控制器参数上使用了 @body 装饰器，并且使用 TypeScript 的类型声明它为 CreateCatDto，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是 TypeScript 类型是静态的、编译时类型，当编译成 JavaScript 后在运行时并没有任何类型校验。这时我们就需要自己去验证，或者借助第三方工具、库来验证。&lt;/p&gt;
+
+&lt;p&gt;Nest 官方文档在这一节中使用了 &lt;a href=&#34;https://www.npmjs.com/package/@hapi/joi&#34;&gt;joi&lt;/a&gt; 这个验证库。这个验证库的使用需要传入一个 schema，实际上对应着我们的在 Nest 中写的 dto 类型，所以我们只需要给 joi 传入一个 CreateCatDto 类的实例即可。&lt;/p&gt;
+
+&lt;p&gt;首页在 ValidationPipe 管道中添加 joi 的验证功能。验证通过就返回，不通过直接抛出异常：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Injectable()
+export class JoiValidationPipe implements PipeTransform {
+  constructor(private readonly schema: Object) {}
+
+  transform(value: any, metadata: ArgumentMetadata) {
+    const { error } = Joi.validate(value, this.schema);
+    if (error) {
+      throw new BadRequestException(SON.stringify(error.details));
+    }
+    return value;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;绑定管道&#34;&gt;绑定管道&lt;/h2&gt;
+
+&lt;p&gt;管道有了，我们还需要在控制器方法上绑定它。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@UsePipes(new JoiValidationPipe(createCatSchema))
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 @UsePipes 修饰器即可，传入管道的实例，并构造 schema。此时我们的应用就可以在运行时通过 schema 去校验参数对象的开头了。createCatSchema 的写法可以参考&lt;a href=&#34;https://github.com/hapijs/joi/blob/v15.1.0/API.md&#34;&gt;相关文档&lt;/a&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const createCatSchema = {
+  name: Joi.string().required(),
+  age: Joi.number().required(),
+  breed: Joi.string().required(),
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例如上面的 schema，如果客户端发送的 POST 请求中如果缺少任意参数 Nest 都会捕获到这个异常并返回信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;statusCode&amp;quot;: 400,
+    &amp;quot;error&amp;quot;: &amp;quot;Bad Request&amp;quot;,
+    &amp;quot;message&amp;quot;: &amp;quot;[{\&amp;quot;message\&amp;quot;:\&amp;quot;\\\&amp;quot;name\\\&amp;quot; is required\&amp;quot;,\&amp;quot;path\&amp;quot;:[\&amp;quot;name\&amp;quot;],\&amp;quot;type\&amp;quot;:\&amp;quot;any.required\&amp;quot;,\&amp;quot;context\&amp;quot;:{\&amp;quot;key\&amp;quot;:\&amp;quot;name\&amp;quot;,\&amp;quot;label\&amp;quot;:\&amp;quot;name\&amp;quot;}}]&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意 message 就是我们在管道中传到异常类 BadRequestException 中的参数。&lt;/p&gt;
+
+&lt;h2 id=&#34;类验证器&#34;&gt;类验证器&lt;/h2&gt;
+
+&lt;p&gt;当然上面这种方法看起来没那么优雅，因为毕竟 CreateCatDto 和 createCatSchema 太重复了。Nest 还支持类型验证器，虽然也需要借助于三方库，但是看起来会优雅很多。&lt;/p&gt;
+
+&lt;p&gt;首先，要使用类验证器，你需要先安装 &lt;a href=&#34;https://github.com/pleerock/class-validator&#34;&gt;class-validator&lt;/a&gt; 库。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm i --save class-validator class-transformer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;class-validator 可以让你使用给类变量加装饰器的写法给类添加额外的验证功能。这样以来我们就可以直接在原始的 CreateCatDto 类上添加验证装饰器了，这样看起来就整洁多了，而且还没有重复代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { IsString, IsInt } from &#39;class-validator&#39;;
+
+export class CreateCatDto {
+  @IsString()
+  readonly name: string;
+
+  @IsInt()
+  readonly age: number;
+
+  @IsString()
+  readonly breed: string;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过管道验证器中的代码也需要适配一下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { validate } from &#39;class-validator&#39;;
+import { plainToClass } from &#39;class-transformer&#39;;
+
+@Injectable()
+export class ValidationPipe implements PipeTransform&amp;lt;any&amp;gt; {
+  async transform(value: any, { metatype }: ArgumentMetadata) {
+    if (!metatype || !this.toValidate(metatype)) {
+      return value;
+    }
+    const object = plainToClass(metatype, value);
+    const errors = await validate(object);
+    if (errors.length &amp;gt; 0) {
+      throw new BadRequestException(&#39;Validation failed&#39;);
+    }
+    return value;
+  }
+
+  private toValidate(metatype: Function): boolean {
+    const types: Function[] = [String, Boolean, Number, Array, Object];
+    return !types.includes(metatype);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意这次的 transform 是 async 异步的，因为内部需要用到异步验证方法。Nest 是支持你这么做的，因为管道可以是异步的。&lt;/p&gt;
+
+&lt;p&gt;然后我们可以插入这个管道，位置可以是方法级别的，也可以是参数级别的。&lt;/p&gt;
+
+&lt;p&gt;++参数作用域++&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+async create(
+  @Body(new ValidationPipe()) createCatDto: CreateCatDto,
+) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;++方法作用域++&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@UsePipes(new ValidationPipe())
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;管道修饰器入参可以是类而不必是管道实例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@UsePipes(ValidationPipe)
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样以来将实例化过程留给框架去做并肝启用依赖注入。&lt;/p&gt;
+
+&lt;p&gt;由于 ValidationPipe 被尽可能的泛化，所以它可以直接使用在全局作用域上。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3000);
+}
+bootstrap();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;转换用例&#34;&gt;转换用例&lt;/h2&gt;
+
+&lt;p&gt;我们还可以用管道来进行数据转换，比如说上面的例子中 age 虽然声明的是 int 类型，但是我们知道 HTTP 请求传递的都是纯字符流，所以通常我们还要把期望传进行类型转换。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from &#39;@nestjs/common&#39;;
+
+@Injectable()
+export class ParseIntPipe implements PipeTransform&amp;lt;string, number&amp;gt; {
+  transform(value: string, metadata: ArgumentMetadata): number {
+    const val = parseInt(value, 10);
+    if (isNaN(val)) {
+      throw new BadRequestException(&#39;Validation failed&#39;);
+    }
+    return val;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面这个管道的功能就是强制转换成 Int 类型，如果转换不成功就抛出异常。我们可以针对性的对传入控制器的&lt;strong&gt;某个&lt;/strong&gt;参数插入这个管道：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get(&#39;:id&#39;)
+async findOne(@Param(&#39;id&#39;, new ParseIntPipe()) id) {
+  return await this.catsService.findOne(id);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;内置的验证管道&#34;&gt;内置的验证管道&lt;/h2&gt;
+
+&lt;p&gt;比较贴心的是 Nest 已经内置了如上面的例子类似的一些通用验证器，你可以以参数的方式去实例化 ValidationPipe。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@UsePipes(new ValidationPipe({ transform: true }))
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ValidationPipe 接收一个 ValidationPipeOptions 类型的参数，并且这个参数继承自 ValidatorOptions&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export interface ValidationPipeOptions extends ValidatorOptions {
+  transform?: boolean;
+  disableErrorMessages?: boolean;
+  exceptionFactory?: (errors: ValidationError[]) =&amp;gt; any;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ValidatorOptions 又继承了如下所有 class-validator 的参数：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Option&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;skipMissingProperties&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, validator will skip validation of all properties that are missing in the validating object.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;whitelist&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, validator will strip validated (returned) object of any properties that do not use any validation decorators.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;forbidNonWhitelisted&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, instead of stripping non-whitelisted properties validator will throw an exception.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;forbidUnknownValues&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, attempts to validate unknown objects fail immediately.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;disableErrorMessages&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, validation errors will not be returned to the client.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;exceptionFactory&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Function&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Takes an array of the validation errors and returns an exception object to be thrown.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;groups&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;string[]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Groups to be used during validation of the object.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;dismissDefaultMessages&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;If set to true, the validation will not use default messages. Error message always will be &lt;code&gt;undefined&lt;/code&gt; if its not explicitly set.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;validationError.target&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if target should be exposed in &lt;code&gt;ValidationError&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;validationError.value&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if validated value should be exposed in &lt;code&gt;ValidationError&lt;/code&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第七篇：异常过滤器）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-7/</link>
+      <pubDate>Wed, 03 Jul 2019 18:37:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-7/</guid>
+      <description>
+
+&lt;p&gt;Nest 框架内部实现了一个异常处理层，专门用来负责应用程序中&lt;strong&gt;未处理&lt;/strong&gt;的异常。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/02/5d1b66de9370734231.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;默认情况未处理的异常会被全局过滤异常器 HttpException 或者它的子类处理。如果一个未识别的异常（非 HttpException 或未继承自 HttpException）被抛出，下面的信息将被返回给客户端：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;statusCode&amp;quot;: 500,
+  &amp;quot;message&amp;quot;: &amp;quot;Internal server error&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;基础异常&#34;&gt;基础异常&lt;/h2&gt;
+
+&lt;p&gt;我们可以从控制器的方法中手动抛出一个异常：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get()
+async findAll() {
+  throw new HttpException(&#39;Forbidden&#39;, HttpStatus.FORBIDDEN);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;客户端将收到如下信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;statusCode&amp;quot;: 403,
+  &amp;quot;message&amp;quot;: &amp;quot;Forbidden&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然你也可以自定义返回状态值和错误信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get()
+async findAll() {
+  throw new HttpException({
+    status: HttpStatus.FORBIDDEN,
+    error: &#39;This is a custom message&#39;,
+  }, 403);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;异常的级别&#34;&gt;异常的级别&lt;/h2&gt;
+
+&lt;p&gt;比较好的做法是实现你自己想要的异常类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export class ForbiddenException extends HttpException {
+  constructor() {
+    super(&#39;Forbidden&#39;, HttpStatus.FORBIDDEN);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后你就可以手动在需要的地方抛出它。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Get()
+async findAll() {
+  throw new ForbiddenException();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-异常&#34;&gt;HTTP 异常&lt;/h2&gt;
+
+&lt;p&gt;Nest 内置了以下集成自 HttpException 的异常类：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;BadRequestException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;UnauthorizedException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;NotFoundException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ForbiddenException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;NotAcceptableException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;RequestTimeoutException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ConflictException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;GoneException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;PayloadTooLargeException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;UnsupportedMediaTypeException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;UnprocessableEntityException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;InternalServerErrorException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;NotImplementedException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;BadGatewayException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ServiceUnavailableException&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;GatewayTimeoutException&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;异常过滤器&#34;&gt;异常过滤器&lt;/h2&gt;
+
+&lt;p&gt;如果你想给异常返回值加一些动态的参数，可以使用异常过滤器来实现。例如下面的异常过滤器将会给 HttpException 添加额外的时间缀和路径参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from &#39;@nestjs/common&#39;;
+import { Request, Response } from &#39;express&#39;;
+
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse&amp;lt;Response&amp;gt;();
+    const request = ctx.getRequest&amp;lt;Request&amp;gt;();
+    const status = exception.getStatus();
+
+    response
+      .status(status)
+      .json({
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+      });
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：所有的异常过滤器都必须实现泛型接口 ExceptionFilter&lt;T&gt;。就是说你必须要提供一个 catch(exception: T, host: ArgumentsHost) 方法&lt;/p&gt;
+
+&lt;h2 id=&#34;参数宿主&#34;&gt;参数宿主&lt;/h2&gt;
+
+&lt;p&gt;上面代码中的 host 参数是一个类型为 ArgumentsHost 的原生请求处理器包装对象。根据应用程序的不同它具有不同的接口。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export interface ArgumentsHost {
+  getArgs&amp;lt;T extends Array&amp;lt;any&amp;gt; = any[]&amp;gt;(): T;
+  getArgByIndex&amp;lt;T = any&amp;gt;(index: number): T;
+  switchToRpc(): RpcArgumentsHost;
+  switchToHttp(): HttpArgumentsHost;
+  switchToWs(): WsArgumentsHost;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;绑定过滤器&#34;&gt;绑定过滤器&lt;/h2&gt;
+
+&lt;p&gt;可以使用 @UseFilters 装饰器让一个控制器方法具有过滤器处理逻辑。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Post()
+@UseFilters(HttpExceptionFilter)
+async create(@Body() createCatDto: CreateCatDto) {
+  throw new ForbiddenException();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然过滤器可以被使用在不同的作用域上：&lt;strong&gt;方法作用域、控制器作用域、全局作用域&lt;/strong&gt;。比如应用一个控制器作用域的过滤器，可以这么写：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@UseFilters(new HttpExceptionFilter())
+export class CatsController {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;全局过滤器可以通过如下代码实现：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalFilters(new HttpExceptionFilter());
+  await app.listen(3000);
+}
+bootstrap();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过这样注册的全局过滤器无法进入依赖注入，因为它在模块作用域之外。为了解决这个问题，你可以在根模块上面注册一个全局作用域的过滤器。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module } from &#39;@nestjs/common&#39;;
+import { APP_FILTER } from &#39;@nestjs/core&#39;;
+
+@Module({
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
+})
+export class ApplicationModule {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;捕获所有异常&#34;&gt;捕获所有异常&lt;/h2&gt;
+
+&lt;p&gt;@Catch() 装饰器不传入参数就默认捕获所有的异常：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from &#39;@nestjs/common&#39;;
+
+@Catch()
+export class AllExceptionsFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+    const request = ctx.getRequest();
+
+    const status = exception instanceof HttpException
+      ? exception.getStatus()
+      : HttpStatus.INTERNAL_SERVER_ERROR;
+
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    });
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;继承&#34;&gt;继承&lt;/h2&gt;
+
+&lt;p&gt;通常你可能并不需要自己实现完全定制化的异常过滤器，可以继承自 BaseExceptionFilter 即可复用内置的过滤器逻辑。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Catch, ArgumentsHost } from &#39;@nestjs/common&#39;;
+import { BaseExceptionFilter } from &#39;@nestjs/core&#39;;
+
+@Catch()
+export class AllExceptionsFilter extends BaseExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost) {
+    super.catch(exception, host);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第六篇：中间件）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-6/</link>
+      <pubDate>Wed, 03 Jul 2019 18:36:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-6/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;中间件&lt;/strong&gt;就是一个函数，在路由处理器之前调用。这就表示中间件函数可以访问到请求和响应对象以及应用的请求响应周期中的 next() 中间间函数。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19e2f1938ef39341.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nest 中间件实际上和 Express 的中间件是一样的，Express 文档中对中间件的描述如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;中间件函数主要做以下的事情：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;执行任意的代码&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对请求/响应做操作&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;终结请求-响应周期&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;调用下一个栈中的中间件函数&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果当前的中间间函数没有终结请求响应周期，那么它必须调用 next() 方法将控制权传递给下一个中间件函数。否则请求将被挂起&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nest 允许你使用函数或者类来实现自己的中间件。如果用类实现，则需要使用 &lt;code&gt;@Injectable()&lt;/code&gt; 装饰，并且实现 &lt;code&gt;NestMiddleware&lt;/code&gt; 接口。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable, NestMiddleware } from &#39;@nestjs/common&#39;;
+import { Request, Response } from &#39;express&#39;;
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: Function) {
+    console.log(&#39;Request...&#39;);
+    next();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;依赖注入&#34;&gt;依赖注入&lt;/h2&gt;
+
+&lt;p&gt;中间件也是支持依赖注入的，就像其它支持方式一样，你可以使用构造函数注入依赖。&lt;/p&gt;
+
+&lt;h2 id=&#34;应用中间件&#34;&gt;应用中间件&lt;/h2&gt;
+
+&lt;p&gt;@Module() 装饰器中并不能指定中间件参数，我们可以在模块类的构 configure() 方法中应用中间件，下面的代码会应用一个 ApplicationModule级别的日志中间件 LoggerMiddleware&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Module({
+  imports: [CatsModule],
+})
+export class ApplicationModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes(&#39;cats&#39;);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的代码 forRoutes 方法表示只将中间件应用在 cats 路由上，还可以是指定的 HTTP 方法，甚至是路由通配符：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.forRoutes({ path: &#39;cats&#39;, method: RequestMethod.GET });
+.forRoutes({ path: &#39;ab*cd&#39;, method: RequestMethod.ALL });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然，你也可以指定不包括某些路由规则：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;consumer
+  .apply(LoggerMiddleware)
+  .exclude(
+    { path: &#39;cats&#39;, method: RequestMethod.GET },
+    { path: &#39;cats&#39;, method: RequestMethod.POST }
+  )
+  .forRoutes(CatsController);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过请注意 exclude 方法不能运用在函数式的中间件上，而且这里指定的 path 也不支持通配符，这只是个快捷方法，如果你真的需要某种路由级别的控制，那完全可以把逻辑写在一个单独的中间件中。&lt;/p&gt;
+
+&lt;h2 id=&#34;函数式的中间件&#34;&gt;函数式的中间件&lt;/h2&gt;
+
+&lt;p&gt;函数式的中间件可以用一个简单无依赖函数来实现：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export function logger(req, res, next) {
+  console.log(`Request...`);
+  next();
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;多个中间件&#34;&gt;多个中间件&lt;/h2&gt;
+
+&lt;p&gt;apply 方法传入多个中间件参数即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;consumer.apply(cors(), helmet(), logger)
+.forRoutes(CatsController);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;全局中间件&#34;&gt;全局中间件&lt;/h2&gt;
+
+&lt;p&gt;在实现了 INestApplication 接口的实例上调用 use() 方法即可：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const app = await NestFactory.create(ApplicationModule);
+app.use(logger);
+await app.listen(3000);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第五篇：模块）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/</link>
+      <pubDate>Wed, 03 Jul 2019 18:35:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;模块&lt;/strong&gt;（Module）是一个使用了 @Module() 装饰的类。@Module() 装饰器提供了一些 Nest 需要使用的元数据，用来组织应用程序的结构。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19d7a33690e19033.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每个应用都至少有一个根模块，根模块就是 Nest 应用的入口。Nest 会从这里查找出整个应用的依赖/调用&lt;a href=&#34;https://en.wikipedia.org/wiki/Graph_(abstract_data_type)&#34;&gt;图&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;@Module() 装饰器接收一个参数对象，有以下取值：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;code&gt;providers&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;可以被 Nest 的注入器初始化的 providers，至少会在此模块中共享&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;controllers&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;这个模块需要用到的控制器集合&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;imports&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;引入的其它模块集合&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;exports&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;此模块提供的 providers 的子集，其它模块引入此模块时可用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;模块默认会封装 providers，如果要在不同模块之间共享 provider 可以在 exports 参数中指定。&lt;/p&gt;
+
+&lt;h2 id=&#34;功能模块&#34;&gt;功能模块&lt;/h2&gt;
+
+&lt;p&gt;使用下面的代码可以将相关的控制器和 Service 包装成一个模块：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module } from &#39;@nestjs/common&#39;;
+import { CatsController } from &#39;./cats.controller&#39;;
+import { CatsService } from &#39;./cats.service&#39;;
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;++小提示++：也可以使用 CLI 来自动生成模块：$ nest g module cats&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这样我们就完成了一个模块的封装。&lt;/p&gt;
+
+&lt;h2 id=&#34;共享的模块&#34;&gt;共享的模块&lt;/h2&gt;
+
+&lt;p&gt;在 Nest 中模块默认是单例的，因此你可在不同的模块之间共享任意 Provider 实例。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19dd669f9c560755.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;模块都是共享的，我们可以通过导出当前模块的指定 Service 来实现其它模块对 Service 的复用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module } from &#39;@nestjs/common&#39;;
+import { CatsController } from &#39;./cats.controller&#39;;
+import { CatsService } from &#39;./cats.service&#39;;
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService] // 导出
+})
+export class CatsModule {} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;模块的重复导出&#34;&gt;模块的重复导出&lt;/h2&gt;
+
+&lt;p&gt;给模块包装一层即可实现：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Module({
+  imports: [CommonModule],
+  exports: [CommonModule],
+})
+export class CoreModule {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;依赖注入&#34;&gt;依赖注入&lt;/h2&gt;
+
+&lt;p&gt;模块的构造函数中也可以注入指定的 providers，通常用在一些配置参数场景。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {
+  constructor(private readonly catsService: CatsService) {}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是模块类本身并不可以装饰成 provider，因为这会造成循环依赖&lt;/p&gt;
+
+&lt;h2 id=&#34;全局模块&#34;&gt;全局模块&lt;/h2&gt;
+
+&lt;p&gt;当一些模块在你的应用频繁使用时，可以使用全局模块来避免每次都要调用的问题。Angular 会把 provider 注册到全局作用域上，然而 Nest 会默认将 provider 注册到&lt;strong&gt;模块作用域&lt;/strong&gt;上。如果你没有显示的导出模块的 provider，那么其它地方就无法使用它。&lt;/p&gt;
+
+&lt;p&gt;如果你想让一个模块随处可见，那就使用 @Global() 装饰器来装饰这个模块。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Global()
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService],
+})
+export class CatsModule {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;@Global() 装饰器可以让模块获得&lt;strong&gt;全局&lt;/strong&gt;作用域&lt;/p&gt;
+
+&lt;h3 id=&#34;动态模块&#34;&gt;动态模块&lt;/h3&gt;
+
+&lt;p&gt;Nest 模块系统支持&lt;strong&gt;动态模块&lt;/strong&gt;的功能，这将让自定义模块的开发变得容易。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module, DynamicModule } from &#39;@nestjs/common&#39;;
+import { createDatabaseProviders } from &#39;./database.providers&#39;;
+import { Connection } from &#39;./connection.provider&#39;;
+
+@Module({
+  providers: [Connection],
+})
+export class DatabaseModule {
+  static forRoot(entities = [], options?): DynamicModule {
+    const providers = createDatabaseProviders(options, entities);
+    return {
+      module: DatabaseModule,
+      providers: providers,
+      exports: providers,
+    };
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;模块的静态方法 forRoot 返回一个动态模块，可以是同步或者异步模块。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nestjs 框架教程（第四篇：Providers）</title>
+      <link>https://keelii.com/2019/07/03/nestjs-framework-tutorial-4/</link>
+      <pubDate>Wed, 03 Jul 2019 18:34:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2019/07/03/nestjs-framework-tutorial-4/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Provider&lt;/strong&gt; 主要的设计理念来自于&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC&#34;&gt;控制反转&lt;/a&gt;（Inversion of Control，简称 IOC&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:-&#34;&gt;&lt;a href=&#34;#fn:-&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; ）模式中的依赖注入（Dependency Injection）特性。使用 &lt;code&gt;@Injectable()&lt;/code&gt; 装饰的类就是一个 Provider，装饰器方法会优先于类被解析执行。&lt;/p&gt;
+
+&lt;p&gt;到这里我们应该要了解整个 Nest 框架的三层结构，Nest 和传统的 MVC 框架的区别在于它更注重于后端部分（控制器、服务与数据）的架构，视图层相对比较独立，完全可以由用户自定义配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19aa5c9532744345.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nest 的分层借鉴自 Spring，更细化。随着代码库的增长 MVC 模式中 Modal 和 Controller 会变得含糊不清，导致难于维护。&lt;/p&gt;
+
+&lt;h3 id=&#34;services&#34;&gt;Services&lt;/h3&gt;
+
+&lt;p&gt;我们可以自己实现一个名叫 &lt;code&gt;CatsService&lt;/code&gt; 的 Service&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export interface Cat {
+  name: string;
+  age: number;
+  breed: string;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Injectable } from &#39;@nestjs/common&#39;;
+import { Cat } from &#39;./interfaces/cat.interface&#39;;
+
+@Injectable()
+export class CatsService {
+  private readonly cats: Cat[] = [];
+
+  create(cat: Cat) {
+    this.cats.push(cat);
+  }
+
+  findAll(): Cat[] {
+    return this.cats;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;++小提示++：也可以使用 CLI 工具自动生成一个 Service $ nest g service cats&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;有了 Service 我们就可以在控制器中注入并引用到它了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Controller(&#39;cats&#39;)
+export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+  // 等同于
+  private readonly catsService: CatsService
+  constructor(catsService: CatsService) {
+    this.catsService = catsService
+  }
+
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+  }
+
+  @Get()
+  async findAll(): Promise&amp;lt;Cat[]&amp;gt; {
+    return this.catsService.findAll();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;依赖注入的很多种方法，Nest 使用了构建函数注入的方式，看起来非常直观。这个时候我们就可以发现 Nest 的优点了，至少你能发现 Controller 和 Service 处于完全解耦的状态：Controller 做的事情仅仅是接收请求，并在合适的时候调用到 Service，至于 Service 内部怎么实现的 Controller 完全不在乎。&lt;/p&gt;
+
+&lt;p&gt;这样以来有两个好处：其一，Controller 和 Service 的职责边界很清晰，不存在灰色地带；其二，各自只关注自身职责涉及的功能，比方说 Service 通常来写业务逻辑，但它也仅仅只与业务相关。当然你可能会觉得这很理想，时间长了增加了诸如缓存、验证等逻辑后，代码最终会变得无比庞大而难于维护。事实上这也是一个框架应该考虑和抽象出来的，后续 Nest 会有一系列的解决方法，但目前为至我们只需要了解到 Controller 和 Service 的设计原理即可。&lt;/p&gt;
+
+&lt;h3 id=&#34;依赖注入&#34;&gt;依赖注入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;constructor(private readonly catsService: CatsService) {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;得益于 TypeScript 类型，Nest 可以通过 CatsService 类型查找到 catsService，依赖被查找并传入到控制器的构造函数中。&lt;/p&gt;
+
+&lt;p&gt;通常我们在没有依赖注入的时候如果 A 依赖于 B，那么在 A 初始化或者执行中的某个过程需要先创建 B，这时我们就认为 A 对 B 的依赖是&lt;strong&gt;正向&lt;/strong&gt;的。但是这样解决依赖的办法会得得 A 与 B 的逻辑耦合在一起，依赖越来越多代码就会变的越来越糟糕。如下图所示，齿轮之间是相互依赖的，一损俱损。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19b545530fe73281.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;控制反转（IOC）模式就是要解决这个问题，它会多引入一个容器（Container）的概念，让一个 IOC 容器去管理 A、B 的依赖并初始化。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19b570db26721361.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们去掉容器时，剩下的齿轮成了一个个独立的功能模块。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/07/01/5d19b5db066fa32957.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;注入作用域&#34;&gt;注入作用域&lt;/h3&gt;
+
+&lt;p&gt;Providers 有一个和应用程序一样的生命周期。当应用启动，每个依赖都必须被获取到。将会有单独的一章来讲解注入作用域&lt;/p&gt;
+
+&lt;h3 id=&#34;自定义的-providers&#34;&gt;自定义的 Providers&lt;/h3&gt;
+
+&lt;p&gt;Nest 有一个内置的 IOC 容器，用来解析 Providers 之间的关系。这个功能相对于 DI 来讲更底层，但是功能却异常强大，@Injectable() 只是冰山一角。事实上，你可以使用值，类和同步或者异步的工厂。&lt;/p&gt;
+
+&lt;h3 id=&#34;可选的-providers&#34;&gt;可选的 Providers&lt;/h3&gt;
+
+&lt;p&gt;有时候，你可以会需要一个依赖，但是这个依赖并不需要一定被容器解析出来。比如我们通常会传入一个配置对象，但是如果不传会使用一个默认值代替。可以使用 &lt;code&gt;@Optional()&lt;/code&gt; 来装饰一个非必选的参数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Injectable()
+export class HttpService&amp;lt;T&amp;gt; {
+  constructor(
+    @Optional() 
+    @Inject(&#39;HTTP_OPTIONS&#39;) 
+    private readonly httpClient: T
+  ) {}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;基于属性的注入&#34;&gt;基于属性的注入&lt;/h3&gt;
+
+&lt;p&gt;前面我们提过了 Nest 实现注入是基于类的构造函数的，但是在一些特殊情况下，基于属性的注入会特别有用。&lt;/p&gt;
+
+&lt;p&gt;比如一个顶层的类依赖一个或多个 Providers 时，通过在子类的构造函数中调用 super() 方法并不是很优雅，为了避免这种情况我们可以在属性上使用 @Inject() 装饰器。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Injectable()
+export class HttpService&amp;lt;T&amp;gt; {
+  @Inject(&#39;HTTP_OPTIONS&#39;)
+  private readonly httpClient: T;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;++警告++：如果你的类并没有继承其它 Provider，那么一定要使用基于构造函数注入方式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;注册-provider&#34;&gt;注册 Provider&lt;/h3&gt;
+
+&lt;p&gt;一般来讲控制器就是 Service 的消费（使用）者，我们需要将这些 Service 注册到 Nest 上，这样就可以让 Nest 帮你完成注入操作。通常我们会使用 @Module 装饰器来完成注册的过程。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import { Module } from &#39;@nestjs/common&#39;;
+import { CatsController } from &#39;./cats/cats.controller&#39;;
+import { CatsService } from &#39;./cats/cats.service&#39;;
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class ApplicationModule {}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:-&#34;&gt;控制反转 &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:-&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Nestjs 框架教程（第三篇：控制器）</title>
@@ -295,18 +1638,50 @@ findOne(@Param(&#39;id&#39;) id): string {
 
 &lt;p&gt;分别对应的功能如下表：&lt;/p&gt;
 
-&lt;p&gt;| app.controller.ts | 只有一个路由的控制器（controller）示例 |
-| app.module.ts | 应用程序的根模块（root module） |
-| main.ts | 应用程序的入口文件，使用 &lt;code&gt;NestFactory&lt;/code&gt; 方法创建应用实例 |
-在 main.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;app.controller.ts&lt;/th&gt;
+&lt;th&gt;只有一个路由的控制器（controller）示例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;app.module.ts&lt;/td&gt;
+&lt;td&gt;应用程序的根模块（root module）&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;main.ts&lt;/td&gt;
+&lt;td&gt;应用程序的入口文件，使用 &lt;code&gt;NestFactory&lt;/code&gt; 方法创建应用实例&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;在 main.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。&lt;/p&gt;
 
 &lt;h2 id=&#34;平台&#34;&gt;平台&lt;/h2&gt;
 
 &lt;p&gt;Nest 的目标是一个平台无关的框架。这个意思就是说 Nest 本身并不造某个细分领域的轮子，他只构建一套构架体系，然后把一些好用的库或者平台融合进来。所以 Nest 可以衔接任何 HTTP 框架，默认支持 express 和 fastify 两个 web 框架。&lt;/p&gt;
 
-&lt;p&gt;| &lt;code&gt;platform-express&lt;/code&gt; | &lt;strong&gt;&lt;a href=&#34;https://expressjs.com/&#34;&gt;Express&lt;/a&gt;&lt;/strong&gt; 是一个 Node web 框架，有很多社区成熟的资源。@nestjs/platform-express 默认会被引入，大家都很熟悉了，用起来会容易上手 |
-| &lt;code&gt;platform-fastify&lt;/code&gt; | &lt;strong&gt;&lt;a href=&#34;https://www.fastify.io/&#34;&gt;Fastify&lt;/a&gt;&lt;/strong&gt; 是一个高能低耗的框架，致力于最大化效率与速度 |
-无论使用哪个平台，都要暴露自己的应用接口。上面两个平台暴露了对应的两个变量 &lt;code&gt;NestExpressApplication&lt;/code&gt; and &lt;code&gt;NestFastifyApplication&lt;/code&gt;。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;code&gt;platform-express&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;&lt;a href=&#34;https://expressjs.com/&#34;&gt;Express&lt;/a&gt;&lt;/strong&gt; 是一个 Node web 框架，有很多社区成熟的资源。@nestjs/platform-express 默认会被引入，大家都很熟悉了，用起来会容易上手&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;platform-fastify&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;&lt;a href=&#34;https://www.fastify.io/&#34;&gt;Fastify&lt;/a&gt;&lt;/strong&gt; 是一个高能低耗的框架，致力于最大化效率与速度&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;无论使用哪个平台，都要暴露自己的应用接口。上面两个平台暴露了对应的两个变量 &lt;code&gt;NestExpressApplication&lt;/code&gt; and &lt;code&gt;NestFastifyApplication&lt;/code&gt;。&lt;/p&gt;
 
 &lt;p&gt;如下的代码会创建一个 app 对象，并且指定了使用 NestExpressApplication 平台：&lt;/p&gt;
 

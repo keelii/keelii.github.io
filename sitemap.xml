@@ -4,17 +4,52 @@
   
   <url>
     <loc>https://keelii.com/2019/08/25/philosophy-and-programming/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://keelii.com/2019/07/13/a-real-programmer-fabrice-bellard/</loc>
-    <lastmod>2019-07-13T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://keelii.com/2019/07/06/i-want-my-aop-cn/</loc>
     <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-10/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-9/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-8/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-7/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-6/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-5/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-4/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
@@ -24,12 +59,12 @@
   
   <url>
     <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-2/</loc>
-    <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://keelii.com/2019/07/03/nestjs-framework-tutorial-1/</loc>
-    <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
@@ -44,7 +79,7 @@
   
   <url>
     <loc>https://keelii.com/2019/03/24/choice-leads-lose/</loc>
-    <lastmod>2019-03-24T18:34:47+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
@@ -124,7 +159,7 @@
   
   <url>
     <loc>https://keelii.com/2018/09/24/socket-programming-in-python/</loc>
-    <lastmod>2018-09-28T17:51:56+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
   
   <url>
@@ -345,7 +380,7 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -505,13 +540,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/editor/</loc>
+    <loc>https://keelii.com/tags/editor/</loc>
     <lastmod>2019-03-30T16:20:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/editor/</loc>
+    <loc>https://keelii.com/categories/editor/</loc>
     <lastmod>2019-03-30T16:20:00+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -631,14 +666,14 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/javascript/</loc>
-    <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+    <loc>https://keelii.com/tags/javascript/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/javascript/</loc>
-    <lastmod>2019-07-13T18:33:57+08:00</lastmod>
+    <loc>https://keelii.com/categories/javascript/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -661,13 +696,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/mac/</loc>
+    <loc>https://keelii.com/tags/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/mac/</loc>
+    <loc>https://keelii.com/categories/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -709,20 +744,20 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/movie/</loc>
-    <lastmod>2019-07-06T20:32:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://keelii.com/tags/movie/</loc>
     <lastmod>2019-07-06T20:32:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/nest/</loc>
+    <loc>https://keelii.com/categories/movie/</loc>
     <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/nest/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -757,14 +792,14 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/philosophy/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <loc>https://keelii.com/tags/philosophy/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/philosophy/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <loc>https://keelii.com/categories/philosophy/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -793,38 +828,38 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/programmer/</loc>
-    <lastmod>2019-07-13T18:33:57+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://keelii.com/tags/programmer/</loc>
-    <lastmod>2019-07-13T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/programming/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <loc>https://keelii.com/categories/programmer/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/tags/programming/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/python/</loc>
-    <lastmod>2018-09-28T17:51:56+08:00</lastmod>
+    <loc>https://keelii.com/categories/programming/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/tags/python/</loc>
-    <lastmod>2018-09-28T17:51:56+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/python/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -860,7 +895,7 @@
   
   <url>
     <loc>https://keelii.com/tags/socket/</loc>
-    <lastmod>2018-09-28T17:51:56+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -896,7 +931,7 @@
   
   <url>
     <loc>https://keelii.com/tags/typescript/</loc>
-    <lastmod>2019-07-06T20:32:00+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -907,26 +942,26 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/vim/</loc>
-    <lastmod>2018-09-25T09:33:33+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://keelii.com/tags/vim/</loc>
     <lastmod>2018-08-13T10:50:05+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/webdev/</loc>
-    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
+    <loc>https://keelii.com/categories/vim/</loc>
+    <lastmod>2018-09-25T09:33:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/tags/webdev/</loc>
     <lastmod>2018-12-11T18:33:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/webdev/</loc>
+    <lastmod>2018-08-16T17:24:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -956,7 +991,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-08-25T18:33:57+08:00</lastmod>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   

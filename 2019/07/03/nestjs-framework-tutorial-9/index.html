@@ -1,0 +1,365 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Nestjs 框架教程（第九篇：守卫）</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-9/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Nestjs 框架教程（第九篇：守卫）</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-07-03 18:39:57">
+                            <span class="date">2019-7-3</span>
+                            <span class="time">18:39 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<p><strong>守卫</strong>（Guards）是一个使用 @Injectable() 装饰的类，它必须实现 CanActivate 接口。</p>
+
+<p><img src="https://i.loli.net/2019/07/05/5d1ec2a0e2ae056395.png" alt="" /></p>
+
+<p><strong>守卫</strong>只有<strong>一个</strong>职责，就是决定请求是否需要被控制器处理。一般用在权限、角色的场景中。</p>
+
+<p>守卫和中间件的区别在于：中间件很简单，next 方法调用后中间的任务就完成了。但是守卫需要关心上下游，它需要鉴别请求与控制器之间的关系。</p>
+
+<blockquote>
+<p>守卫会在中间件逻辑之==后==、拦截器/管道之==前==执行。</p>
+</blockquote>
+
+<h2 id="授权守卫">授权守卫</h2>
+
+<pre><code>import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; {
+    const request = context.switchToHttp().getRequest();
+    return validateRequest(request);
+  }
+}
+</code></pre>
+
+<p>canActivate 返回 true，控制器正常执行，false 请求会被 deny</p>
+
+<h2 id="执行上下文">执行上下文</h2>
+
+<p>ExecutionContext 不但继承了 ArgumentsHost，还有两个额外方法：</p>
+
+<pre><code>export interface ExecutionContext extends ArgumentsHost {
+  getClass&lt;T = any&gt;(): Type&lt;T&gt;;
+  getHandler(): Function;
+}
+</code></pre>
+
+<p>getHandler() 方法会返回一个将被调用的方法处理器，getClass() 返回处理器对应的控制器类。</p>
+
+<h2 id="基于角色的认证">基于角色的认证</h2>
+
+<p>我们来实现一个小型的基于角色的认证系统。</p>
+
+<p>创建一个守卫，先让它返回 true，后面再改：</p>
+
+<pre><code>import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; {
+    return true;
+  }
+}
+</code></pre>
+
+<h2 id="绑定守卫">绑定守卫</h2>
+
+<p>就像过滤器一样，守卫可以是控制器作用域的，也可以是方法作用域或者全局作用域。我们使用 @UseGuards 来引用一个控制器作用域的守卫。</p>
+
+<pre><code>@Controller('cats')
+@UseGuards(RolesGuard)
+export class CatsController {}
+</code></pre>
+
+<p>如果想引用到全局作用域可以调用 useGlobalGuards 方法。</p>
+
+<pre><code>const app = await NestFactory.create(ApplicationModule);
+app.useGlobalGuards(new RolesGuard());
+</code></pre>
+
+<p>由于我们在根模块外层引用了全局守卫，这时守卫无法注入依赖。所以我们还需要在要模块上引入。</p>
+
+<pre><code>import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+
+@Module({
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
+})
+export class ApplicationModule {}
+</code></pre>
+
+<h2 id="反射">反射</h2>
+
+<p>虽然现在已经有了守卫，但是它还没有执行上下文。CatsController 应该有一些需要访问到的权限类型。比如：管理员（admin）角色可以访问、其它角色不可以。</p>
+
+<p>这时我们需要对控制器（或方法）添加一些<strong>元数据</strong>，用来标记这个控制器的权限类型。在 Nest 中我们通常使用 @SetMetadata() 装饰器来完成这个工作。</p>
+
+<pre><code>@Post()
+@SetMetadata('roles', ['admin'])
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+</code></pre>
+
+<p>上面的代码表示给 create 方法设置角色的元数据，用来标识 create 方法只能是 roles 关联的一些角色（admin…）才能访问到的。</p>
+
+<p>如果你觉得 SetMetadata 这个装饰器看着不是那么见名知意，也可以实现一个自定义的装饰器。</p>
+
+<pre><code>import { SetMetadata } from '@nestjs/common';
+
+export const Roles = (...roles: string[]) =&gt; SetMetadata('roles', roles);
+</code></pre>
+
+<p>这样就可以用更简洁的方式来声明角色权限关系了：</p>
+
+<pre><code>@Post()
+@Roles('admin')
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+</code></pre>
+
+<h2 id="联合在一起使用">联合在一起使用</h2>
+
+<p>我们将使用反射机制来获取控制器上的元数据。</p>
+
+<pre><code>import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { Reflector } from '@nestjs/core';
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const roles = this.reflector.get&lt;string[]&gt;('roles', context.getHandler());
+    if (!roles) {
+      return true;
+    }
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    const hasRole = () =&gt; user.roles.some((role) =&gt; roles.includes(role));
+    return user &amp;&amp; user.roles &amp;&amp; hasRole();
+  }
+}
+</code></pre>
+
+<p>当 canActivate 方法返回 false 时，Nest 将会抛出一个 ForbiddenException 异常。你也可以手动抛出别的异常：</p>
+
+<pre><code>throw new UnauthorizedException();
+</code></pre>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/javascript">javascript</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-8/" title="Previous Post: Nestjs 框架教程（第八篇：管道）">Nestjs 框架教程（第八篇：管道）</a>
+                        </span>
+                        
+
+                        
+                        <span class="basic-alignment right">
+                            <a href="https://keelii.com/2019/07/03/nestjs-framework-tutorial-10/" title="Nextious Post: Nestjs 框架教程（第十篇：拦截器）">Nestjs 框架教程（第十篇：拦截器）</a> &raquo;
+                        </span>
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#授权守卫">授权守卫</a></li>
+<li><a href="#执行上下文">执行上下文</a></li>
+<li><a href="#基于角色的认证">基于角色的认证</a></li>
+<li><a href="#绑定守卫">绑定守卫</a></li>
+<li><a href="#反射">反射</a></li>
+<li><a href="#联合在一起使用">联合在一起使用</a></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

@@ -441,7 +441,7 @@ export class JoiValidationPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     const { error } = Joi.validate(value, this.schema);
     if (error) {
-      throw new BadRequestException(SON.stringify(error.details));
+      throw new BadRequestException(JSON.stringify(error.details));
     }
     return value;
   }

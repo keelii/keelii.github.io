@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://keelii.com/2019/11/24/java-concurrency-and-multithreading-tutorial/</loc>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/2019/08/25/philosophy-and-programming/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
   </url>
@@ -380,12 +385,18 @@
   
   <url>
     <loc>https://keelii.com/archives/</loc>
-    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/Concurrency/</loc>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -398,6 +409,12 @@
   <url>
     <loc>https://keelii.com/tags/FE/</loc>
     <lastmod>2018-12-11T18:33:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/categories/Java/</loc>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -416,6 +433,12 @@
   <url>
     <loc>https://keelii.com/tags/MinGW/</loc>
     <lastmod>2016-11-24T14:20:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/Multithreading/</loc>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -540,13 +563,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/editor/</loc>
+    <loc>https://keelii.com/categories/editor/</loc>
     <lastmod>2019-03-30T16:20:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/editor/</loc>
+    <loc>https://keelii.com/tags/editor/</loc>
     <lastmod>2019-03-30T16:20:00+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -666,13 +689,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/javascript/</loc>
+    <loc>https://keelii.com/categories/javascript/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/javascript/</loc>
+    <loc>https://keelii.com/tags/javascript/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -696,13 +719,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/mac/</loc>
+    <loc>https://keelii.com/categories/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/mac/</loc>
+    <loc>https://keelii.com/tags/mac/</loc>
     <lastmod>2017-12-10T13:44:22+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -744,13 +767,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/movie/</loc>
+    <loc>https://keelii.com/categories/movie/</loc>
     <lastmod>2019-07-06T20:32:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/movie/</loc>
+    <loc>https://keelii.com/tags/movie/</loc>
     <lastmod>2019-07-06T20:32:00+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -792,13 +815,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/philosophy/</loc>
+    <loc>https://keelii.com/categories/philosophy/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/categories/philosophy/</loc>
+    <loc>https://keelii.com/tags/philosophy/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -828,19 +851,13 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/programmer/</loc>
-    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://keelii.com/categories/programmer/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/programming/</loc>
+    <loc>https://keelii.com/tags/programmer/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -852,13 +869,19 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/python/</loc>
+    <loc>https://keelii.com/tags/programming/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/categories/python/</loc>
+    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/python/</loc>
     <lastmod>2019-09-06T13:28:52+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -924,6 +947,12 @@
   </url>
   
   <url>
+    <loc>https://keelii.com/tags/threads/</loc>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://keelii.com/tags/throttle/</loc>
     <lastmod>2016-10-21T14:31:00+08:00</lastmod>
     <priority>0</priority>
@@ -942,26 +971,26 @@
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/vim/</loc>
-    <lastmod>2018-08-13T10:50:05+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://keelii.com/categories/vim/</loc>
     <lastmod>2018-09-25T09:33:33+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://keelii.com/tags/webdev/</loc>
-    <lastmod>2018-12-11T18:33:59+08:00</lastmod>
+    <loc>https://keelii.com/tags/vim/</loc>
+    <lastmod>2018-08-13T10:50:05+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://keelii.com/categories/webdev/</loc>
     <lastmod>2018-08-16T17:24:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://keelii.com/tags/webdev/</loc>
+    <lastmod>2018-12-11T18:33:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -991,7 +1020,7 @@
   
   <url>
     <loc>https://keelii.com/</loc>
-    <lastmod>2019-09-06T13:28:52+08:00</lastmod>
+    <lastmod>2019-11-24T19:10:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   

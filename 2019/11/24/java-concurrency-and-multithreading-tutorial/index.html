@@ -1,0 +1,363 @@
+<!DOCTYPE html>   
+<html class="no-js" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Java 并发与多线程教程</title>
+    <meta name="description" content="__ you don&#39;t know yet">
+    <meta name="keywords" content="">
+    <meta name="author" content="keelii">
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="canonical" href="https://keelii.com/2019/11/24/java-concurrency-and-multithreading-tutorial/">
+    <link href="https://keelii.com/favicon.ico" rel="icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="##f7f7f7">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="##f7f7f7">
+
+    <link href="https://keelii.com/atom.xml" rel="alternate" type="application/rss+xml" title="臨池不輟">
+
+    
+    <link href="/stylesheets/main.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-79264835-1');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+<script>
+    (function(window, document) {
+        window.changeTheme = function() {
+            var el = document.getElementById('dark-theme')
+            var dark = localStorage.getItem('dark')
+            if (dark === 'true') {
+                document.body.classList.add('dark')
+                if (el) el.checked = true
+            } else {
+                document.body.classList.remove('dark')
+                if (el) el.checked = false
+            }
+        }
+        changeTheme()
+    })(window, document);
+</script>
+
+<div id="main">
+    <div id="content" class="typo">
+        <div style="padding-top:0;">
+            <article class="hentry" role="article">
+                <header>
+                    <h1 class="entry-title">Java 并发与多线程教程</h1>
+                    <p class="meta">
+                        <time class="entry-date" datetime="2019-11-24 19:10:24">
+                            <span class="date">2019-11-24</span>
+                            <span class="time">19:10 PM</span>
+                            · <a href="https://keelii.com/">首页</a>
+                        </time>
+                    </p>
+                </header>
+
+                <div class="entry-content">
+
+<blockquote>
+<p>注：此文翻译自 <a href="http://tutorials.jenkov.com/java-concurrency/index.html">Java Concurrency and Multithreading Tutorial</a>，本文只是首篇翻译</p>
+</blockquote>
+
+<p>Java 中的*并发*是一个术语，涉及 Java 平台中的多线程、并发、并行等概念。包括 Java 并发工具，问题和解决方案。这个教程涵盖了多线程的核心概念、并发组成结构、并发的问题、成本与收益以及与 Java 多线程相关的问题。</p>
+
+<h2 id="什么是多线程">什么是多线程？</h2>
+
+<p>多线程的意思是在同一个应用中有多个*执行线程*。线程就好比是你应用中的一个独立的 CPU。因此多线程的应用就好比一个拥有多个 CPU 的应用程序，这些 CPU 可以在同一时间执行不同的代码。</p>
+
+<p><img src="https://i.loli.net/2019/11/25/pCfkMihbEd6zFla.png" alt="introduction-1" /></p>
+
+<p>尽管一个线程并不等同于一个 CPU，但是通常一个 CPU 将会共享执行时间给多个线程，CPU 会在不同的线程之间来回切换，每个线程上执行一点。当然让应用中的线程执行在不同的 CPU 上也是可以的。</p>
+
+<p><img src="https://i.loli.net/2019/11/25/zJOFEXSY2GTux7H.png" alt="introduction-2" /></p>
+
+<h2 id="为什么要使用多线程">为什么要使用多线程</h2>
+
+<p>大家需使用多线程的原因有很多，最重要的有以下几点：</p>
+
+<ul>
+<li>更好的利用单个 CPU</li>
+<li>更好的利用多个（核）CPU</li>
+<li>更好的用户响应体验</li>
+<li>更好的用户公允体验</li>
+</ul>
+
+<p>下面的章节中我将一一解释这几个原因的细节。</p>
+
+<h3 id="更好的利用单个-cpu">更好的利用单个 CPU</h3>
+
+<p>最常见的原因之一是能够更好地利用计算机中的资源，比如说，一个线程正在等待一个网络请求响应的同时，另一个线程可以利用 CPU 做别的事情。另外，如果计算机有多个 CPU 或者 CPU 有多个执行内核，那么多线程同样可以帮你更好的利用这些 CPU 内核。</p>
+
+<h3 id="更好的利用多个-核-cpu">更好的利用多个（核）CPU</h3>
+
+<p>如果计算机有多个 CPU 或者 CPU 有多个执行内核，那么你需要在应用中使用多线程来更好的利用到所有的 CPU 和多核 CPU。单个线程最多只能利用一个 CPU，就像我上面提到的，有时甚至不能完全地利用好一个 CPU。</p>
+
+<h3 id="更好的用户响应体验">更好的用户响应体验</h3>
+
+<p>另外一个使用多线程的原因是提供良好的用户体验。比如说，当你点击了一个 GUI 界面上的按钮，这个动作会触发一个网络请求，接着哪个线程来处理这个请求就非常关键了。如果你同时又使用这个处理请求的线程来更新 GUI 界面，然后当 GUI 线程等待请求响应时用户就会体验到 GUI *挂起*的状态。作为替代方案，这个处理请求的线程可以单独创建成后台线程，这样的话 GUI 线程就可以用来同时响应其它请求。</p>
+
+<h3 id="更好的用户公允体验">更好的用户公允体验</h3>
+
+<p>第四个原因是在用户之间更公平的共享资源，想象一个例子，服务器接收客户端的请求，但是只有一个线程来处理这些请求。如果有一个客户端发送了一个请求并且处理了很久，然后其它客户端请求不得不等待那个请求结束。让每个请求都有一个属于自己的处理线程去执行，这样的话就不会有任何一个任务可以完全地霸占 CPU。</p>
+
+<h2 id="多线程与多任务">多线程与多任务</h2>
+
+<p>以前的计算机只有一个 CPU，并且在同一时间只能执行一个程序。许多的小型计算机并没有强大到能在同一时间执行多个程序，也没有尝试过这么设计。坦白地说，许多主机系统可以在同一时间执行多任务这比个人电脑已经提前好多年了。</p>
+
+<h3 id="多任务处理">多任务处理</h3>
+
+<p>后来多任务出现了，这意味着计算机可以同时执行多个程序（或者说任务、进程），这才真正意义上叫做同时执行。CPU 在多个程序之间被共享。操作系统在运行的程序中来回切换，每次执行一小会儿。</p>
+
+<p>随着多任务处理给软件开发人员带来了新的挑战，程序不再假设 CPU 一直可用，其它如内存这样的计算机资源也一样。好的程序员会在不使用资源的时候释放它们，这样别的程序才可以使用到这些资源。</p>
+
+<h3 id="多线程处理">多线程处理</h3>
+
+<p>后来又出现了多线程。这意味着在程序内部你可以有多个执行线程。执行线程可以想象成 CPU 执行程序。当你有多个线程执行同一个程序时，就好比多个 CPU 在同一个程序中执行。</p>
+
+<h2 id="多线程并非易事">多线程并非易事</h2>
+
+<p>对于某些程序而言，多线程是一个非常好的提升性能的办法。然而多线程的使用相对于多任务来说具有更高的挑战。多个线程在同一个程序中执行，因此可以同时读取和写入相同的内存。这可能会导致一些单线程应用中不存在的问题。这些问题在单 CPU 的机器上可能不会被发现，因为<strong>两个线程永远不可能真正地同时执行</strong>。尽管如此，现代计算机可以拥有多核CPU，或者多个 CPU。这意味着不同的线程可以在不同核心的 CPU 上被同时执行。</p>
+
+<p><img src="https://i.loli.net/2019/11/25/mOCWPpeyrZNEfTX.png" alt="java-concurrency-tutorial-introduction-1" /></p>
+
+<p>如果没有合适的预防措施，这些问题就很可能会出现。程序行为甚至不能被预测。结果可能频繁地改变。因此对于程序员来说做好预防措施就变得非常重要—意味着需要去学习线程是如何访问到共享资源（内存、文件、数据库）的，这也是一个本教程要讲到的主题。</p>
+
+<h2 id="java-中的多线程与并发">Java 中的多线程与并发</h2>
+
+<p>Java 是首个把多线程处理特性提供给开发者的编程语言之一。Java 在最开始的时候就提供了多线程处理的能力。因此 Java 程序员经常面临上面我们提到的问题。这也是我写这篇文章的初衷，做为我自己的学习记录的同时也希望其它 Java 程序员能从中受益。</p>
+
+<p>本教程将主要关注 Java 中的多线程处理。但是有的多线程问题与分布式系统中多任务处理面临的问题很相似。所以教程中也会出现多任务与分布式系统的相关引用，因此教程使用「并发」而不是「多线程」这个关键字。</p>
+
+<h2 id="并发模型">并发模型</h2>
+
+<p>第一种*并发模型*假定多个线程在同一个程序中执行并可以同享对象。这种并发模型被称做「共享状态的并发模型」，有很多并发语言的组件构成都支持这种并发模型。</p>
+
+<p>然而，自从第一本 Java 并发书被写出以来并发构架设计已经发生了很多变化，甚至是从 Java 5并发工具包发布以来，并发构架设计也经历了很多的变化。</p>
+
+<p>共享状态的并发模型会引发很多难以解决的并发问题，因此，另外一种被叫做「无共享/状态分离」的并发模型流行了起来。在状态分离的并发模型中线程之间不共享任何对象或数据。这样就可以避免很多在共享并发模型中的并发访问类题。</p>
+
+<p>最新的如 Netty, Vert.x 和 Play,Akka, Qbit 等异步「状态分离」平台套件慢慢崭露头角。新的非阻塞并发算法也已经发布，新的非阻塞工具像 LMax Disrupter 也被加进了套件中。Java 7 中的 Fork 和 Join 框架也引入了新的函数式编程并行特性。</p>
+
+<p>随着技术的不断发展，也是时候更新下这篇教程了。因此这篇教程再一次进入了<strong>重写</strong>状态。新的教程会在合适的时间发布。</p>
+
+<h2 id="java-并发学习指引">Java 并发学习指引</h2>
+
+<p>如果你对 Java 并发还不是很了解，我建议你按下面的学习计划。你可以在左侧的菜单中找到所有主题的链接。</p>
+
+<p>通用的并发与多线程理论：</p>
+
+<ul>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/benefits.html">多线程的好处</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/costs.html">多线程的代价</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/concurrency-models.html">多线程模型</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/same-threading.html">Same-threading</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/concurrency-vs-parallelism.html">并发与并行</a></li>
+</ul>
+
+<p>Java 并发基础：</p>
+
+<ul>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/creating-and-starting-threads.html">Creating and Starting Java Threads</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/race-conditions-and-critical-sections.html">Race Conditions and Critical Sections</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/thread-safety.html">Thread Safety and Shared Resources</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/thread-safety-and-immutability.html">Thread Safety and Immutability</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/java-memory-model.html">Java Memory Model</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/synchronized.html">Java Synchronized Blocks</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/volatile.html">Java Volatile Keyword</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/threadlocal.html">Java ThreadLocal</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/thread-signaling.html">Java Thread Signaling</a></li>
+</ul>
+
+<p>Java 并发中的经典问题：</p>
+
+<ul>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/deadlock.html">Deadlock</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/deadlock-prevention.html">Deadlock Prevention</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/starvation-and-fairness.html">Starvation and Fairness</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/nested-monitor-lockout.html">Nested Monitor Lockout</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/slipped-conditions.html">Slipped Conditions</a></li>
+</ul>
+
+<p>Java 中用来解决上面问题并发体系：</p>
+
+<ul>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/locks.html">Locks in Java</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/read-write-locks.html">Read / Write Locks in Java</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/reentrance-lockout.html">Reentrance Lockout</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/semaphores.html">Semaphores</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/blocking-queues.html">Blocking Queues</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/thread-pools.html">Thread Pools</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/compare-and-swap.html">Compare and Swap</a></li>
+</ul>
+
+<p>更多主题：</p>
+
+<ul>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/anatomy-of-a-synchronizer.html">Anatomy of a Synchronizer</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/non-blocking-algorithms.html">Non-blocking Algorithms</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/amdahls-law.html">Amdahl&rsquo;s Law</a></li>
+<li><a href="http://tutorials.jenkov.com/java-concurrency/references.html">References</a></li>
+</ul>
+</div>
+                <footer>
+                    <p class="meta" style="display:none">
+                        <span class="byline author vcard">Posted</span>
+                        
+                        <span class="span">on</span>
+                        <span class="categories">
+                            
+                            
+                            <a class="category 0|1" href="https://keelii.com/categories/Java">Java</a>
+                            
+                        </span>
+                        
+                    </p>
+                    
+                    
+                    <p class="meta salign">
+                        
+                        <span class="basic-alignment left">
+                            &laquo; <a href="https://keelii.com/2019/08/25/philosophy-and-programming/" title="Previous Post: 漫谈哲学与编程">漫谈哲学与编程</a>
+                        </span>
+                        
+
+                        
+                    </p>
+                </footer>
+            </article>
+            <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script>
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//keelii-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+        </div>
+
+        <aside class="sidebar">
+    
+        
+<section id="side-toc" class="side-toc odd toggle">
+    <h2><span>Table  of contents</span> <span class="close-toc" onclick="document.querySelector('#side-toc').classList.add('toggle')">×</span></h2>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#什么是多线程">什么是多线程？</a></li>
+<li><a href="#为什么要使用多线程">为什么要使用多线程</a>
+<ul>
+<li><a href="#更好的利用单个-cpu">更好的利用单个 CPU</a></li>
+<li><a href="#更好的利用多个-核-cpu">更好的利用多个（核）CPU</a></li>
+<li><a href="#更好的用户响应体验">更好的用户响应体验</a></li>
+<li><a href="#更好的用户公允体验">更好的用户公允体验</a></li>
+</ul></li>
+<li><a href="#多线程与多任务">多线程与多任务</a>
+<ul>
+<li><a href="#多任务处理">多任务处理</a></li>
+<li><a href="#多线程处理">多线程处理</a></li>
+</ul></li>
+<li><a href="#多线程并非易事">多线程并非易事</a></li>
+<li><a href="#java-中的多线程与并发">Java 中的多线程与并发</a></li>
+<li><a href="#并发模型">并发模型</a></li>
+<li><a href="#java-并发学习指引">Java 并发学习指引</a></li>
+</ul>
+</nav>
+    <div class="fold" onclick="document.querySelector('#side-toc').classList.toggle('toggle')">§</div>
+
+</section>
+<script>
+document.onclick = function() {
+    document.querySelector('#side-toc').classList.add('toggle')
+}
+document.querySelector('#side-toc').onclick = function(e) {
+    e.stopPropagation()
+}
+</script>
+
+
+
+    
+</aside>
+
+    </div>
+</div>
+
+<footer id="footer" role="contentinfo">
+    <p>
+        Copyright &copy; 2019 keelii
+    </p>
+</footer>
+
+</div>
+
+<script>
+
+(function(window, document) {
+    window.changeFont = function() {
+        var el = document.getElementById('font-family')
+        var font = localStorage.getItem('fontFamily')
+        
+        document.querySelectorAll('.typo').forEach(node => {
+            node.classList.remove('sans-serif', 'serif')
+            node.classList.add(font)
+        })
+        if (el) el.checked = font === 'sans-serif'
+    }
+    changeFont()
+})(window, document); 
+</script>
+
+
+
+
+
+<script src="/javascripts/highlight.pack.js"></script>
+<script>
+if (typeof hljs !=="undefined") hljs.initHighlightingOnLoad()
+</script>
+
+
+
+<script>
+!function(e){function t(e){for(var t=location.href,n=t.split("").reverse(),r=e.split(""),i=[],s=0,o=16;o>s;s++)i.push(r[s]+(n[s]||""));return i.join("")}var n=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.so\.com)/gi,r=e.location.href;if(r&&!n.test(r)&&window.navigator.appName){var i="//s.360.cn/so/zz.gif",o="0cbb5a2bef902d89e9dc9bb5f742b91c",u=t(o),a=new Image;r&&(i+="?url="+encodeURIComponent(r)),o&&(i+="&sid="+o),u&&(i+="&token="+u),o&&(a.src=i)}}(window);
+</script>
+
+</body>
+</html>

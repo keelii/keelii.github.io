@@ -6,10 +6,221 @@
     <description>Recent content in webdev on 臨池不輟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 02 Dec 2018 19:10:24 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 18:33:57 +0800</lastBuildDate>
     
         <atom:link href="https://keelii.com/tags/webdev/atom.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>前端开发的瓶颈与未来之路</title>
+      <link>https://keelii.com/2020/05/10/frontend-dev-bottleneck-and-future/</link>
+      <pubDate>Sun, 10 May 2020 18:33:57 +0800</pubDate>
+      
+      <guid>https://keelii.com/2020/05/10/frontend-dev-bottleneck-and-future/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;前端开发的瓶颈到底在哪里，前端技术是否已经走到一个十字路口，全栈化的系统架构是否能改变目前的窘境？本文将根据我自己的开发经历谈谈当下前端开发中遇到的一些问题和想法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;引子&#34;&gt;引子&lt;/h2&gt;
+
+&lt;p&gt;近两年我一直在思考的一个问题：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;如果前端不用考虑性能问题、不用考虑终端兼容性、不用考虑历史遗留问题，甚至不用考虑具体技术实现&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如果我们假设自己有丰富的技术储备，同时不用考虑上面的问题，那么前端究竟 &lt;strong&gt;能&lt;/strong&gt; 做出什么样有价值的东西？&lt;/p&gt;
+
+&lt;p&gt;我们把时间拉到 5 年前&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;如果你「那时」还是前端开发的话。上面的问题肯定是你不得不面临的典型问题。甚至是当时前端开发的意义所在。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;你会为了精确还原设计稿熬夜加班，从而练就一双像素眼；&lt;/li&gt;
+&lt;li&gt;你会为了解决几个字节的性能问题研究优化方案，以至看懂了每一个 HTTP 请求头；&lt;/li&gt;
+&lt;li&gt;你也会因为某些技术问题和同事理论，最终到达到产品谈笑风声的境界；&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;但是随着时间的推移，前端技术的更新迭代，以及互联网的发展。你会发现这些曾经的问题似乎已经不再是问题，或者说在能预见的未来 &lt;em&gt;可能&lt;/em&gt; 不再是问题。&lt;/p&gt;
+
+&lt;p&gt;页面加载性能可能不再是问题，技术上有了 HTTP2，基建上有了 5G，硬盘也越来越快。&lt;/p&gt;
+
+&lt;p&gt;兼容性问题慢慢淡出大家的视角，Chrome 一家独大，微软也不得不向它靠拢。&lt;/p&gt;
+
+&lt;p&gt;很多前端开发已经具备了后端（或者说多端）的技术能力，技术储备也可能不是问题，当然前提是你能招到人。&lt;/p&gt;
+
+&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
+
+&lt;p&gt;到底什么是前端开发，前端与后端的界限在哪里？我在三年前对它的定义是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;前端为 界面、交互展示负责；
+后端为 数据、业务逻辑负责;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;不过现在看来似乎已经过时了，我越来越觉得不应该有这样一个清晰的界限把前后端分割开来，尤其是技术层面（除了职能层面的界限有利于协作以外）。这就好比说：如果你不能打破规则，那就必将被规则束缚。&lt;/p&gt;
+
+&lt;p&gt;我一直认为程序员应该对新的技术、工具、理念有比平常人更快的适应能力。举个简单的例子，我以前写代码通常使用 tab 缩进，后来大家都建议使用空格，刚开始尝试换成空格肯定是拒绝的，因为让人改变习惯是一件很难的事情。但是当你真正为了改变做出实践的时候，往往就会发现一条新大路。同样还有加不加分号的问题。&lt;/p&gt;
+
+&lt;p&gt;现在回过头来再看，前端在整个系统层面担任的角色至少应该是整个视图 View 层面的。视图层面的技术更接近软件系统的上层，更感性。感性的东西就是说一个颜色，我觉得好看，他觉得不好看，完全属于个人情感诉求。所以前端更注重与 UI、交互 以及整个产品层面需要解决的问题。优秀的前端必然要具备敏锐的产品洞察能力。&lt;/p&gt;
+
+&lt;p&gt;当然这还只是前端最基础的职责所在。同时前端做为最接近产品的技术角色，技术才是前端真正的硬实力。&lt;/p&gt;
+
+&lt;p&gt;大约在去年一年的时间，我的岗位从前端转向了后端 Java 程序员的角色。虽然只做了一年的 Java 程序员，但是对我自身的技术提升而言是最多的一年。大家可能普遍的认为后端转前端比较容易，前端转后端会有门槛，实际上根据我自己的体验来讲并非如此。&lt;/p&gt;
+
+&lt;p&gt;Java 这门语言是商业化、成熟度特别高的语言。无论是语言本身，还是周边框架、工具都有一套非常成熟且层次分明的系统化抽象。如果你有两、三年的编程经验，突然让你上转写 Java 是非常容易的一件事情，尤其是写 Java web。Spring 框架已经为程序员屏蔽了很多复杂问题，而且已经事实上成为了各大互联网公司的主流框架选型。&lt;/p&gt;
+
+&lt;p&gt;我特意按我自己的学习线路绘制了一张 Java 版的程序员学习线路，仅供参考：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/wpNtkiOI231evPV.png&#34; alt=&#34;Java arch.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以清楚的看出来 Java 构建的整个体系最大的特点：它是渐进式的，一步一步地给开发者建立正向的引导。&lt;/p&gt;
+
+&lt;p&gt;当我处在在&lt;strong&gt;应用层&lt;/strong&gt;阶段的时候，我需要关心的只是一些概念，方法，具备基础了以后就可以借助 Spring 框架入门，入门后就可以研究源码，你会发现 Spring 的本质核心类 DispatchServlet，从此 Servlet 就出现在了你的视野。我以前上学时理解不了 java 中 Servlet 的概念，后来参加了工作又学些了 Python，再次看到 Java 中的 Servlet 的时候瞬间就明白了它就是 Python 中的 uwsgi，就是一种接口，将编程语言和服务器网关链接起来的一种规范。&lt;/p&gt;
+
+&lt;p&gt;然后你就可以顺利进入下一环节，服务器/通信。这里你会发现整个网络编程的核心 Socket，同样以前上学的时候没理解 Socket 的概念，继续学习后你就会明白 Socket 其实就是操作系统提供给编程语言的一种能力，有了它就可以建立服务器与客户端之间的通信。在这一环节中你会学习到网络层 TCP/IP 协议，明白了 TCP/UDP 的区别，&lt;code&gt;while (true) { socket.listen() }&lt;/code&gt; 建立 Socket 监听会有性能问题，此时你便进入下一个抽象层次，操作系统和计算机原理。&lt;/p&gt;
+
+&lt;p&gt;为了解决「while true」监听连接的性能问题，你会去学习多线程技术，了解并发的概念。你可能总会听到别人讨论并发和并行的区别。继续学习后，慢慢的你就会明白：并发多用来解决网络IO（硬盘）的效率问题，而并行则是为了更好的利用多/核处理器（CPU）的问题。这时你会发现这个阶段涉及到了很多的计算机硬件知识。内存分配、CPU计算、IO 复用等等。&lt;/p&gt;
+
+&lt;p&gt;像 Spring 这种框架才能真正意义上被称做 &lt;strong&gt;框架&lt;/strong&gt;，因为它不仅仅解决了软件开发的问题，更重要的是 AOP/IoC 这类概念可以完全改变编程的一些理念。使用 Spring 开发 web 应用，联合 Java 构建出来的生态，整个开发流程就像呼吸一样自然。&lt;/p&gt;
+
+&lt;p&gt;Java 构建出来的软件开发体系就像是把程序员放进了一个一个的层次分明的小柜子里面，进去了以后你根本不需要关注外界是怎么样的，做好自己那部分工作就可以了。如果你对外界有兴趣可以一点点的按图索骥跳出你原来的小柜子。即保证精力专注的同时又建立起一套有秩序的提升曲线。这一点是别的语言体系没有的。&lt;/p&gt;
+
+&lt;p&gt;实际上我在转 Java 之前对 Java 有着不小的误解，甚至转 Java 本身也不是我自己的想法。但当你真正转型成 Java 程序员后。看懂了数以百万行记的代码仓库、维护过每秒好几十万的 QPS 项目、见识过百行的 SQL 的时候，你才会对 Java 和软件开发产生一种敬畏之心，才会对技术才有了更深层次的理解。&lt;/p&gt;
+
+&lt;p&gt;这时候再回过头来看前端，看 JavaScript，才会发现它们之间的区别与特点。很多之前争论的东西也就有了结论。&lt;/p&gt;
+
+&lt;h2 id=&#34;瓶颈&#34;&gt;瓶颈&lt;/h2&gt;
+
+&lt;p&gt;我相信从事前端工作稍微长一点（5年以上）的人近两年都会有一种感觉：前端似乎没什么东西可以玩出花样了。这是因为很多东西都已经成为了前端事实上的主流，以前前端没有的基建慢慢的被完善。语言、框架、可视化、跨端、游戏、工具/自动化/工程化 这些领域都在发展。&lt;/p&gt;
+
+&lt;p&gt;语言方面 TypeScript 必然是主流，无论你愿意与否，你都将不得不使用它来写前端。框架方面 React 已经是事实上的主流了，没必要再做选择题。打包工具 Webpack 也是一家独大，虽然被很多人诟病，但是社区生态起来了，想改变就很难。跨端应用 Electron 也不用想了，VSCode 能做好你做不好那就不是选型的问题了。2D 游戏/绘图方面 PixiJS 6 已经在设计中了，3D 我个人认为就先别玩了。&lt;/p&gt;
+
+&lt;p&gt;这些看似成熟的体系实际上还是有很多可以挖掘的东西。如果你不深入研究，或许会认为过两年这些技术就稳定了前端就可以做到大一统的状态。这个想法可能就过于天真了，我举例解释下它们各自的瓶颈：&lt;/p&gt;
+
+&lt;h3 id=&#34;前-客户端框架的瓶颈&#34;&gt;前/客户端框架的瓶颈&lt;/h3&gt;
+
+&lt;p&gt;React（并不特指 React）虽然现在看起来是主流，但是它本身有很多问题是没解决的，甚至可以说是无解的。React 的本质只是一个 UI Library，并不是框架 Framework。框架要解决的问题是系统层面的不是某个抽象层面的。用 React 写过几个项目以后你就会认识到用 React 去写大型项目是非常麻烦的事情，React 本身并不解决 SPA 应用中数据流的问题，甚至没解决状态管理的问题（或者说状态管理本来就是个伪命题？）。一个很简单的父子组件之间状态共享的问题一直没有成熟的解决方案，hooks 这种方案更像是拆了东墙补西墙。&lt;/p&gt;
+
+&lt;p&gt;而且现在 React 社区弥漫着一种崇尚函数式编程的邪气，hooks 更像是一块遮羞布。多数人用 hooks 的原因仅仅是不想使用 Class，因为 Class 很臃肿，function 更简单。当然这个逻辑是没问题的。函数确实简单，但是如果你把一个函数里面写上几百行的代码，各种 hooks 用到飞起的时候，你才会回过头来反思如何组织代码。如果 Class 能以一种更好/更易于理解的方式去抽象那为什么不用呢？&lt;/p&gt;
+
+&lt;h3 id=&#34;后-服务端框架的瓶颈&#34;&gt;后/服务端框架的瓶颈&lt;/h3&gt;
+
+&lt;p&gt;前端框架如此，基于 Node.JS 的后端框架也好不到哪儿去，难道你真的想用 Express/Koa.js 去写大型的后端应用？这种量级的框架连 web 开发最简单的三层模型（ 模型、视图、控制器）支持都不完整。当然你可能会说小型框架本来就只关注某一方面嘛，视图和模型层的东西可以用其它三方库解决。是的，确实可以这样，不过你不觉得 Node.JS 的第三方库有点太多了吗。正如 NestJS 在文档中提到的一个问题一样「很多 JavaScript 类库都没有高效地解决一个问题 &lt;strong&gt;架构&lt;/strong&gt;。」React/Vue/Express/Koa 这些都是相对独立的点，没有一个东西能把他们连接起来形成一个面，形成一种框架级别的体系。这就是架构的问题。&lt;/p&gt;
+
+&lt;p&gt;这里多说一点，结合上面 Java 构建出来的生态，对比 Node.JS 的话。我借用自己打过的比喻：如果你低头看到的是 Node.JS，那么你抬头未必能看见 Java。假如你从事前端开发 2，3 年遇到瓶颈，想转学  Node.JS，你会学习 Exporess/Koa 这类框架，但是很快你就会发现一个严重的问题：没办法深入下去了。因为当你用 Express 写完一个页面后就面临着各种技术上的盲点，会让你无所适从。&lt;/p&gt;
+
+&lt;p&gt;我也尝试绘制一张我对 JavaScript/Node.JS 或者说大前端体系理解的一张图:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/6DBWfH7tybxdP1Q.png&#34; alt=&#34;node-arch.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;JavaScript 体系看似前后端通吃，客户端、 服务端甚至桌面端皆有。但是最大的问题在于：没有一个东西能给他们建立起关系并发展成为一种体系。&lt;/p&gt;
+
+&lt;p&gt;插播一条娱乐看点，前两天写 Ruby on rails 框架的作者 DHH 发推并配图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/bKAeufqpHXNRmoG.png&#34; alt=&#34;dhh.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;大意如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;现在的年轻人在 web 开发的时候是这样的嘛？底层逻辑、纯手写连接池 + 纯手工 SQL、配置文件都放在了一起。天哪！（截图中使用的式TJ大神写的 Express 框架）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后 TJ 大神也回复了：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/vCJ4zSNBVDmLEHo.png&#34; alt=&#34;tj.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;大意如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;只有菜鸟玩家才能写出干净、简洁、高性能（黑 Ruby 性能）、见名知意的 SQL，而不是去写一个有15层的抽象。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;两者的推特对话挺有意思，大家娱乐一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;typescript-语言的瓶颈&#34;&gt;TypeScript 语言的瓶颈&lt;/h3&gt;
+
+&lt;p&gt;TypeScript 也主流，但是持续关注 TS 到现在，我发现 TS 也遇到了瓶颈，这个瓶颈不仅来自于 TS 的设计目标与理念，更多的还是社区及 TC39。TS 的设计初衷是 JavaScript 的超集，由于本身要编译成 JS，这一点本质上限制了 TypeScript 的方向，设计者对于添加一个新特性会非常谨慎，一者怕与 TC39 ES proposal 冲突，二者要考编译到不同版本 JavaScript 的兼容性问题。以至于现在 TS 新的语言特性只会跟进 TC 39 发布的最新 ES proposal。但是我个人对于 TC 39 的效率及未来持怀疑态度，decorator 的提案一直还处于 Stage 2 的阶段，像这种其它语言都成为标配好几年的事情，现在 JavaScript 社区还在草案（stage-2）阶段。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;普及下 ECMA 的标准的流程：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;stage-1：前期设想&lt;/li&gt;
+&lt;li&gt;stage-2：正式提案（装饰器所在的阶段）&lt;/li&gt;
+&lt;li&gt;stage-3：实现候选&lt;/li&gt;
+&lt;li&gt;Stage-4：完成测试&lt;/li&gt;
+&lt;li&gt;各个浏览器 JS 引擎实现；TypeScript 实现&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/zuS1fYsNeyUKtxI.png&#34; alt=&#34;stage2-decorator.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在这个问题上我认为其实也很好解决，开个脑洞：如果微软想借助编程语言一统浏览器和客户端是没有什么不可能的。并入 TC39 组织，开发真正属于 TypeScript 的原生引擎，奉天子以令不臣的方式也未尝不可。&lt;/p&gt;
+
+&lt;p&gt;近几年 Microsoft 对于开源的投入是肉眼可见的，微软要发力我相信很多东西都会有翻天覆地的变化。&lt;/p&gt;
+
+&lt;h3 id=&#34;打包工具的瓶颈&#34;&gt;打包工具的瓶颈&lt;/h3&gt;
+
+&lt;p&gt;Webpack/Babel 就更不用说了，主流中的主流。但是也是问题最严重的一个。Webpack/Babel 的流行恰恰从反面证明了前端的基础设施有多么的烂。现在国外网友老天天叫喊着 Webpack/Babel is eval 也是挺值得深思的。我们引入了一个新工具来解决问题，却又在不经意之间产生了新问题。&lt;/p&gt;
+
+&lt;p&gt;前端构建工具问题的本质还是在于 Node.JS 的包管理工具的设计。这一点在 Node.JS 的作者 Ryan Dahl 关于 Deno 演讲《10 Things I Regret About Node.js》中也有过「官方」的承认。我相信任何一个实现过构建工具的人都被 Node gyp 打败过。node-sass, fsevent 的痛不必细说。更不用说万年被黑的 node_modules 了，你根本不知道一个简单的 npm install 命令会导致安装成千上万个 npm 包被安装到你的机器上。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/4FWgDfbqiOLh5Iu.png&#34; alt=&#34;ry-node-regret.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当然每种编程语言对应的包管理工具都要解决依赖问题，而且这是一个普遍的问题，脚本/解释型编程语言尤为突出，Python/Ruby/PHP 都有这些类似的问题。或许 Go/Rust 这种把源代码编译打包成单个可执行文件的方式才是好的解决方式。&lt;/p&gt;
+
+&lt;h2 id=&#34;未来&#34;&gt;未来&lt;/h2&gt;
+
+&lt;p&gt;从前人们总是抱怨 JavaScript 这门语言，黑它、讽刺它。但是我看到的是它在一点点变好。不仅是语言层面逐步完善，工具链生态日趋成熟，使用它的也人越来越多。大家对它的关注程度也在提高，整个 JavaScript 开发者的水平也在向更高更强的方向发展。生存环境只会淘汰那些老旧不再进化的事物，能适应变化的才会永存。&lt;/p&gt;
+
+&lt;p&gt;JavaScript 这门语言有两个其它 &lt;strong&gt;任何&lt;/strong&gt; 编程语言都不具备的优点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;几乎 &lt;strong&gt;无所不在&lt;/strong&gt; 且不用安装，有浏览器就有 JavaScript。脚本语言意味着它能被嵌入到任何宿主环境中去：Nginx、Native应用、硬件编程、物连网、嵌入式 都有它的身影&lt;/li&gt;
+&lt;li&gt;这门语言对于技术的更新迭代有着强大的 &lt;strong&gt;适应能力&lt;/strong&gt;。JavaScript 本身的更新迭代速度导致它进化速度很多，语言上的新特性会很快被运用到生产环境。相比 Python 而言，这简直是做梦，Python 2 到 3 的转换没人能看到真正的时间表。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;当下的前端开发状况不由得让我我想起苏东坡《晁错论》中的一段话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;天下之患，最不可为者，名为治平无事，而其实有不测之忧&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;最大的问题在于，有些事物，从表面上看着平淡无奇，但实际上底层暗流涌动，似乎每一时刻都有着巨变的可能性。这也是前端开发最有趣也最有潜力的地方。&lt;/p&gt;
+
+&lt;p&gt;作为一名新时代的前端开发者，就是要在这看似风平浪静的表面之下，找到一些真正的突破点，兴许只是一个简单的想法，顺应时势然后造就出不斐的成就也说不定呢。&lt;/p&gt;
+
+&lt;p&gt;无论是前端还是后端、国内还是国外，技术才是真正的核心竞争力，只有技术革新才能提高生产力，而对于我们程序员来讲，编程则是唯一能提升硬实力的方法。只要你心中充满了热情，坚持下去总会走出一条自己的路子。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;分享一段小经历&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我在 2018 年有幸参加了 TypeScirpt 的推广大会，TypeScript 的作者 Anders Hejlsberg 亲自主讲。一位将近 60 岁的程序员在讲台上滔滔不绝的讲技术方案，TS 的设计理念。你真的很难想像这样一位处于「知天命」阶段的老头子（实际上很年轻）讲的东西。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://vip1.loli.net/2020/05/10/lz6uP1RijHBqotd.jpg&#34; alt=&#34;typescript-2015.jpg&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;QA 环节有个年轻小伙问到 Anders「在中国做程序员很累、很难应该怎么坚持下去（类似这样的描述，细节记不清楚了）」的问题。&lt;/p&gt;
+
+&lt;p&gt;Anders 几乎毫不犹豫的说出了「Passion」这个单词。我瞬间就被打动了。因为在此之前我对于「激情」这个词的认识还停留在成功人士的演讲说辞层面，当 Anders 亲口说出 Passion 一词的时候，让人感觉真的是一字千金。&lt;/p&gt;
+
+&lt;p&gt;直到现在 Anders 还做为 TypeScript 的核心贡献者为它提交代码，到处奔走为 TypeScript 宣传。&lt;/p&gt;
+
+&lt;p&gt;我们再回到前端，那么未来的前端到底会发展成什么样？长期而言充满了未知数，谁也没法预测，但是短期来讲我比较关注几个东西：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ESBuild&lt;/strong&gt; ：一个极快的 JavaScript bundler。这个工具可以说是真正的「Game changer」。同样是一个打包任务，它快到让你没反应过来就完成任务了。ESBuild 使用 Go 语言编写，实现了整套 &lt;strong&gt;并行的&lt;/strong&gt; ES 解析器、代码生成器，作者是 Figma 的 CTO（是的国外的 CTO 是要写代码的）。最近更新很频繁，Vue 新的构建工具也会基于它来做 TS 部分的打包功能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deno&lt;/strong&gt; ：一个安全的 JavaScript &amp;amp; TypeScript 运行时。Deno 的方向充满了可能性，未来 deno 不仅仅可以做 JS 后端，还能和 Rust 打通，给JS注入一些原生 native 的能力，然后 Webasmbly, webGL 之类的技术都变成了可能，1.0 正式版发布日期也快到了。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Figma&lt;/strong&gt;：一个在线版的 Sketch，虽然功能还没有 Sketch 强大，但是已经有了设计界面的基本能力。关键还在于它的整个实现都是基于 web 技术，底层 C++ 实现图形的渲染、绘制，前端通过 Webasmbly 与浏览器 Canvas 交互，做到了让用户在浏览器端体验到了 Native 软件能力。像 AutoLayout 这种功能在用户体验上就是颠覆式的，使用的时候它很自然，没有什么存在感。但是用了就回不去了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果你仔细研究一番，上面的这些新鲜东西，都是起源于前端，但又不把视野局限在前端。或许这就是前端未来的发展方向吧。&lt;/p&gt;
+
+&lt;p&gt;这几项技术我们会在后期的更新中会有专门的干货文章，敬请期待~&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>为什么前端工程师需要关注设计</title>
